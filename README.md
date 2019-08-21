@@ -1,9 +1,7 @@
 # Athwela
 ### Installation
 
-Athwela requires [Node.js](https://nodejs.org/) v4+ to run.
-Athwela client requires [Angular CLI](https://cli.angular.io/) v8+ to run.
-Athwela mobile application requires [NativeScript CLI](https://www.npmjs.com/package/nativescript) v6+ to run.
+Athwela requires [Node.js](https://nodejs.org/) v4+, [Angular CLI](https://cli.angular.io/) v8+ and [NativeScript CLI](https://www.npmjs.com/package/nativescript) v6+ to run.
 
 ### Setup
 Install the dependencies and start the server.
