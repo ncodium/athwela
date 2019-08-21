@@ -4,52 +4,47 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
+
+// config fiels
 const config = require('./config/database');
 
-// Connect To Database
-mongoose.connect(config.database);
-
-// On Connection
-mongoose.connection.on('connected', () => {
-    console.log('Connected to database' + config.database);
-});
-
-// On Error
-mongoose.connection.on('error', (err) => {
-    console.log('Database error' + err);
-});
-
-// Initialize app variable
-const app = express();
-
+// custom routes
 const users = require('./routes/users');
 
-// Port Number
+// establish database connection
+mongoose.connect(config.database);
+mongoose.connection.on('connected', () => {
+    console.log('Connected to database: ' + config.database);
+});
+mongoose.connection.on('error', (err) => {
+    console.log('Database error: ' + err);
+});
+
+// initiate app
+const app = express();
 const port = 3000;
 
-// CORS Middleware
+// CORS middleware
 app.use(cors());
 
-// Set Static Folder
-app.use(express.static(path.join(__dirname, 'public'))); // serves resources from public folder
-
-// Body Parser Middleware
+// body-parser middleware
 app.use(bodyParser.json());
 
-// Passport Middleware
+// passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
-
 require('./config/passport')(passport);
 
-app.use('/users', users);
+// serve resources from public folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Index Route
+// routes
+app.use('/users', users);
 app.get('/', (req, res) => {
     res.send('Invalid Endpoint');
 });
 
-// Start Server
+
 app.listen(port, () => {
     console.log('Server started on port ' + port);
 });
