@@ -1,1 +1,33 @@
-<p>register works!</p>
+<div class="modal-header">
+    <h4 class="modal-titile pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <form (submit)="onRegisterSubmit()">
+        <div class="form-group">
+            <label for="exampleInputName">Name</label>
+            <input type="text" [(ngModel)]="name" name="name" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Enter name">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputUsername">Username</label>
+            <input type="text" [(ngModel)]="username" name="username" class="form-control" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" [(ngModel)]="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" [(ngModel)]="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{closeBtnName}}</button>
+</div>
