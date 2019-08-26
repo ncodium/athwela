@@ -24,6 +24,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
+// flash messages module
+import { NgFlashMessagesModule } from 'ng-flash-messages';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +44,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     AlertModule.forRoot(),
     CollapseModule.forRoot(),
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    NgFlashMessagesModule.forRoot()
   ],
   providers: [
     ValidateService

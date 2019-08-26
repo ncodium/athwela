@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidateService } from '../../services/validate.service';
+import { NgFlashMessageService } from 'ng-flash-messages';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ export class RegisterComponent implements OnInit {
   email: String;
   password: String;
 
-  constructor(private validateService: ValidateService) { }
+  constructor(private validateService: ValidateService, private flashMessage: NgFlashMessageService) { }
 
   ngOnInit() {
   }
@@ -27,13 +28,23 @@ export class RegisterComponent implements OnInit {
 
     //Required fields
     if(!this.validateService.validateRegister(user)) {
-      console.log('Please fill in all fields');
+      this.flashMessage.showFlashMessage({
+        messages: ["Please fill out all fields"],
+        dismissible: false,
+        timeout: 3000,
+        type: 'danger'
+      });
       return false;
     }
 
     //Validate Email
     if(!this.validateService.validateEmail(user.email)) {
-      console.log('Please use a valid email');
+      this.flashMessage.showFlashMessage({
+        messages: ["Please use a valid email"],
+        dismissible: false,
+        timeout: 3000,
+        type: 'danger'
+      });
       return false;
     }
   }
