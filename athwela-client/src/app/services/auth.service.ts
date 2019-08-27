@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/Rx';
+//import 'rxjs/add/operator/map';
+//import 'rxjs/Rx';
 import { map } from "rxjs/operators";
 
 @Injectable({
@@ -17,7 +17,8 @@ export class AuthService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/users/register', user, {headers: headers})
-    .map(res => res.json());
+    .pipe();
+    //.map(res => res.json());
     // .pipe(map((res: any) => res.json()));
     // .pipe(map((res: any) => {
     //   console.log('res', res);

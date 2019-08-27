@@ -18,6 +18,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 
 // custom services
 import { ValidateService } from './services/validate.service';
+import { AuthService } from './services/auth.service';
 
 // ngx-bootstrap modules
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -26,6 +27,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 // flash messages module
 import { NgFlashMessagesModule } from 'ng-flash-messages';
+
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -45,10 +48,13 @@ import { NgFlashMessagesModule } from 'ng-flash-messages';
     CollapseModule.forRoot(),
     BrowserAnimationsModule,
     FormsModule,
-    NgFlashMessagesModule.forRoot()
+    NgFlashMessagesModule.forRoot(),
+    HttpClientModule
   ],
   providers: [
-    ValidateService
+    ValidateService,
+    AuthService,
+    HttpClientModule
   ],
   bootstrap: [
     AppComponent
