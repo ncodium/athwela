@@ -31,6 +31,16 @@ import { NgFlashMessagesModule } from 'ng-flash-messages';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+import { Routes, RouterModule } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path:'', component: HomeComponent },
+  { path:'register', component: RegisterComponent },
+  { path:'login', component: LoginComponent },
+  { path:'dashboard', component: DashboardComponent },
+  { path:'profile', component: ProfileComponent }
+]
+
 @NgModule({
   declarations: [
     AppComponent,
