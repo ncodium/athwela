@@ -1,3 +1,6 @@
+.login100-form-btn:hover {
+    background-color: #403866;
+}
 button {
 	outline: none !important;
 	border: none;
@@ -36,6 +39,59 @@ button:hover {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+.p-b-90 {
+    padding-bottom: 90px;
+}
+.login100-form-title {
+    font-family: Ubuntu-Bold;
+    font-size: 30px;
+    color: #403866;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+.p-b-51 {
+    padding-bottom: 51px;
+}
+.validate-input {
+    position: relative;
+}
+.wrap-input100 {
+    width: 100%;
+    position: relative;
+    background-color: #e6e6e6;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+.m-b-16 {
+    margin-bottom: 16px;
+}
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.focus-input100 {
+    position: absolute;
+    display: block;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    top: -1px;
+    left: -1px;
+    pointer-events: none;
+    border: 1px solid #827ffe;
+    border-radius: 3px;
+    visibility: hidden;
+    opacity: 0;
+     
+}
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
 }
 
 
