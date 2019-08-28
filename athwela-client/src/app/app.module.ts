@@ -24,6 +24,7 @@ import { AuthService } from './services/auth.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AdminComponent } from './components/admin/admin.component';
 
 // flash messages module
 import { NgFlashMessagesModule } from 'ng-flash-messages';
@@ -38,7 +39,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
