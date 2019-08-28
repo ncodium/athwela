@@ -40,8 +40,9 @@ export class LoginComponent implements OnInit {
         });
         this.router.navigate(['dashboard']);
       } else {
+        console.log(data);
         this.flashMessage.showFlashMessage({
-          messages: ['data.msg'],
+          messages: [data['msg']],
           dismissible: false,
           timeout: 5000,
           type: 'danger'
