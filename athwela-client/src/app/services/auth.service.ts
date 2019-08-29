@@ -34,11 +34,21 @@ export class AuthService {
   }
 
   getProfile(){
-    let headers = new HttpHeaders();
     this.loadToken();
-    headers.append('Authorization', this.authToken);
-    headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/users/profile', {headers: headers})
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+
+    // let headers = new HttpHeaders();
+
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Authorization', this.authToken);
+
+    return this.http.get('http://localhost:3000/users/profile', httpOptions)
     .pipe();
   }
 
