@@ -31,6 +31,8 @@ import { NgFlashMessagesModule } from 'ng-flash-messages';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+import { AuthGuard } from './guards/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +58,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
   providers: [
     ValidateService,
     AuthService,
-    HttpClientModule
+    HttpClientModule,
+    AuthGuard
   ],
   bootstrap: [
     AppComponent
