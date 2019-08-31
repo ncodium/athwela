@@ -16,6 +16,8 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
+
+
 // custom services
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
@@ -31,15 +33,7 @@ import { NgFlashMessagesModule } from 'ng-flash-messages';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import { Routes, RouterModule } from '@angular/router';
-
-const appRoutes: Routes = [
-  { path:'', component: HomeComponent },
-  { path:'register', component: RegisterComponent },
-  { path:'login', component: LoginComponent },
-  { path:'dashboard', component: DashboardComponent },
-  { path:'profile', component: ProfileComponent }
-]
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -66,7 +60,8 @@ const appRoutes: Routes = [
   providers: [
     ValidateService,
     AuthService,
-    HttpClientModule
+    HttpClientModule,
+    AuthGuard
   ],
   bootstrap: [
     AppComponent
