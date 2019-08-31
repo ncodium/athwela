@@ -26,6 +26,30 @@ export class AdminComponent implements OnInit {
     password:this.password
     }
     
-  }
-
+  
+  this.authService.authenticateUser(user).subscribe(data => {
+    if(data['success']){
+      this.authService.storeUserData(data['token'], data['user']);
+      this.flashMessage.showFlashMessage({
+        messages: ["You logged as admin"],
+        dismissible: false,
+        timeout: 5000,
+        type: 'success'
+      });
+      this.router.navigate(['dashboard']);
+    } else {
+      console.log(data);
+      this.flashMessage.showFlashMessage({
+        messages: [data['msg']],
+        dismissible: false,
+        timeout: 5000,
+        type: 'danger'
+      });
+      this.router.navigate(['login']);
+    }
+  });
 }
+}
+
+
+
