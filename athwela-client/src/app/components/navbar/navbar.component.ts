@@ -14,6 +14,7 @@ import { NgFlashMessageService } from 'ng-flash-messages';
 })
 export class NavbarComponent implements OnInit {
   modalRef: BsModalRef;
+  isCollapsed = true;
 
   constructor(
     private modalService: BsModalService,
