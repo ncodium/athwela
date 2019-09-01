@@ -10,7 +10,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavigationComponent implements OnInit {
   modalRef: BsModalRef;
   isCollapsed = true;
   alerts: any = [];

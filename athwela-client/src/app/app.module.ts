@@ -6,10 +6,10 @@ import { AppComponent } from './app.component';
 // manual imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 // custom components
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
@@ -27,19 +27,17 @@ import { AuthGuard } from './guards/auth.guard';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    NavigationComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent,
-    AdminComponent
-  ],
+    ProfileComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -57,7 +55,7 @@ import { AdminComponent } from './components/admin/admin.component';
     AuthGuard,
   ],
   bootstrap: [
-    AppComponent, NavbarComponent
+    AppComponent, NavigationComponent
   ],
   entryComponents: [
     LoginComponent,
