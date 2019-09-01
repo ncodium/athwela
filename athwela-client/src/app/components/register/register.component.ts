@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ValidateService } from '../../services/validate.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +21,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private validateService: ValidateService, 
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public bsModalRef: BsModalRef
+
     ) { }
 
   ngOnInit() {

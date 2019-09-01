@@ -24,7 +24,7 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 
 // ngx-bootstrap modules
-import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AdminComponent } from './components/admin/admin.component';
@@ -55,10 +55,9 @@ import { AdminComponent } from './components/admin/admin.component';
     AuthService,
     HttpClientModule,
     AuthGuard,
-    BsModalRef
   ],
   bootstrap: [
-    AppComponent
+    AppComponent, NavbarComponent
   ],
   entryComponents: [
     LoginComponent,

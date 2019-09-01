@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h4 class="modal-titile pull-left">{{title}}</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{closeBtnName}}</button>
+        <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
