@@ -1,32 +1,7 @@
-header {
-    background: #000000;
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #ddd;
+    -moz-box-shadow: 0 8px 6px -6px #ddd;
+    box-shadow: 0 8px 6px -6px #ddd;
 
-    .logo {
-        font-weight: bold;
-    }
-
-    nav {
-        justify-self: right;
-
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-
-            li {
-                float: left;
-
-                a {
-                    padding: 1.5em;
-                    text-transform: uppercase;
-                    font-size: .8em;
-
-                    &:hover {
-                        background: rgb(38, 36, 43);
-                        color: aqua;
-                    }
-                }
-            }
-        }
-    }
+    /* the rest of your styling */
 }
