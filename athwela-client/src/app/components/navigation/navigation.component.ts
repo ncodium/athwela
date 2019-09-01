@@ -14,8 +14,7 @@ export class NavigationComponent implements OnInit {
   modalRef: BsModalRef;
   isCollapsed = true;
   alerts: any = [];
-
-
+  
   constructor(
     private authService: AuthService,
     private router: Router,
