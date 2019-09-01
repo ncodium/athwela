@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidateService } from '../../services/validate.service';
 import { AuthService } from '../../services/auth.service';
-import { NgFlashMessageService } from 'ng-flash-messages';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,9 +14,10 @@ export class RegisterComponent implements OnInit {
   email: String;
   password: String;
 
+  alerts: any = [];
+
   constructor(
     private validateService: ValidateService, 
-    private flashMessage: NgFlashMessageService,
     private authService: AuthService,
     private router: Router
     ) { }
@@ -35,43 +35,43 @@ export class RegisterComponent implements OnInit {
 
     //Required fields
     if(!this.validateService.validateRegister(user)) {
-      this.flashMessage.showFlashMessage({
-        messages: ["Please fill out all fields"],
-        dismissible: false,
-        timeout: 3000,
-        type: 'danger'
-      });
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Please complete the form!`
+        }
+      ];
       return false;
     }
 
     //Validate Email
     if(!this.validateService.validateEmail(user.email)) {
-      this.flashMessage.showFlashMessage({
-        messages: ["Please use a valid email"],
-        dismissible: false,
-        timeout: 3000,
-        type: 'danger'
-      });
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Please use a valid e-mail!`
+        }
+      ];
       return false;
     }
 
     //Register User
     this.authService.registerUser(user).subscribe(data => {
       if(data['success']){
-        this.flashMessage.showFlashMessage({
-          messages: ["You are now registered and can log in"],
-          dismissible: false,
-          timeout: 3000,
-          type: 'success'
-        });
+        this.alerts = [
+          {
+            type: 'success',
+            msg: `You are now registered and can log in!`
+          }
+        ];
         this.router.navigate(['/login']);
       } else {
-        this.flashMessage.showFlashMessage({
-          messages: ["Something went wrong"],
-          dismissible: false,
-          timeout: 3000,
-          type: 'danger',
-        });
+        this.alerts = [
+          {
+            type: 'danger',
+            msg: `Something went wrong!`
+          }
+        ];
         this.router.navigate(['/register']);
       }
     });

@@ -5,7 +5,12 @@
     </button>
 </div>
 
-<ng-flash-message></ng-flash-message>
+
+<div class="alerts">
+    <div *ngFor="let alert of alerts">
+        <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
+    </div>
+</div>
 
 <form (submit)="onRegisterSubmit()">
     <div class="modal-body">

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { NgFlashMessageService } from 'ng-flash-messages';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-navbar',
@@ -14,18 +13,19 @@ import { NgFlashMessageService } from 'ng-flash-messages';
 export class NavbarComponent implements OnInit {
   modalRef: BsModalRef;
   isCollapsed = true;
+  alerts: any = [];
+
 
   constructor(
-    private modalService: BsModalService,
     private authService: AuthService,
     private router: Router,
-    private flashMessage: NgFlashMessageService
-    ) {}
+    private modalService: BsModalService
+  ) { }
 
   ngOnInit() {
   }
 
-  toggleColapse() {this.isCollapsed = !this.isCollapsed;}
+  toggleColapse() { this.isCollapsed = !this.isCollapsed; }
 
   openLoginModal() {
     const initialState = {
@@ -40,22 +40,20 @@ export class NavbarComponent implements OnInit {
     const initialState = {
       title: 'Register'
     };
-    
+
     this.modalRef = this.modalService.show(RegisterComponent, { initialState });
     this.modalRef.content.closeBtnName = 'Close';
   }
 
-  onLogoutClick(){
+  onLogoutClick() {
     this.authService.logout();
-    this.flashMessage.showFlashMessage({
-      messages: ["You are logged out"],
-      dismissible: false,
-      timeout: 3000,
-      type: 'success'
-    });
+    this.alerts = [
+      {
+        type: 'success',
+        msg: `You are logged out!`
+      }
+    ];
     this.router.navigate(['/']);
-    console.log('asdf');
     return false;
   }
-
 }
