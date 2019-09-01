@@ -28,6 +28,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
+// fa icons
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +50,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     CollapseModule.forRoot(),
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [
     ValidateService,
@@ -62,4 +67,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     RegisterComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faUser);    
+  }
+ }
