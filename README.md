@@ -21,24 +21,6 @@ $ npm install -d
 $ ng serve --open
 ```
 
-Install the dependencies, build and run the mobile NativeScript client.
-
-```sh
-$ cd athwela-mobile
-$ npm install -d
-```
-
-For Android:
-```sh
-$ tns run android
-```
-
-For iOS:
-```sh
-$ tns run ios
-```
-
-
 License
 ----
 MIT
