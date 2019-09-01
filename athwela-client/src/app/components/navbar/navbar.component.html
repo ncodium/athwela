@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
         <a class="navbar-brand" routerLink="/">Athwela</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -11,13 +11,12 @@
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/dashboard']">Dashboard</a>
                 </li>
-
                 <li *ngIf="authService.loggedIn()==false" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/profile']">Profile</a>
                 </li>
                 <li *ngIf="authService.loggedIn()" class="nav-item">
-                    <a class="nav-link" href="#" (click)="openLoginModal()">Log in</a>
+                    <a class="nav-link" href="#" (click)="openLoginModal()">Log In</a>
                 </li>
                 <li *ngIf="authService.loggedIn()" class="nav-item">
                     <a class="nav-link" href="#" (click)="openRegisterModal()">Register</a>

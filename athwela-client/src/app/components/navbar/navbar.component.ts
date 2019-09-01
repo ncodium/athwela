@@ -6,7 +6,6 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NgFlashMessageService } from 'ng-flash-messages';
 
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -26,10 +25,13 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggleColapse() {this.isCollapsed = !this.isCollapsed;}
+
   openLoginModal() {
     const initialState = {
-      title: 'Login'
+      title: 'Log In'
     };
+
     this.modalRef = this.modalService.show(LoginComponent, { initialState });
     this.modalRef.content.closeBtnName = 'Close';
   }
@@ -38,6 +40,7 @@ export class NavbarComponent implements OnInit {
     const initialState = {
       title: 'Register'
     };
+    
     this.modalRef = this.modalService.show(RegisterComponent, { initialState });
     this.modalRef.content.closeBtnName = 'Close';
   }
