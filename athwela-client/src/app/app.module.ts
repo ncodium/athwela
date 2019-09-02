@@ -31,6 +31,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 // fa icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ProgressbarModule.forRoot()
   ],
   providers: [
     ValidateService,
