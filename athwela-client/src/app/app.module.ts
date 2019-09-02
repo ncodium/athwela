@@ -33,6 +33,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
+// user components
+import { UserSidebarComponent } from './components/user/sidebar/sidebar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +44,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    UserSidebarComponent
     ],
   imports: [
     BrowserModule,
