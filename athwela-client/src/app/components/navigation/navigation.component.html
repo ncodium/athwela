@@ -1,12 +1,39 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
         <a class="navbar-brand" routerLink="/">Athwela</a>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mr-auto">
+
+                <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                    <a class="nav-link" href="#" [routerLink]="['/dashboard']">Fundraise</a>
+                </li>
+                <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                    <a class="nav-link" href="#" [routerLink]="['/profile']">Donate</a>
+                </li>
+
+                <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                    <a class="nav-link" href="#" [routerLink]="['/dashboard']">How it works</a>
+                </li>
+            </ul>
+        </div>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+
+                    <li [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                    <a class="nav-link" href="#" [routerLink]="['/profile']"><fa-icon [icon]="['fas', 'search']"></fa-icon></a>
+                </li>
+
                 <li *ngIf="authService.loggedIn()==false" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/dashboard']">Dashboard</a>
@@ -17,21 +44,19 @@
                 </li>
 
                 <li *ngIf="authService.loggedIn()" class="nav-item">
-
                     <a class="nav-link" href="#" (click)="openLoginModal()">
-                        <fa-icon [icon]="['far', 'user']"></fa-icon>
-                        Log In
+                        Sign In
                     </a>
                 </li>
                 <li *ngIf="authService.loggedIn()" class="nav-item">
                     <a class="nav-link" href="#" (click)="openRegisterModal()">Register</a>
                 </li>
                 <li *ngIf="authService.loggedIn()==false" class="nav-item">
-                    <a class="nav-link" href="#" (click)="onLogoutClick()">Log out</a>
+                    <a class="nav-link" href="#" (click)="onLogoutClick()">Sign out</a>
                 </li>
 
-
             </ul>
+
         </div>
     </div>
 </nav>

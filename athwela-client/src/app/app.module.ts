@@ -27,11 +27,16 @@ import { AuthGuard } from './guards/auth.guard';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 // fa icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+<<<<<<< HEAD
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+=======
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+>>>>>>> 85677a4f4df6f82dc11fcaa382808c137e969aa6
 
 @NgModule({
   declarations: [
@@ -53,7 +58,11 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
     FormsModule,
     HttpClientModule,
     FontAwesomeModule,
+<<<<<<< HEAD
     ProgressbarModule.forRoot()
+=======
+    BsDropdownModule.forRoot()
+>>>>>>> 85677a4f4df6f82dc11fcaa382808c137e969aa6
   ],
   providers: [
     ValidateService,
@@ -71,6 +80,6 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faUser);    
+    library.addIcons(faSearch);    
   }
  }
