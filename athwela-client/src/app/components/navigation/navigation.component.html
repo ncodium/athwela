@@ -29,15 +29,11 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
 
-                    <li *ngIf="authService.loggedIn()==false" [routerLinkActive]="['active']"
+                    <li [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/profile']"><fa-icon [icon]="['fas', 'search']"></fa-icon></a>
                 </li>
 
-                <li *ngIf="authService.loggedIn()==false" [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                <a class="nav-link" href="#" [routerLink]="['/profile']">Profile</a>
-            </li>
                 <li *ngIf="authService.loggedIn()==false" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/dashboard']">Dashboard</a>
