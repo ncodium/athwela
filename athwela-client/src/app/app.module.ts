@@ -31,12 +31,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 // fa icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-<<<<<<< HEAD
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
-=======
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
->>>>>>> 85677a4f4df6f82dc11fcaa382808c137e969aa6
 
 @NgModule({
   declarations: [
@@ -58,11 +54,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
     FormsModule,
     HttpClientModule,
     FontAwesomeModule,
-<<<<<<< HEAD
-    ProgressbarModule.forRoot()
-=======
+    ProgressbarModule.forRoot(),
     BsDropdownModule.forRoot()
->>>>>>> 85677a4f4df6f82dc11fcaa382808c137e969aa6
   ],
   providers: [
     ValidateService,
