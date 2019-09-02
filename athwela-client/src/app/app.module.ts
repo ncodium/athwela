@@ -27,9 +27,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 // fa icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
@@ -55,6 +57,7 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     FormsModule,
     HttpClientModule,
     FontAwesomeModule,
+    ProgressbarModule.forRoot(),
     BsDropdownModule.forRoot()
   ],
   providers: [

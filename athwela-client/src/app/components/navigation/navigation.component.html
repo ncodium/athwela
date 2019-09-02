@@ -4,14 +4,14 @@
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav mr-auto">
-
-                <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href="#" [routerLink]="['/dashboard']">Fundraising</a>
-                </li>
                 <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/profile']">Donate</a>
+                </li>
+
+                <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                    <a class="nav-link" href="#" [routerLink]="['/dashboard']">Start a campaign</a>
                 </li>
 
                 <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
@@ -20,15 +20,14 @@
                 </li>
 
                 <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                <a class="nav-link" href="#" [routerLink]="['/dashboard']">Start a campaign</a>
-            </li>
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                    <a class="nav-link" href="#" [routerLink]="['/dashboard']">Donate</a>
+                </li>
 
-
-            <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-            <a class="nav-link" href="#" [routerLink]="['/dashboard']">Make a donation</a>
-        </li>
+                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                    <a class="nav-link" href="#" [routerLink]="['/dashboard']">Start a campaign</a>
+                </li>
             </ul>
         </div>
 
