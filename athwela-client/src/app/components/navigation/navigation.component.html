@@ -7,7 +7,7 @@
 
                 <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href="#" [routerLink]="['/dashboard']">Fundraise</a>
+                    <a class="nav-link" href="#" [routerLink]="['/dashboard']">Fundraising</a>
                 </li>
                 <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
@@ -18,6 +18,17 @@
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/dashboard']">How it works</a>
                 </li>
+
+                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                <a class="nav-link" href="#" [routerLink]="['/dashboard']">Start a campaign</a>
+            </li>
+
+
+            <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+            <a class="nav-link" href="#" [routerLink]="['/dashboard']">Make a donation</a>
+        </li>
             </ul>
         </div>
 
@@ -28,36 +39,45 @@
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" alt="search" href="#" [routerLink]="['/profile']">
                         <fa-icon [icon]="['fas', 'search']"></fa-icon>
                     </a>
                 </li>
 
+                <!-- Only show valid links -->
+                <!--
                 <li *ngIf="authService.loggedIn()==false" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href="#" [routerLink]="['/dashboard']">Dashboard</a>
+                    <a class="nav-link" href="#" [routerLink]="['/user']">Dashboard</a>
                 </li>
-                <li *ngIf="authService.loggedIn()==false" [routerLinkActive]="['active']"
+                -->
+                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                    <a class="nav-link" href="#" [routerLink]="['/profile']">Community</a>
+                </li>
+
+                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                    <a class="nav-link" href="#" [routerLink]="['/profile']">Messages</a>
+                </li>
+
+                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/profile']">Profile</a>
                 </li>
 
                 <li *ngIf="authService.loggedIn()" class="nav-item">
-                    <a class="nav-link" href="#" (click)="openLoginModal()">
-                        Sign In
-                    </a>
+                    <a class="nav-link" href="#" (click)="openLoginModal()">Sign in</a>
                 </li>
+
                 <li *ngIf="authService.loggedIn()" class="nav-item">
                     <a class="nav-link" href="#" (click)="openRegisterModal()">Register</a>
                 </li>
                 <li *ngIf="authService.loggedIn()==false" class="nav-item">
                     <a class="nav-link" href="#" (click)="onLogoutClick()">Sign out</a>
                 </li>
-
             </ul>
-
         </div>
     </div>
 </nav>

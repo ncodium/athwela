@@ -13,7 +13,6 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 // custom services
@@ -32,9 +31,10 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 // fa icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
 // user components
-import { UserSidebarComponent } from './components/user/sidebar/sidebar.component';
+
 
 @NgModule({
   declarations: [
@@ -43,9 +43,7 @@ import { UserSidebarComponent } from './components/user/sidebar/sidebar.componen
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    DashboardComponent,
     ProfileComponent,
-    UserSidebarComponent
     ],
   imports: [
     BrowserModule,
@@ -75,6 +73,6 @@ import { UserSidebarComponent } from './components/user/sidebar/sidebar.componen
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faSearch);    
+    library.addIcons(faSearch, faInbox);    
   }
  }
