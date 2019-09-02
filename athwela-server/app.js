@@ -5,6 +5,8 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 
+var campaignController = require('./controllers/campaignController.js');
+
 // config fiels
 const config = require('./config/database');
 
@@ -51,3 +53,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log('Server started on port ' + port);
 });
+
+app.use('/campaigns', campaignController);
