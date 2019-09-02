@@ -1,26 +1,35 @@
 <div class="modal-header">
     <h4 class="modal-titile pull-left">{{title}}</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
-<ng-flash-message></ng-flash-message>
+<div class="alerts">
+    <div *ngFor="let alert of alerts">
+        <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
+    </div>
+</div>
 
-<div class="modal-body">
-    <form (submit)="onLoginSubmit()">
+
+<form (submit)="onLoginSubmit()">
+
+    <div class="modal-body">
         <div class="form-group">
             <label for="exampleInputUsername">Username</label>
-            <input type="text" class="form-control" [(ngModel)]="username"  name="username" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Enter username">
+            <input type="text" class="form-control" [(ngModel)]="username" name="username" id="exampleInputUsername"
+                aria-describedby="usernameHelp" placeholder="Enter username">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Password">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" [(ngModel)]="password" name="password"
+                id="exampleInputPassword1" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
+    </div>
 
-<div class="modal-footer">
-    <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{closeBtnName}}</button>
-</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </div>
+</form>

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
-import { AuthService } from '../../services/auth.service';
+import { Component, OnInit, SecurityContext } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NgFlashMessageService } from 'ng-flash-messages';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -13,12 +13,19 @@ import { NgFlashMessageService } from 'ng-flash-messages';
 export class LoginComponent implements OnInit {
   username: String;
   password: String;
+  alerts: any = [];
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private flashMessage: NgFlashMessageService 
-    ) { }
+    private sanitizer: DomSanitizer,
+    public bsModalRef: BsModalRef
+    ) {
+    this.alerts = this.alerts.map((alert: any) => ({
+      type: alert.type,
+      msg: sanitizer.sanitize(SecurityContext.HTML, alert.msg)
+    }));
+  }
 
   ngOnInit() {
   }
@@ -30,23 +37,23 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.authenticateUser(user).subscribe(data => {
-      if(data['success']){
+      if (data['success']) {
         this.authService.storeUserData(data['token'], data['user']);
-        this.flashMessage.showFlashMessage({
-          messages: ["You are now logged in"],
-          dismissible: false,
-          timeout: 5000,
-          type: 'success'
-        });
+        this.alerts = [
+          {
+            type: 'success',
+            msg: `You are not logged in!`
+          }
+        ];
         this.router.navigate(['dashboard']);
       } else {
         console.log(data);
-        this.flashMessage.showFlashMessage({
-          messages: [data['msg']],
-          dismissible: false,
-          timeout: 5000,
-          type: 'danger'
-        });
+        this.alerts = [
+          {
+            type: 'danger',
+            msg: [data['msg']]
+          }
+        ];
         this.router.navigate(['login']);
       }
     });
