@@ -42,9 +42,10 @@ export class LoginComponent implements OnInit {
         this.alerts = [
           {
             type: 'success',
-            msg: `You are not logged in!`
+            msg: `You are logged in!`
           }
         ];
+        this.bsModalRef.hide();
         this.router.navigate(['dashboard']);
       } else {
         console.log(data);
