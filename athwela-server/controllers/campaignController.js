@@ -46,7 +46,17 @@ router.put('/:id', (req, res) => {
     };
     Campaign.findByIdAndUpdate(req.params.id, { $set: cmp }, { new: true }, (err, doc) => {
         if(!err) { res.send(doc); }
-        else { console.log('Error in updatind campaign: ' + JSON.stringify(err, undefined, 2)); }
+        else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.delete('/:id', (req, res) => {
+    if(!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id: ${req.params.id}`);
+
+    Campaign.findByIdAndRemove(req.params.id, (err, doc) => {
+        if(!err) { res.send(doc); }
+        else { console.log('Error in deleting campaign: ' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
