@@ -55,4 +55,6 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/']);
     return false;
   }
+
+  
 }

@@ -27,10 +27,11 @@ import { AuthGuard } from './guards/auth.guard';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 // fa icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [
     ValidateService,
@@ -69,6 +71,6 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faUser);    
+    library.addIcons(faSearch);    
   }
  }
