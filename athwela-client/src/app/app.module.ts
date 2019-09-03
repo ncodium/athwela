@@ -13,7 +13,6 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 // custom services
@@ -28,12 +27,16 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 // fa icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faInbox } from '@fortawesome/free-solid-svg-icons';
+
+// user components
+
 
 @NgModule({
   declarations: [
@@ -42,8 +45,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
     ],
   imports: [
     BrowserModule,
@@ -74,6 +76,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faSearch);    
+    library.addIcons(faSearch, faInbox);    
   }
  }

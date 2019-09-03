@@ -46,7 +46,8 @@ export class LoginComponent implements OnInit {
           }
         ];
         this.bsModalRef.hide();
-        this.router.navigate(['dashboard']);
+        // this.router.navigate(['']);
+        
       } else {
         console.log(data);
         this.alerts = [
@@ -55,7 +56,6 @@ export class LoginComponent implements OnInit {
             msg: [data['msg']]
           }
         ];
-        this.router.navigate(['login']);
       }
     });
   }

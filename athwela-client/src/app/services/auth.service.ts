@@ -70,8 +70,9 @@ export class AuthService {
 
   loggedIn(){
     const helper = new JwtHelperService();
-    return helper.isTokenExpired(this.authToken);
+    this.loadToken();
 
+    return helper.isTokenExpired(this.authToken);
   }
 
   logout(){
