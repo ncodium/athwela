@@ -1,0 +1,41 @@
+<div class="col-md-4 mb-5">
+    <div class="card" style="width: 18rem;">
+      <img src="http://4.bp.blogspot.com/-FVIIIEqQUd0/VLyCDg1O8oI/AAAAAAAAXXk/_c29f0i_Isc/s1600/photo%2B5.JPG"
+        class="card-img-top" alt="...">
+      <div class="card-body">
+
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+          content.</p>
+          <table class="responsive-table highlight">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Target</th>
+                <th>Deadline</th>
+              </tr>
+            </thead>
+            <tr *ngFor="let cmp of campaignService.campaigns">
+              <td>{{cmp.name}}</td>
+              <td>{{cmp.description}}</td>
+              <td>{{cmp.target}}</td>
+              <td>{{cmp.deadline}}</td>
+            </tr>
+          </table>
+
+        <!--progressbar-->
+        <div class="prog">
+          <progressbar [value]="55"></progressbar>
+        </div>
+        <!--target-->
+        <div class="fund-item truncate-single-line">
+          <div class="show-for-medium">
+            <strong>$300</strong> of $3400
+          </div>
+          <div class="hide-for-medium">
+            $300 raised
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
