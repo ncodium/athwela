@@ -14,6 +14,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MessagesComponent } from './components/user/messages/messages.component';
+import { CommunityComponent } from './components/user/community/community.component';
+import { CampaignsComponent } from './components/campaigns/campaigns.component';
+import { NewCampaignComponent } from './components/new-campaign/new-campaign.component';
 
 // custom services
 import { ValidateService } from './services/validate.service';
@@ -35,6 +39,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
+
 // user components
 
 
@@ -46,6 +51,10 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
+    MessagesComponent,
+    CommunityComponent,
+    CampaignsComponent,
+    NewCampaignComponent,
     ],
   imports: [
     BrowserModule,

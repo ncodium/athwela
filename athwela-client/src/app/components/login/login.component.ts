@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private sanitizer: DomSanitizer,
     public bsModalRef: BsModalRef
-    ) {
+  ) {
     this.alerts = this.alerts.map((alert: any) => ({
       type: alert.type,
       msg: sanitizer.sanitize(SecurityContext.HTML, alert.msg)
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         ];
         this.bsModalRef.hide();
         // this.router.navigate(['']);
-        
+
       } else {
         console.log(data);
         this.alerts = [
