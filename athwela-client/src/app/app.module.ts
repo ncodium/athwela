@@ -34,6 +34,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
+import { CampaignComponent } from './components/campaign/campaign.component';
 
 // user components
 
@@ -46,6 +47,7 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
+    CampaignComponent,
     ],
   imports: [
     BrowserModule,
