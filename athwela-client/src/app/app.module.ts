@@ -36,6 +36,12 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import { CampaignComponent } from './components/campaign/campaign.component';
 
+import { AdmindashboardComponent } from './components/administrator/admindashboard/admindashboard.component';
+import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
+import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
+import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
+ 
+ 
 // user components
 
 
@@ -48,6 +54,12 @@ import { CampaignComponent } from './components/campaign/campaign.component';
     HomeComponent,
     ProfileComponent,
     CampaignComponent,
+    AdmindashboardComponent,
+    AdminCampaignsComponent,
+    AdminDonationsComponent,
+    AdminUsersComponent,
+     
+ 
     ],
   imports: [
     BrowserModule,
