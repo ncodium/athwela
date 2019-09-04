@@ -38,8 +38,18 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
+import { CampaignComponent } from './components/campaign/campaign.component';
 
+<<<<<<< HEAD
 
+=======
+import { AdmindashboardComponent } from './components/administrator/admindashboard/admindashboard.component';
+import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
+import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
+import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
+ 
+ 
+>>>>>>> e327d668643d48fb8a4a31151e3bd998add43e70
 // user components
 
 
@@ -51,10 +61,20 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
+<<<<<<< HEAD
     MessagesComponent,
     CommunityComponent,
     CampaignsComponent,
     NewCampaignComponent,
+=======
+    CampaignComponent,
+    AdmindashboardComponent,
+    AdminCampaignsComponent,
+    AdminDonationsComponent,
+    AdminUsersComponent,
+     
+ 
+>>>>>>> e327d668643d48fb8a4a31151e3bd998add43e70
     ],
   imports: [
     BrowserModule,

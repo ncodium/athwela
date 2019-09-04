@@ -1,21 +1,74 @@
 .text-small {
-    font-size: .875rem;
+  font-size: 0.875rem;
 }
 .progress-bar-behind {
-    background-color: #f3f8f7;
-    width: 100%;
+  background-color: #f3f8f7;
+  width: 100%;
 }
 .progress-bar {
-    border-radius: 6.25rem;
-    height: .25rem;
+  border-radius: 6.25rem;
+  height: 0.25rem;
 }
 .progress-bar-fill {
-    background-color: #00b964;
+  background-color: #00b964;
 }
 //checkthis
 .hide-for-medium {
-    display: none!important;
+  display: none !important;
 }
-.card-img-top{
-     height: 15rem;
+.card-img-top {
+  height: 15rem;
+}
+.heading-2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 2rem;
+}
+.mb,
+.mb10,
+.mb16 {
+  margin-bottom: 1rem !important;
+}
+.story-content {
+  padding-left: 3rem;
+  padding-right: 0;
+}
+.button.primary {
+  background-color: #00b964;
+  background: #00b964;
+}
+.button {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 1rem 0;
+  font-family: inherit;
+  padding: 0.85em 1em;
+  -webkit-appearance: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  font-size: 0.9rem;
+  line-height: 1;
+  text-align: center;
+
+  background-color: #5d8000;
+  color: #fff;
+  font-family: Lato, Arial, sans-serif;
+  font-weight: 400;
+}
+.site-menu-wrap .heading-4 {
+  margin: 0 0 1rem 0;
+}
+.site-menu-wrap {
+  padding-left: 5rem;
+}
+.heading-4 {
+  font-size: 0.875rem;
+}
+.heading-4 {
+  font-size: 0.8125rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1rem;
 }
