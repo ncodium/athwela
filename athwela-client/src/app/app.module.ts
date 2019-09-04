@@ -2,8 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-// manual imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,6 +16,11 @@ import { MessagesComponent } from './components/user/messages/messages.component
 import { CommunityComponent } from './components/user/community/community.component';
 import { CampaignsComponent } from './components/campaigns/campaigns.component';
 import { NewCampaignComponent } from './components/new-campaign/new-campaign.component';
+import { AdmindashboardComponent } from './components/administrator/admindashboard/admindashboard.component';
+import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
+import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
+import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
+import { CampaignComponent } from './components/shared/campaign/campaign.component';
 
 // custom services
 import { ValidateService } from './services/validate.service';
@@ -33,25 +36,11 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
-// fa icons
+// fontawesome icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
-import { CampaignComponent } from './components/campaign/campaign.component';
-
-<<<<<<< HEAD
-
-=======
-import { AdmindashboardComponent } from './components/administrator/admindashboard/admindashboard.component';
-import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
-import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
-import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
- 
- 
->>>>>>> e327d668643d48fb8a4a31151e3bd998add43e70
-// user components
-
 
 @NgModule({
   declarations: [
@@ -61,21 +50,16 @@ import { AdminUsersComponent } from './components/administrator/admin-users/admi
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
-<<<<<<< HEAD
     MessagesComponent,
     CommunityComponent,
     CampaignsComponent,
     NewCampaignComponent,
-=======
     CampaignComponent,
     AdmindashboardComponent,
     AdminCampaignsComponent,
     AdminDonationsComponent,
     AdminUsersComponent,
-     
- 
->>>>>>> e327d668643d48fb8a4a31151e3bd998add43e70
-    ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -105,6 +89,6 @@ import { AdminUsersComponent } from './components/administrator/admin-users/admi
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faSearch, faInbox);    
+    library.addIcons(faSearch, faInbox, faUser);
   }
- }
+}

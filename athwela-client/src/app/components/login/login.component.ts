@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
           }
         ];
         this.bsModalRef.hide();
-        // this.router.navigate(['']);
+        this.router.navigate(['/profile']);
 
       } else {
         console.log(data);

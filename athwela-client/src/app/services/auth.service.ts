@@ -20,21 +20,13 @@ export class AuthService {
   registerUser(user){
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/register', user, {headers: headers})
-    .pipe();
-    //.map(res => res.json());
-    // .pipe(map((res: any) => res.json()));
-    // .pipe(map((res: any) => {
-    //   console.log('res', res);
-    //   return res;
-    // }));
+    return this.http.post('http://localhost:3000/users/register', user, {headers: headers}).pipe();
   }
 
   authenticateUser(user){
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/authenticate', user, {headers: headers})
-    .pipe();
+    return this.http.post('http://localhost:3000/users/authenticate', user, {headers: headers}).pipe();
   }
 
   getProfile(){
@@ -46,11 +38,6 @@ export class AuthService {
         'Authorization': this.authToken
       })
     };
-
-    // let headers = new HttpHeaders();
-
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Authorization', this.authToken);
 
     return this.http.get('http://localhost:3000/users/profile', httpOptions)
     .pipe();

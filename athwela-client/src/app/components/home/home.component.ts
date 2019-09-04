@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CampaignService } from '../shared/campaign.service';
-import { Campaign } from '../shared/campaign.model';
+import { CampaignService } from '../../services/campaign.service';
+import { Campaign } from '../../models/campaign.model';
 
 @Component({
   selector: 'app-home',

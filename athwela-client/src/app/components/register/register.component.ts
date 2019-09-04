@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
             msg: `You are now registered and can log in!`
           }
         ];
-        this.router.navigate(['/login']);
+        //this.router.navigate(['/login']);
       } else {
         this.alerts = [
           {
@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
             msg: `Something went wrong!`
           }
         ];
-        this.router.navigate(['/register']);
+        //this.router.navigate(['/register']);
       }
     });
   }

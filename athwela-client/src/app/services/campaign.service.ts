@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-// import 'rxjs/add/operator/map';
 import { map } from "rxjs/operators";
-// import { toPromise } from "rxjs/operators";
-// import 'rxjs/add/operator/toPromise';
 
-import { Campaign } from './campaign.model';
+import { Campaign } from '../models/campaign.model';
 
 @Injectable({
   providedIn: 'root'

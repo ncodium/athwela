@@ -5,13 +5,13 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 
-var campaignController = require('./controllers/campaignController.js');
 
 // config fiels
 const config = require('./config/database');
 
 // custom routes
 const users = require('./routes/users');
+var campaigns = require('./routes/campaigns.js');
 
 // establish database connection
 mongoose.connect(config.database);
@@ -42,6 +42,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 app.use('/users', users);
+app.use('/campaigns', campaigns);
+
 app.get('/', (req, res) => {
     res.send('Invalid Endpoint');
 });
@@ -53,5 +55,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log('Server started on port ' + port);
 });
-
-app.use('/campaigns', campaignController);
