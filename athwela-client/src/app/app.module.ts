@@ -15,8 +15,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MessagesComponent } from './components/user/messages/messages.component';
 import { CommunityComponent } from './components/user/community/community.component';
 import { CampaignsComponent } from './components/campaigns/campaigns.component';
-import { NewCampaignComponent } from './components/new-campaign/new-campaign.component';
-import { AdmindashboardComponent } from './components/administrator/admindashboard/admindashboard.component';
+import { NewCampaignComponent } from './components/campaigns-new/campaigns-new.component';
+import { AdminDashboardComponent } from './components/administrator/admin-dashboard/admin-dashboard.component';
 import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
 import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
 import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
@@ -41,6 +41,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
+import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 
 @NgModule({
   declarations: [
@@ -55,10 +56,11 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     CampaignsComponent,
     NewCampaignComponent,
     CampaignComponent,
-    AdmindashboardComponent,
+    AdminDashboardComponent,
     AdminCampaignsComponent,
     AdminDonationsComponent,
     AdminUsersComponent,
+    HomeFooterComponent,
   ],
   imports: [
     BrowserModule,

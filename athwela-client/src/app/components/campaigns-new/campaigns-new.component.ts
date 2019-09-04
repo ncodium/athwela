@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-new-campaign',
-  templateUrl: './new-campaign.component.html',
-  styleUrls: ['./new-campaign.component.scss']
+  selector: 'app-campaigns-new',
+  templateUrl: './campaigns-new.component.html',
+  styleUrls: ['./campaigns-new.component.scss']
 })
 export class NewCampaignComponent implements OnInit {
 

@@ -1,252 +1,57 @@
 <!-- Page Content -->
 <div class="container">
 
-  <!-- Heading Row -->
-  <div class="row align-items-center my-5">
-    <div class="col-lg-7">
-      <img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">
-    </div>
-    <!-- /.col-lg-8 -->
-    <div class="col-lg-5">
-      <h1 class="font-weight-light">Business Name or Tagline</h1>
-      <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes
-        a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!
-      </p>
-      <a class="btn btn-primary" href="#">Call to Action!</a>
-    </div>
-    <!-- /.col-md-4 -->
-  </div>
-  <!-- /.row -->
+	<!-- Heading Row -->
+	<div class="row align-items-center my-5">
+		<div class="col-lg-5">
+			<img class="img-fluid rounded mb-4 mb-lg-0" src="https://farm4.staticflickr.com/3399/3628961842_e9e9651ed8.jpg" alt="">
+		</div>
+		<!-- /.col-lg-8 -->
+		<div class="col-lg-7">
+			<h1 class="font-weight-light">Fundraising for the people and causes you care about</h1>
+			<p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it
+				makes a great use of the standard Bootstrap core components. Feel free to use this template for any
+				project you want!</p>
+				<a class="btn btn-primary mr-3" href="#">Get Started!</a>
+				<a class="btn" href="#">How it works?</a>
+			</div>
+		<!-- /.col-md-4 -->
+	</div>
+	<!-- /.row -->
 
-  <!-- Call to Action Well -->
-  <div class="card text-white bg-secondary my-5 py-4 text-center">
-    <div class="card-body">
-      <p class="text-white m-0">This call to action card is a great place to showcase some important information or
-        display a clever tagline!</p>
-    </div>
-  </div>
+	<!-- Call to Action Well -->
+	<div class="card text-white bg-primary mt-5 py-4 text-center">
+		<div class="card-body">
+			<p class="text-white m-0">This call to action card is a great place to showcase some important information
+				or display a clever tagline!</p>
+		</div>
+	</div>
 
-  <!-- Content Row -->
-  <div class="fundraiser">
-    <h3>Top fundaisers</h3>
-  </div>
-  <div class="row">
+	<!-- Content Row -->
+	<h1 class="font-weight-light mt-5 mb-4">Top Fundaisers</h1>
 
-    <app-campaign></app-campaign>
-    <div class="col-md-4 mb-5">
-      <div class="card" style="width: 18rem;">
-        <img src="http://4.bp.blogspot.com/-FVIIIEqQUd0/VLyCDg1O8oI/AAAAAAAAXXk/_c29f0i_Isc/s1600/photo%2B5.JPG"
-          class="card-img-top" alt="...">
-        <div class="card-body">
-
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-          <table class="responsive-table highlight">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Target</th>
-                <th>Deadline</th>
-              </tr>
-            </thead>
-            <tr *ngFor="let cmp of campaignService.campaigns">
-              <td>{{cmp.name}}</td>
-              <td>{{cmp.description}}</td>
-              <td>{{cmp.target}}</td>
-              <td>{{cmp.deadline}}</td>
-            </tr>
-          </table>
-
-          <!--progressbar-->
-          <div class="prog">
-            <progressbar [value]="55"></progressbar>
-          </div>
-          <!--target-->
-          <div class="fund-item truncate-single-line">
-            <div class="show-for-medium">
-              <strong>$300</strong> of $3400
-            </div>
-            <div class="hide-for-medium">
-              $300 raised
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-5">
-      <div class="card" style="width: 18rem;">
-        <img src="https://i.pinimg.com/originals/41/45/7f/41457f20b5d87d872d85324be54b73a0.jpg" class="card-img-top"
-          alt="...">
-        <div class="card-body">
+	<div class="row">
+		<div class="col-md-4 mb-4">
+			<app-campaign></app-campaign>
+		</div>
+		<div class="col-md-4 mb-4">
+			<app-campaign></app-campaign>
+		</div>
+		<div class="col-md-4 mb-4">
+			<app-campaign></app-campaign>
+		</div>
+		<div class="col-md-4 mb-4">
+			<app-campaign></app-campaign>
+		</div>
+		<div class="col-md-4 mb-4">
+			<app-campaign></app-campaign>
+		</div>
 
 
-
-
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-          <!--progressbar-->
-          <div class="prog">
-            <progressbar [value]="55"></progressbar>
-          </div>
-          <!--target-->
-          <div class="fund-item truncate-single-line">
-            <div class="show-for-medium">
-              <strong>$300</strong> of $3400
-
-            </div>
-            <div class="hide-for-medium">
-              $300 raised
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-md-4 mb-5 col-xs-12">
-      <div class="card" style="width: 18rem;">
-        <img src="https://childrensmd.org/wp-content/uploads/2010/03/head-injury-1024x634.jpg" class="card-img-top"
-          alt="...">
-        <div class="card-body">
-
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-          <!--progressbar-->
-          <div class="prog">
-            <progressbar [value]="55"></progressbar>
-          </div>
-          <!--target-->
-          <div class="fund-item truncate-single-line">
-            <div class="show-for-medium">
-              <strong>$300</strong>of $3400
-            </div>
-            <div class="hide-for-medium">
-              $300raised
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!--teamfundraising-->
-  <div class="fundmeteam">
-    <div class="grid-container grid-x align-center">
-      <div class="row">
-        <div class="story-card story-card-flip grid-x align-middle no-focus">
-          <div class="cell small-12 large-7  "><img
-              src="https://image.freepik.com/free-photo/teamwork-concept-business-peoples-stack-hands-unity-team-success-business_28586-696.jpg"
-              alt="" style="width:35rem;
-                  height:25rem"></div>
-        </div>
-        <div class="cell small-12 large-5 story-content">
-
-          <div class="heading-2 mb">Team Fundraising</div>
-          <div class="medium-gray">
-            <ul class="medium-gray" role="list">
-              <li role="listitem">Gain unity with team members</li>
-              <li role="listitem">Aware of team fund raising</li>
-              <li role="listitem">Motivate team membars with fundraising</li>
-              <li role="listitem">Aware of team fund raising</li>
-              <li role="listitem">Aware of team fund raising</li>
-              <li role="listitem">Aware of team fund raising</li>
-            </ul>
-          </div>
-          <!--button options-->
-          <div>
-            <a href="/" role="button" class="button primary large expanded-mobile mt mb0">start fund</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+	</div>
+	<!-- /.row -->
 
 </div>
-<!-- Footer -->
-<footer class="py-5 bg-light">
-  <div class="container">
-    <div class="solid-line mb4x"></div>
-    <div class="grid-container grid-x align-center">
-      <div class="row">
-        <div class="cell small-12 large-3 ">
-          <img
-            src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/3639304/910/607/m1/fpnw/wm0/simple-s-logo-.png?1511696891&s=56b7e7ec1548993fb9926710e0dec7b4"
-            alt="" style="width:15rem;height:10rem;">
-        </div>
-        <div class="cell small-12 large-9">
-          <div class="row">
-            <div class="site-menu-wrap cell small-12 large-4">
-              <div class="heading-4 text-black">Fundraiser for</div>
-              <ul class="site-menu">
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
+<!-- /.container -->
 
-              </ul>
-            </div>
-            <div class="site-menu-wrap cell small-12 large-4">
-              <div class="heading-4 text-black">Fundraiser for</div>
-              <ul class="site-menu">
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-
-              </ul>
-            </div>
-            <div class="site-menu-wrap cell small-12 large-4">
-              <div class="heading-4 text-black">Fundraiser for</div>
-              <ul class="site-menu">
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-                <li class="norma-footer-menu-lvl1">
-                  <a href="/" class="text-black">Charity</a>
-                </li>
-
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
+<app-home-footer></app-home-footer>

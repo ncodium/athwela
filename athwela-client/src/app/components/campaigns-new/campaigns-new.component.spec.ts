@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewCampaignComponent } from './new-campaign.component';
+import { NewCampaignComponent } from './campaigns-new.component';
 
 describe('NewCampaignComponent', () => {
   let component: NewCampaignComponent;
