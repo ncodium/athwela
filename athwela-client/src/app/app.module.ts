@@ -29,6 +29,10 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
+// charts
+import { ChartsModule }from 'ng2-charts';
+import { MychartComponent } from './components/shared/mychart/mychart.component';
+
 // fa icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
@@ -38,7 +42,6 @@ import { AdmindashboardComponent } from './components/administrator/admindashboa
 import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
 import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
 import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
- 
  
 // user components
 
@@ -55,6 +58,7 @@ import { AdminUsersComponent } from './components/administrator/admin-users/admi
     AdminCampaignsComponent,
     AdminDonationsComponent,
     AdminUsersComponent,
+    MychartComponent,
      
  
     ],
@@ -69,7 +73,8 @@ import { AdminUsersComponent } from './components/administrator/admin-users/admi
     HttpClientModule,
     FontAwesomeModule,
     ProgressbarModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ChartsModule
   ],
   providers: [
     ValidateService,

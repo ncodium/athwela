@@ -1,5 +1,6 @@
+<script src="node_modules/chart.js/src/chart.js"></script>
 <div class="container">
-    <div class="row">
+    <div class="row" style="padding:2%">
 		<div class="col-md-3">
 			<div class="card border-left-success shadow h-100 py-2">
 				 
@@ -68,5 +69,35 @@
                              
                         </div>
                     </div>
+                    <div class="container">
+
+                    <div class="row" style="padding:3%">
+                        <div class="col-md-6">
+                    <!-- <div style="display: block;"> -->
+                        <canvas baseChart 
+                          [datasets]="barChartData"
+                          [labels]="barChartLabels"
+                          [options]="barChartOptions"
+                          [plugins]="barChartPlugins"
+                          [legend]="barChartLegend"
+                          [chartType]="barChartType"
+                          >
+                        </canvas>
+                        
+                      <!-- </div> -->
+                      </div>
+                      <div class="col-md-6">
+                            <div style="display: block;">
+                                    <canvas baseChart
+                                      [data]="polarAreaChartData"
+                                      [labels]="polarAreaChartLabels"
+                                      [legend]="polarAreaLegend"
+                                      [chartType]="polarAreaChartType">
+                                    </canvas>
+                                  </div>
+                      </div>
+                      </div>
+                      </div> 
 		 
+</div>
 </div>
