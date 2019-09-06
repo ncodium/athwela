@@ -21,6 +21,7 @@ import { AdminCampaignsComponent } from './components/administrator/admin-campai
 import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
 import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
 import { CampaignComponent } from './components/shared/campaign/campaign.component';
+import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 
 // custom services
 import { ValidateService } from './services/validate.service';
@@ -36,12 +37,17 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
-// fontawesome icons
+// charts
+import { ChartsModule }from 'ng2-charts';
+import { MychartComponent } from './components/shared/mychart/mychart.component';
+
+// fa icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
-import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+
+// user components
 
 @NgModule({
   declarations: [
@@ -61,7 +67,8 @@ import { HomeFooterComponent } from './components/home-footer/home-footer.compon
     AdminDonationsComponent,
     AdminUsersComponent,
     HomeFooterComponent,
-  ],
+    MychartComponent,
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -73,7 +80,8 @@ import { HomeFooterComponent } from './components/home-footer/home-footer.compon
     HttpClientModule,
     FontAwesomeModule,
     ProgressbarModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ChartsModule
   ],
   providers: [
     ValidateService,
