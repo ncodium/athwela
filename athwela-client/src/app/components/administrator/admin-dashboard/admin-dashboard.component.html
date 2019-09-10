@@ -74,34 +74,66 @@
                     <div class="row" style="padding:3%">
                         <div class="col-md-6">
                     <!-- <div style="display: block;"> -->
-                        <canvas baseChart 
-                          [datasets]="barChartData"
-                          [labels]="barChartLabels"
-                          [options]="barChartOptions"
-                          [plugins]="barChartPlugins"
-                          [legend]="barChartLegend"
-                          [chartType]="barChartType"
-                          >
-                        </canvas>
+                        <div class="card" style="width: 30rem;">
+                            
+                            <div class="card-body">
+                                <canvas baseChart 
+                                [datasets]="barChartData"
+                                [labels]="barChartLabels"
+                                [options]="barChartOptions"
+                                [plugins]="barChartPlugins"
+                                [legend]="barChartLegend"
+                                [chartType]="barChartType"
+                                >
+                                </canvas>
+                            </div>
+                          </div>
                         
                       <!-- </div> -->
                       </div>
                       <div class="col-md-6">
-                            <div style="display: block;">
-                                    <canvas baseChart
-                                      [data]="polarAreaChartData"
-                                      [labels]="polarAreaChartLabels"
-                                      [legend]="polarAreaLegend"
-                                      [chartType]="polarAreaChartType">
-                                    </canvas>
-                                  </div>
+                        <div class="card" style="width: 30rem;">
+                            
+                            <div class="card-body">
+                              
+                              <div style="display: block;">
+                                <canvas baseChart
+                                  [data]="polarAreaChartData"
+                                  [labels]="polarAreaChartLabels"
+                                  [legend]="polarAreaLegend"
+                                  [chartType]="polarAreaChartType">
+                                </canvas>
+                            </div>
+                               
+                            </div>
+                          </div>
                       </div>
                       </div>
                       </div> 
-                      <div class="row">
-                          <div class="col-md-6"></div>
-                          <div class="col-md-6"></div>
-                      </div>
+                      <div class="row"><!--moderator-->
+                          <div class="col-md-6">
+                            <div class="card" style="width: 30rem;">
+                                <div class="card-body">
+                                  <h5 class="card-title">ADD A MODERATOR</h5>
+                                  
+                                  <a href="#" class="btn btn-primary">ADD</a>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="card " style="width: 30rem;">
+                                <div class="card-body">
+                                  <h5 class="card-title">REMOVE A MODERATOR</h5>
+                                  
+                                  <a href="#" class="btn btn-primary">REMOVE</a>
+                                </div>
+                              </div>
+                          </div>
+                      </div><!--moderator-->
+                       <div></div>
 		 
 </div>
 </div>
+
+ 
+ 

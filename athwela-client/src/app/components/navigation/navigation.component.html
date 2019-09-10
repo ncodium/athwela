@@ -13,6 +13,10 @@
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/dashboard']">Start a campaign</a>
                 </li>
+                <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                    <a class="nav-link" href="#" [routerLink]="['/dashboard']">Users</a>
+                </li>
 
                 <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">

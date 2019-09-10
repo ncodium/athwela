@@ -27,27 +27,14 @@ const routes: Routes = [
   {
     path: 'campaigns', component: CampaignsComponent, canActivate: [AuthGuard]
   },
-  {
-    path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard],
-    children: [
-      { path: 'campaigns', component: AdminCampaignsComponent, canActivate: [AuthGuard] },
-      { path: 'donations', component: AdminDonationsComponent, canActivate: [AuthGuard] },
-      { path: 'users', component: AdminUsersComponent, canActivate: [AuthGuard] }
-
-    ]
-  },
+  {path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard]},
   { path: 'chart', component: MychartComponent, canActivate: [AuthGuard] },
 
 {path: 'admin/campaigns', component: AdminCampaignsComponent, canActivate: [AuthGuard]},
 {path: 'admin/donations', component: AdminDonationsComponent, canActivate: [AuthGuard]},
-{path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard]},
+{path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard]}
 
-{ path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard],
-children: [
-   
-
-  
-] },
+ 
 ];
 
 @NgModule({
