@@ -61,21 +61,4 @@ export class NavigationComponent implements OnInit {
     this.role = '';
     return false;
   }
-
-  isAdmin() {
-    if (this.authService.loggedIn()) {
-      console.log("not logged in so not showing");
-      return false;
-    }
-    else {
-      console.log("checking role");
-      this.role = JSON.parse(localStorage.getItem('user')).role;
-      console.log(this.role);
-      if (this.role === 'admin') {
-        return true;
-      }
-    }
-
-    return false;
-  }
 }

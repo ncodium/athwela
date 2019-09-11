@@ -45,8 +45,14 @@ export class LoginComponent implements OnInit {
             msg: `You are logged in!`
           }
         ];
+        
         this.bsModalRef.hide();
-        this.router.navigate(['/profile']);
+        if (this.authService.isAdmin()) {
+          this.router.navigate(['/admin']);
+        }
+        else {
+          this.router.navigate(['/profile']);
+        }
 
       } else {
         console.log(data);

@@ -67,4 +67,13 @@ export class AuthService {
     localStorage.clear();
   }
 
+  isAdmin() {
+    if (!this.loggedIn()) {
+      this.role = JSON.parse(localStorage.getItem('user')).role;
+      return this.role === 'admin';
+    }
+
+    return false;
+  }
+
 }
