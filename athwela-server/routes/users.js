@@ -10,7 +10,8 @@ router.post('/register', (req, res, next) => {
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        role: 'user'
     });
 
     User.addUser(newUser, (err, user) => {
@@ -47,7 +48,8 @@ router.post('/authenticate', (req, res, next) => {
                         id: user._id,
                         name: user.name,
                         username: user.username,
-                        email: user.email
+                        email: user.email,
+                        role: user.role
                     }
                 });
             } else {
@@ -66,7 +68,8 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
             _id: req.user._id,
             name: req.user.name,
             username: req.user.username,
-            email: req.user.email
+            email: req.user.email,
+            role: req.user.role
         }
     })
 });

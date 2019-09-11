@@ -10,6 +10,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   authToken: any;
   user: any;
+  role: String;
+
 
   constructor(
     private http: HttpClient
@@ -37,8 +39,7 @@ export class AuthService {
       })
     };
 
-    return this.http.get('http://localhost:3000/users/profile', httpOptions)
-      .pipe();
+    return this.http.get('http://localhost:3000/users/profile', httpOptions).pipe();
   }
 
   storeUserData(token, user) {
@@ -65,4 +66,5 @@ export class AuthService {
     this.user = null;
     localStorage.clear();
   }
+
 }

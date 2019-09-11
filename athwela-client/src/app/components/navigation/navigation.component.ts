@@ -17,6 +17,7 @@ export class NavigationComponent implements OnInit {
   modalRef: BsModalRef;
   isCollapsed = true;
   alerts: any = [];
+  role: String;
 
   constructor(
     private authService: AuthService,
@@ -25,6 +26,7 @@ export class NavigationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
   }
 
   toggleColapse() { this.isCollapsed = !this.isCollapsed; }
@@ -56,8 +58,24 @@ export class NavigationComponent implements OnInit {
       }
     ];
     this.router.navigate(['/']);
+    this.role = '';
     return false;
   }
 
+  isAdmin() {
+    if (this.authService.loggedIn()) {
+      console.log("not logged in so not showing");
+      return false;
+    }
+    else {
+      console.log("checking role");
+      this.role = JSON.parse(localStorage.getItem('user')).role;
+      console.log(this.role);
+      if (this.role === 'admin') {
+        return true;
+      }
+    }
 
+    return false;
+  }
 }
