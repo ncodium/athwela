@@ -22,6 +22,7 @@ import { AdminDonationsComponent } from './components/administrator/admin-donati
 import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
 import { CampaignComponent } from './components/shared/campaign/campaign.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+import { ModDashboardComponent } from './components/moderator/mod-dashboard/mod-dashboard.component';
 
 // custom services
 import { ValidateService } from './services/validate.service';
@@ -38,7 +39,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 // charts
-import { ChartsModule }from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { MychartComponent } from './components/shared/mychart/mychart.component';
 
 // fa icons
@@ -46,6 +47,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
+
 
 // user components
 
@@ -68,6 +70,7 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     AdminUsersComponent,
     HomeFooterComponent,
     MychartComponent,
+    ModDashboardComponent,
     ],
   imports: [
     BrowserModule,
