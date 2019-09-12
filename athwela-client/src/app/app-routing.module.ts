@@ -13,7 +13,8 @@ import { AdminCampaignsComponent } from './components/administrator/admin-campai
 import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
 import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
 import { MychartComponent } from './components/shared/mychart/mychart.component';
- 
+import { ModDashboardComponent } from './components/moderator/mod-dashboard/mod-dashboard.component';
+
 
 // guards
 import { AuthGuard } from './guards/auth.guard';
@@ -30,11 +31,12 @@ const routes: Routes = [
   {path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard]},
   { path: 'chart', component: MychartComponent, canActivate: [AuthGuard] },
 
-{path: 'admin/campaigns', component: AdminCampaignsComponent, canActivate: [AuthGuard]},
-{path: 'admin/donations', component: AdminDonationsComponent, canActivate: [AuthGuard]},
-{path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard]}
+  {path: 'admin/campaigns', component: AdminCampaignsComponent, canActivate: [AuthGuard]},
+  {path: 'admin/donations', component: AdminDonationsComponent, canActivate: [AuthGuard]},
+  {path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard]},
+  {path: 'moderator', component: ModDashboardComponent, canActivate: [AuthGuard]},
 
- 
+
 ];
 
 @NgModule({
