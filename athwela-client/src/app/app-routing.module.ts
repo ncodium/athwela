@@ -13,6 +13,7 @@ import { AdminCampaignsComponent } from './components/administrator/admin-campai
 import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
 import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
 import { MychartComponent } from './components/shared/mychart/mychart.component';
+import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
  
 
 // guards
@@ -32,7 +33,8 @@ const routes: Routes = [
 
 {path: 'admin/campaigns', component: AdminCampaignsComponent, canActivate: [AuthGuard]},
 {path: 'admin/donations', component: AdminDonationsComponent, canActivate: [AuthGuard]},
-{path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard]}
+{path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard]},
+{path: 'admin/moderators', component: AdminModeratorsComponent, canActivate: [AuthGuard]}
 
  
 ];
