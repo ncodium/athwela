@@ -94,11 +94,13 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
   ],
   entryComponents: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CampaignCardComponent
   ]
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(faSearch, faInbox, faUser);
   }
+  
 }

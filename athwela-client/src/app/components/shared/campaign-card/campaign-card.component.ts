@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-campaign-card',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./campaign-card.component.scss']
 })
 export class CampaignCardComponent implements OnInit {
+  @Input() name: string;
+  @Input() description: string;
+  @Input() deadline: string;
+  @Input() target: string;
 
   constructor() { }
 

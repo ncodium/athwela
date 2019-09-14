@@ -31,22 +31,9 @@
 	<h1 class="font-weight-light mt-5 mb-4">Top Fundaisers</h1>
 
 	<div class="row">
-		<div class="col-md-6 mb-4">
-			<app-campaign-card></app-campaign-card>
+		<div *ngFor="let cmp of campaignService.campaigns" class="col-md-6 mb-4">
+			<app-campaign-card name={{cmp.name}} description={{cmp.description}} deadline={{cmp.deadline}} target={{cmp.target}}></app-campaign-card>
 		</div>
-		<div class="col-md-6 mb-4">
-			<app-campaign-card></app-campaign-card>
-		</div>
-		<div class="col-md-6 mb-4">
-			<app-campaign-card></app-campaign-card>
-		</div>
-		<div class="col-md-6 mb-4">
-			<app-campaign-card></app-campaign-card>
-		</div>
-		<div class="col-md-6 mb-4">
-			<app-campaign-card></app-campaign-card>
-		</div>
-
 
 	</div>
 	<!-- /.row -->
