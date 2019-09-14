@@ -3,6 +3,23 @@
     <h4 class="card-title font-weight-light">Card One</h4>
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex
       numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+    <table class="responsive-table highlight">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Target</th>
+          <th>Deadline</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let cmp of campaignService.campaigns">
+        <td>{{cmp.name}}</td>
+        <td>{{cmp.description}}</td>
+        <td>{{cmp.target}}</td>
+        <td>{{cmp.deadline}}</td>
+      </tr>
+    </table>
+
   </div>
   <div class="card-footer">
     <progressbar [value]="55"></progressbar>
