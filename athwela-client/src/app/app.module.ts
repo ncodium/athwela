@@ -20,7 +20,7 @@ import { AdminDashboardComponent } from './components/administrator/admin-dashbo
 import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
 import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
 import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
-import { CampaignComponent } from './components/shared/campaign/campaign.component';
+import { CampaignCardComponent } from './components/shared/campaign-card/campaign-card.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
 
@@ -62,7 +62,7 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     CommunityComponent,
     CampaignsComponent,
     NewCampaignComponent,
-    CampaignComponent,
+    CampaignCardComponent,
     AdminDashboardComponent,
     AdminCampaignsComponent,
     AdminDonationsComponent,
@@ -96,11 +96,13 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
   ],
   entryComponents: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CampaignCardComponent
   ]
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(faSearch, faInbox, faUser);
   }
+  
 }

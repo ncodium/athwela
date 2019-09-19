@@ -1,0 +1,59 @@
+<!-- <div class="card h-100">
+  <div class="card-body">
+    <h4 class="card-title font-weight-light">Card One</h4>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex
+      numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+    <table class="responsive-table highlight">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Target</th>
+          <th>Deadline</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let cmp of campaignService.campaigns">
+        <td>{{cmp.name}}</td>
+        <td>{{cmp.description}}</td>
+        <td>{{cmp.target}}</td>
+        <td>{{cmp.deadline}}</td>
+      </tr>
+    </table>
+
+  </div>
+  <div class="card-footer">
+    <progressbar [value]="55"></progressbar>
+    <div class="row">
+      <div class="col-8 col-sm-10 my-auto">
+        <small>
+          Rs. 0 raised of Rs.50,000
+
+        </small>
+      </div>
+      <div class="col-4 col-sm-2 mt-2">
+        <a href="#" class="btn btn-primary btn-sm donate-button-margin float-right text-sm-center">Donate</a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="card h-100">
+  <div class="card-body">
+    <h4 class="card-title font-weight-light">{{name}}</h4>
+    <p class="card-text">{{description}}</p>
+    <p class="card-text">{{deadline}}</p>
+  </div>
+  <div class="card-footer">
+    <progressbar [value]="55"></progressbar>
+    <div class="row">
+      <div class="col-8 col-sm-10 my-auto">
+        <small>
+          Rs. 0 raised of Rs.{{target}}
+        </small>
+      </div>
+      <div class="col-4 col-sm-2 mt-2">
+        <a href="#" class="btn btn-primary btn-sm donate-button-margin float-right text-sm-center">Donate</a>
+      </div>
+    </div>
+  </div>
+</div>
