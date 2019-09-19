@@ -22,6 +22,7 @@ import { AdminDonationsComponent } from './components/administrator/admin-donati
 import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
 import { CampaignComponent } from './components/shared/campaign/campaign.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
 
 // custom services
 import { ValidateService } from './services/validate.service';
@@ -46,7 +47,6 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
-import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
 
 // user components
 
