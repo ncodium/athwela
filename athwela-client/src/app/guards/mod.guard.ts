@@ -12,7 +12,7 @@ export class ModGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.authService.isMod()) {
+    if (!this.authService.isMod()) {
       this.router.navigate(['/']);
       return false;
     } else {
