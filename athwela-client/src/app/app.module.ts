@@ -46,6 +46,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
+import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
 
 // user components
 
@@ -68,6 +69,7 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     AdminUsersComponent,
     HomeFooterComponent,
     MychartComponent,
+    AdminModeratorsComponent,
     ],
   imports: [
     BrowserModule,

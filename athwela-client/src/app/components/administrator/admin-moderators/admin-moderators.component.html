@@ -1,1 +1,101 @@
-<p>admin-moderators works!</p>
+ <div class="container">
+   <div class="row">
+     <h2>Edit Moderators</h2>
+   </div>
+     <div class="row">
+         <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Add a moderator</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <button type="button" class="btn btn-primary" (click)="openModal(template)">Add a New moderator</button>
+ 
+                  <ng-template #template>
+                    <div class="modal-header">
+                      <h4 class="modal-title pull-left">Modal</h4>
+                      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="#">
+                        First name:<br>
+                        <input type="text" name="firstname" value="Mickey">
+                        <br>
+                        Last name:<br>
+                        <input type="text" name="lastname" value="Mouse">
+                        <br><br>
+                        <input type="submit" value="Submit">
+                      </form> 
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+         </div>
+         <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Remove a moderator</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <button type="button" class="btn btn-primary" (click)="openModal(template)">Remove a moderator</button>
+ 
+                  <ng-template #template>
+                    <div class="modal-header">
+                      <h4 class="modal-title pull-left">Modal</h4>
+                      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="#">
+                        First name:<br>
+                        <input type="text" name="firstname" value="Mickey">
+                        <br>
+                        Last name:<br>
+                        <input type="text" name="lastname" value="Mouse">
+                        <br><br>
+                        <input type="submit" value="Submit">
+                      </form> 
+                    </div>
+                  </ng-template>
+                   
+                </div>
+              </div>
+         </div>
+         <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Update a moderator</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <button type="button" class="btn btn-primary" (click)="openModal(template)">Update a moderator</button>
+ 
+                  <ng-template #template>
+                    <div class="modal-header">
+                      <h4 class="modal-title pull-left">Modal</h4>
+                      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="#">
+                        First name:<br>
+                        <input type="text" name="firstname" value="Mickey">
+                        <br>
+                        Last name:<br>
+                        <input type="text" name="lastname" value="Mouse">
+                        <br><br>
+                        <input type="submit" value="Submit">
+                      </form> 
+                    </div>
+                  </ng-template>
+                   
+                </div>
+              </div>
+         </div>
+
+     </div>
+     <div class="row"></div>
+ </div>
