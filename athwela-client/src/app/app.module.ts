@@ -23,6 +23,7 @@ import { AdminUsersComponent } from './components/administrator/admin-users/admi
 import { CampaignCardComponent } from './components/shared/campaign-card/campaign-card.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
+import { ModDashboardComponent } from './components/moderator/mod-dashboard/mod-dashboard.component';
 
 // custom services
 import { ValidateService } from './services/validate.service';
@@ -30,6 +31,8 @@ import { AuthService } from './services/auth.service';
 
 // custom guards
 import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
+import { ModGuard } from './guards/mod.guard';
 
 // ngx-bootstrap modules
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -39,7 +42,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 // charts
-import { ChartsModule }from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { MychartComponent } from './components/shared/mychart/mychart.component';
 
 // fa icons
@@ -70,7 +73,8 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     HomeFooterComponent,
     MychartComponent,
     AdminModeratorsComponent,
-    ],
+    ModDashboardComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -90,6 +94,8 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     AuthService,
     HttpClientModule,
     AuthGuard,
+    AdminGuard,
+    ModGuard
   ],
   bootstrap: [
     AppComponent, NavigationComponent
@@ -104,5 +110,4 @@ export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(faSearch, faInbox, faUser);
   }
-  
 }

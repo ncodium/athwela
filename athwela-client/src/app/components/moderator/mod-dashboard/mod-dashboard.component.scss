@@ -1,0 +1,31 @@
+.col-sm-2{
+  margin-top: -47px;
+  width: 300px;
+  height: 700px;
+  margin-left: 0px;
+  background-color: gray;
+}
+
+.btn{
+  margin-top: 40px;
+  margin-bottom: 40px;
+  color: black;
+  width: 300px;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+    .btn-primary:not(:disabled):not(.disabled):active,
+    .show>.btn-primary.dropdown-toggle{
+        color: #fff;
+        background-color: #F7B432;
+        border-color: #F7B432;
+}
+
+
+.col-sm-9{
+  margin-left: -49px;
+}
+
+.col-sm-1{
+  margin-top: -600px;
+}
