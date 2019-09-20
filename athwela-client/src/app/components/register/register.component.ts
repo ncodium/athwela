@@ -20,12 +20,12 @@ export class RegisterComponent implements OnInit {
   alerts: any = [];
 
   constructor(
-    private validateService: ValidateService, 
+    private validateService: ValidateService,
     private authService: AuthService,
     private router: Router,
     public bsModalRef: BsModalRef
 
-    ) { }
+  ) { }
 
   ngOnInit() {
   }
@@ -39,8 +39,8 @@ export class RegisterComponent implements OnInit {
       role: this.role
     }
 
-    //Required fields
-    if(!this.validateService.validateRegister(user)) {
+    // required fields
+    if (!this.validateService.validateRegister(user)) {
       this.alerts = [
         {
           type: 'warning',
@@ -50,8 +50,8 @@ export class RegisterComponent implements OnInit {
       return false;
     }
 
-    //Validate Email
-    if(!this.validateService.validateEmail(user.email)) {
+    // validate Email
+    if (!this.validateService.validateEmail(user.email)) {
       this.alerts = [
         {
           type: 'warning',
@@ -61,16 +61,16 @@ export class RegisterComponent implements OnInit {
       return false;
     }
 
-    //Register User
+    // register User
     this.authService.registerUser(user).subscribe(data => {
-      if(data['success']){
+      if (data['success']) {
         this.alerts = [
           {
             type: 'success',
             msg: `You are now registered and can log in!`
           }
         ];
-        //this.router.navigate(['/login']);
+        // this.router.navigate(['/login']);
       } else {
         this.alerts = [
           {
@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
             msg: `Something went wrong!`
           }
         ];
-        //this.router.navigate(['/register']);
+        // this.router.navigate(['/register']);
       }
     });
   }

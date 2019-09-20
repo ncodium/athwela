@@ -85,4 +85,13 @@ export class AuthService {
     return false;
   }
 
+  isUser() {
+    if (!this.loggedIn()) {
+      this.role = JSON.parse(localStorage.getItem('user')).role;
+      return this.role === 'user';
+    }
+
+    return false;
+  }
+
 }

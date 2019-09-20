@@ -16,7 +16,6 @@ import { MychartComponent } from './components/shared/mychart/mychart.component'
 import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
 import { ModDashboardComponent } from './components/moderator/mod-dashboard/mod-dashboard.component';
 
-
 // route guards
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -35,7 +34,7 @@ const routes: Routes = [
   { path: 'admin/donations', component: AdminDonationsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/moderators', component: AdminModeratorsComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'moderator', component: ModDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'moderator', component: ModDashboardComponent, canActivate: [AuthGuard, ModGuard] },
 
 ];
 

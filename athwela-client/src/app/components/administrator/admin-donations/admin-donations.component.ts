@@ -13,6 +13,7 @@ export class AdminDonationsComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
+
   public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
@@ -20,13 +21,10 @@ export class AdminDonationsComponent implements OnInit {
 
   public barChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' }
-     
   ];
 
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

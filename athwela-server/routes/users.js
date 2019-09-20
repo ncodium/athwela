@@ -11,7 +11,7 @@ router.post('/register', (req, res, next) => {
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
-        role: req.body.role
+        role: req.body.role // temporary
     });
 
     User.addUser(newUser, (err, user) => {
@@ -69,7 +69,7 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
             name: req.user.name,
             username: req.user.username,
             email: req.user.email,
-            role: req.user.role
+            role: req.user.role 
         }
     })
 });

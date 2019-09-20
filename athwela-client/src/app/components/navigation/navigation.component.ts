@@ -5,9 +5,6 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
-// TODO
-// Recognize user roles and generate dashboard links 
-
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',

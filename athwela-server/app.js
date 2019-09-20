@@ -5,8 +5,7 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 
-
-// config fiels
+// configuration
 const config = require('./config/database');
 
 // custom routes
@@ -48,9 +47,6 @@ app.get('/', (req, res) => {
     res.send('Invalid Endpoint');
 });
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/index.html'));
-// });
 
 app.listen(port, () => {
     console.log('Server started on port ' + port);

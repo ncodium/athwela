@@ -1,118 +1,109 @@
 <script src="node_modules/chart.js/src/chart.js"></script>
 <div class="container">
-<div class="row">
+  <div class="row">
     <div class="col-md-3">
-        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
-            <div class="card-header">DONATIONS</div>
-            <div class="card-body">
-                <button type="button" class="btn btn-dark btn-lg btn-block">1000</button>
+      <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">DONATIONS</div>
+        <div class="card-body">
+          <button type="button" class="btn btn-dark btn-lg btn-block">1000</button>
 
-            </div>
-          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-3">
-        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
-            <div class="card-header">REQUESTS</div>
-            <div class="card-body">
-                <button type="button" class="btn btn-dark btn-lg btn-block">300</button>
+      <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">REQUESTS</div>
+        <div class="card-body">
+          <button type="button" class="btn btn-dark btn-lg btn-block">300</button>
 
-            </div>
-          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-3">
-        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
-            <div class="card-header">PENDING REQUESTS </div>
-            <div class="card-body">
-                <button type="button" class="btn btn-dark btn-lg btn-block">150</button>
+      <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">PENDING REQUESTS </div>
+        <div class="card-body">
+          <button type="button" class="btn btn-dark btn-lg btn-block">150</button>
 
-            </div>
-          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-3">
-        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
-            <div class="card-header">USERS</div>
-            <div class="card-body">
-                <button type="button" class="btn btn-dark btn-lg btn-block">2000</button>
+      <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">USERS</div>
+        <div class="card-body">
+          <button type="button" class="btn btn-dark btn-lg btn-block">2000</button>
 
-            </div>
-          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="row">
-    <div class="col-md-6"  >
-        <div class="card" >
-                            
-                            <div class="card-body">
-                                <canvas baseChart 
-                                [datasets]="barChartData"
-                                [labels]="barChartLabels"
-                                [options]="barChartOptions"
-                                [plugins]="barChartPlugins"
-                                [legend]="barChartLegend"
-                                [chartType]="barChartType"
-                                >
-                                </canvas>
-                            </div>
-                          </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+
+        <div class="card-body">
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
-        <div class="card" >
-                            
-            <div class="card-body">
-              
-              <div style="display: block;">
-                <canvas baseChart
-                  [data]="polarAreaChartData"
-                  [labels]="polarAreaChartLabels"
-                  [legend]="polarAreaLegend"
-                  [chartType]="polarAreaChartType">
-                </canvas>
-            </div>
-               
-            </div>
+      <div class="card">
+
+        <div class="card-body">
+
+          <div style="display: block;">
+            <canvas baseChart [data]="polarAreaChartData" [labels]="polarAreaChartLabels" [legend]="polarAreaLegend"
+              [chartType]="polarAreaChartType">
+            </canvas>
           </div>
-    </div>
-</div>
 
-<div class="row">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <h1>Top Contributions</h1>
-</div>
-<div class="row">
+  </div>
+  <div class="row">
     <div class="col-md-4">
 
-            <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
+      <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
+      <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
+      <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
     </div>
-     
 
-     
-      
-</div>
+  </div>
 </div>

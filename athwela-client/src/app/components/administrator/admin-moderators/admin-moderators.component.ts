@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  TemplateRef } from '@angular/core';
+import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 
@@ -28,18 +28,13 @@ export class AdminModeratorsComponent implements OnInit {
     },
   ];
   public scatterChartType: ChartType = 'scatter';
-  
+
   modalRef: BsModalRef;
-  constructor(private modalService: BsModalService) {}
- 
+  constructor(private modalService: BsModalService) { }
+
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
-
   
-  
-
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }
