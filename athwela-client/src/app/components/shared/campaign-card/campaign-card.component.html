@@ -2,14 +2,13 @@
   <div class="card-body">
     <h4 class="card-title font-weight-light">{{name}}</h4>
     <p class="card-text">{{description}}</p>
-    <p class="card-text">{{deadline}}</p>
   </div>
   <div class="card-footer">
     <progressbar [value]="55"></progressbar>
     <div class="row">
       <div class="col-8 col-sm-10 my-auto">
         <small>
-          Rs. 0 raised of Rs.{{target}}
+          Rs.{{raised}} raised of Rs.{{target}}
         </small>
       </div>
       <div class="col-4 col-sm-2 mt-2">

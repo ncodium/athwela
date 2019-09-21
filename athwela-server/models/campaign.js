@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const ObjectId = Schema.Types.ObjectId
+const ObjectId = mongoose.Schema.Types.ObjectId
 
 var Campaign = mongoose.model('Campaign', {
     name: {
@@ -19,8 +19,12 @@ var Campaign = mongoose.model('Campaign', {
         type: Number,
         required: true
     },
-    date: {
-        type: Date,
+    target: {
+        type: Number,
+        required: true
+    },
+    raised: {
+        type: Number,
         required: true
     },
     deadline: {
@@ -31,14 +35,6 @@ var Campaign = mongoose.model('Campaign', {
         type: ObjectId,
         ref: 'Donation'
     }],
-    raised: {
-        type: Number,
-        required: true
-    },
-    target: {
-        type: Number,
-        required: True
-    },
     verified: {
         type: Boolean,
         required: true

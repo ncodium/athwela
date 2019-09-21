@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CampaignCardComponent implements OnInit {
   @Input() public name: string;
   @Input() public description: string;
-  @Input() public deadline: string;
+  @Input() public raised: string;
   @Input() public target: string;
 
   constructor() { }

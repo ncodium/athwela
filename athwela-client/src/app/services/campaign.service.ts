@@ -18,4 +18,6 @@ export class CampaignService {
   getCampaignList() {
     return this.http.get(this.baseURL);
   }
+
+  
 }

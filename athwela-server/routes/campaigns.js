@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
+
 var ObjectId = require('mongoose').Types.ObjectId;
 
 var { Campaign } = require('../models/campaign');
@@ -21,12 +23,16 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
     var cmp = new Campaign({
         name: req.body.name,
         description: req.body.description,
+        owner: ObjectId(req.user._id),
         target: req.body.target,
-        deadline: req.body.deadline
+        raised: 0,
+        deadline: req.body.deadline,
+        verified: false,
+        published: false
     });
     cmp.save((err, doc) => {
         if (!err) { res.send(doc); }
