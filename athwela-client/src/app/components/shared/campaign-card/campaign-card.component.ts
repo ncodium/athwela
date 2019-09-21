@@ -6,10 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./campaign-card.component.scss']
 })
 export class CampaignCardComponent implements OnInit {
-  @Input() name: string;
-  @Input() description: string;
-  @Input() deadline: string;
-  @Input() target: string;
+  @Input() public name: string;
+  @Input() public description: string;
+  @Input() public deadline: string;
+  @Input() public target: string;
 
   constructor() { }
 

@@ -51,8 +51,6 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
-// user components
-
 @NgModule({
   declarations: [
     AppComponent,
