@@ -6,37 +6,69 @@
 			</h3>
 			<div class="card">
 				<div class="card-body">
-					<form role="form">
+					<form role="form" (submit)="onCreateCampaign()">
 						<div class="form-group">
-							<label for="exampleInputEmail1">
-								Email address
+							<label for="inputTitle">
+								Campaign name
 							</label>
-							<input type="email" class="form-control" id="exampleInputEmail1" />
+							<input [(ngModel)]="name" type="name" class="form-control" id="inputTitle" />
 						</div>
-						<div class="form-group">
-							<label for="exampleInputPassword1">
-								Password
-							</label>
-							<input type="password" class="form-control" id="exampleInputPassword1" />
-						</div>
-						<div class="form-group">
 
-							<label for="exampleInputFile">
-								File input
+						<div class="form-group">
+							<label for="inputTarget">
+								Target (Rs.)
 							</label>
-							<input type="file" class="form-control-file" id="exampleInputFile" />
-							<p class="help-block">
-								Example block-level help text here.
-							</p>
+							<input [(ngModel)]="target" type="number" class="form-control" id="inputTarget" />
 						</div>
-						<div class="checkbox">
 
-							<label>
-								<input type="checkbox" /> Check me out
+						<div class="form-group">
+							<label for="inputDescription">
+								Description
 							</label>
+							<textarea [(ngModel)]="description" name="description" class="form-control"
+								id="inputDescription"></textarea>
 						</div>
+						<div class="form-group">
+							<label for="inputCategory">Category</label>
+							<select [(ngModel)]="category" class="form-control" id="inputCategory">
+								<option disabled="disabled" selected="selected">Choose a category</option>
+								<option>Medical</option>
+								<option>Emergency</option>
+								<option>Education</option>
+								<option>Charity</option>
+								<option>General</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label [(ngModel)]="for_" for="inputFor">Who are you raising money for?</label>
+
+							<div class="custom-control custom-radio">
+								<input type="radio" id="inputFor1" name="inputFor" class="custom-control-input">
+								<label class="custom-control-label" for="inputFor1">For me</label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input type="radio" id="inputFor2" name="inputFor" class="custom-control-input">
+								<label class="custom-control-label" for="inputFor2">For someone else</label>
+							</div>
+
+							<div class="custom-control custom-radio">
+								<input type="radio" id="inputFor3" name="inputFor" class="custom-control-input">
+								<label class="custom-control-label" for="inputFor3">
+									For a non-profit organization
+								</label>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputDeadline">
+								Deadline
+							</label>
+							<input [(ngModel)]="deadline" type="date" class="form-control" id="inputDeadline" />
+						</div>
+
 						<button type="submit" class="btn btn-primary">
-							Submit
+							Create Campaign
 						</button>
 					</form>
 				</div>
