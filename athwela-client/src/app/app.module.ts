@@ -51,6 +51,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import { CampaignPageComponent } from './components/shared/campaign-page/campaign-page.component';
+import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { CampaignPageComponent } from './components/shared/campaign-page/campaig
     AdminModeratorsComponent,
     ModDashboardComponent,
     CampaignPageComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

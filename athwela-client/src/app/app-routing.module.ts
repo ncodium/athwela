@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // components
+import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component'
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MessagesComponent } from './components/user/messages/messages.component';
@@ -23,6 +24,7 @@ import { ModGuard } from './guards/mod.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: '**', component: PageNotFoundComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
