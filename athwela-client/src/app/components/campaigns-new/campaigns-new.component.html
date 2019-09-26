@@ -11,14 +11,14 @@
 							<label for="inputTitle">
 								Campaign name
 							</label>
-							<input [(ngModel)]="name" type="name" class="form-control" id="inputTitle" />
+							<input [(ngModel)]="name" name="name" type="name" class="form-control" id="inputTitle" />
 						</div>
 
 						<div class="form-group">
 							<label for="inputTarget">
 								Target (Rs.)
 							</label>
-							<input [(ngModel)]="target" type="number" class="form-control" id="inputTarget" />
+							<input [(ngModel)]="target" name="target" type="number" class="form-control" id="inputTarget" />
 						</div>
 
 						<div class="form-group">
@@ -30,7 +30,7 @@
 						</div>
 						<div class="form-group">
 							<label for="inputCategory">Category</label>
-							<select [(ngModel)]="category" class="form-control" id="inputCategory">
+							<select [(ngModel)]="category" name="category" class="form-control" id="inputCategory">
 								<option disabled="disabled" selected="selected">Choose a category</option>
 								<option>Medical</option>
 								<option>Emergency</option>
@@ -41,7 +41,7 @@
 						</div>
 
 						<div class="form-group">
-							<label [(ngModel)]="for_" for="inputFor">Who are you raising money for?</label>
+							<label for="inputFor">Who are you raising money for?</label>
 
 							<div class="custom-control custom-radio">
 								<input type="radio" id="inputFor1" name="inputFor" class="custom-control-input">
@@ -64,7 +64,7 @@
 							<label for="inputDeadline">
 								Deadline
 							</label>
-							<input [(ngModel)]="deadline" type="date" class="form-control" id="inputDeadline" />
+							<input [(ngModel)]="deadline" name="deadline" type="date" class="form-control" id="inputDeadline" />
 						</div>
 
 						<button type="submit" class="btn btn-primary">

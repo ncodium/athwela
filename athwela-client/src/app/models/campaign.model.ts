@@ -1,8 +1,7 @@
 export class Campaign {
-    _id: string;
     name: string;
     description: string;
     target: number;
-    raised: number;
+    raised: number = 0;
     deadline: Date;
 }

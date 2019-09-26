@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require('passport');
 
 var ObjectId = require('mongoose').Types.ObjectId;
-
 var { Campaign } = require('../models/campaign');
 
 //retrive router
@@ -35,7 +34,9 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
         published: false
     });
     cmp.save((err, doc) => {
-        if (!err) { res.send(doc); }
+        if (!err) {
+            res.json({ success: true, msg: 'Campaign created', campaign: doc });
+        }
         else { console.log('Error in saving data: ' + JSON.stringify(err, undefined, 2)); }
     });
 });
