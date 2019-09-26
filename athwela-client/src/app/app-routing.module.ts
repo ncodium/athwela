@@ -21,23 +21,34 @@ import { ModDashboardComponent } from './components/moderator/mod-dashboard/mod-
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { ModGuard } from './guards/mod.guard';
+import { CampaignPageComponent } from './components/shared/campaign-page/campaign-page.component';
 
 const routes: Routes = [
+  // general access
   { path: '', component: HomeComponent },
-  { path: '**', component: PageNotFoundComponent },
+  { path: 'campaign/:id', component: CampaignPageComponent },
+  { path: 'campaign',   redirectTo: '/campaigns', pathMatch: 'full' },
+  { path: 'campaigns', component: CampaignsComponent },
+  
+  // limited access
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
+  { path: 'campaign/new', component: NewCampaignComponent, canActivate: [AuthGuard] },
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
-  { path: 'campaigns/new', component: NewCampaignComponent, canActivate: [AuthGuard] },
-  { path: 'campaigns', component: CampaignsComponent, canActivate: [AuthGuard] },
-  { path: 'chart', component: MychartComponent, canActivate: [AuthGuard] },
+  
+  // administrator only
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/campaigns', component: AdminCampaignsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/donations', component: AdminDonationsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/moderators', component: AdminModeratorsComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'moderator', component: ModDashboardComponent, canActivate: [AuthGuard, ModGuard] },
 
+  // moderator only
+  { path: 'mod', component: ModDashboardComponent, canActivate: [AuthGuard, ModGuard] },
+
+  // other
+  { path: 'chart', component: MychartComponent, canActivate: [AuthGuard] },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
