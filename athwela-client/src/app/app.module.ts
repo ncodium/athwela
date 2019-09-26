@@ -50,6 +50,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
+import { CampaignPageComponent } from './components/shared/campaign-page/campaign-page.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     MychartComponent,
     AdminModeratorsComponent,
     ModDashboardComponent,
+    CampaignPageComponent,
   ],
   imports: [
     BrowserModule,
