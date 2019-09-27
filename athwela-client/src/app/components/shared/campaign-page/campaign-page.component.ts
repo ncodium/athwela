@@ -18,9 +18,7 @@ export class CampaignPageComponent implements OnInit {
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
-      console.log(params) //log the entire params object
-      console.log(params['id']) //log the value of id
-
+      // acquire campaignId from URL and request campaign content
       this.campaignId = params['id'];
       this.refreshCampaign(this.campaignId);
     });
