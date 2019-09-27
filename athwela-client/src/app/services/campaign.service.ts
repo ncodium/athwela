@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class CampaignService {
-  readonly baseURL = 'http://localhost:3000/campaigns';
+  readonly baseURL = 'http://localhost:3000/campaigns/';
 
   selectedCampaign: Campaign;
   campaigns: Campaign[];
@@ -22,6 +22,10 @@ export class CampaignService {
 
   getCampaignList() {
     return this.http.get(this.baseURL);
+  }
+
+  getCampaign(id: String) {
+    return this.http.get(this.baseURL + id);
   }
 
   createCampaign(campaign: Campaign) {

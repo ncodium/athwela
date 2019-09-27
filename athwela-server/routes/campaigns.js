@@ -17,7 +17,12 @@ router.get('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
     Campaign.findById(req.params.id, (err, doc) => {
-        if (!err) { res.send(doc); }
+        if (!err) { 
+            // TODO
+            // Check if doc is null
+
+            res.send(doc); 
+        }
         else { console.log('Error in retrieving campaign: ' + JSON.stringify(err, undefined, 2)); }
     });
 });
