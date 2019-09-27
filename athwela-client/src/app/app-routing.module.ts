@@ -26,16 +26,14 @@ import { CampaignPageComponent } from './components/shared/campaign-page/campaig
 const routes: Routes = [
   // general access
   { path: '', component: HomeComponent },
+  { path: 'campaign/new', component: NewCampaignComponent, canActivate: [AuthGuard] },
   { path: 'campaign/:id', component: CampaignPageComponent },
-  { path: 'campaign',   redirectTo: '/campaigns', pathMatch: 'full' },
+  { path: 'campaign', redirectTo: '/campaigns', pathMatch: 'full' },
   { path: 'campaigns', component: CampaignsComponent },
-  
-  // limited access
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
-  { path: 'campaign/new', component: NewCampaignComponent, canActivate: [AuthGuard] },
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
-  
+
   // administrator only
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/campaigns', component: AdminCampaignsComponent, canActivate: [AuthGuard, AdminGuard] },
