@@ -13,7 +13,7 @@
 
                 <li *ngIf="!authService.isAdmin()" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href="#" [routerLink]="['/campaigns/new']">Start a campaign</a>
+                    <a class="nav-link" href="#" [routerLink]="['/campaign/new']">Start a campaign</a>
                 </li>
                 <li *ngIf="!authService.isAdmin()" [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact: true}" class="nav-item">
