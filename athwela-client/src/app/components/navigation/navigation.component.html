@@ -76,7 +76,7 @@
                 </li>
 
                 <!-- User -->
-                <li *ngIf="authService.loggedIn() && !(authService.isAdmin() || authService.isMod())"
+                <li *ngIf="authService.isUser()"
                     [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/profile']">Profile</a>
                 </li>
