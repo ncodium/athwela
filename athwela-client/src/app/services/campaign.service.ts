@@ -5,6 +5,7 @@ import { map } from "rxjs/operators";
 
 import { Campaign } from '../models/campaign.model';
 import { AuthService } from './auth.service';
+import { CampaignExtended } from '../models/campaign-extended.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class CampaignService {
   readonly baseURL = 'http://localhost:3000/campaigns/';
 
   selectedCampaign: Campaign;
-  campaigns: Campaign[];
+  campaigns: CampaignExtended[];
 
   constructor(
     private http: HttpClient,

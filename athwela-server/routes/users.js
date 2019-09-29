@@ -3,7 +3,15 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+
 const User = require('../models/user');
+
+// TODO
+// Add protected endpoints for Administrator to register Moderators into the system
+// Then set default user role to 'user' and make 'admin and 'mod' users possible only by an Administrator
+
+// TODO
+// Expand error messages
 
 router.post('/register', (req, res, next) => {
     let newUser = new User({
@@ -19,6 +27,9 @@ router.post('/register', (req, res, next) => {
             res.json({ success: false, msg: 'Failed to register user' });
         } else {
             res.json({ success: true, msg: 'User registered' });
+
+            // TODO
+            // Check if username already exists
         }
     });
 });
@@ -60,8 +71,6 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 router.get('/profile', passport.authenticate("jwt", { session: false }), (req, res, next) => {
-    // res.json({ user: req.user });
-
     // return user with all other fields except hashed password
     res.json({
         user: {

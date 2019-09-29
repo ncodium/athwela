@@ -1,6 +1,12 @@
 <div class="card h-100">
   <div class="card-body">
-    <h4 class="card-title font-weight-light">{{name}}</h4>
+    <h4 class="card-title font-weight-light">
+      <span *ngIf="isLinked; else elseBlock">
+        <a [routerLink]="['./campaign', id]">{{name}}</a>
+      </span>
+      <ng-template #elseBlock>{{name}}</ng-template>
+
+    </h4>
     <p class="card-text">{{description}}</p>
   </div>
   <div class="card-footer">

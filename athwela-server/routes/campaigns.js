@@ -5,7 +5,9 @@ const passport = require('passport');
 var ObjectId = require('mongoose').Types.ObjectId;
 var { Campaign } = require('../models/campaign');
 
-//retrive router
+// TODO
+// Handle CRUD operation error messages
+
 router.get('/', (req, res) => {
     Campaign.find((err, docs) => {
         if (!err) { res.send(docs); }
@@ -47,6 +49,9 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
 });
 
 router.put('/:id', (req, res) => {
+    // TODO
+    // Protect endpoint so that only owner or administrator may edit
+    
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
 
@@ -56,6 +61,7 @@ router.put('/:id', (req, res) => {
         target: req.body.target,
         deadline: req.body.deadline
     };
+
     Campaign.findByIdAndUpdate(req.params.id, { $set: cmp }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
@@ -63,6 +69,9 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
+    // TODO
+    // Protect endpoint so that only owner or administrator may delete
+
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
 
