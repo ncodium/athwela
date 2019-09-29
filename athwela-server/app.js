@@ -44,7 +44,7 @@ app.use('/users', users);
 app.use('/campaigns', campaigns);
 
 app.get('/', (req, res) => {
-    res.send('Invalid Endpoint');
+    res.send('Invalid endpoint');
 });
 
 

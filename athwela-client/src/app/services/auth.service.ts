@@ -58,7 +58,7 @@ export class AuthService {
     const helper = new JwtHelperService();
     this.loadToken();
 
-    return helper.isTokenExpired(this.authToken);
+    return !helper.isTokenExpired(this.authToken);
   }
 
   logout() {
@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   isAdmin() {
-    if (!this.loggedIn()) {
+    if (this.loggedIn()) {
       this.role = JSON.parse(localStorage.getItem('user')).role;
       return this.role === 'admin';
     }
@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   isMod() {
-    if (!this.loggedIn()) {
+    if (this.loggedIn()) {
       this.role = JSON.parse(localStorage.getItem('user')).role;
       return this.role === 'mod';
     }
@@ -86,7 +86,7 @@ export class AuthService {
   }
 
   isUser() {
-    if (!this.loggedIn()) {
+    if (this.loggedIn()) {
       this.role = JSON.parse(localStorage.getItem('user')).role;
       return this.role === 'user';
     }

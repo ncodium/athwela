@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-// custom components
+// general custom components
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -16,13 +16,19 @@ import { MessagesComponent } from './components/user/messages/messages.component
 import { CommunityComponent } from './components/user/community/community.component';
 import { CampaignsComponent } from './components/campaigns/campaigns.component';
 import { NewCampaignComponent } from './components/campaigns-new/campaigns-new.component';
+import { CampaignPageComponent } from './components/shared/campaign-page/campaign-page.component';
+import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
+import { CampaignCardComponent } from './components/shared/campaign-card/campaign-card.component';
+import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+
+// admininstrator components
 import { AdminDashboardComponent } from './components/administrator/admin-dashboard/admin-dashboard.component';
 import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
 import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
 import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
-import { CampaignCardComponent } from './components/shared/campaign-card/campaign-card.component';
-import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
+
+// moderator components
 import { ModDashboardComponent } from './components/moderator/mod-dashboard/mod-dashboard.component';
 
 // custom services
@@ -50,8 +56,6 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
-import { CampaignPageComponent } from './components/shared/campaign-page/campaign-page.component';
-import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
