@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId
 
+// TODO
+// For whom, category
+
 var Campaign = mongoose.model('Campaign', {
     name: {
         type: String,
