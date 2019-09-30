@@ -13,7 +13,7 @@ import { CampaignExtended } from '../models/campaign-extended.model';
 export class CampaignService {
   readonly baseURL = 'http://localhost:3000/campaigns/';
 
-  selectedCampaign: Campaign;
+  selectedCampaign: CampaignExtended;
   campaigns: CampaignExtended[];
 
   constructor(
