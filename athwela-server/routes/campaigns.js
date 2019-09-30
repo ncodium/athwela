@@ -3,9 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 
 const ObjectId = require('mongoose').Types.ObjectId;
-const { Campaign } = require('../models/campaign');
-const { User } = require('../models/user');
-
+var { Campaign } = require('../models/campaign');
 
 // TODO
 // Handle CRUD operation error messages
@@ -34,8 +32,8 @@ router.get('/:id', (req, res) => {
 router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
     const cmp = new Campaign({
         name: req.body.name,
-        description: req.body.description,
-        owner: {type: Schema.Types.ObjectId, ref: 'User'},
+        description: req.body.description.trim(),
+        owner: req.user._id,
         target: req.body.target,
         raised: 0,
         deadline: req.body.deadline,
