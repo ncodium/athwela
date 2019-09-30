@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
-    Campaign.findById(req.params.id).populate('owner', '-_id -password').exec(function (err, doc) {
+    Campaign.findById(req.params.id).populate('owner', '-password').exec(function (err, doc) {
         if (!err) {
             // TODO
             // Check if doc is null
