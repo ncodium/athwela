@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
 
 // general custom components
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -96,6 +97,7 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
     ChartsModule
   ],
   providers: [
+    Title,
     ValidateService,
     AuthService,
     HttpClientModule,
