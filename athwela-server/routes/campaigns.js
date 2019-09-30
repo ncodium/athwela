@@ -35,10 +35,7 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
         description: req.body.description.trim(),
         owner: req.user._id,
         target: req.body.target,
-        raised: 0,
         deadline: req.body.deadline,
-        verified: false,
-        published: false
     });
     cmp.save((err, doc) => {
         if (!err) {

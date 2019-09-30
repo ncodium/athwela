@@ -28,7 +28,7 @@ var Campaign = mongoose.model('Campaign', {
     },
     raised: {
         type: Number,
-        required: true
+        default: 0
     },
     deadline: {
         type: Date,
@@ -40,11 +40,11 @@ var Campaign = mongoose.model('Campaign', {
     }],
     verified: {
         type: Boolean,
-        required: true
+        default: false
     },
     published: {
         type: Boolean,
-        required: true
+        default: false
     }
 });
 
