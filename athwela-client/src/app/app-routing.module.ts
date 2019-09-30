@@ -9,6 +9,7 @@ import { MessagesComponent } from './components/user/messages/messages.component
 import { CommunityComponent } from './components/user/community/community.component';
 import { CampaignsComponent } from './components/campaigns/campaigns.component';
 import { NewCampaignComponent } from './components/campaigns-new/campaigns-new.component';
+import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { AdminDashboardComponent } from './components/administrator/admin-dashboard/admin-dashboard.component';
 import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
 import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
@@ -33,7 +34,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
-
+  { path: 'how-it-works', component: HowItWorksComponent },
+  
   // administrator only
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/campaigns', component: AdminCampaignsComponent, canActivate: [AuthGuard, AdminGuard] },
