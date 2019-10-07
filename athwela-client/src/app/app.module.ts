@@ -31,6 +31,8 @@ import { AdminModeratorsComponent } from './components/administrator/admin-moder
 
 // moderator components
 import { ModDashboardComponent } from './components/moderator/mod-dashboard/mod-dashboard.component';
+import { ModCampaignsComponent } from './components/moderator/mod-campaigns/mod-campaigns.component';
+import { ModUsersComponent } from './components/moderator/mod-users/mod-users.component';
 
 // custom services
 import { ValidateService } from './services/validate.service';
@@ -59,6 +61,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,6 +86,8 @@ import { HowItWorksComponent } from './components/how-it-works/how-it-works.comp
     CampaignPageComponent,
     PageNotFoundComponent,
     HowItWorksComponent,
+    ModCampaignsComponent,
+    ModUsersComponent,
   ],
   imports: [
     BrowserModule,
