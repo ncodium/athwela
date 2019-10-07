@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // components
-import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component'
+import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MessagesComponent } from './components/user/messages/messages.component';
@@ -17,6 +17,8 @@ import { AdminUsersComponent } from './components/administrator/admin-users/admi
 import { MychartComponent } from './components/shared/mychart/mychart.component';
 import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
 import { ModDashboardComponent } from './components/moderator/mod-dashboard/mod-dashboard.component';
+import { ModCampaignsComponent } from './components/moderator/mod-campaigns/mod-campaigns.component';
+import { ModUsersComponent } from './components/moderator/mod-users/mod-users.component';
 
 // route guards
 import { AuthGuard } from './guards/auth.guard';
@@ -35,7 +37,7 @@ const routes: Routes = [
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
   { path: 'how-it-works', component: HowItWorksComponent },
-  
+
   // administrator only
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/campaigns', component: AdminCampaignsComponent, canActivate: [AuthGuard, AdminGuard] },
@@ -45,6 +47,8 @@ const routes: Routes = [
 
   // moderator only
   { path: 'mod', component: ModDashboardComponent, canActivate: [AuthGuard, ModGuard] },
+  { path: 'mod/campaigns', component: ModCampaignsComponent, canActivate: [AuthGuard, ModGuard] },
+  { path: 'mod/users', component: ModUsersComponent, canActivate: [AuthGuard, ModGuard] },
 
   // other
   { path: 'chart', component: MychartComponent, canActivate: [AuthGuard] },
