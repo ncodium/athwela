@@ -77,5 +77,26 @@ router.delete('/:id', (req, res) => {
         else { console.log('Error in deleting campaign: ' + JSON.stringify(err, undefined, 2)); }
     });
 });
+ router.get('/verified',async(req,res)=>{
+ try{
+     var result=await Campaign.find({verified:'true'}).exec();
+     res.send(result);
+
+ }catch(error){
+     console.log('eror in campaign')
+ }
+
+});
+router.get('/notverified',async(req,res)=>{
+    try{
+        var result=await Campaign.find({verified:'false'}).exec();
+        res.send(result);
+   
+    }catch(error){
+        console.log('eror in campaign')
+    }
+   
+   });
+
 
 module.exports = router;
