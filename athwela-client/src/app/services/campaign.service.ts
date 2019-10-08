@@ -25,6 +25,10 @@ export class CampaignService {
     return this.http.get(this.baseURL);
   }
 
+  getRecentCampaignsList() {
+    return this.http.get(this.baseURL + 'recent');
+  }
+
   getCampaign(id: String) {
     return this.http.get(this.baseURL + id);
   }
