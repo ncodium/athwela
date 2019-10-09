@@ -14,4 +14,8 @@ export class CampaignsComponent implements OnInit {
   ngOnInit() {
   }
 
+  onCategoryClick(category: string) {
+    this.active = category;
+  }
+
 }
