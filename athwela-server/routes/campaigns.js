@@ -15,6 +15,13 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/recent', (req, res) => {
+    Campaign.find().sort({'created_at': -1}).limit(6).exec((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error in retrieving data: ' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
 router.get('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
@@ -36,6 +43,7 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
         owner: req.user._id,
         target: req.body.target,
         deadline: req.body.deadline,
+        category: req.body.category
     });
     cmp.save((err, doc) => {
         if (!err) {
@@ -77,26 +85,28 @@ router.delete('/:id', (req, res) => {
         else { console.log('Error in deleting campaign: ' + JSON.stringify(err, undefined, 2)); }
     });
 });
- router.get('/verified',async(req,res)=>{
- try{
-     var result=await Campaign.find({verified:'true'}).exec();
-     res.send(result);
 
- }catch(error){
-     console.log('eror in campaign')
- }
-
-});
-router.get('/notverified',async(req,res)=>{
-    try{
-        var result=await Campaign.find({verified:'false'}).exec();
+router.get('/verified', async (req, res) => {
+    try {
+        var result = await Campaign.find({ verified: 'true' }).exec();
         res.send(result);
-   
-    }catch(error){
+
+    } catch (error) {
         console.log('eror in campaign')
     }
-   
-   });
+
+});
+
+router.get('/unverified', async (req, res) => {
+    try {
+        var result = await Campaign.find({ verified: 'false' }).exec();
+        res.send(result);
+
+    } catch (error) {
+        console.log('eror in campaign')
+    }
+
+});
 
 
 module.exports = router;

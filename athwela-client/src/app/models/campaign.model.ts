@@ -4,4 +4,5 @@ export class Campaign {
     target: number = 0;
     raised: number = 0;
     deadline: Date;
+    category: string;
 }
