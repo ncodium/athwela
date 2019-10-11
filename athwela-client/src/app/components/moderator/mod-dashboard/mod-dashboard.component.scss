@@ -1,30 +1,13 @@
-.col-sm-2 {
-  margin-top: -47px;
-  width: 300px;
-  height: 700px;
-  margin-left: 0px;
-  background-color: gray;
+.unverified-campaigns{
+  margin-left: 100px;
+  width: 200px;
 }
 
-.btn {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  color: black;
-  width: 300px;
+.new-users{
+  margin-right: 90px;
+  width: 200px;
 }
 
-.btn-primary:not(:disabled):not(.disabled).active,
-.btn-primary:not(:disabled):not(.disabled):active,
-.show > .btn-primary.dropdown-toggle {
-  color: #fff;
-  background-color: #f7b432;
-  border-color: #f7b432;
-}
-
-.col-sm-9 {
-  margin-left: -49px;
-}
-
-.col-sm-1 {
-  margin-top: -600px;
+.options{
+  margin-top: 50px;
 }
