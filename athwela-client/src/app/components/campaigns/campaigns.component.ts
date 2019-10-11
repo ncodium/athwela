@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./campaigns.component.scss']
 })
 export class CampaignsComponent implements OnInit {
+  categories: string[] = ["all", "medical", "education"]
+  active: string = "all";
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onCategoryChange(category: string) {
+    this.active = category;
   }
 
 }

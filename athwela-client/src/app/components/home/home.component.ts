@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   }
 
   refreshCampaignList() {
-    this.campaignService.getCampaignList().subscribe((res) => {
+    this.campaignService.getRecentCampaignsList().subscribe((res) => {
       this.campaignService.campaigns = res as CampaignExtended[];
     });
   }

@@ -18,7 +18,8 @@
 							<label for="inputTarget">
 								Target (Rs.)
 							</label>
-							<input [(ngModel)]="target" name="target" type="number" class="form-control" id="inputTarget" />
+							<input [(ngModel)]="target" name="target" type="number" class="form-control"
+								id="inputTarget" />
 						</div>
 
 						<div class="form-group">
@@ -30,16 +31,15 @@
 						</div>
 						<div class="form-group">
 							<label for="inputCategory">Category</label>
-							<select [(ngModel)]="category" name="category" class="form-control" id="inputCategory">
+							<select [(ngModel)]="category" (ngModelChange)="onCategoryChange($event)" name="category"
+								class="form-control" id="inputCategory">
 								<option disabled="disabled" selected="selected">Choose a category</option>
-								<option>Medical</option>
-								<option>Emergency</option>
-								<option>Education</option>
-								<option>Charity</option>
-								<option>General</option>
+								<option *ngFor="let category of categories" [ngValue]="category">
+									{{ category | titlecase}}</option>
 							</select>
 						</div>
 
+						<!-- 						
 						<div class="form-group">
 							<label for="inputFor">Who are you raising money for?</label>
 
@@ -58,13 +58,15 @@
 									For a non-profit organization
 								</label>
 							</div>
-						</div>
+						</div> 
+						-->
 
 						<div class="form-group">
 							<label for="inputDeadline">
 								Deadline
 							</label>
-							<input [(ngModel)]="deadline" name="deadline" type="date" class="form-control" id="inputDeadline" />
+							<input [(ngModel)]="deadline" name="deadline" type="date" class="form-control"
+								id="inputDeadline" />
 						</div>
 
 						<button type="submit" class="btn btn-primary">

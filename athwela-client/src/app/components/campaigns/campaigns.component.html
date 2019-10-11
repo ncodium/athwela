@@ -2,20 +2,17 @@
 	<div class="row">
 		<div class="col-md-3 mt-2 mt-md-0">
 			<div class="list-group">
-				<a href="#" class="list-group-item list-group-item-action active justify-content-between">All
-					<span class="badge badge-light badge-pill">99+</span></a>
+				<a *ngFor="let category of categories"
+					class="list-group-item list-group-item-action justify-content-between pointer"
+					[ngClass]="{'active': active==category}" (click)="onCategoryChange(category)">
+					{{ category | titlecase }}
+					<span class="mx-2 badge badge-light badge-pill">99+</span>
+				</a>
 
-				<a href="#" class="list-group-item list-group-item-action justify-content-between">Medical
-					<span class="badge badge-light badge-pill">21</span></a>
-
-				<a href="#" class="list-group-item list-group-item-action justify-content-between">Emergency
-					<span class="badge badge-light badge-pill">42</span></a>
-
-				<a href="#" class="list-group-item list-group-item-action justify-content-between">Education
-					<span class="badge badge-light badge-pill">15</span></a>
-
+				<!--
 				<a href="#" class="list-group-item list-group-item-action justify-content-between">Charity
 					<span class="badge badge-light badge-pill">41</span></a>
+				-->
 			</div>
 		</div>
 		<div class="col-md-9">

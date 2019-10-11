@@ -61,6 +61,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 
+import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { HowItWorksComponent } from './components/how-it-works/how-it-works.comp
     HowItWorksComponent,
     ModCampaignsComponent,
     ModUsersComponent,
+    TruncateTextPipe,
   ],
   imports: [
     BrowserModule,
@@ -101,7 +103,7 @@ import { HowItWorksComponent } from './components/how-it-works/how-it-works.comp
     FontAwesomeModule,
     ProgressbarModule.forRoot(),
     BsDropdownModule.forRoot(),
-    ChartsModule
+    ChartsModule,
   ],
   providers: [
     Title,

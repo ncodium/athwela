@@ -7,7 +7,7 @@
       <ng-template #elseBlock>{{name}}</ng-template>
 
     </h4>
-    <p class="card-text">{{description}}</p>
+    <p class="card-text" [innerHTML]="description | trunctuatetext:150"></p>
   </div>
   <div class="card-footer">
     <progressbar [value]="55"></progressbar>
