@@ -107,6 +107,25 @@ router.get('/unverified', async (req, res) => {
     }
 
 });
+router.get('/published', async (req, res) => {
+    try {
+        var result = await Campaign.find({ published: 'true' }).exec();
+        res.send(result);
 
+    } catch (error) {
+        console.log('eror in campaign')
+    }
+
+});
+router.get('/notpublished', async (req, res) => {
+    try {
+        var result = await Campaign.find({ published: 'false' }).exec();
+        res.send(result);
+
+    } catch (error) {
+        console.log('eror in campaign')
+    }
+
+});
 
 module.exports = router;
