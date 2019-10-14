@@ -92,7 +92,7 @@ router.get('/verified', async (req, res) => {
         res.send(result);
 
     } catch (error) {
-        console.log('eror in campaign')
+        console.log('error in campaign')
     }
 
 });
@@ -103,7 +103,7 @@ router.get('/unverified', async (req, res) => {
         res.send(result);
 
     } catch (error) {
-        console.log('eror in campaign')
+        console.log('error in campaign')
     }
 
 });
@@ -113,7 +113,7 @@ router.get('/published', async (req, res) => {
         res.send(result);
 
     } catch (error) {
-        console.log('eror in campaign')
+        console.log('error in campaign')
     }
 
 });
@@ -123,7 +123,7 @@ router.get('/notpublished', async (req, res) => {
         res.send(result);
 
     } catch (error) {
-        console.log('eror in campaign')
+        console.log('error in campaign')
     }
 
 });
