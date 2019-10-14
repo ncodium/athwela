@@ -78,15 +78,21 @@
     </div>
 
   </div>
-  <div class="row">
-    <h1>Growth of the year</h1>
-  </div>
-  <div>
+  <div class="row ">
+    
+    
+  
+  <div class="col-md-6">
+      <h1>Growth of the year</h1>
+  
     <div style="display: block;">
       <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
         [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
       </canvas>
     </div>
+  </div>
+  <div class="col-md-6">
+    <!-- something else -->
   </div>
 
 </div>
