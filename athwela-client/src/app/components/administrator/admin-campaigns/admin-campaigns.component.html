@@ -1,35 +1,13 @@
 <div class="container">
-    <div class="row">
-      <div    class="col-md-4 " >
-        <h2>Approved Campaigns</h2>
+    <div class="row mt-4">
+       <div *ngFor="let cmp of campaignService.campaigns" class="col-md-6 mb-4">
         <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
         </app-campaign-card>
       </div>
-      <div  class="col-md-4 ">
-          <h2>Declined Campaigns</h2>
-          <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
-          </app-campaign-card>
-      </div>
-      <div  class="col-md-4 ">
-          <h2>Pendings</h2>
-          <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
-          </app-campaign-card>
-      </div>
+      
+       
     </div>
      
-    <div class="row ">
-        <div   class="col-md-6">
-            <h2>Best Campaign of the year</h2>
-            <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
-                </app-campaign-card>
-
-        </div>
-        <div   class="col-md-6">
-            <h2>Newly completed campaigns</h2>
-            <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
-                </app-campaign-card>
-        </div>
-
-    </div>
+     
     
 </div>
