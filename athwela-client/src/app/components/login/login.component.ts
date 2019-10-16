@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
       this.authService.authenticateUser(user).subscribe(data => {
         if (data['success']) {
           this.authService.storeUserData(data['token'], data['user']);
-          
+
           this.alerts = [
             {
               type: 'success',
@@ -92,16 +92,9 @@ export class LoginComponent implements OnInit {
           ];
 
           this.bsModalRef.hide();
-
-          if (this.authService.isAdmin()) {
-            this.router.navigate(['/admin']);
-          }
-          if (this.authService.isMod()) {
-            this.router.navigate(['/mod']);
-          }
-          else {
-            this.router.navigate(['/profile']);
-          }
+          if (this.authService.isAdmin()) this.router.navigate(['/admin']);
+          if (this.authService.isMod()) this.router.navigate(['/mod']);
+          else this.router.navigate(['/profile']);
 
         } else {
           console.log(data);
