@@ -1,33 +1,32 @@
 <div class="modal-header">
-    <h4 class="modal-titile pull-left">{{title}}</h4>
+    <h4 class="modal-title pull-left">{{title}}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
-<div class="alerts">
-    <div *ngFor="let alert of alerts">
-        <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
-    </div>
-</div>
-
 <form (submit)="onLoginSubmit()">
-
     <div class="modal-body">
+
         <div class="form-group">
-            <label for="exampleInputUsername">Username</label>
-            <input type="text" class="form-control" [(ngModel)]="username" name="username" id="exampleInputUsername"
-                aria-describedby="usernameHelp" placeholder="Enter username">
+            <label for="inputUsername">Username</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid': usernameInvalid}" [(ngModel)]="username" name="username"
+                id="inputUsername" aria-describedby="usernameHelp" placeholder="Enter your username">
         </div>
+
         <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" [(ngModel)]="password" name="password"
-                id="exampleInputPassword1" placeholder="Enter password">
+            <label for="inputPassword">Password</label>
+            <input type="password" class="form-control" [ngClass]="{'is-invalid': passwordInvalid}" [(ngModel)]="password" name="password" id="inputPassword"
+                placeholder="Enter your password">
+        </div>
+
+        <div *ngFor="let alert of alerts">
+            <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
         </div>
     </div>
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Sign in</button>
     </div>
 </form>

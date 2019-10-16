@@ -30,7 +30,7 @@ export class NavigationComponent implements OnInit {
 
   openLoginModal() {
     const initialState = {
-      title: 'Log In'
+      title: 'Sign in to Athwela'
     };
 
     this.modalRef = this.modalService.show(LoginComponent, { initialState });
@@ -39,7 +39,7 @@ export class NavigationComponent implements OnInit {
 
   openRegisterModal() {
     const initialState = {
-      title: 'Register'
+      title: 'Register on Athwela'
     };
 
     this.modalRef = this.modalService.show(RegisterComponent, { initialState });
