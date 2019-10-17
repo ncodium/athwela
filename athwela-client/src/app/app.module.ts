@@ -61,7 +61,11 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 
+// custom pipes
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
+
+// additional modules
+import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 
 @NgModule({
   declarations: [
@@ -104,6 +108,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
     ProgressbarModule.forRoot(),
     BsDropdownModule.forRoot(),
     ChartsModule,
+    PasswordStrengthMeterModule
   ],
   providers: [
     Title,

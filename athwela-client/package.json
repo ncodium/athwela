@@ -25,13 +25,15 @@
     "@fortawesome/free-regular-svg-icons": "^5.10.2",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "angular-jwt": "^0.1.11",
+    "angular-password-strength-meter": "0.0.4",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
     "ng2-charts": "^2.3.0",
     "ngx-bootstrap": "^5.1.1",
     "rxjs": "^6.5.2",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.2",

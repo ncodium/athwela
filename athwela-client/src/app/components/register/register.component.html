@@ -16,7 +16,12 @@
         <div class="form-group">
             <label for="inputPassword">Password</label>
             <input type="password" [(ngModel)]="password" name="password" class="form-control" id="inputPassword"
-                placeholder="Enter your password" [ngClass]="{'is-invalid': passwordInvalid}">
+                placeholder="Enter your password" [ngClass]="{'is-invalid': passwordInvalid}"
+                aria-describedby="passwordHelp">
+            <small id="passwordHelp" class="form-text text-muted">
+                <password-strength-meter [enableFeedback]="true" [password]="password"></password-strength-meter>
+            </small>
+
         </div>
         <div class="form-group">
             <label for="inputName">Name</label>
@@ -26,8 +31,7 @@
         <div class="form-group">
             <label for="inputEmail">Email address</label>
             <input type="email" [(ngModel)]="email" name="email" class="form-control" id="inputEmail"
-                aria-describedby="emailHelp" placeholder="Enter your email address"
-                [ngClass]="{'is-invalid': emailInvalid}">
+                placeholder="Enter your email address" [ngClass]="{'is-invalid': emailInvalid}">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
@@ -38,10 +42,11 @@
         <div class="form-group">
             <label for="inputRole">Role</label>
             <input type="text" [(ngModel)]="role" name="role" class="form-control" id="inputRole"
-                placeholder="admin, mod, user"
-                aria-describedby="roleHelp" >
-                <small id="roleHelp" class="form-text text-muted">This field is temporary until proper Moderator and Administrator registration is implemented.</small>
+                placeholder="admin, mod, user" aria-describedby="roleHelp">
+            <small id="roleHelp" class="form-text text-muted">This field is temporary until proper Moderator and
+                Administrator registration is implemented.</small>
         </div>
+
     </div>
 
     <div class="modal-footer">
