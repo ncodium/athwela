@@ -17,6 +17,11 @@ export class RegisterComponent implements OnInit {
   password: String;
   role: String;
 
+  nameInvalid: boolean;
+  emailInvalid: boolean;
+  usernameInvalid: boolean;
+  passwordInvalid: boolean;
+
   alerts: any = [];
 
   constructor(
@@ -24,13 +29,31 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     public bsModalRef: BsModalRef
-
   ) { }
 
+  highlightInvalidInputFields() {
+    // reset
+    this.nameInvalid = this.usernameInvalid = this.emailInvalid = this.passwordInvalid = false;
+    // and validate
+    if (!this.username) this.usernameInvalid = true;
+    if (!this.password) this.passwordInvalid = true;
+    if (!this.name) this.nameInvalid = true;
+    if (!this.email) this.emailInvalid = true;
+  }
+
   ngOnInit() {
+    // initiation state
+    this.nameInvalid = this.usernameInvalid = this.emailInvalid = this.passwordInvalid = false;
+    this.alerts = [
+      {
+        type: 'info',
+        msg: 'Please enter your details in their respective fields and click on <strong>Register</strong> to continue.'
+      }
+    ]
   }
 
   onRegisterSubmit() {
+    // generate an object from the data provided in fields
     const user = {
       name: this.name,
       username: this.username,
@@ -40,47 +63,95 @@ export class RegisterComponent implements OnInit {
     }
 
     // required fields
-    if (!this.validateService.validateRegister(user)) {
+    if (!this.username && !this.email && !this.password && !this.name) {
+      this.highlightInvalidInputFields();
       this.alerts = [
         {
           type: 'warning',
-          msg: `Please complete the form!`
+          msg: `You have to complete the form correctly first before submitting it.`
         }
       ];
-      return false;
     }
-
+    else if (!this.username) {
+      this.highlightInvalidInputFields();
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Please provide your username to continue.`
+        }
+      ];
+    }
+    else if (!this.password) {
+      this.highlightInvalidInputFields();
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Please provide a password for your account to continue.`
+        }
+      ];
+    }
+    else if (!this.name) {
+      this.highlightInvalidInputFields();
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Please type in your name to continue.`
+        }
+      ];
+    }
+    else if (!this.email) {
+      this.highlightInvalidInputFields();
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Please provide your email address to continue.`
+        }
+      ];
+    }
+    else if (!this.validateService.validateRegister(user)) {
+      this.highlightInvalidInputFields();
+      this.alerts = [
+        {
+          type: 'danger',
+          msg: `You have to complete the form correctly first before submitting it.`
+        }
+      ];
+    }
     // validate Email
-    if (!this.validateService.validateEmail(user.email)) {
+    else if (!this.validateService.validateEmail(user.email)) {
+      this.highlightInvalidInputFields();
+
+      // additionally
+      this.emailInvalid = true;
+      
       this.alerts = [
         {
-          type: 'warning',
-          msg: `Please use a valid e-mail!`
+          type: 'danger',
+          msg: `The e-mail address you have entered seems to be invalid. Please use a valid email to continue.`
         }
       ];
-      return false;
     }
-
     // register User
-    this.authService.registerUser(user).subscribe(data => {
+    else this.authService.registerUser(user).subscribe(data => {
+      this.highlightInvalidInputFields();
+
       if (data['success']) {
         this.alerts = [
           {
             type: 'success',
-            msg: `You are now registered and can log in!`
+            msg: `Thank you for registering on <strong>Athwela</strong>. You are now registered and can proceed to <strong>Sign in!</strong>`
           }
         ];
-        // this.router.navigate(['/login']);
       } else {
         this.alerts = [
           {
             type: 'danger',
-            msg: `Something went wrong!`
+            msg: `Something went wrong! Please try again later.`
           }
         ];
-        // this.router.navigate(['/register']);
       }
     });
+
   }
 
 }

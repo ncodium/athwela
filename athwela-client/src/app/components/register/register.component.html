@@ -5,46 +5,47 @@
     </button>
 </div>
 
-
-<div class="alerts">
-    <div *ngFor="let alert of alerts">
-        <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
-    </div>
-</div>
-
 <form (submit)="onRegisterSubmit()">
     <div class="modal-body">
         <div class="form-group">
-            <label for="exampleInputName">Name</label>
-            <input type="text" [(ngModel)]="name" name="name" class="form-control" id="exampleInputName"
-                aria-describedby="nameHelp" placeholder="Enter name">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputUsername">Username</label>
+            <label for="inputUsername">Username</label>
             <input type="text" [(ngModel)]="username" name="username" class="form-control" id="exampleInputUsername"
-                aria-describedby="usernameHelp" placeholder="Enter username">
+                aria-describedby="usernameHelp" placeholder="Enter your username"
+                [ngClass]="{'is-invalid': usernameInvalid}">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" [(ngModel)]="email" name="email" class="form-control" id="exampleInputEmail1"
-                aria-describedby="emailHelp" placeholder="Enter email">
+            <label for="inputPassword">Password</label>
+            <input type="password" [(ngModel)]="password" name="password" class="form-control" id="inputPassword"
+                placeholder="Enter your password" [ngClass]="{'is-invalid': passwordInvalid}">
+        </div>
+        <div class="form-group">
+            <label for="inputName">Name</label>
+            <input type="text" [(ngModel)]="name" name="name" class="form-control" id="inputName"
+                aria-describedby="nameHelp" placeholder="Enter your name" [ngClass]="{'is-invalid': nameInvalid}">
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">Email address</label>
+            <input type="email" [(ngModel)]="email" name="email" class="form-control" id="inputEmail"
+                aria-describedby="emailHelp" placeholder="Enter your email address"
+                [ngClass]="{'is-invalid': emailInvalid}">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" [(ngModel)]="password" name="password" class="form-control"
-                id="exampleInputPassword1" placeholder="Enter password">
+
+        <div *ngFor="let alert of alerts">
+            <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
         </div>
 
         <div class="form-group">
-            <label for="exampleInputRole">Role (Temp)</label>
-            <input type="text" [(ngModel)]="role" name="role" class="form-control" id="exampleInputRole"
-                placeholder="admin, mod, user">
+            <label for="inputRole">Role</label>
+            <input type="text" [(ngModel)]="role" name="role" class="form-control" id="inputRole"
+                placeholder="admin, mod, user"
+                aria-describedby="roleHelp" >
+                <small id="roleHelp" class="form-text text-muted">This field is temporary until proper Moderator and Administrator registration is implemented.</small>
         </div>
     </div>
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Register</button>
     </div>
 </form>
