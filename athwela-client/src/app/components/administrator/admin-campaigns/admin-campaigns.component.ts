@@ -14,8 +14,14 @@ export class AdminCampaignsComponent implements OnInit {
 
   ngOnInit() {
     this.refreshCampaignList();
+    this.ongoingCampaignList();
   }
   refreshCampaignList() {
+    this.campaignService.getRecentCampaignsList().subscribe((res) => {
+      this.campaignService.campaigns = res as CampaignExtended[];
+    });
+  }
+  ongoingCampaignList() {
     this.campaignService.getRecentCampaignsList().subscribe((res) => {
       this.campaignService.campaigns = res as CampaignExtended[];
     });
