@@ -22,16 +22,21 @@ router.post('/register', (req, res, next) => {
         role: req.body.role // temporary
     });
 
-    User.addUser(newUser, (err, user) => {
-        if (err) {
-            res.json({ success: false, msg: 'Failed to register user' });
+    User.find({ username: newUser.username }, function (err, docs) {
+        if (docs.length) {
+            res.json({ success: false, username_exist: true });
         } else {
-            res.json({ success: true, msg: 'User registered' });
-
-            // TODO
-            // Check if username already exists
+            User.addUser(newUser, (err, user) => {
+                if (err) {
+                    res.json({ success: false, msg: 'Failed to register user' });
+                } else {
+                    res.json({ success: true, msg: 'User registered successfully' });
+                }
+            });
         }
     });
+
+
 });
 
 router.post('/authenticate', (req, res, next) => {
@@ -78,7 +83,7 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
             name: req.user.name,
             username: req.user.username,
             email: req.user.email,
-            role: req.user.role 
+            role: req.user.role
         }
     })
 });

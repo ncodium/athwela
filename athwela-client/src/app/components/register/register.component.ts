@@ -142,6 +142,14 @@ export class RegisterComponent implements OnInit {
             msg: `Thank you for registering on <strong>Athwela</strong>. You are now registered and can proceed to <strong>Sign in!</strong>`
           }
         ];
+      }
+      else if (data['username_exist']) {
+        this.alerts = [
+          {
+            type: 'warning',
+            msg: `You can't register because an account with the username <strong>` + this.username + `</strong> already exist. Please try another username!`
+          }
+        ];
       } else {
         this.alerts = [
           {
