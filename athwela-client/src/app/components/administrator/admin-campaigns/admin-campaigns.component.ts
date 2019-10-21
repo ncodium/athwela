@@ -13,7 +13,7 @@ export class AdminCampaignsComponent implements OnInit {
   constructor(private campaignService: CampaignService) { }
 
   ngOnInit() {
-    this.refreshCampaignList();
+    this.unpublishedCampaignList();
     this.ongoingCampaignList();
   }
   refreshCampaignList() {
@@ -26,5 +26,11 @@ export class AdminCampaignsComponent implements OnInit {
       this.campaignService.campaigns = res as CampaignExtended[];
     });
   }
+  unpublishedCampaignList() {
+    this.campaignService.getunpublishedCampaignsList().subscribe((res) => {
+      this.campaignService.campaigns = res as CampaignExtended[];
+    });
+  }
 
 }
+

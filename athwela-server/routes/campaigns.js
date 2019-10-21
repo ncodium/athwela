@@ -117,15 +117,19 @@ router.get('/published', async (req, res) => {
     }
 
 });
-router.get('/notpublished', async (req, res) => {
-    try {
-        var result = await Campaign.find({ published: 'false' }).exec();
-        res.send(result);
+router.get('/unpublished', (req, res) => {
+    Campaign.find({ verified: 'true' }).exec((err,docs)=>{
+        if (!err) {
+             
 
-    } catch (error) {
-        console.log('error in campaign')
-    }
+            res.send(doc);
+        }
+        else { console.log('Error in retrieving campaign: ' + JSON.stringify(err, undefined, 2)); }
 
+    });
+     
 });
+
+ 
 
 module.exports = router;
