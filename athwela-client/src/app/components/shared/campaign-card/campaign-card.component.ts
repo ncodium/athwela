@@ -13,6 +13,7 @@ export class CampaignCardComponent implements OnInit {
   @Input() public raised: string;
   @Input() public target: string;
   @Input() public isLinked: boolean = true;
+  @Input() public hideDonate: boolean = false;
 
   constructor(
     private router: Router,
