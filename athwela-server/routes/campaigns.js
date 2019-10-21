@@ -47,7 +47,7 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
     });
     cmp.save((err, doc) => {
         if (!err) {
-            res.json({ success: true, msg: 'Campaign created', campaign: doc });
+            res.json( doc._id );
         }
         else { console.log('Error in saving data: ' + JSON.stringify(err, undefined, 2)); }
     });

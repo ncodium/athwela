@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CampaignService } from '../../services/campaign.service';
+import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-campaigns-new',
@@ -14,9 +17,12 @@ export class NewCampaignComponent implements OnInit {
   target: number;
   deadline: Date;
   category: string;
+  id: string;
 
   constructor(
-    private campaignService: CampaignService
+    private campaignService: CampaignService,
+    private router: Router,
+    private http: HttpClientModule
   ) { }
 
   ngOnInit() {
@@ -34,12 +40,12 @@ export class NewCampaignComponent implements OnInit {
 
     // register User
     this.campaignService.createCampaign(campaign).subscribe(data => {
-      if (data['success']) {
-        console.log("success")
+      if (data) {
+        console.log(data);
+        this.router.navigate([`/campaign/${data}`]);
       } else {
-        console.log("error")
+        console.log("error");
       }
     });
   }
-
 }
