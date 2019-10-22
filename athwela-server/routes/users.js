@@ -35,8 +35,6 @@ router.post('/register', (req, res, next) => {
             });
         }
     });
-
-
 });
 
 router.post('/authenticate', (req, res, next) => {
