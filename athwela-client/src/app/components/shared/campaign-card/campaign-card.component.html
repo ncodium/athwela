@@ -22,7 +22,7 @@
       </div>
       <div class="col-4 col-sm-2 mt-2">
           <a href="#" *ngIf="!hideDonate" class="btn btn-primary btn-sm donate-button-margin float-right text-sm-center">Donate</a>
-          <a href="#" *ngIf="hideDonate" class="btn btn-warning btn-sm donate-button-margin float-right text-sm-center">Verify</a>
+          <a [routerLink]="['./campaign', id]" href="#" *ngIf="hideDonate" class="btn btn-warning btn-sm donate-button-margin float-right text-sm-center">Verify</a>
         </div>
     </div>
   </div>
