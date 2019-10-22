@@ -30,8 +30,7 @@
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/app/litera/bootstrap.min.css",
-              "src/styles.scss"
-            ],
+              "src/styles.scss"            ],
             "scripts": []
           },
           "configurations": {

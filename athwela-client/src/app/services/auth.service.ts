@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from "rxjs/operators";
-import { tokenNotExpired } from 'angular-jwt';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -11,7 +11,6 @@ export class AuthService {
   authToken: any;
   user: any;
   role: String;
-
 
   constructor(
     private http: HttpClient
@@ -93,5 +92,4 @@ export class AuthService {
 
     return false;
   }
-
 }

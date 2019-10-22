@@ -4,8 +4,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 // general custom components
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -117,7 +118,12 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     HttpClientModule,
     AuthGuard,
     AdminGuard,
-    ModGuard
+    ModGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [
     AppComponent, NavigationComponent
