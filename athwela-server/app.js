@@ -13,7 +13,7 @@ const users = require('./routes/users');
 var campaigns = require('./routes/campaigns.js');
 
 // establish database connection
-mongoose.connect(config.database);
+mongoose.connect(config.database, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connection.on('connected', () => {
     console.log('Connected to database: ' + config.database);
 });
