@@ -12,18 +12,17 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
     </div>
     <div class="modal-body">
       We are sorry, but your request couldn't be handled at the moment.
-      <div [innerHTML]="text" class="alert alert-danger mt-2">
+      <div [innerHTML]="text" class="alert alert-danger mt-4">
 
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-warning" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+      <button type="button" class="btn btn-danger" (click)="bsModalRef.hide()">Close</button>
     </div>
   `
 })
 export class HttpErrorModalComponent implements OnInit {
   title: string;
-  closeBtnName: string;
   text: string;
 
   constructor(public bsModalRef: BsModalRef) { }

@@ -34,7 +34,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           };
 
           this.bsModalRef = this.modalService.show(HttpErrorModalComponent, { initialState });
-          this.bsModalRef.content.closeBtnName = 'Close';
           return throwError(error.message);
         })
       )
