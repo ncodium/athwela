@@ -45,7 +45,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { ModGuard } from './guards/mod.guard';
 
 // ngx-bootstrap modules
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -67,6 +67,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 
 // additional modules
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
+import { HttpErrorModalComponent } from './components/shared/http-error-modal/http-error-modal.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     ModCampaignsComponent,
     ModUsersComponent,
     TruncateTextPipe,
+    HttpErrorModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,7 +124,8 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
-      multi: true
+      multi: true,
+      deps: [BsModalService]
     }
   ],
   bootstrap: [
