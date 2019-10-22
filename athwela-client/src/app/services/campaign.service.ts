@@ -30,7 +30,7 @@ export class CampaignService {
   }
    
   getunpublishedCampaignsList(){
-    return this.http.get(this.baseURL+'unpublished');
+    return this.http.get(this.baseURL + 'unpublished');
   }
 
   getCampaign(id: String) {

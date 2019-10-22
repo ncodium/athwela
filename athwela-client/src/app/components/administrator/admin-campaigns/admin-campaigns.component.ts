@@ -9,11 +9,13 @@ import { CampaignExtended } from '../../../models/campaign-extended.model';
   providers: [CampaignService]
 })
 export class AdminCampaignsComponent implements OnInit {
+  unpublishedCampaigns: CampaignExtended[];
+  ongoingCampaigns: CampaignExtended[];
 
   constructor(private campaignService: CampaignService) { }
 
   ngOnInit() {
-    this.refreshCampaignList();
+    this.unpublishedCampaignList();
     this.ongoingCampaignList();
   }
   refreshCampaignList() {
@@ -23,8 +25,14 @@ export class AdminCampaignsComponent implements OnInit {
   }
   ongoingCampaignList() {
     this.campaignService.getRecentCampaignsList().subscribe((res) => {
-      this.campaignService.campaigns = res as CampaignExtended[];
+      this.ongoingCampaigns = res as CampaignExtended[];
+    });
+  }
+  unpublishedCampaignList() {
+    this.campaignService.getunpublishedCampaignsList().subscribe((res) => {
+      this.unpublishedCampaigns= res as CampaignExtended[];
     });
   }
 
 }
+

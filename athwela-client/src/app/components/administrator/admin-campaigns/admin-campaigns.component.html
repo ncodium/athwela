@@ -5,7 +5,7 @@
   
     <div class="row mt-4">
       
-       <div *ngFor="let cmp of campaignService.campaigns" class="col-md-6 mb-4">
+       <div *ngFor="let cmp of unpublishedCampaigns" class="col-md-6 mb-4">
         <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
         </app-campaign-card>
       </div>
@@ -17,7 +17,7 @@
     </div>
     <div class="row mt-4">
       
-      <div *ngFor="let cmp of campaignService.campaigns" class="col-md-6 mb-4">
+      <div *ngFor="let cmp of ongoingCampaigns" class="col-md-6 mb-4">
        <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
        </app-campaign-card>
      </div>

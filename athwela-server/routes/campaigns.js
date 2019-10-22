@@ -8,34 +8,13 @@ var { Campaign } = require('../models/campaign');
 // TODO
 // Handle CRUD operation error messages
 
+
 router.get('/', (req, res) => {
     Campaign.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in retrieving data: ' + JSON.stringify(err, undefined, 2)); }
     });
 });
-
-router.get('/recent', (req, res) => {
-    Campaign.find().sort({'created_at': -1}).limit(6).exec((err, docs) => {
-        if (!err) { res.send(docs); }
-        else { console.log('Error in retrieving data: ' + JSON.stringify(err, undefined, 2)); }
-    });
-});
-
-router.get('/:id', (req, res) => {
-    if (!ObjectId.isValid(req.params.id))
-        return res.status(400).send(`No record with given Id: ${req.params.id}`);
-    Campaign.findById(req.params.id).populate('owner', '-password').exec(function (err, doc) {
-        if (!err) {
-            // TODO
-            // Check if doc is null
-
-            res.send(doc);
-        }
-        else { console.log('Error in retrieving campaign: ' + JSON.stringify(err, undefined, 2)); }
-    });
-});
-
 router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
     const cmp = new Campaign({
         name: req.body.name,
@@ -52,6 +31,71 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
         else { console.log('Error in saving data: ' + JSON.stringify(err, undefined, 2)); }
     });
 });
+router.get('/recent', (req, res) => {
+    Campaign.find().sort({'created_at': -1}).limit(6).exec((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error in retrieving data: ' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.get('/unpublished', (req, res) => {
+    Campaign.find({ 'published': false }).exec((err,doc)=>{
+        if (!err) {
+             res.send(doc);
+        }
+        else { console.log('Error in retrieving campaign: ' + JSON.stringify(err, undefined, 2)); }
+
+    });
+     
+});
+router.get('/published', (req, res) => {
+    Campaign.find({ published: 'true' }).exec((err,doc)=>{
+        if (!err) {
+             res.send(doc);
+        }
+        else { console.log('Error in retrieving campaign: ' + JSON.stringify(err, undefined, 2)); }
+
+    });
+     
+});
+router.get('/verified', (req, res) => {
+    Campaign.find({ 'verified': 'true' }).exec((err,doc)=>{
+        if (!err) {
+             res.send(doc);
+        }
+        else { console.log('Error in retrieving campaign: ' + JSON.stringify(err, undefined, 2)); }
+
+    });
+     
+});
+router.get('/unverified', (req, res) => {
+    Campaign.find({ verified: 'false' }).exec((err,doc)=>{
+        if (!err) {
+             res.send(doc);
+        }
+        else { console.log('Error in retrieving campaign: ' + JSON.stringify(err, undefined, 2)); }
+
+    });
+     
+});
+
+
+
+router.get('/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given Id: ${req.params.id}`);
+    Campaign.findById(req.params.id).populate('owner', '-password').exec(function (err, doc) {
+        if (!err) {
+            // TODO
+            // Check if doc is null
+
+            res.send(doc);
+        }
+        else { console.log('Error in retrieving campaign: ' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+
 
 router.put('/:id', (req, res) => {
     // TODO
@@ -86,46 +130,11 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-router.get('/verified', async (req, res) => {
-    try {
-        var result = await Campaign.find({ verified: 'true' }).exec();
-        res.send(result);
+ 
 
-    } catch (error) {
-        console.log('error in campaign')
-    }
 
-});
 
-router.get('/unverified', async (req, res) => {
-    try {
-        var result = await Campaign.find({ verified: 'false' }).exec();
-        res.send(result);
+ 
 
-    } catch (error) {
-        console.log('error in campaign')
-    }
-
-});
-router.get('/published', async (req, res) => {
-    try {
-        var result = await Campaign.find({ published: 'true' }).exec();
-        res.send(result);
-
-    } catch (error) {
-        console.log('error in campaign')
-    }
-
-});
-router.get('/notpublished', async (req, res) => {
-    try {
-        var result = await Campaign.find({ published: 'false' }).exec();
-        res.send(result);
-
-    } catch (error) {
-        console.log('error in campaign')
-    }
-
-});
 
 module.exports = router;
