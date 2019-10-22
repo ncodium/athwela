@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CampaignService } from 'src/app/services/campaign.service';
 import { CampaignExtended } from '../../../models/campaign-extended.model';
+import { AuthService } from './../../../services/auth.service';
 
 @Component({
   selector: 'app-campaign-page',
@@ -14,7 +15,11 @@ export class CampaignPageComponent implements OnInit {
   private campaign: CampaignExtended;
   private campaignId: String;
 
-  constructor(private route: ActivatedRoute, private campaignService: CampaignService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private campaignService: CampaignService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
