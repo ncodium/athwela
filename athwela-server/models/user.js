@@ -3,25 +3,11 @@ const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 
 const UserSchema = mongooose.Schema({
-    name: {
-        type: String
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    username: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    role: {
-        type: String,
-        required: true
-    }
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    email: { type: String, required: true },
+    name: { type: String, required: true },
+    role: { type: String, default: 'user' }
 });
 
 const User = module.exports = mongooose.model('User', UserSchema);

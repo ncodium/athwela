@@ -50,5 +50,7 @@ export class CampaignService {
     return this.http.post(this.baseURL, campaign, httpOptions).pipe();
   }
 
-
+  getCategories() {
+    return this.http.get(this.baseURL + 'categories');
+  }
 }
