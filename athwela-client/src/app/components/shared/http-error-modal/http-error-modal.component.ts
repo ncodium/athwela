@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'modal-content',
-  template: `
-    <div class="modal-header">
+  template:
+    `<div class="modal-header">
       <h4 class="modal-title pull-left">{{title}}</h4>
       <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
@@ -18,8 +18,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-danger" (click)="bsModalRef.hide()">Close</button>
-    </div>
-  `
+    </div>`
 })
 export class HttpErrorModalComponent implements OnInit {
   title: string;

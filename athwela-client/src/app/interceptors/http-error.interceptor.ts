@@ -1,11 +1,4 @@
-import {
-  HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-  HttpResponse,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -20,13 +13,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         retry(1),
         catchError((error: HttpErrorResponse) => {
           let errorMessage = '';
-          if (error.error instanceof ErrorEvent) {
-            // client-side error
-            errorMessage = `Error: ${error.error.message}`;
-          } else {
-            // server-side error
-            errorMessage = `<b>Error ${error.status} occured.</b> ${error.message}`;
-          }
+          if (error.error instanceof ErrorEvent)
+            errorMessage = `Error: ${error.error.message}` // client-side error
+          else
+            errorMessage = `<b>Error ${error.status} occured.</b> ${error.message}`;             // server-side error
 
           const initialState = {
             text: errorMessage,

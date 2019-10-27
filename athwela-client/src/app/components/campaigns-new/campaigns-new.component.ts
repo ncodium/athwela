@@ -40,11 +40,11 @@ export class NewCampaignComponent implements OnInit {
 
     // register User
     this.campaignService.createCampaign(campaign).subscribe(data => {
-      if (data) {
-        console.log(data);
-        this.router.navigate([`/campaign/${data}`]);
+      if (data['success']) {
+        const campaignId: string = data['campaign']['_id'];
+        this.router.navigate([`/campaign/${campaignId}`]);
       } else {
-        console.log("error");
+        // show error
       }
     });
   }

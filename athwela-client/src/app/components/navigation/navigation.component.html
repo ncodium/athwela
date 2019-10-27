@@ -76,22 +76,10 @@
                 </li>
 
                 <!-- User -->
-                <li *ngIf="authService.isUser()"
-                    [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                <li *ngIf="authService.isUser()" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" href="#" [routerLink]="['/profile']">Profile</a>
                 </li>
-
-                <!-- 
-                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href="#" [routerLink]="['/community']">Community</a>
-                </li>
-
-                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href="#" [routerLink]="['/messages']">Messages</a>
-                </li> 
-                -->
 
                 <!-- General -->
                 <li *ngIf="authService.loggedIn()" class="nav-item">

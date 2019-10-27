@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -56,13 +54,11 @@ export class AuthService {
   loggedIn() {
     const helper = new JwtHelperService();
     this.loadToken();
-
     return !helper.isTokenExpired(this.authToken);
   }
 
-  logout() {
-    this.authToken = null;
-    this.user = null;
+  logOut() {
+    this.authToken = this.user = this.role = null;
     localStorage.clear();
   }
 
@@ -71,7 +67,6 @@ export class AuthService {
       this.role = JSON.parse(localStorage.getItem('user')).role;
       return this.role === 'admin';
     }
-
     return false;
   }
 
@@ -80,7 +75,6 @@ export class AuthService {
       this.role = JSON.parse(localStorage.getItem('user')).role;
       return this.role === 'mod';
     }
-
     return false;
   }
 
@@ -89,7 +83,6 @@ export class AuthService {
       this.role = JSON.parse(localStorage.getItem('user')).role;
       return this.role === 'user';
     }
-
     return false;
   }
 }

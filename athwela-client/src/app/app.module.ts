@@ -22,6 +22,7 @@ import { CampaignPageComponent } from './components/shared/campaign-page/campaig
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { CampaignCardComponent } from './components/shared/campaign-card/campaign-card.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 
 // admininstrator components
 import { AdminDashboardComponent } from './components/administrator/admin-dashboard/admin-dashboard.component';
@@ -60,7 +61,6 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
-import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 
 // custom pipes
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';

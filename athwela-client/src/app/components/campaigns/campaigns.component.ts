@@ -7,8 +7,9 @@ import { CampaignService } from '../../services/campaign.service';
   styleUrls: ['./campaigns.component.scss']
 })
 export class CampaignsComponent implements OnInit {
-  categories: string[] = ["all", "medical", "education"]
-  active: string = "all";
+  categories: string[]
+  defaultCategory: string = "All Categories"
+  activeCategory: string = this.defaultCategory;
 
   constructor(
     private campaignService: CampaignService
@@ -19,13 +20,15 @@ export class CampaignsComponent implements OnInit {
   }
 
   onCategoryChange(category: string) {
-    this.active = category;
+    this.activeCategory = category;
   }
 
   refreshCategories() {
-    this.campaignService.getRecentCampaignsList().subscribe((res) => {
-      this.categories = res as string[];
+    this.campaignService.getCategories().subscribe((res) => {
+      if (res['success']) this.categories = res['categories'] as string[];
+      else {
+        // error
+      }
     });
   }
-
 }
