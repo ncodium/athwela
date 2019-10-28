@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
@@ -111,7 +111,8 @@ import { HttpErrorModalComponent } from './components/shared/http-error-modal/ht
     ProgressbarModule.forRoot(),
     BsDropdownModule.forRoot(),
     ChartsModule,
-    PasswordStrengthMeterModule
+    PasswordStrengthMeterModule,
+    ReactiveFormsModule
   ],
   providers: [
     Title,
