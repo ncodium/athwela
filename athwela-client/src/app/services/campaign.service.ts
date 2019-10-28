@@ -28,8 +28,8 @@ export class CampaignService {
   getRecentCampaignsList() {
     return this.http.get(this.baseURL + 'recent');
   }
-   
-  getunpublishedCampaignsList(){
+
+  getunpublishedCampaignsList() {
     return this.http.get(this.baseURL + 'unpublished');
   }
 
