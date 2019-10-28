@@ -8,30 +8,22 @@
 				<div class="card-body">
 					<form role="form" (submit)="onCreateCampaign()">
 						<div class="form-group">
-							<label for="inputTitle">
-								Campaign name
-							</label>
-							<input [(ngModel)]="name" name="name" type="name" class="form-control" id="inputTitle" />
+							<label for="inputTitle">Campaign name</label>
+							<input type="name" [formControl]="name" class="form-control" id="inputTitle" />
 						</div>
 
 						<div class="form-group">
-							<label for="inputTarget">
-								Target (Rs.)
-							</label>
-							<input [(ngModel)]="target" name="target" type="number" class="form-control"
-								id="inputTarget" />
+							<label for="inputTarget">Target (Rs.)</label>
+							<input type="number" [formControl]="target" class="form-control" id="inputTarget" />
 						</div>
 
 						<div class="form-group">
-							<label for="inputDescription">
-								Description
-							</label>
-							<textarea [(ngModel)]="description" name="description" class="form-control"
-								id="inputDescription"></textarea>
+							<label for="inputDescription">Description</label>
+							<textarea [formControl]="description" class="form-control" id="inputDescription"></textarea>
 						</div>
 						<div class="form-group">
 							<label for="inputCategory">Category</label>
-							<select [(ngModel)]="category" (ngModelChange)="onCategoryChange($event)" name="category"
+							<select [formControl]="category" (ngModelChange)="onCategoryChange($event)"
 								class="form-control" id="inputCategory">
 								<option disabled="disabled" selected="selected">Choose a category</option>
 								<option *ngFor="let category of categories" [ngValue]="category">
@@ -39,39 +31,12 @@
 							</select>
 						</div>
 
-						<!-- 						
 						<div class="form-group">
-							<label for="inputFor">Who are you raising money for?</label>
-
-							<div class="custom-control custom-radio">
-								<input type="radio" id="inputFor1" name="inputFor" class="custom-control-input">
-								<label class="custom-control-label" for="inputFor1">For me</label>
-							</div>
-							<div class="custom-control custom-radio">
-								<input type="radio" id="inputFor2" name="inputFor" class="custom-control-input">
-								<label class="custom-control-label" for="inputFor2">For someone else</label>
-							</div>
-
-							<div class="custom-control custom-radio">
-								<input type="radio" id="inputFor3" name="inputFor" class="custom-control-input">
-								<label class="custom-control-label" for="inputFor3">
-									For a non-profit organization
-								</label>
-							</div>
-						</div> 
-						-->
-
-						<div class="form-group">
-							<label for="inputDeadline">
-								Deadline
-							</label>
-							<input [(ngModel)]="deadline" name="deadline" type="date" class="form-control"
-								id="inputDeadline" />
+							<label for="inputDeadline">Deadline</label>
+							<input [formControl]="deadline" type="date" class="form-control" id="inputDeadline" />
 						</div>
 
-						<button type="submit" class="btn btn-primary">
-							Create Campaign
-						</button>
+						<button type="submit" class="btn btn-primary">Create Campaign</button>
 					</form>
 				</div>
 			</div>
