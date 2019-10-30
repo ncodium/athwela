@@ -2,9 +2,15 @@
 	<div class="row">
 		<div class="col-md-3 mt-2 mt-md-0">
 			<div class="list-group">
+				<a class="list-group-item list-group-item-action justify-content-between pointer"
+					[ngClass]="{'active': activeCategory == defaultCategory}" (click)="onCategoryChange(defaultCategory)">
+					{{ defaultCategory | titlecase }}
+					<span class="mx-2 badge badge-light badge-pill">99+</span>
+				</a>
+
 				<a *ngFor="let category of categories"
 					class="list-group-item list-group-item-action justify-content-between pointer"
-					[ngClass]="{'active': active==category}" (click)="onCategoryChange(category)">
+					[ngClass]="{'active': activeCategory == category}" (click)="onCategoryChange(category)">
 					{{ category | titlecase }}
 					<span class="mx-2 badge badge-light badge-pill">99+</span>
 				</a>

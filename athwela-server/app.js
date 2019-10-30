@@ -4,34 +4,28 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
-
-// configuration
 const config = require('./config/database');
 
 // custom routes
 const users = require('./routes/users');
-var campaigns = require('./routes/campaigns.js');
+const campaigns = require('./routes/campaigns.js');
 
 // establish database connection
-mongoose.connect(config.database, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected', () => {
     console.log('Connected to database: ' + config.database);
 });
 mongoose.connection.on('error', (err) => {
-    console.log('Database error: ' + err);
+    console.log(err);
 });
 
 // initiate app
 const app = express();
 const port = 3000;
 
-// CORS middleware
+// middleware
 app.use(cors());
-
-// body-parser middleware
 app.use(bodyParser.json());
-
-// passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
@@ -42,7 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // routes
 app.use('/users', users);
 app.use('/campaigns', campaigns);
-
 app.get('/', (req, res) => {
     res.send('Invalid endpoint');
 });

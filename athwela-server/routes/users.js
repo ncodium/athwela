@@ -3,40 +3,31 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
-
 const User = require('../models/user');
 
-// TODO
-// Add protected endpoints for Administrator to register Moderators into the system
-// Then set default user role to 'user' and make 'admin and 'mod' users possible only by an Administrator
-
-// TODO
-// Expand error messages
-
 router.post('/register', (req, res, next) => {
+    // create a new user object
     let newUser = new User({
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password,
-        role: req.body.role // temporary
+        password: req.body.password
     });
 
-    User.find({ username: newUser.username }, function (err, docs) {
-        if (docs.length) {
+    // check if a user with the username already exist
+    User.find({ username: newUser.username }, function (err, user) {
+        if (user.length) {
             res.json({ success: false, username_exist: true });
         } else {
             User.addUser(newUser, (err, user) => {
                 if (err) {
-                    res.json({ success: false, msg: 'Failed to register user' });
+                    res.json({ success: false, msg: 'User registration failed.' });
                 } else {
                     res.json({ success: true, msg: 'User registered successfully' });
                 }
             });
         }
     });
-
-
 });
 
 router.post('/authenticate', (req, res, next) => {
@@ -57,6 +48,7 @@ router.post('/authenticate', (req, res, next) => {
                     expiresIn: 604800 // equals to 1 week
                 });
 
+                // return user document
                 res.json({
                     success: true,
                     token: 'JWT ' + token,
@@ -69,7 +61,7 @@ router.post('/authenticate', (req, res, next) => {
                     }
                 });
             } else {
-                return res.json({ success: false, msg: 'Wrong password' });
+                return res.json({ success: false, msg: 'Incorrect password.' });
             }
         });
     });

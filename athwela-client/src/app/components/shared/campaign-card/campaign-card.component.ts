@@ -14,6 +14,8 @@ export class CampaignCardComponent implements OnInit {
   @Input() public target: string;
   @Input() public isLinked: boolean = true;
   @Input() public hideDonate: boolean = false;
+  @Input() public published: boolean = false;
+
 
   constructor(
     private router: Router,

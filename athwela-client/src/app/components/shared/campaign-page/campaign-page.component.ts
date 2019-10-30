@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CampaignService } from 'src/app/services/campaign.service';
 import { CampaignExtended } from '../../../models/campaign-extended.model';
+import { AuthService } from './../../../services/auth.service';
 
 @Component({
   selector: 'app-campaign-page',
@@ -14,25 +15,24 @@ export class CampaignPageComponent implements OnInit {
   private campaign: CampaignExtended;
   private campaignId: String;
 
-  constructor(private route: ActivatedRoute, private campaignService: CampaignService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private campaignService: CampaignService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
-      // acquire campaignId from URL and request campaign content
-      this.campaignId = params['id'];
+      this.campaignId = params['id']; // acquire campaignId from URL and request campaign content
       this.refreshCampaign(this.campaignId);
     });
   }
 
   refreshCampaign(id: String) {
     this.campaignService.getCampaign(id).subscribe((res) => {
-
-      this.campaignService.selectedCampaign = res as CampaignExtended;
-      this.campaign = this.campaignService.selectedCampaign;
+      if (res['success']) this.campaign = res['campaign'] as CampaignExtended;
     });
   }
 
-  ngOnDestroy() {
-    this.routeSub.unsubscribe();
-  }
+  ngOnDestroy() { this.routeSub.unsubscribe() }
 }

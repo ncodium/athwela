@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CampaignService } from '../../services/campaign.service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { FormControl } from '@angular/forms'; 
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -10,14 +11,14 @@ import { Observable } from 'rxjs/internal/Observable';
   styleUrls: ['./campaigns-new.component.scss']
 })
 export class NewCampaignComponent implements OnInit {
+  id: string;
   categories: string[] = ["medical", "education"]
 
-  name: string;
-  description: string;
-  target: number;
-  deadline: Date;
-  category: string;
-  id: string;
+  name = new FormControl('');
+  description = new FormControl('');
+  target = new FormControl('');
+  deadline = new FormControl('');
+  category = new FormControl('');
 
   constructor(
     private campaignService: CampaignService,
@@ -30,21 +31,21 @@ export class NewCampaignComponent implements OnInit {
 
   onCreateCampaign() {
     const campaign = {
-      name: this.name,
-      description: this.description,
-      target: this.target,
-      deadline: this.deadline,
+      name: this.name.value,
+      description: this.description.value,
+      target: this.target.value,
+      deadline: this.deadline.value,
       raised: 0,
-      category: this.category
+      category: this.category.value
     }
 
     // register User
     this.campaignService.createCampaign(campaign).subscribe(data => {
-      if (data) {
-        console.log(data);
-        this.router.navigate([`/campaign/${data}`]);
+      if (data['success']) {
+        const campaignId: string = data['campaign']['_id'];
+        this.router.navigate([`/campaign/${campaignId}`]);
       } else {
-        console.log("error");
+        // show error
       }
     });
   }

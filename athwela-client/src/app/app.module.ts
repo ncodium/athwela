@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 // general custom components
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -21,6 +22,7 @@ import { CampaignPageComponent } from './components/shared/campaign-page/campaig
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { CampaignCardComponent } from './components/shared/campaign-card/campaign-card.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 
 // admininstrator components
 import { AdminDashboardComponent } from './components/administrator/admin-dashboard/admin-dashboard.component';
@@ -44,7 +46,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { ModGuard } from './guards/mod.guard';
 
 // ngx-bootstrap modules
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -59,13 +61,13 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
-import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 
 // custom pipes
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 
 // additional modules
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
+import { HttpErrorModalComponent } from './components/shared/http-error-modal/http-error-modal.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,7 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     ModCampaignsComponent,
     ModUsersComponent,
     TruncateTextPipe,
+    HttpErrorModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,8 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     ProgressbarModule.forRoot(),
     BsDropdownModule.forRoot(),
     ChartsModule,
-    PasswordStrengthMeterModule
+    PasswordStrengthMeterModule,
+    ReactiveFormsModule
   ],
   providers: [
     Title,
@@ -117,7 +121,13 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     HttpClientModule,
     AuthGuard,
     AdminGuard,
-    ModGuard
+    ModGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+      deps: [BsModalService]
+    }
   ],
   bootstrap: [
     AppComponent, NavigationComponent
