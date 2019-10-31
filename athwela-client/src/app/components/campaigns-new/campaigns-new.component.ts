@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CampaignService } from '../../services/campaign.service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormControl } from '@angular/forms'; 
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
