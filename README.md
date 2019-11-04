@@ -13,7 +13,7 @@ $ npm install -g nodemon
 $ nodemon start
 ```
 
-Install the dependencies start Angular client.
+Install the dependencies and start the Angular client.
 
 ```sh
 $ cd athwela-client

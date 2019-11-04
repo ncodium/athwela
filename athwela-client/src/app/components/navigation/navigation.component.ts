@@ -14,7 +14,6 @@ export class NavigationComponent implements OnInit {
   modalRef: BsModalRef;
   isCollapsed = true;
   alerts: any = [];
-  role: String;
 
   constructor(
     private authService: AuthService,
@@ -22,9 +21,7 @@ export class NavigationComponent implements OnInit {
     private modalService: BsModalService
   ) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   toggleColapse() { this.isCollapsed = !this.isCollapsed; }
 
@@ -47,15 +44,7 @@ export class NavigationComponent implements OnInit {
   }
 
   onLogoutClick() {
-    this.authService.logout();
-    this.alerts = [
-      {
-        type: 'success',
-        msg: `You are logged out!`
-      }
-    ];
-    this.router.navigate(['/']);
-    this.role = '';
+    this.authService.logOut();
     return false;
   }
 }

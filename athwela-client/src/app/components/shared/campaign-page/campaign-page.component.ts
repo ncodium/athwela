@@ -23,21 +23,16 @@ export class CampaignPageComponent implements OnInit {
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
-      // acquire campaignId from URL and request campaign content
-      this.campaignId = params['id'];
+      this.campaignId = params['id']; // acquire campaignId from URL and request campaign content
       this.refreshCampaign(this.campaignId);
     });
   }
 
   refreshCampaign(id: String) {
     this.campaignService.getCampaign(id).subscribe((res) => {
-
-      this.campaignService.selectedCampaign = res as CampaignExtended;
-      this.campaign = this.campaignService.selectedCampaign;
+      if (res['success']) this.campaign = res['campaign'] as CampaignExtended;
     });
   }
 
-  ngOnDestroy() {
-    this.routeSub.unsubscribe();
-  }
+  ngOnDestroy() { this.routeSub.unsubscribe() }
 }

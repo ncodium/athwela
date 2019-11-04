@@ -15,24 +15,26 @@ export class AdminCampaignsComponent implements OnInit {
   constructor(private campaignService: CampaignService) { }
 
   ngOnInit() {
-    this.unpublishedCampaignList();
-    this.ongoingCampaignList();
+    this.getUnpublishedCampaigns();
+    this.getOngoingCampaigns();
   }
+
   refreshCampaignList() {
     this.campaignService.getRecentCampaignsList().subscribe((res) => {
       this.campaignService.campaigns = res as CampaignExtended[];
     });
   }
-  ongoingCampaignList() {
+
+  getOngoingCampaigns() {
     this.campaignService.getRecentCampaignsList().subscribe((res) => {
       this.ongoingCampaigns = res as CampaignExtended[];
     });
   }
-  unpublishedCampaignList() {
-    this.campaignService.getunpublishedCampaignsList().subscribe((res) => {
-      this.unpublishedCampaigns= res as CampaignExtended[];
+
+  getUnpublishedCampaigns() {
+    this.campaignService.getUnpublishedCampaignsList().subscribe((res) => {
+      this.unpublishedCampaigns = res as CampaignExtended[];
     });
   }
-
 }
 

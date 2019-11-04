@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CampaignService } from '../../services/campaign.service';
 
 @Component({
   selector: 'app-campaigns',
@@ -6,16 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./campaigns.component.scss']
 })
 export class CampaignsComponent implements OnInit {
-  categories: string[] = ["all", "medical", "education"]
-  active: string = "all";
+  categories: string[]
+  defaultCategory: string = "All Categories"
+  activeCategory: string = this.defaultCategory;
 
-  constructor() { }
+  constructor(
+    private campaignService: CampaignService
+  ) { }
 
   ngOnInit() {
+    this.refreshCategories();
   }
 
   onCategoryChange(category: string) {
-    this.active = category;
+    this.activeCategory = category;
   }
 
+  refreshCategories() {
+    this.campaignService.getCategories().subscribe((res) => {
+      if (res['success']) this.categories = res['categories'] as string[];
+      else {
+        // error
+      }
+    });
+  }
 }

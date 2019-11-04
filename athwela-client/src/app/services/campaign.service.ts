@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from "rxjs/operators";
-
-import { Campaign } from '../models/campaign.model';
 import { AuthService } from './auth.service';
+import { Campaign } from '../models/campaign.model';
 import { CampaignExtended } from '../models/campaign-extended.model';
 
 @Injectable({
@@ -21,34 +18,20 @@ export class CampaignService {
     private authService: AuthService
   ) { }
 
-  getCampaignList() {
-    return this.http.get(this.baseURL);
-  }
-
-  getRecentCampaignsList() {
-    return this.http.get(this.baseURL + 'recent');
-  }
-   
-  getunpublishedCampaignsList(){
-    return this.http.get(this.baseURL + 'unpublished');
-  }
-
-  getCampaign(id: String) {
-    return this.http.get(this.baseURL + id);
-  }
+  getCampaignList() { return this.http.get(this.baseURL) }
+  getRecentCampaignsList() { return this.http.get(this.baseURL + 'recent') }
+  getUnpublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
+  getCampaign(id: String) { return this.http.get(this.baseURL + id) }
+  getCategories() { return this.http.get(this.baseURL + 'categories') }
 
   createCampaign(campaign: Campaign) {
     this.authService.loadToken();
-
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': this.authService.authToken
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
       })
     };
 
     return this.http.post(this.baseURL, campaign, httpOptions).pipe();
   }
-
-
 }

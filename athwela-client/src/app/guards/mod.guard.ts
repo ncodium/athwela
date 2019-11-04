@@ -15,9 +15,7 @@ export class ModGuard implements CanActivate {
     if (!this.authService.isMod()) {
       this.router.navigate(['/']);
       return false;
-    } else {
-      return true;
-    }
+    } else return true;
   }
 
 }
