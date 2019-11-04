@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Campaign } from '../../models/campaign.model';
 import { CampaignService } from '../../services/campaign.service';
-import { CampaignExtended } from '../../models/campaign-extended.model';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   refreshCampaignList() {
     this.campaignService.getRecentCampaignsList().subscribe((res) => {
-      this.campaignService.campaigns = res as CampaignExtended[];
+      if (res['success']) this.campaignService.campaigns = res['campaigns'] as Campaign[];
     });
   }
 
