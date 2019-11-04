@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Campaign } from '../../../models/campaign.model';
 import { CampaignService } from '../../../services/campaign.service';
-import { CampaignExtended } from '../../../models/campaign-extended.model';
 
 @Component({
   selector: 'app-admin-campaigns',
@@ -9,8 +9,8 @@ import { CampaignExtended } from '../../../models/campaign-extended.model';
   providers: [CampaignService]
 })
 export class AdminCampaignsComponent implements OnInit {
-  unpublishedCampaigns: CampaignExtended[];
-  ongoingCampaigns: CampaignExtended[];
+  unpublishedCampaigns: Campaign[];
+  ongoingCampaigns: Campaign[];
 
   constructor(private campaignService: CampaignService) { }
 
@@ -21,19 +21,19 @@ export class AdminCampaignsComponent implements OnInit {
 
   refreshCampaignList() {
     this.campaignService.getRecentCampaignsList().subscribe((res) => {
-      this.campaignService.campaigns = res as CampaignExtended[];
+      this.campaignService.campaigns = res['campaigns'] as Campaign[];
     });
   }
 
   getOngoingCampaigns() {
     this.campaignService.getRecentCampaignsList().subscribe((res) => {
-      this.ongoingCampaigns = res as CampaignExtended[];
+      this.ongoingCampaigns = res['campaigns'] as Campaign[];
     });
   }
 
   getUnpublishedCampaigns() {
     this.campaignService.getUnpublishedCampaignsList().subscribe((res) => {
-      this.unpublishedCampaigns = res as CampaignExtended[];
+      this.unpublishedCampaigns = res['campaigns'] as Campaign[];
     });
   }
 }

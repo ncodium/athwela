@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../../services/auth.service';
 import { Router } from '@angular/router';
 
+import { Campaign } from '../../../models/campaign.model';
 import { CampaignService } from '../../../services/campaign.service';
-import { CampaignExtended } from '../../../models/campaign-extended.model';
 
 
 @Component({
@@ -35,7 +35,7 @@ export class ModDashboardComponent implements OnInit {
 
   refreshCampaignList() {
     this.campaignService.getRecentCampaignsList().subscribe((res) => {
-      this.campaignService.campaigns = res as CampaignExtended[];
+      this.campaignService.campaigns = res['campaigns'] as Campaign[];
     });
   }
 

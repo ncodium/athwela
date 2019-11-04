@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Campaign } from '../../../models/campaign.model';
 import { CampaignService } from 'src/app/services/campaign.service';
-import { CampaignExtended } from '../../../models/campaign-extended.model';
 import { AuthService } from './../../../services/auth.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { AuthService } from './../../../services/auth.service';
 })
 export class CampaignPageComponent implements OnInit {
   private routeSub: Subscription;
-  private campaign: CampaignExtended;
+  private campaign: Campaign;
   private campaignId: String;
 
   constructor(
@@ -30,7 +30,7 @@ export class CampaignPageComponent implements OnInit {
 
   refreshCampaign(id: String) {
     this.campaignService.getCampaign(id).subscribe((res) => {
-      if (res['success']) this.campaign = res['campaign'] as CampaignExtended;
+      if (res['success']) this.campaign = res['campaign'] as Campaign;
     });
   }
 

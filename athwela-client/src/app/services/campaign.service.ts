@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Campaign } from '../models/campaign.model';
-import { CampaignExtended } from '../models/campaign-extended.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +9,8 @@ import { CampaignExtended } from '../models/campaign-extended.model';
 export class CampaignService {
   readonly baseURL = 'http://localhost:3000/campaigns/';
 
-  selectedCampaign: CampaignExtended;
-  campaigns: CampaignExtended[];
+  selectedCampaign: Campaign;
+  campaigns: Campaign[];
 
   constructor(
     private http: HttpClient,
