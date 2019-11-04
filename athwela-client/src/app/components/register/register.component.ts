@@ -123,7 +123,7 @@ export class RegisterComponent implements OnInit {
 
       // additionally
       this.emailInvalid = true;
-      
+
       this.alerts = [
         {
           type: 'danger',

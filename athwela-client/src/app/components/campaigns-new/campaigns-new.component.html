@@ -9,7 +9,14 @@
 					<form role="form" (submit)="onCreateCampaign()">
 						<div class="form-group">
 							<label for="inputTitle">Campaign name</label>
-							<input type="name" [formControl]="name" class="form-control" id="inputTitle" />
+							<input type="name" [formControl]="name" class="form-control" id="inputTitle" required
+								minlength="6">
+							<!-- <div *ngIf="inputTitle.invalid && (inputTitle.dirty || inputTitle.touched)"
+								class="alert alert-danger">
+								<div *ngIf="inputTitle.errors.required">
+									Campaign name is required
+								</div>
+							</div> -->
 						</div>
 
 						<div class="form-group">
