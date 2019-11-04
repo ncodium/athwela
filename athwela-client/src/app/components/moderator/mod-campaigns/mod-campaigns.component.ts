@@ -3,7 +3,7 @@ import { AuthService } from './../../../services/auth.service';
 import { Router } from '@angular/router';
 
 import { CampaignService } from '../../../services/campaign.service';
-import { CampaignExtended } from '../../../models/campaign-extended.model';
+import { Campaign } from '../../../models/campaign.model';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class ModCampaignsComponent implements OnInit {
 
   refreshCampaignList() {
     this.campaignService.getRecentCampaignsList().subscribe((res) => {
-      this.campaignService.campaigns = res['campaigns'] as CampaignExtended[];
+      this.campaignService.campaigns = res['campaigns'] as Campaign[];
     });
   }
 

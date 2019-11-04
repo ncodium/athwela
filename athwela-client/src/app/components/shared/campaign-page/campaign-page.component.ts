@@ -36,7 +36,7 @@ export class CampaignPageComponent implements OnInit {
 
   verifyCampaign() {
     this.campaignService.verifyCampaign(this.campaignId).subscribe((res) => {
-      if (res['success']) this.campaign = res['campaign'] as CampaignExtended;
+      if (res['success']) this.campaign = res['campaign'] as Campaign;
     });
 
     this.refreshCampaign(this.campaignId);

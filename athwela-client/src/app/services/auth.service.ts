@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from '../models/user.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   authToken: any;
-  user: any;
+  user: User;
   role: String;
 
   constructor(
@@ -37,6 +38,11 @@ export class AuthService {
     };
 
     return this.http.get('http://localhost:3000/users/profile', httpOptions).pipe();
+  }
+
+  getUser() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    return this.user;
   }
 
   storeUserData(token, user) {
