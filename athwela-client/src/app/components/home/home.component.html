@@ -1,6 +1,4 @@
-<!-- Page Content -->
 <div class="container">
-
 	<!-- Heading Row -->
 	<div class="row align-items-center my-5">
 		<div class="col-lg-5">
@@ -10,30 +8,28 @@
 		<!-- /.col-lg-8 -->
 		<div class="col-lg-7">
 			<h1 class="font-weight-light">Fundraising for the people and causes you care about</h1>
-			<p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it
-				makes a great use of the standard Bootstrap core components. Feel free to use this template for any
-				project you want!</p>
-			<a class="btn btn-primary mr-3" href="#">Get Started!</a>
-			<a class="btn" href="#">How it works?</a>
+			<p>This is a small description about the website and what you can do with it.</p>
+			<a class="btn btn-primary mr-3" (click)="openRegisterModal()" href="#">Get Started!</a>
+			<a class="btn" [routerLink]="['/how-it-works']">How it works?</a>
 		</div>
 		<!-- /.col-md-4 -->
 	</div>
 	<!-- /.row -->
 
-	<!-- Call to Action Well -->
+	<!-- Call to Action -->
 	<div class="card text-white bg-primary mt-5 py-4 text-center">
 		<div class="card-body">
-			<p class="text-white m-0">This call to action card is a great place to showcase some important information
-				or display a clever tagline!</p>
+			<p class="text-white m-0">It's your chance to make a difference today!</p>
 		</div>
 	</div>
 
 	<!-- Content Row -->
-	<h1 class="font-weight-light mt-5 mb-4">Recent Fundaisers</h1>
+	<h1 class="font-weight-light my-4">Recent Campaigns</h1>
 
 	<div class="row">
 		<div *ngFor="let cmp of campaignService.campaigns" class="col-md-6 mb-4">
-			<app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
+			<app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
+				target={{cmp.target}}>
 			</app-campaign-card>
 		</div>
 

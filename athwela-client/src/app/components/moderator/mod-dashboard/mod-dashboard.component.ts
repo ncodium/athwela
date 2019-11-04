@@ -35,11 +35,7 @@ export class ModDashboardComponent implements OnInit {
 
   refreshCampaignList() {
     this.campaignService.getRecentCampaignsList().subscribe((res) => {
-<<<<<<< HEAD
-      this.campaignService.campaigns = res['campaigns'] as CampaignExtended[];
-=======
       this.campaignService.campaigns = res['campaigns'] as Campaign[];
->>>>>>> e869f7bf3581772867957e9405b000ab8df5d89f
     });
   }
 
