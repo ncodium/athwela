@@ -2,84 +2,76 @@
 
     <div class="row top">
 
-      <div class="col-md-4">
-        <h2>Approved Campaigns</h2>
-        <div class="card h-100">
-         <div class="card-body">
-           <h4 class="card-title font-weight-light">{{name}}</h4>
-           <p class="card-text">{{description}}</p>
-         </div>
-         <div class="card-footer">
-           <progressbar [value]="55"></progressbar>
-           <!-- <div class="row"> -->
-             <div class="col-8 col-sm-10 my-auto">
-               <small>
-                 Rs.{{raised}} raised of Rs.{{target}}
-               </small>
-             </div>
-             <div class="col-4 col-sm-2 mt-2">
-               <a href="#" class="btn btn-primary btn-sm donate-button-margin float-right text-sm-center">Donate</a>
-             </div>
-           <!-- </div> -->
-         </div>
-       </div>
-       <button type="button" class="btn btn-primary">
-         view more
-       </button>
-
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Pending for aprovel</h2>
+          <div class="row campaign-card" >
+            <div *ngFor="let cmp of campaignService.campaigns" class="col-md-4 mb-4">
+              <app-campaign-card [hideDonate]="true" id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
+              </app-campaign-card>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-4">
-        <h2>Pending for aprovel</h2>
-        <div class="card h-100">
-         <div class="card-body">
-           <h4 class="card-title font-weight-light">{{name}}</h4>
-           <p class="card-text">{{description}}</p>
-         </div>
-         <div class="card-footer">
-           <progressbar [value]="55"></progressbar>
-           <!-- <div class="row"> -->
-             <div class="col-8 col-sm-10 my-auto">
-               <small>
-                 Rs.{{raised}} raised of Rs.{{target}}
-               </small>
-             </div>
-             <div class="col-4 col-sm-2 mt-2">
-               <a href="#" class="btn btn-primary btn-sm donate-button-margin float-right text-sm-center">Donate</a>
-             </div>
-           <!-- </div> -->
-         </div>
-       </div>
-       <button type="button" class="btn btn-primary">
-         view more
-       </button>
-      </div>
+      <div class="row">
 
       <div class="col-md-4">
-        <h2>Declined Campaingns</h2>
-        <div class="card h-100">
-         <div class="card-body">
-           <h4 class="card-title font-weight-light">{{name}}</h4>
-           <p class="card-text">{{description}}</p>
+          <h2>Approved Campaigns</h2>
+          <div class="card h-100">
+           <div class="card-body">
+             <h4 class="card-title font-weight-light">{{name}}</h4>
+             <p class="card-text">{{description}}</p>
+           </div>
+           <div class="card-footer">
+             <progressbar [value]="55"></progressbar>
+             <!-- <div class="row"> -->
+               <div class="col-8 col-sm-10 my-auto">
+                 <small>
+                   Rs.{{raised}} raised of Rs.{{target}}
+                 </small>
+               </div>
+               <div class="col-4 col-sm-2 mt-2">
+                 <a href="#" class="btn btn-primary btn-sm donate-button-margin float-right text-sm-center">Donate</a>
+               </div>
+             <!-- </div> -->
+           </div>
          </div>
-         <div class="card-footer">
-           <progressbar [value]="55"></progressbar>
-           <!-- <div class="row"> -->
-             <div class="col-8 col-sm-10 my-auto">
-               <small>
-                 Rs.{{raised}} raised of Rs.{{target}}
-               </small>
-             </div>
-             <div class="col-4 col-sm-2 mt-2">
-               <a href="#" class="btn btn-primary btn-sm donate-button-margin float-right text-sm-center">Donate</a>
-             </div>
-           <!-- </div> -->
+         <button type="button" class="btn btn-primary">
+           view more
+         </button>
+
+        </div>
+
+
+
+        <div class="col-md-4">
+          <h2>Declined Campaingns</h2>
+          <div class="card h-100">
+           <div class="card-body">
+             <h4 class="card-title font-weight-light">{{name}}</h4>
+             <p class="card-text">{{description}}</p>
+           </div>
+           <div class="card-footer">
+             <progressbar [value]="55"></progressbar>
+             <!-- <div class="row"> -->
+               <div class="col-8 col-sm-10 my-auto">
+                 <small>
+                   Rs.{{raised}} raised of Rs.{{target}}
+                 </small>
+               </div>
+               <div class="col-4 col-sm-2 mt-2">
+                 <a href="#" class="btn btn-primary btn-sm donate-button-margin float-right text-sm-center">Donate</a>
+               </div>
+             <!-- </div> -->
+           </div>
          </div>
-       </div>
-       <button type="button" class="btn btn-primary">
-         view more
-       </button>
+         <button type="button" class="btn btn-primary">
+           view more
+         </button>
+        </div>
       </div>
+
 
     </div>
 

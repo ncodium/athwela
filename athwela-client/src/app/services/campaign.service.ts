@@ -22,7 +22,9 @@ export class CampaignService {
   getRecentCampaignsList() { return this.http.get(this.baseURL + 'recent') }
   getUnpublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
   getCampaign(id: String) { return this.http.get(this.baseURL + id) }
+  verifyCampaign(id: String) { return this.http.put(this.baseURL + id + '/verify', {})}
   getCategories() { return this.http.get(this.baseURL + 'categories') }
+
 
   createCampaign(campaign: Campaign) {
     this.authService.loadToken();
