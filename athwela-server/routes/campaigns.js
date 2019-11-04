@@ -7,7 +7,6 @@ var { Campaign } = require('../models/campaign');
 // TODO
 // Protect endpoint so that only owner or administrator may edit
 
-
 router.get('/', (req, res) => {
     Campaign.find((err, docs) => {
         if (!err) res.json({ campaigns: docs, success: true });
@@ -31,7 +30,7 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
 });
 
 router.get('/recent', (req, res) => {
-    Campaign.find().sort({ 'created_at': -1 }).limit(10).exec((err, docs) => {
+    Campaign.find().sort({ 'created_at': -1 }).find({ published: 'true', verified: 'true' }).limit(10).exec((err, docs) => {
         if (!err) { res.send({ campaigns: docs, success: true }); }
         else res.json({ success: false, error: err })
     });
@@ -65,7 +64,6 @@ router.get('/unverified', (req, res) => {
         else res.send({ success: false, error: err });
     });
 });
-
 
 router.get('/categories', (req, res) => {
     Campaign.distinct('category').exec((err, doc) => {

@@ -24,4 +24,8 @@ export class CampaignCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  navigateToCampaignPage() {
+    this.router.navigate(['campaign', 'id'])
+  }
+
 }

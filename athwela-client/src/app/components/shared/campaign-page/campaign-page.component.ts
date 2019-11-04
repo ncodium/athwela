@@ -40,14 +40,14 @@ export class CampaignPageComponent implements OnInit {
     });
 
     this.refreshCampaign(this.campaignId);
-    console.log(this.campaign);
   }
+  
   publishCampaign(){
     this.campaignService.publishCampaign(this.campaignId).subscribe((res) => {
       if(res['success'])this.campaign=res['campaign'] as Campaign;
     });
+
     this.refreshCampaign(this.campaignId);
-    console.log(this.campaign);
   }
 
   ngOnDestroy() { this.routeSub.unsubscribe() }
