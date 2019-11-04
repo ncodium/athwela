@@ -4,6 +4,10 @@ const passport = require('passport');
 const ObjectId = require('mongoose').Types.ObjectId;
 var { Campaign } = require('../models/campaign');
 
+// TODO
+// Protect endpoint so that only owner or administrator may edit
+
+
 router.get('/', (req, res) => {
     Campaign.find((err, docs) => {
         if (!err) res.json({ campaigns: docs, success: true });
@@ -12,7 +16,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
-    // creates 
     const cmp = new Campaign({
         name: req.body.name,
         description: req.body.description.trim(),
@@ -79,7 +82,7 @@ router.get('/:id', (req, res) => {
         else res.send({ success: false, error: err });
     });
 });
- 
+
 router.put('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.send({ success: false, msg: `No campaign exist with given Id: ${req.params.id}` });
@@ -98,26 +101,42 @@ router.put('/:id', (req, res) => {
 });
 
 router.put('/:id/verify', (req, res) => {
-    // TODO
-    // Protect endpoint so that only owner or administrator may edit
-
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
- 
-    Campaign.findByIdAndUpdate(req.params.id, { $set: {verified:'true'} }, { new: true }, (err, doc) => {
+
+    Campaign.findByIdAndUpdate(req.params.id, { $set: { verified: 'true' } }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.put('/:id/publish', (req, res) => {
-    // TODO
-    // Protect endpoint so that only owner or administrator may edit
 
+router.put('/:id/unverify', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
 
-    Campaign.findByIdAndUpdate(req.params.id, { $set: {published:'true'} }, { new: true }, (err, doc) => {
+    Campaign.findByIdAndUpdate(req.params.id, { $set: { verified: 'false' } }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+
+router.put('/:id/publish', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given Id: ${req.params.id}`);
+
+    Campaign.findByIdAndUpdate(req.params.id, { $set: { published: 'true' } }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.put('/:id/unpublish', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given Id: ${req.params.id}`);
+
+    Campaign.findByIdAndUpdate(req.params.id, { $set: { published: 'false' } }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
     });

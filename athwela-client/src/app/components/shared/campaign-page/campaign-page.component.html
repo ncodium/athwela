@@ -45,5 +45,21 @@
         </div>
       </div>
     </div>
+    <!--Admin-->
+    <div class="col-md-4" *ngIf="authService.isAdmin()">
+      <div class="card">
+        <h5 class="card-header">Rs. {{campaign.target}} target</h5>
+        <div class="card-body">
+          <p class="card-text">
+            <div class="mt-1">Rs. {{campaign.raised}} out of Rs. {{campaign.target}} raised</div>
+        </div>
+        <div class="card-footer">
+          <a class="btn btn-warning" *ngIf="this.campaign.verified == false" (click)="verifyCampaign()" >Publish</a>
+          <a class="btn btn-warning" *ngIf="this.campaign.verified == true" (click)="verifyCampaign()" >Unpublish</a>
+          <a class="btn btn-info ml-2" href="#">Share</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
