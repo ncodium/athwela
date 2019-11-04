@@ -90,7 +90,7 @@ router.get('/:id', (req, res) => {
         else { console.log('Error in retrieving campaign: ' + JSON.stringify(err, undefined, 2)); }
     });
 });
-
+ 
 router.put('/:id', (req, res) => {
     // TODO
     // Protect endpoint so that only owner or administrator may edit
@@ -106,6 +106,33 @@ router.put('/:id', (req, res) => {
     };
 
     Campaign.findByIdAndUpdate(req.params.id, { $set: cmp }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+router.put('/:id/verify', (req, res) => {
+    // TODO
+    // Protect endpoint so that only owner or administrator may edit
+
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given Id: ${req.params.id}`);
+ 
+
+    Campaign.findByIdAndUpdate(req.params.id, { $set: {verified:'true'} }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+router.put('/:id/publish', (req, res) => {
+    // TODO
+    // Protect endpoint so that only owner or administrator may edit
+
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given Id: ${req.params.id}`);
+
+     
+
+    Campaign.findByIdAndUpdate(req.params.id, { $set: {published:'true'} }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
     });
