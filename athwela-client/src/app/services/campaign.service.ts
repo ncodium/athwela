@@ -22,6 +22,7 @@ export class CampaignService {
   getUnpublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
   getCampaign(id: String) { return this.http.get(this.baseURL + id) }
   verifyCampaign(id: String) { return this.http.put(this.baseURL + id + '/verify', {})}
+  publishCampaign(id:String){return this.http.put(this.baseURL+id+'/publish',{})}
   getCategories() { return this.http.get(this.baseURL + 'categories') }
 
 

@@ -3,7 +3,11 @@ import { AuthService } from './../../../services/auth.service';
 import { Router } from '@angular/router';
 
 import { CampaignService } from '../../../services/campaign.service';
+<<<<<<< HEAD
 import { Campaign } from '../../../models/campaign.model';
+=======
+import { Campaign} from '../../../models/campaign.model';
+>>>>>>> 1bc775c6400bb3b20f7daedf85337940a80a74dd
 
 
 @Component({
