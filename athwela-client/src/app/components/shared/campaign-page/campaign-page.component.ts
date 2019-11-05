@@ -41,7 +41,15 @@ export class CampaignPageComponent implements OnInit {
 
     this.refreshCampaign(this.campaignId);
   }
-  
+
+  unverifyCampaign() {
+    this.campaignService.unverifyCampaign(this.campaignId).subscribe((res) => {
+      if (res['success']) this.campaign = res['campaign'] as Campaign;
+    });
+
+    this.refreshCampaign(this.campaignId);
+  }
+
   publishCampaign(){
     this.campaignService.publishCampaign(this.campaignId).subscribe((res) => {
       if(res['success'])this.campaign=res['campaign'] as Campaign;

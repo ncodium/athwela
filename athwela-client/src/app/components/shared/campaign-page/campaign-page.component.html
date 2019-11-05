@@ -41,8 +41,8 @@
                 <div class="card-footer">
                     <a class="btn btn-warning" *ngIf="this.campaign.verified == false"
                         (click)="verifyCampaign()">Verify</a>
-                    <a class="btn btn-warning" *ngIf="this.campaign.verified == true"
-                        (click)="verifyCampaign()">Unverify</a>
+                        <a class="btn btn-warning" *ngIf="this.campaign.verified == true"
+                        (click)="unverifyCampaign()">Unverify</a>
                     <a class="btn btn-info ml-2" href="#">Share</a>
                 </div>
             </div>

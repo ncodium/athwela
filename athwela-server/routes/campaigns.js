@@ -108,7 +108,6 @@ router.put('/:id/verify', (req, res) => {
     });
 });
 
-
 router.put('/:id/unverify', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
@@ -118,7 +117,6 @@ router.put('/:id/unverify', (req, res) => {
         else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
     });
 });
-
 
 router.put('/:id/publish', (req, res) => {
     if (!ObjectId.isValid(req.params.id))

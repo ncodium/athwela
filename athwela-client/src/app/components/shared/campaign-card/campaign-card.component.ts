@@ -25,7 +25,7 @@ export class CampaignCardComponent implements OnInit {
   }
 
   navigateToCampaignPage() {
-    this.router.navigate(['campaign', 'id'])
+    this.router.navigate(['campaign', this.id]);
   }
 
 }
