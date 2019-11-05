@@ -19,7 +19,7 @@ export class CampaignPageComponent implements OnInit {
     private route: ActivatedRoute,
     private campaignService: CampaignService,
     private authService: AuthService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
@@ -50,9 +50,9 @@ export class CampaignPageComponent implements OnInit {
     this.refreshCampaign(this.campaignId);
   }
 
-  publishCampaign(){
+  publishCampaign() {
     this.campaignService.publishCampaign(this.campaignId).subscribe((res) => {
-      if(res['success'])this.campaign=res['campaign'] as Campaign;
+      if (res['success']) this.campaign = res['campaign'] as Campaign;
     });
 
     this.refreshCampaign(this.campaignId);
