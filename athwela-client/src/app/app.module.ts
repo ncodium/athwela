@@ -51,6 +51,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 // charts
 import { ChartsModule } from 'ng2-charts';
@@ -114,7 +115,8 @@ import { FooterComponent } from './components/shared/footer/footer.component';
     BsDropdownModule.forRoot(),
     ChartsModule,
     PasswordStrengthMeterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TabsModule.forRoot()
   ],
   providers: [
     Title,

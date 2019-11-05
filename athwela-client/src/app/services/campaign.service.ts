@@ -17,15 +17,18 @@ export class CampaignService {
     private authService: AuthService
   ) { }
 
-  getCampaignList() { return this.http.get(this.baseURL) }
-  getRecentCampaignsList() { return this.http.get(this.baseURL + 'recent') }
-  getUnpublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
   getCampaign(id: String) { return this.http.get(this.baseURL + id) }
+  getCampaignList() { return this.http.get(this.baseURL) }
+  getCategories() { return this.http.get(this.baseURL + 'categories') }
+  getRecentCampaignsList() { return this.http.get(this.baseURL + 'recent') }
+  getPublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
+  getUnpublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
+  getVerifiedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
+  getUnverifiedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
+  publishCampaign(id: String) { return this.http.put(this.baseURL + id + '/publish', {}) }
+  unpublishCampaign(id: String) { return this.http.put(this.baseURL + id + '/unpublish', {}) }
   verifyCampaign(id: String) { return this.http.put(this.baseURL + id + '/verify', {}) }
   unverifyCampaign(id: String) { return this.http.put(this.baseURL + id + '/unverify', {}) }
-  publishCampaign(id: String) { return this.http.put(this.baseURL + id + '/publish', {}) }
-  getCategories() { return this.http.get(this.baseURL + 'categories') }
-
 
   createCampaign(campaign: Campaign) {
     this.authService.loadToken();

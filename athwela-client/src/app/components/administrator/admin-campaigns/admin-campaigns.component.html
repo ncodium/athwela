@@ -1,31 +1,44 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12 mt-4">
+        <div class="col-md-12 mt-4 mb-2">
             <h1>Fundraising Campaigns</h1>
         </div>
+
         <div class="col-md-12 mt-3">
-            <h4>Unpublished Campaigns</h4>
+            <div>
+                <tabset>
+                    <tab heading="All Campaigns">
+
+                    </tab>
+                    <tab heading="Published Campaigns">
+                        <div class="row mt-2">
+                            <div *ngFor="let cmp of ongoingCampaigns" class="col-md-6 my-2">
+                                <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
+                                    raised={{cmp.raised}} target={{cmp.target}}>
+                                </app-campaign-card>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="Unpublished Campaigns">
+                        <div class="row mt-2">
+                            <div *ngFor="let cmp of unpublishedCampaigns" class="col-md-6 my-2">
+                                <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
+                                    raised={{cmp.raised}} target={{cmp.target}}>
+                                </app-campaign-card>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="Verified Campaigns">
+
+                    </tab>
+                    <tab heading="Unverified Campaigns">
+
+                    </tab>
+                </tabset>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div *ngFor="let cmp of unpublishedCampaigns" class="col-md-6 my-2">
-            <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
-                target={{cmp.target}}>
-            </app-campaign-card>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 mt-3">
-            <h4>Active Campaigns</h4>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div *ngFor="let cmp of ongoingCampaigns" class="col-md-6 my-2">
-            <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
-                target={{cmp.target}}>
-            </app-campaign-card>
-        </div>
-    </div>
+
 </div>
 
 <app-footer></app-footer>
