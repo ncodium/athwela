@@ -68,6 +68,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 // additional modules
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { HttpErrorModalComponent } from './components/shared/http-error-modal/http-error-modal.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { HttpErrorModalComponent } from './components/shared/http-error-modal/ht
     ModUsersComponent,
     TruncateTextPipe,
     HttpErrorModalComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
