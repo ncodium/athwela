@@ -31,11 +31,11 @@ export class NewCampaignComponent implements OnInit {
   ngOnInit() {
     this.campaignForm = new FormGroup({
       name: new FormControl(),
-      description: new FormControl(),
       target: new FormControl(),
+      description: new FormControl(),
       deadline: new FormControl(),
+      category: new FormControl(),
       raised: new FormControl(),
-      category: new FormControl()
     });
   }
 
@@ -49,7 +49,19 @@ export class NewCampaignComponent implements OnInit {
   //     category: this.category.value
   //   }
   onCreateCampaign(): void {
-    console.log(this.campaignForm);
+    console.log(this.campaignForm.touched);
+    console.log(this.campaignForm.value);
+    
+    console.log(this.campaignForm.controls.name.touched);
+    console.log.apply(this.campaignForm.get('name').value);
+    // const campaign = {
+    //   name: this.campaignForm.controls.name.value,
+    //   description: this.campaignForm.controls.description.value,
+    //   target: this.campaignForm.controls.target.value,
+    //   deadline: this.campaignForm.controls.deadline.value,
+    //   raised: this.campaignForm.controls.raised.value,
+    //   category: this.campaignForm.controls.category.value
+    // }
   }
 
   // register User

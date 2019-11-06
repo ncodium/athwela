@@ -1,64 +1,87 @@
-<div class="container">
-
-  <div class="row">
-
-      <div class="col-md-2 mt-4">
-          <div class="row">
-              <div class="card text-center">
-
-                  <div class="card-body">
-                      <img height="90px"
-                          src="http://music.virginia.edu/sites/music.virginia.edu/files/styles/faculty_profile_image/public/default_images/person-placeholder_3.png?itok=dtpqDURH">
-                      <h5 class="card-title">{{user.name}}
-                      </h5>
-                      <p class="card-text">{{user.email}}</p>
-                  </div>
-                  <div class="card-footer text-muted">
-                      <a href="#" class="btn btn-primary">Settings</a>
-                  </div>
-              </div>
-          </div>
-
-          <div class="row options">
-
-              <div class="card">
-                  <div class="card-header">
-                    Options
-                  </div>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="campaign/new" class="card-link">Create New Campaign</a></li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                  </ul>
-              </div>
-
-          </div>
-
-        </div> <!-- col-md-2 -->
-
-        <div class="col-md-8 mt-4 campaign_user">
-            <div class="row mb-4">
-                <div class="col-md-4 unverified-campaigns">
-                    <button type="button" class="btn btn-primary" style="width: 15rem;">
-                      Verify Campaigns <span class="badge badge-light">4</span>
-                    </button>
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <img height="90px"
+                        src="http://music.virginia.edu/sites/music.virginia.edu/files/styles/faculty_profile_image/public/default_images/person-placeholder_3.png?itok=dtpqDURH">
+                    <h5 class="card-title">{{user.name}}
+                    </h5>
+                    <p class="card-text">{{user.email}}</p>
                 </div>
-
-                <div class="col-md-4 new-users">
-                    <button type="button" class="btn btn-primary" style="width: 15rem;">
-                      New Users <span class="badge badge-light">6</span>
-                    </button>
+                <div class="card-footer text-muted">
+                    <a href="#" class="btn btn-primary">Settings</a>
                 </div>
             </div>
-
-            <div class="row campaign-card" >
-                <div *ngFor="let cmp of campaignService.campaigns" class="col-md-6 mb-4">
-                    <app-campaign-card [hideDonate]="true" id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
-                    </app-campaign-card>
+        </div>
+        <div class="col-md-8 mt-2 mt-md-0">
+            <div class="row">
+                <div class="col-md-6 my-2 my-md-0">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Campaigns
+                            </p>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-md-6  my-2 my-md-0">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Users
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div><!-- col-md-8 -->
+        </div>
+    </div>
+    <h3 class="mt-4 mb-3">Campaigns</h3>
+    <div class="row mb-2 mt-2">
+        <div *ngFor="let cmp of campaignService.campaigns" class="col-md-6 mb-4">
+            <app-campaign-card [hideDonate]="true" id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
+                raised={{cmp.raised}} target={{cmp.target}}>
+            </app-campaign-card>
+        </div>
+    </div>
+    <h3 class="mt-4 mb-3">Users</h3>
 
-  </div>
-
+    <div class="row row mb-2 mt-2">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<app-footer></app-footer>

@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from '../models/user.model'
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   authToken: any;
-  user: any;
+  user: User;
   role: String;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   registerUser(user) {
@@ -39,6 +42,11 @@ export class AuthService {
     return this.http.get('http://localhost:3000/users/profile', httpOptions).pipe();
   }
 
+  getUser() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    return this.user;
+  }
+
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -60,6 +68,8 @@ export class AuthService {
   logOut() {
     this.authToken = this.user = this.role = null;
     localStorage.clear();
+
+    this.router.navigate(['/']);
   }
 
   isAdmin() {

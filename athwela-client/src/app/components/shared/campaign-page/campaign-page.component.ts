@@ -19,7 +19,7 @@ export class CampaignPageComponent implements OnInit {
     private route: ActivatedRoute,
     private campaignService: CampaignService,
     private authService: AuthService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
@@ -32,6 +32,30 @@ export class CampaignPageComponent implements OnInit {
     this.campaignService.getCampaign(id).subscribe((res) => {
       if (res['success']) this.campaign = res['campaign'] as Campaign;
     });
+  }
+
+  verifyCampaign() {
+    this.campaignService.verifyCampaign(this.campaignId).subscribe((res) => {
+      if (res['success']) this.campaign = res['campaign'] as Campaign;
+    });
+
+    this.refreshCampaign(this.campaignId);
+  }
+
+  unverifyCampaign() {
+    this.campaignService.unverifyCampaign(this.campaignId).subscribe((res) => {
+      if (res['success']) this.campaign = res['campaign'] as Campaign;
+    });
+
+    this.refreshCampaign(this.campaignId);
+  }
+
+  publishCampaign() {
+    this.campaignService.publishCampaign(this.campaignId).subscribe((res) => {
+      if (res['success']) this.campaign = res['campaign'] as Campaign;
+    });
+
+    this.refreshCampaign(this.campaignId);
   }
 
   ngOnDestroy() { this.routeSub.unsubscribe() }
