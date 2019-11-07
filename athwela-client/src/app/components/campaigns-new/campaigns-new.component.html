@@ -53,24 +53,3 @@
         </div>
     </div>
 </div>
-
-<table border="1">
-    <tr>
-        <th>FormGroup</th>
-        <th>formControl</th>
-    </tr>
-    <tr>
-        <td>
-            touched : {{ campaignForm.touched }}
-            <br /> dirty : {{ campaignForm.dirty }}
-            <br /> valid : {{ campaignForm.valid  }}
-            <br /> Form Values : {{ campaignForm.value | json}}
-        </td>
-        <td>
-            touched : {{ campaignForm.controls.name.touched }}
-            <br /> dirty : {{ campaignForm.controls.name.dirty }}
-            <br /> valid : {{ campaignForm.controls.name.valid }}
-            <br /> name value : {{ campaignForm.controls.name.value}}
-        </td>
-    </tr>
-</table>
