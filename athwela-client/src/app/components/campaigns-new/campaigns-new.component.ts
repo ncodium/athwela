@@ -33,10 +33,10 @@ export class NewCampaignComponent implements OnInit {
   ngOnInit() {
     this.campaignForm = this.fb.group({
       name: ['', Validators.required],
-      target: [''],
-      description: [''],
-      deadline: [''],
-      category: [''],
+      target: ['', Validators.required],
+      description: ['', Validators.required],
+      deadline: ['', Validators.required],
+      category: ['', Validators.required],
       raised: [''],
     });
   }
