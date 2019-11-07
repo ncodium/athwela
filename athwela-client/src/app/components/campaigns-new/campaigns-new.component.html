@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <label for="inputCategory">Category</label>
                             <select formControlName="category" (ngModelChange)="onCategoryChange($event)"
-                                class="form-control" id="inputCategory">
+                                class="form-control" id="inputCategory" [ngClass]="{ 'is-invalid': f.category.errors && (f.category.touched || f.category.dirty)}">
                                 <option disabled="disabled" selected="selected">Choose a category</option>
                                 <option *ngFor="let category of categories" [ngValue]="category">
                                     {{ category | titlecase}}</option>
@@ -43,7 +43,7 @@
 
                         <div class="form-group">
                             <label for="inputDeadline">Deadline</label>
-                            <input formControlName="deadline" type="date" class="form-control" id="inputDeadline" />
+                            <input formControlName="deadline" type="date" class="form-control" id="inputDeadline" [ngClass]="{ 'is-invalid': f.deadline.errors && (f.deadline.touched || f.deadline.dirty)}">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Create Campaign</button>
@@ -76,10 +76,10 @@
             <br /> Form values : {{ campaignForm.value | json }}
         </td>
         <td>
-            touched : {{ campaignForm.get('name').touched }}
-            <br /> dirty : {{ campaignForm.get('name').dirty }}
-            <br /> valid : {{ campaignForm.get('name').valid }}
-            <br /> Name value : {{ campaignForm.get('name').value }}
+            touched : {{ campaignForm.get('category').touched }}
+            <br /> dirty : {{ campaignForm.get('category').dirty }}
+            <br /> valid : {{ campaignForm.get('category').valid }}
+            <br /> Name value : {{ campaignForm.get('category').value }}
         </td>
     </tr>
 </table>
