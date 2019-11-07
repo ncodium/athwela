@@ -40,6 +40,9 @@ export class NewCampaignComponent implements OnInit {
 
   onCreateCampaign(): void {
     this.submitted = true;
+
+    if(this.campaignForm.invalid) { return; }
+    
     const campaign = {
       name: this.campaignForm.controls.name.value,
       description: this.campaignForm.controls.description.value,

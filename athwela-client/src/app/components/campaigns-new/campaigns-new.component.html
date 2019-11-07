@@ -62,24 +62,3 @@
         </div>
     </div>
 </div>
-
-<table border="1">
-    <tr>
-        <th>FormGorup</th>
-        <th>FormControl(name)</th>
-    </tr>
-    <tr>
-        <td>
-            touched : {{ campaignForm.touched }}
-            <br /> dirty : {{ campaignForm.dirty }}
-            <br /> valid : {{ campaignForm.valid }}
-            <br /> Form values : {{ campaignForm.value | json }}
-        </td>
-        <td>
-            touched : {{ campaignForm.get('category').touched }}
-            <br /> dirty : {{ campaignForm.get('category').dirty }}
-            <br /> valid : {{ campaignForm.get('category').valid }}
-            <br /> Name value : {{ campaignForm.get('category').value }}
-        </td>
-    </tr>
-</table>
