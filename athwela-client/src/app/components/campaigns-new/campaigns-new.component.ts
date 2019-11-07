@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CampaignService } from '../../services/campaign.service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -15,6 +15,7 @@ export class NewCampaignComponent implements OnInit {
   categories: string[] = ["medical", "education"]
 
   campaignForm: FormGroup;
+  submitted = false;
 
   // name = new FormControl('');
   // description = new FormControl('');
@@ -25,19 +26,22 @@ export class NewCampaignComponent implements OnInit {
   constructor(
     private campaignService: CampaignService,
     private router: Router,
-    private http: HttpClientModule
+    private http: HttpClientModule,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
-    this.campaignForm = new FormGroup({
-      name: new FormControl(),
-      target: new FormControl(),
-      description: new FormControl(),
-      deadline: new FormControl(),
-      category: new FormControl(),
-      raised: new FormControl(),
+    this.campaignForm = this.fb.group({
+      name: ['', Validators.required],
+      target: [''],
+      description: [''],
+      deadline: [''],
+      category: [''],
+      raised: [''],
     });
   }
+
+  get f() { return this.campaignForm.controls; }
 
   // onCreateCampaign() {
   //   const campaign = {
@@ -54,6 +58,8 @@ export class NewCampaignComponent implements OnInit {
     
     console.log(this.campaignForm.controls.name.touched);
     console.log.apply(this.campaignForm.get('name').value);
+
+    this.submitted = true;
     // const campaign = {
     //   name: this.campaignForm.controls.name.value,
     //   description: this.campaignForm.controls.description.value,
