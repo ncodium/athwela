@@ -32,7 +32,7 @@ export class ModCampaignsComponent implements OnInit {
   }
 
   refreshCampaignList() {
-    this.campaignService.getRecentCampaignsList().subscribe((res) => {
+    this.campaignService.getUnpublishedCampaignsList().subscribe((res) => {
       this.campaignService.campaigns = res['campaigns'] as Campaign[];
     });
   }

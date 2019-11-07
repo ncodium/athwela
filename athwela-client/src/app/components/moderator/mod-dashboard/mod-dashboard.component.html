@@ -52,13 +52,18 @@
                 </div>
             </div>
 
-            <div class="row campaign-card">
-                <div *ngFor="let cmp of campaignService.campaigns" class="col-md-6 mb-4">
-                    <app-campaign-card [hideDonate]="true" id={{cmp._id}} name={{cmp.name}}
-                        description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
-                    </app-campaign-card>
+            <div class="row campaign-card" >
+
+              <ng-container *ngFor="let cmp of campaignService.campaigns">
+                <div class="col-md-6 mb-4">
+                  <app-campaign-card [hideDonate]="true" id={{cmp._id}} name={{cmp.name}}
+                    description={{cmp.description}} raised={{cmp.raised}} target={{cmp.target}}>
+                  </app-campaign-card>
                 </div>
+              </ng-container>
+
             </div>
+
         </div><!-- col-md-8 -->
 
     </div>
