@@ -21,7 +21,7 @@ export class CampaignService {
   getCampaignList() { return this.http.get(this.baseURL) }
   getCategories() { return this.http.get(this.baseURL + 'categories') }
   getRecentCampaignsList() { return this.http.get(this.baseURL + 'recent') }
-  getPublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
+  getPublishedCampaignsList() { return this.http.get(this.baseURL + 'published') }
   getUnpublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
   getVerifiedCampaignsList() { return this.http.get(this.baseURL + 'verified') }
   getUnverifiedCampaignsList() { return this.http.get(this.baseURL + 'unverified') }
