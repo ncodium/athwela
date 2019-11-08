@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Campaign } from '../models/campaign.model';
+import { Campaign } from '../interfaces/campaign';
 
 @Injectable({
   providedIn: 'root'
