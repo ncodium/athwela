@@ -11,12 +11,19 @@ import { CampaignService } from '../../../services/campaign.service';
 export class AdminCampaignsComponent implements OnInit {
   unpublishedCampaigns: Campaign[];
   ongoingCampaigns: Campaign[];
+  allCampaigns: Campaign[];
+  publishedCampaigns: Campaign[];
+  unverifiedCampaigns: Campaign[];
+  verifiedCampaigns: Campaign[];
 
   constructor(private campaignService: CampaignService) { }
 
   ngOnInit() {
     this.getUnpublishedCampaigns();
     this.getOngoingCampaigns();
+    this.getpublishedCampaigns();
+    this.getverifiedCampaigns();
+    this.getunverifiedCampaigns();
   }
 
   refreshCampaignList() {
@@ -26,14 +33,29 @@ export class AdminCampaignsComponent implements OnInit {
   }
 
   getOngoingCampaigns() {
-    this.campaignService.getRecentCampaignsList().subscribe((res) => {
-      this.ongoingCampaigns = res['campaigns'] as Campaign[];
+    this.campaignService.getCampaignList().subscribe((res) => {
+      this.allCampaigns = res['campaigns'] as Campaign[];
     });
   }
 
   getUnpublishedCampaigns() {
     this.campaignService.getUnpublishedCampaignsList().subscribe((res) => {
       this.unpublishedCampaigns = res['campaigns'] as Campaign[];
+    });
+  }
+  getpublishedCampaigns() {
+    this.campaignService.getPublishedCampaignsList().subscribe((res) => {
+      this.publishedCampaigns = res['campaigns'] as Campaign[];
+    });
+  }
+  getverifiedCampaigns() {
+    this.campaignService.getVerifiedCampaignsList().subscribe((res) => {
+      this.verifiedCampaigns = res['campaigns'] as Campaign[];
+    });
+  }
+  getunverifiedCampaigns() {
+    this.campaignService.getVerifiedCampaignsList().subscribe((res) => {
+      this.unverifiedCampaigns = res['campaigns'] as Campaign[];
     });
   }
 }
