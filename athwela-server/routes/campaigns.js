@@ -58,12 +58,14 @@ router.get('/verified', (req, res) => {
     });
 });
 
-router.get('/unverified', (req, res) => {
-    Campaign.find({ verified: 'false' }).exec((err, docs) => {
+
+router.get('/unverified', ( req, res) => {
+    Campaign.find({ verified: false  }).exec((err, docs) => {
         if (!err) res.send({ success: true, campaigns: docs });
         else res.send({ success: false, error: err });
     });
 });
+
 
 router.get('/categories', (req, res) => {
     Campaign.distinct('category').exec((err, doc) => {

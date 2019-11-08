@@ -23,8 +23,8 @@ export class CampaignService {
   getRecentCampaignsList() { return this.http.get(this.baseURL + 'recent') }
   getPublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
   getUnpublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
-  getVerifiedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
-  getUnverifiedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
+  getVerifiedCampaignsList() { return this.http.get(this.baseURL + 'verified') }
+  getUnverifiedCampaignsList() { return this.http.get(this.baseURL + 'unverified') }
   publishCampaign(id: String) { return this.http.put(this.baseURL + id + '/publish', {}) }
   unpublishCampaign(id: String) { return this.http.put(this.baseURL + id + '/unpublish', {}) }
   verifyCampaign(id: String) { return this.http.put(this.baseURL + id + '/verify', {}) }
