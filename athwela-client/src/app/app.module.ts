@@ -51,6 +51,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 // charts
 import { ChartsModule } from 'ng2-charts';
@@ -68,6 +69,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 // additional modules
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { HttpErrorModalComponent } from './components/shared/http-error-modal/http-error-modal.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +99,7 @@ import { HttpErrorModalComponent } from './components/shared/http-error-modal/ht
     ModUsersComponent,
     TruncateTextPipe,
     HttpErrorModalComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,7 +115,8 @@ import { HttpErrorModalComponent } from './components/shared/http-error-modal/ht
     BsDropdownModule.forRoot(),
     ChartsModule,
     PasswordStrengthMeterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TabsModule.forRoot()
   ],
   providers: [
     Title,

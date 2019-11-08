@@ -6,7 +6,7 @@
 
     <div class="row mt-3">
         <div class="col-md-8">
-            <img src="http://placehold.jp/720x320.png">
+            <img src="http://placehold.jp/720x320.png" class="img-fluid rounded mb-2 mb-lg-0">
             <p class="mt-2" style="white-space:pre-wrap;">{{campaign.description}}</p>
         </div>
 
@@ -24,8 +24,28 @@
                         <div class="mt-1">Rs. {{campaign.raised}} out of Rs. {{campaign.target}} raised</div>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-primary" *ngIf="!hideDonate" href="#">Donate Now</a>
-                    <a class="btn btn-info ml-2" href="#">Share</a>
+                    <button class="btn btn-primary" *ngIf="!hideDonate" href>Donate Now</button>
+                    <button class="btn btn-info ml-2" href="#">Share</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Anonymous User -->
+        <div class="col-md-4" *ngIf="!authService.loggedIn()">
+            <div class="card">
+                <h5 class="card-header">Rs. {{campaign.target}} target </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                        <div class="mt-1">Rs. {{campaign.raised}} out of Rs. {{campaign.target}} raised</div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" *ngIf="!hideDonate" href>Donate Now</button>
+                    <button class="btn btn-info ml-2">Share</button>
                 </div>
             </div>
         </div>
@@ -39,14 +59,14 @@
                         <div class="mt-1">Rs. {{campaign.raised}} out of Rs. {{campaign.target}} raised</div>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-warning" *ngIf="this.campaign.verified == false"
-                        (click)="verifyCampaign()">Verify</a>
-                        <a class="btn btn-warning" *ngIf="this.campaign.verified == true"
-                        (click)="unverifyCampaign()">Unverify</a>
-                    <a class="btn btn-info ml-2" href="#">Share</a>
+                    <button class="btn btn-warning" *ngIf="this.campaign.verified == false"
+                        (click)="verifyCampaign()" href>Verify</button>
+                    <button class="btn btn-warning" *ngIf="this.campaign.verified == true"
+                        (click)="unverifyCampaign()" href>Unverify</button>
                 </div>
             </div>
         </div>
+
         <!--Admin-->
         <div class="col-md-4" *ngIf="authService.isAdmin()">
             <div class="card">
@@ -56,14 +76,14 @@
                         <div class="mt-1">Rs. {{campaign.raised}} out of Rs. {{campaign.target}} raised</div>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-warning" *ngIf="this.campaign.verified == false"
-                        (click)="verifyCampaign()">Publish</a>
-                    <a class="btn btn-warning" *ngIf="this.campaign.verified == true"
-                        (click)="verifyCampaign()">Unpublish</a>
-                    <a class="btn btn-info ml-2" href="#">Share</a>
+                    <button class="btn btn-warning" *ngIf="this.campaign.verified == false"
+                        (click)="verifyCampaign()">Publish</button>
+                    <button class="btn btn-warning" *ngIf="this.campaign.verified == true"
+                        (click)="verifyCampaign()">Unpublish</button>
                 </div>
             </div>
         </div>
+
 
     </div>
 </div>

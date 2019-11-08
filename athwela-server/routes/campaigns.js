@@ -45,25 +45,27 @@ router.get('/unpublished', (req, res) => {
 });
 
 router.get('/published', (req, res) => {
-    Campaign.find({ published: 'true' }).exec((err, doc) => {
+    Campaign.find({ 'published': true }).exec((err, doc) => {
         if (!err) res.send({ success: true, campaigns: docs });
         else res.send({ success: false, error: err });
     });
 });
 
 router.get('/verified', (req, res) => {
-    Campaign.find({ 'verified': 'true' }).exec((err, docs) => {
+    Campaign.find({ 'verified': true }).exec((err, docs) => {
         if (!err) res.send({ success: true, campaigns: docs });
         else res.send({ success: false, error: err });
     });
 });
 
-router.get('/unverified', (req, res) => {
-    Campaign.find({ verified: 'false' }).exec((err, docs) => {
+
+router.get('/unverified', ( req, res) => {
+    Campaign.find({ verified: false  }).exec((err, docs) => {
         if (!err) res.send({ success: true, campaigns: docs });
         else res.send({ success: false, error: err });
     });
 });
+
 
 router.get('/categories', (req, res) => {
     Campaign.distinct('category').exec((err, doc) => {
