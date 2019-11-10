@@ -1,5 +1,5 @@
 <div class="container mt-3">
-    <div class="page-header">
+    <div class="page-header" *ngIf="campaign">
         <h1>{{campaign?.name}}</h1>
         <h6>{{campaign?.owner.name}} is organizing this fundraiser</h6>
     </div>
@@ -62,8 +62,8 @@
                         <div class="mt-1">
                             <button class="btn btn-warning" *ngIf="campaign?.verified == false"
                                 (click)="verifyCampaign()" href>Verify</button>
-                            <button class="btn btn-warning" *ngIf="campaign?.verified == true"
-                                (click)="unverifyCampaign()" href>Unverify</button>
+                            <button class="btn btn-warning" [disabled]="true"
+                                *ngIf="campaign?.verified == true">Verified</button>
                         </div>
                 </div>
             </div>
@@ -84,5 +84,5 @@
                 </div>
             </div>
         </div>
-
+        
     </div>

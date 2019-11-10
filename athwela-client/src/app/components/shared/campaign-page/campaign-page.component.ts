@@ -18,7 +18,6 @@ export class CampaignPageComponent implements OnInit {
 
   alerts: any = [];
 
-
   constructor(
     private route: ActivatedRoute,
     private campaignService: CampaignService,
@@ -45,17 +44,14 @@ export class CampaignPageComponent implements OnInit {
     this.campaignService.verifyCampaign(this.campaignId).subscribe((res) => {
       if (res) this.refreshCampaign(this.campaignId);
     });
-  }
 
-  unverifyCampaign() {
-    this.campaignService.unverifyCampaign(this.campaignId).subscribe((res) => {
-      if (res) this.refreshCampaign(this.campaignId);
+    this.alerts.push({
+      type: 'success',
+      msg: `The campaign has been verified successfully`
     });
   }
 
   publishCampaign() {
-    this.loading = true;
-
     this.campaignService.publishCampaign(this.campaignId).subscribe((res) => {
       if (res) this.refreshCampaign(this.campaignId);
       this.alerts.push({
@@ -66,8 +62,6 @@ export class CampaignPageComponent implements OnInit {
   }
 
   unpublishCampaign() {
-    this.loading = true;
-
     this.campaignService.unpublishCampaign(this.campaignId).subscribe((res) => {
       if (res) this.refreshCampaign(this.campaignId);
       console.log(this.alerts);
