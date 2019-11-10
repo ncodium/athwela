@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
-import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 // general custom components
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -23,6 +22,8 @@ import { PageNotFoundComponent } from './components/shared/page-not-found/page-n
 import { CampaignCardComponent } from './components/shared/campaign-card/campaign-card.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 // admininstrator components
 import { AdminDashboardComponent } from './components/administrator/admin-dashboard/admin-dashboard.component';
@@ -69,7 +70,6 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 // additional modules
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { HttpErrorModalComponent } from './components/shared/http-error-modal/http-error-modal.component';
-import { FooterComponent } from './components/shared/footer/footer.component';
 
 @NgModule({
   declarations: [

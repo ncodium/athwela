@@ -13,7 +13,6 @@ import { CampaignService } from '../../services/campaign.service';
 export class HomeComponent implements OnInit {
   modalRef: BsModalRef;
 
-
   constructor(
     private campaignService: CampaignService,
     private modalService: BsModalService
@@ -37,5 +36,4 @@ export class HomeComponent implements OnInit {
     this.modalRef = this.modalService.show(RegisterComponent, { initialState });
     this.modalRef.content.closeBtnName = 'Close';
   }
-
 }

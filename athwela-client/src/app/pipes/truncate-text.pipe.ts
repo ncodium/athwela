@@ -4,7 +4,6 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'trunctuatetext'
 })
 export class TruncateTextPipe implements PipeTransform {
-
   transform(value: string, length: number): string {
     const biggestWord = 50;
     const elipses = "...";
@@ -24,5 +23,4 @@ export class TruncateTextPipe implements PipeTransform {
 
     return truncatedText + elipses;
   }
-
 }
