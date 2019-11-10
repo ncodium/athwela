@@ -8,6 +8,9 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
+  constructor() { } public barChartLabels: Label[] = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july'];
+  ngOnInit() { }
+
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -18,8 +21,6 @@ export class AdminDashboardComponent implements OnInit {
 
   public polarAreaChartType: ChartType = 'polarArea';
 
-
-  constructor() { } public barChartLabels: Label[] = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
@@ -28,8 +29,5 @@ export class AdminDashboardComponent implements OnInit {
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Donations' },
     { data: [28, 48, 40, 19, 86, 27, 90], label: 'Campaingns' }
   ];
-
-  ngOnInit() {
-  }
 
 }
