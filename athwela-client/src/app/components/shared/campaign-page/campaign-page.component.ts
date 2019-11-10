@@ -25,8 +25,6 @@ export class CampaignPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loading = true;
-
     this.routeSub = this.route.params.subscribe(params => {
       this.campaignId = params['id']; // acquire campaignId from URL and request campaign content
       this.refreshCampaign(this.campaignId);
@@ -36,18 +34,16 @@ export class CampaignPageComponent implements OnInit {
   refreshCampaign(id: String) {
     this.campaignService.getCampaign(id).subscribe((res) => {
       if (res['success']) this.campaign = res['campaign'] as Campaign;
-      this.loading = false;
     });
   }
 
   verifyCampaign() {
     this.campaignService.verifyCampaign(this.campaignId).subscribe((res) => {
       if (res) this.refreshCampaign(this.campaignId);
-    });
-
-    this.alerts.push({
-      type: 'success',
-      msg: `The campaign has been verified successfully`
+      this.alerts.push({
+        type: 'success',
+        msg: `The campaign has been verified successfully`
+      });
     });
   }
 
@@ -64,7 +60,6 @@ export class CampaignPageComponent implements OnInit {
   unpublishCampaign() {
     this.campaignService.unpublishCampaign(this.campaignId).subscribe((res) => {
       if (res) this.refreshCampaign(this.campaignId);
-      console.log(this.alerts);
       this.alerts.push({
         type: 'info',
         msg: `The campaign has been unpublished successfully`
