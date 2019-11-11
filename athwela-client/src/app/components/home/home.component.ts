@@ -13,7 +13,6 @@ import { CampaignService } from '../../services/campaign.service';
 export class HomeComponent implements OnInit {
   modalRef: BsModalRef;
 
-
   constructor(
     private campaignService: CampaignService,
     private modalService: BsModalService
@@ -24,7 +23,7 @@ export class HomeComponent implements OnInit {
   }
 
   refreshCampaignList() {
-    this.campaignService.getRecentCampaignsList().subscribe((res) => {
+    this.campaignService.getCampaignList().subscribe((res) => {
       if (res['success']) this.campaignService.campaigns = res['campaigns'] as Campaign[];
     });
   }
@@ -37,5 +36,4 @@ export class HomeComponent implements OnInit {
     this.modalRef = this.modalService.show(RegisterComponent, { initialState });
     this.modalRef.content.closeBtnName = 'Close';
   }
-
 }

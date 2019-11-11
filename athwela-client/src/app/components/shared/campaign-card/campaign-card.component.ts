@@ -16,12 +16,9 @@ export class CampaignCardComponent implements OnInit {
   @Input() public hideDonate: boolean = false;
   @Input() public published: boolean = false;
 
-
   constructor(
     private router: Router,
   ) { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

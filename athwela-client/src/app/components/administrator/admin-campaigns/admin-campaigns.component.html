@@ -8,11 +8,17 @@
             <div>
                 <tabset>
                     <tab heading="All Campaigns">
-
+                        <div class="row mt-2">
+                            <div *ngFor="let cmp of allCampaigns" class="col-md-6 my-2">
+                                <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
+                                    raised={{cmp.raised}} target={{cmp.target}}>
+                                </app-campaign-card>
+                            </div>
+                        </div>
                     </tab>
                     <tab heading="Published Campaigns">
                         <div class="row mt-2">
-                            <div *ngFor="let cmp of ongoingCampaigns" class="col-md-6 my-2">
+                            <div *ngFor="let cmp of publishedCampaigns" class="col-md-6 my-2">
                                 <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
                                     raised={{cmp.raised}} target={{cmp.target}}>
                                 </app-campaign-card>
@@ -29,16 +35,27 @@
                         </div>
                     </tab>
                     <tab heading="Verified Campaigns">
-
+                        <div class="row mt-2">
+                            <div *ngFor="let cmp of verifiedCampaigns" class="col-md-6 my-2">
+                                <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
+                                    raised={{cmp.raised}} target={{cmp.target}}>
+                                </app-campaign-card>
+                            </div>
+                        </div>
                     </tab>
                     <tab heading="Unverified Campaigns">
-
+                        <div class="row mt-2">
+                            <div *ngFor="let cmp of unverifiedCampaigns" class="col-md-6 my-2">
+                                <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
+                                    raised={{cmp.raised}} target={{cmp.target}}>
+                                </app-campaign-card>
+                            </div>
+                        </div>
                     </tab>
                 </tabset>
             </div>
         </div>
     </div>
-
 </div>
 
 <app-footer></app-footer>

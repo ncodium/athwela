@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { Campaign } from '../../../models/campaign.model';
+import { Campaign } from '../../../interfaces/campaign';
 import { CampaignService } from 'src/app/services/campaign.service';
 import { AuthService } from './../../../services/auth.service';
 
@@ -12,8 +12,11 @@ import { AuthService } from './../../../services/auth.service';
 })
 export class CampaignPageComponent implements OnInit {
   private routeSub: Subscription;
+  private loading: Boolean;
   private campaign: Campaign;
   private campaignId: String;
+
+  alerts: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,27 +39,31 @@ export class CampaignPageComponent implements OnInit {
 
   verifyCampaign() {
     this.campaignService.verifyCampaign(this.campaignId).subscribe((res) => {
-      if (res['success']) this.campaign = res['campaign'] as Campaign;
+      if (res) this.refreshCampaign(this.campaignId);
+      this.alerts.push({
+        type: 'success',
+        msg: `The campaign has been verified successfully`
+      });
     });
-
-    this.refreshCampaign(this.campaignId);
-  }
-
-  unverifyCampaign() {
-    this.campaignService.unverifyCampaign(this.campaignId).subscribe((res) => {
-      if (res['success']) this.campaign = res['campaign'] as Campaign;
-    });
-
-    this.refreshCampaign(this.campaignId);
   }
 
   publishCampaign() {
     this.campaignService.publishCampaign(this.campaignId).subscribe((res) => {
-      if (res['success']) this.campaign = res['campaign'] as Campaign;
-    });
-
-    this.refreshCampaign(this.campaignId);
+      if (res) this.refreshCampaign(this.campaignId);
+      this.alerts.push({
+        type: 'success',
+        msg: `The campaign has been published successfully`
+      });
+    })
   }
 
-  ngOnDestroy() { this.routeSub.unsubscribe() }
+  unpublishCampaign() {
+    this.campaignService.unpublishCampaign(this.campaignId).subscribe((res) => {
+      if (res) this.refreshCampaign(this.campaignId);
+      this.alerts.push({
+        type: 'info',
+        msg: `The campaign has been unpublished successfully`
+      });
+    });
+  }
 }

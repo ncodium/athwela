@@ -12,6 +12,11 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
   styleUrls: ['./admin-users.component.scss']
 })
 export class AdminUsersComponent implements OnInit {
+  modalRef: BsModalRef;
+
+  ngOnInit() { }
+  constructor(private modalService: BsModalService) { }
+
   public scatterChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -31,14 +36,8 @@ export class AdminUsersComponent implements OnInit {
   ];
 
   public scatterChartType: ChartType = 'scatter';
-  modalRef: BsModalRef;
-  
-  constructor(private modalService: BsModalService) { }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
-  }
-
-  ngOnInit() {
   }
 }

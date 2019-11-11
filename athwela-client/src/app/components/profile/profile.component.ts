@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user.model';
+import { User } from '../../models/user.model';
+import { Campaign } from '../../models/campaign.model';
+import { CampaignService } from '../../services/campaign.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,10 +15,18 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private campaignService: CampaignService
   ) { }
 
   ngOnInit() {
     this.user = this.authService.getUser();
+    this.refreshUserCampaignList(this.user);
+  }
+
+  refreshUserCampaignList(user: User) {
+    this.campaignService.getCampaignList().subscribe((res) => {
+      if (res['success']) this.campaignService.campaigns = res['campaigns'] as Campaign[];
+    });
   }
 }

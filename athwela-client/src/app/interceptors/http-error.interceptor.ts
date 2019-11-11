@@ -16,7 +16,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if (error.error instanceof ErrorEvent)
             errorMessage = `Error: ${error.error.message}` // client-side error
           else
-            errorMessage = `<b>Error ${error.status} occured.</b> ${error.message}`;             // server-side error
+            errorMessage = `<b>Error ${error.status} occured.</b> ${error.message}`; // server-side error
 
           const initialState = {
             text: errorMessage,

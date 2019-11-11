@@ -14,6 +14,7 @@ import { CampaignService } from '../../../services/campaign.service';
 })
 export class ModDashboardComponent implements OnInit {
   user: Object;
+  private campaign: Campaign;
 
   constructor(
     private authService: AuthService,
@@ -34,7 +35,7 @@ export class ModDashboardComponent implements OnInit {
   }
 
   refreshCampaignList() {
-    this.campaignService.getUnpublishedCampaignsList().subscribe((res) => {
+    this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
       this.campaignService.campaigns = res['campaigns'] as Campaign[];
     });
   }
