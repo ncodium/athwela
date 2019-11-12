@@ -22,8 +22,6 @@ install:
   - npm install
   - cd ../athwela-client
   - npm install
-
-before-script:
   - chromedriver-update $(google-chrome --version | cut -d ' ' -f 2)
 
 script:
