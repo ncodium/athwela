@@ -22,6 +22,7 @@ install:
   - npm install
   - cd ../athwela-client
   - npm install
+  - webdriver-manager update --versions.chrome=$(google-chrome --version | cut -d ' ' -f 3)
 
 script:
   - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
