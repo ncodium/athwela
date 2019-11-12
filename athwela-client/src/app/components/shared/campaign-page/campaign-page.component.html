@@ -7,7 +7,7 @@
     <div class="row mt-3">
         <div class="col-md-8">
             <div *ngFor="let alert of alerts" class="mb-2 mb-lg-0">
-                <alert [type]="alert.type" [dismissible]="true">{{ alert.msg }}</alert>
+                <alert [type]="alert.type" [dismissible]="true">{{alert.msg}}</alert>
             </div>
             <img src="http://placehold.jp/720x320.png" class="img-fluid rounded mb-2 mb-lg-0">
             <p class="mt-2" style="white-space:pre-wrap;">{{campaign?.description}}</p>
@@ -16,7 +16,7 @@
         <!-- Standard User -->
         <div class="col-md-4" *ngIf="authService.isUser()">
             <div class="card">
-                <h5 class="card-header">Rs. {{campaign?.target}} target </h5>
+                <h5 class="card-header">Rs. {{campaign?.target}} target</h5>
                 <div class="card-body">
                     <p class="card-text">
                         <div class="progress">
