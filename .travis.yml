@@ -23,6 +23,9 @@ install:
   - npm install
   - cd ../athwela-client
   - npm install
+  - cd node_modules/protractor/
+  - npm install webdriver-manager@latest
+  - cd ../..
   - cd node_modules/protractor/node_modules/webdriver-manager/bin/
   - ./webdriver-manager clean && ./webdriver-manager update
   - cd ../../../../..
