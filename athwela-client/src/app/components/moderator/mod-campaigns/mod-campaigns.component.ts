@@ -12,6 +12,7 @@ import { Campaign } from '../../../models/campaign.model';
 })
 export class ModCampaignsComponent implements OnInit {
   user: Object;
+  verifiedcampaigns: any;
 
   constructor(
     private authService: AuthService,
@@ -29,13 +30,14 @@ export class ModCampaignsComponent implements OnInit {
         return false;
       }
     );
+    this.refreshVerifiedCampaignListx();
   }
 
-  // refreshCampaignList() {
-  //   this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
-  //     this.campaignService.campaigns = res['campaign'] ;
-  //   });
-  // }
+  refreshVerifiedCampaignListx() {
+    this.campaignService.getVerifiedCampaignsList().subscribe((res) => {
+      this.verifiedcampaigns = res['campaigns'] ;
+    });
+  }
 
   refreshCampaignList() {
     this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
