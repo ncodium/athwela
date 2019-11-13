@@ -27,8 +27,16 @@
                         </div>
                     </tab>
                     <tab heading="Verified Campaigns">
+
                     </tab>
                     <tab heading="Unverified Campaigns">
+                        <div class="row mb-2 mt-2">
+                            <div *ngFor="let cmp of campaignService.campaigns" class="col-md-6 mb-4">
+                                <app-campaign-card [hideDonate]="true" id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
+                                    raised={{cmp.raised}} target={{cmp.target}}>
+                                </app-campaign-card>
+                            </div>
+                        </div>
                     </tab>
                 </tabset>
             </div>

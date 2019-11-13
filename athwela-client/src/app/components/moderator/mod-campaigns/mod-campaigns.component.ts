@@ -31,9 +31,15 @@ export class ModCampaignsComponent implements OnInit {
     );
   }
 
+  // refreshCampaignList() {
+  //   this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
+  //     this.campaignService.campaigns = res['campaign'] ;
+  //   });
+  // }
+
   refreshCampaignList() {
     this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
-      this.campaignService.campaigns = res['campaign'] ;
+      this.campaignService.campaigns = res['campaigns'] as Campaign[];
     });
   }
 
