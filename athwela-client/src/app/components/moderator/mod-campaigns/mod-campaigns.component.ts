@@ -13,6 +13,8 @@ import { Campaign } from '../../../models/campaign.model';
 export class ModCampaignsComponent implements OnInit {
   user: Object;
   verifiedcampaigns: any;
+  unverifiedcampaigns: Campaign[];
+  allcampaigns: any;
 
   constructor(
     private authService: AuthService,
@@ -21,7 +23,7 @@ export class ModCampaignsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.refreshCampaignList();
+    this.refreshUnVerifiedCampaignList();
     this.authService.getProfile().subscribe(profile => {
       this.user = profile['user'];
     },
@@ -30,20 +32,34 @@ export class ModCampaignsComponent implements OnInit {
         return false;
       }
     );
-    this.refreshVerifiedCampaignListx();
+    this.refreshVerifiedCampaignList();
+    this.refreshAllCampaignList();
   }
 
-  refreshVerifiedCampaignListx() {
+  refreshAllCampaignList() {
+    this.campaignService.getCampaignList().subscribe((res) => {
+      this.allcampaigns = res['campaigns'] ;
+    });
+  }
+
+  refreshVerifiedCampaignList() {
     this.campaignService.getVerifiedCampaignsList().subscribe((res) => {
       this.verifiedcampaigns = res['campaigns'] ;
     });
   }
 
-  refreshCampaignList() {
+  refreshUnVerifiedCampaignList() {
     this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
-      this.campaignService.campaigns = res['campaigns'] as Campaign[];
+      this.unverifiedcampaigns = res['campaigns'] as Campaign[];
     });
   }
+
+
+  // refreshUnverifiedCampaignList() {
+  //   this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
+  //     this.unverifiedcampaigns = res['campaigns'] as Campaign[];
+  //   });
+  // }
 
 
 }
