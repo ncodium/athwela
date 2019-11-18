@@ -15,12 +15,14 @@ export class RegisterComponent implements OnInit {
   username: String;
   email: String;
   password: String;
+  passwordConfirm: String;
   role: String;
 
   nameInvalid: boolean;
   emailInvalid: boolean;
   usernameInvalid: boolean;
   passwordInvalid: boolean;
+  passwordMismatch: boolean;
 
   alerts: any = [];
 
@@ -33,17 +35,19 @@ export class RegisterComponent implements OnInit {
 
   highlightInvalidInputFields() {
     // reset
-    this.nameInvalid = this.usernameInvalid = this.emailInvalid = this.passwordInvalid = false;
+    this.nameInvalid = this.usernameInvalid = this.emailInvalid = this.passwordInvalid = this.passwordMismatch = false;
     // and validate
     if (!this.username) this.usernameInvalid = true;
     if (!this.password) this.passwordInvalid = true;
+    if (this.password != this.passwordConfirm) this.passwordMismatch = true;
+    if (!this.passwordConfirm) this.passwordMismatch = true;
     if (!this.name) this.nameInvalid = true;
     if (!this.email) this.emailInvalid = true;
   }
 
   ngOnInit() {
     // initiation state
-    this.nameInvalid = this.usernameInvalid = this.emailInvalid = this.passwordInvalid = false;
+    this.nameInvalid = this.usernameInvalid = this.emailInvalid = this.passwordInvalid = this.passwordMismatch = false;
     this.alerts = [
       {
         type: 'info',
@@ -59,7 +63,7 @@ export class RegisterComponent implements OnInit {
       username: this.username,
       email: this.email,
       password: this.password,
-      role: this.role
+      //role: this.role
     }
 
     // required fields
@@ -87,6 +91,24 @@ export class RegisterComponent implements OnInit {
         {
           type: 'warning',
           msg: `Please provide a password for your account to continue.`
+        }
+      ];
+    }
+    else if (!this.passwordConfirm) {
+      this.highlightInvalidInputFields();
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Your passwords doesn't match. Please enter your password again.`
+        }
+      ];
+    }
+    else if (this.passwordMismatch) {
+      this.highlightInvalidInputFields();
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Your passwords doesn't match. Please enter your password again.`
         }
       ];
     }

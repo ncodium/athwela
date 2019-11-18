@@ -12,7 +12,6 @@ router.post('/register', (req, res, next) => {
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
-        role: req.body.role
     });
 
     // check if a user with the username already exist
@@ -20,6 +19,7 @@ router.post('/register', (req, res, next) => {
         if (user.length) {
             res.json({ success: false, username_exist: true });
         } else {
+            // register new user account
             User.addUser(newUser, (err, user) => {
                 if (err) {
                     res.json({ success: false, msg: 'User registration failed.' });
