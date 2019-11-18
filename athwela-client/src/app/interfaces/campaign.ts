@@ -6,5 +6,5 @@ export interface Campaign {
     raised?: number;
     deadline: Date;
     category?: string;
-	owner?: any;
+    owner?: any;
 }

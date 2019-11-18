@@ -1,4 +1,5 @@
 # Athwela
+[![Build Status](https://travis-ci.org/ncodium/athwela.svg?branch=master)](https://travis-ci.org/ncodium/athwela)
 ### Installation
 
 Athwela requires [Node.js](https://nodejs.org/) v4+ and [Angular CLI](https://cli.angular.io/) v8+ to run.
