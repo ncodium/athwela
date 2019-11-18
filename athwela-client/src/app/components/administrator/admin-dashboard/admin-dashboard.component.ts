@@ -1,15 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { SingleDataSet, Label } from 'ng2-charts';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { Campaign } from '../../../models/campaign.model';
+import { CampaignService } from '../../../services/campaign.service';
+
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.scss']
+  styleUrls: ['./admin-dashboard.component.scss'],
+  providers: [CampaignService]
 })
 export class AdminDashboardComponent implements OnInit {
-  constructor() { } public barChartLabels: Label[] = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july'];
-  ngOnInit() { }
+  allCampaigns: Campaign[];
+
+   
+  constructor(private campaignService: CampaignService) { } public barChartLabels: Label[] = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july'];
+  ngOnInit() {
+    this.getOngoingCampaigns();
+    
+   }
+   getOngoingCampaigns() {
+    this.campaignService.getCampaignList().subscribe((res) => {
+      this.allCampaigns = res['campaigns'] as Campaign[];
+    });
+  }
 
   public barChartOptions: ChartOptions = {
     responsive: true,
