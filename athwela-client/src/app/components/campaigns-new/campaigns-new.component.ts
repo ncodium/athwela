@@ -12,11 +12,11 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 
 export class NewCampaignComponent implements OnInit {
-  id: string;
-  categories: string[] = ["medical", "education"]
-
   campaignForm: FormGroup;
   submitted = false;
+  
+  id: string;
+  categories: string[] = ["medical", "education"]
 
   constructor(
     private campaignService: CampaignService,
@@ -32,15 +32,16 @@ export class NewCampaignComponent implements OnInit {
       description: ['', Validators.required],
       deadline: ['', Validators.required],
       category: ['', Validators.required],
-      raised: [''],
+      raised: ['']
     });
   }
 
+  //convenience getter for easy access to form fields
   get f() { return this.campaignForm.controls; }
 
   onCreateCampaign(): void {
     this.submitted = true;
-
+    console.log(this.campaignForm.invalid)
     if(this.campaignForm.invalid) { return; }
     
     const campaign = {
