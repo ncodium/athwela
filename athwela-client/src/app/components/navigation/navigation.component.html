@@ -50,18 +50,18 @@
             </ul>
         </div>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation"
+            (click)="isCollapsed = !isCollapsed">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="collapse navbar-collapse" id="navbarResponsive" [collapse]="isCollapsed">
             <ul class="navbar-nav ml-auto">
-                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                <!-- <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link" alt="search" href="#" [routerLink]="['/']">
                         <fa-icon [icon]="['fas', 'search']"></fa-icon>
                     </a>
-                </li>
+                </li> -->
 
                 <!-- Administrator -->
                 <li *ngIf="authService.isAdmin()" [routerLinkActive]="['active']"

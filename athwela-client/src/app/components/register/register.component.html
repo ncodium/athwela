@@ -24,7 +24,7 @@
         <div class="form-group">
             <label for="inputPasswordConfirm">Confirm Password</label>
             <input type="password" [(ngModel)]="passwordConfirm" name="password-confirm" class="form-control" id="inputPasswordConfirm"
-                placeholder="Enter your password again" [ngClass]="{'is-invalid': passwordMismatch}"
+                placeholder="Enter your password again" [ngClass]="{'is-invalid': passwordMismatch || passwordInvalid}"
                 aria-describedby="passwordHelp">
         </div>
         <div class="form-group">
