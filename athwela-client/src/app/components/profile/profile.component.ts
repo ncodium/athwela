@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model';
 import { Campaign } from '../../models/campaign.model';
 import { CampaignService } from '../../services/campaign.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -11,18 +12,34 @@ import { CampaignService } from '../../services/campaign.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: User;
+  private routeSub: Subscription;
+  private user: User;
+  private userId: string;
+  private visitor: boolean;
+
   campaigns: Campaign[];
 
   constructor(
-    private authService: AuthService,
     private router: Router,
-    private campaignService: CampaignService
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private campaignService: CampaignService,
   ) { }
 
   ngOnInit() {
-    this.user = this.authService.getUser();
-    this.getUserCampaignList();
+    this.routeSub = this.route.params.subscribe(params => {
+      this.userId = params['id']; // acquire userId from URL
+      if (this.userId) {
+        
+        //TODO
+        //Get user profile
+      }
+      else {
+        this.user = this.authService.getUser();
+      }
+
+      this.getUserCampaignList();
+    });
   }
 
   refreshUserCampaignList(user: User) {

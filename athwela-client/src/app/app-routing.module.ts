@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'campaign', redirectTo: '/campaigns', pathMatch: 'full' },
   { path: 'campaigns', component: CampaignsComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:id', component: ProfileComponent },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
   { path: 'how-it-works', component: HowItWorksComponent },
