@@ -72,10 +72,24 @@ router.get('/profile/:id', (req, res) => {
     // locate user with given id
     User.getUserById(req.params.id, (err, user) => {
         if (err) {
-            return res.json({ success: false });
+            throw err;
         }
         else {
-            return res.json({ success: true, user: user });
+            if (user) {
+                return res.json({
+                    success: true,
+                    user: {
+                        _id: user._id,
+                        name: user.name,
+                        username: user.username,
+                        email: user.email,
+                        role: user.role
+                    }
+                })
+            }
+            else {
+                return res.json({ success: false });
+            }
         }
     });
 });
