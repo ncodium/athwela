@@ -37,7 +37,7 @@ router.get('/recent', (req, res) => {
 });
 
 router.get('/unpublished', (req, res) => {
-    Campaign.find({published:'false'}).exec((err, doc) => {
+    Campaign.find({ published: 'false' }).exec((err, doc) => {
         if (!err) res.send({ success: true, campaigns: doc });
         else res.send({ success: false, error: err });
 
@@ -45,7 +45,7 @@ router.get('/unpublished', (req, res) => {
 });
 
 router.get('/published', (req, res) => {
-    Campaign.find({published:'true'}).exec((err, doc) => {
+    Campaign.find({ published: 'true' }).exec((err, doc) => {
         if (!err) res.send({ success: true, campaigns: doc });
         else res.send({ success: false, error: err });
     });
@@ -59,9 +59,9 @@ router.get('/verified', (req, res) => {
 });
 
 
-router.get('/unverified', ( req, res) => {
-    Campaign.find({ 'verified': false  }).exec((err, doc) => {
-        if (!err) res.send({ success: true, campaigns: doc});
+router.get('/unverified', (req, res) => {
+    Campaign.find({ 'verified': false }).exec((err, doc) => {
+        if (!err) res.send({ success: true, campaigns: doc });
         else res.send({ success: false, error: err });
     });
 });
@@ -75,22 +75,24 @@ router.get('/categories', (req, res) => {
 });
 
 router.get('/user', passport.authenticate("jwt", { session: false }), (req, res) => {
-    Campaign.find({ 'owner': new ObjectId(req.user._id)  }).exec((err, doc) => {
-        if (!err) res.send({ success: true, campaigns: doc});
+    Campaign.find({ 'owner': new ObjectId(req.user._id) }).exec((err, doc) => {
+        if (!err) res.send({ success: true, campaigns: doc });
         else res.send({ success: false, error: err });
     });
 });
 
 router.get('/user/:id', (req, res) => {
-    Campaign.find({ 'owner': new ObjectId(req.params.id)  }).exec((err, doc) => {
-        if (!err) res.send({ success: true, campaigns: doc});
+    Campaign.find({ 'owner': new ObjectId(req.params.id) }).exec((err, doc) => {
+        if (!err) res.send({ success: true, campaigns: doc });
         else res.send({ success: false, error: err });
     });
 });
 
 router.get('/:id', (req, res) => {
+    // locate user with given id
     if (!ObjectId.isValid(req.params.id))
-        return res.status(400).send(`No campaign exist with the given Id: ${req.params.id}`);
+        return res.json({ success: false });
+
     Campaign.findById(req.params.id).populate('owner', '-password').exec(function (err, doc) {
         if (!err) res.send({ success: true, campaign: doc });
         else res.send({ success: false, error: err });

@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 router.post('/register', (req, res, next) => {
     // create a new user object
@@ -70,6 +71,9 @@ router.post('/authenticate', (req, res, next) => {
 
 router.get('/profile/:id', (req, res) => {
     // locate user with given id
+    if (!ObjectId.isValid(req.params.id))
+    return res.json({ success: false });
+
     User.getUserById(req.params.id, (err, user) => {
         if (err) {
             throw err;
