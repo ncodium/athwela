@@ -40,4 +40,15 @@ export class CampaignService {
 
     return this.http.post(this.baseURL, campaign, httpOptions).pipe();
   }
+
+  getUserCampaignsList() {
+    this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
+      })
+    };
+
+    return this.http.get(this.baseURL + 'user', httpOptions).pipe();
+  }
 }

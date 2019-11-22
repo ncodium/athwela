@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6  my-2 my-md-0">
+                        <div class="col-md-6 my-2 my-md-0">
                             <div class="card text-white bg-success">
                                 <div class="card-body">
                                     <p class="card-text">
@@ -44,11 +44,16 @@
             </div>
         </div>
     </div>
-    <h3 class="mt-4 mb-3">My campaigns</h3>
-    <div class="row mb-2 mt-2">
-
+    <h3 class="mt-4 mb-3">My Campaigns</h3>
+    <div class="row mt-2">
+        <div *ngFor="let cmp of campaigns" class="col-md-4 col-sm-6 col-xs-12 my-2">
+            <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
+                target={{cmp.target}} [hideDonate]="true">
+            </app-campaign-card>
+        </div>
     </div>
-    <h3 class="mt-4 mb-3">My donations</h3>
+
+    <h3 class="mt-4 mb-3">My Donations</h3>
     <div class="row row mb-2 mt-2">
 
     </div>

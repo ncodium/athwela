@@ -74,6 +74,13 @@ router.get('/categories', (req, res) => {
     });
 });
 
+router.get('/user', passport.authenticate("jwt", { session: false }), (req, res) => {
+    Campaign.find({ 'owner': new ObjectId(req.user._id)  }).exec((err, doc) => {
+        if (!err) res.send({ success: true, campaigns: doc});
+        else res.send({ success: false, error: err });
+    });
+});
+
 router.get('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No campaign exist with the given Id: ${req.params.id}`);

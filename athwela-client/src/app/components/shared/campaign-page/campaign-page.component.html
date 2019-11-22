@@ -26,10 +26,13 @@
                         </div>
                         <div class="mt-1">Rs. {{campaign?.raised}} out of Rs. {{campaign?.target}} raised</div>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
                     <button class="btn btn-primary" *ngIf="!hideDonate" href>Donate Now</button>
                     <button class="btn btn-info ml-2" href="#">Share</button>
                 </div>
+                <ng-template #elseBlock>
+                        <button class="btn btn-info" *ngIf="!hideDonate" href>Pending</button>
+                </ng-template>
             </div>
         </div>
 
@@ -46,10 +49,13 @@
                         </div>
                         <div class="mt-1">Rs. {{campaign?.raised}} out of Rs. {{campaign?.target}} raised</div>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
                     <button class="btn btn-primary" *ngIf="!hideDonate" href>Donate Now</button>
                     <button class="btn btn-info ml-2">Share</button>
                 </div>
+                <ng-template #elseBlock>
+                        <button class="btn btn-info" *ngIf="!hideDonate" href>Pending</button>
+                </ng-template>
             </div>
         </div>
 

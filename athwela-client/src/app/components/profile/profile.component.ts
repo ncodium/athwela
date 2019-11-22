@@ -12,6 +12,7 @@ import { CampaignService } from '../../services/campaign.service';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  campaigns: Campaign[];
 
   constructor(
     private authService: AuthService,
@@ -21,12 +22,19 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.authService.getUser();
-    this.refreshUserCampaignList(this.user);
+    this.getUserCampaignList();
   }
 
   refreshUserCampaignList(user: User) {
     this.campaignService.getCampaignList().subscribe((res) => {
       if (res['success']) this.campaignService.campaigns = res['campaigns'] as Campaign[];
+    });
+  }
+
+  getUserCampaignList() {
+    this.campaignService.getCampaignList().subscribe((res) => {
+      this.campaigns = res['campaigns'] as Campaign[];
+      console.log(this.campaigns);
     });
   }
 }

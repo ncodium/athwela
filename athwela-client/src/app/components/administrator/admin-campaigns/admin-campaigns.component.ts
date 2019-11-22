@@ -19,11 +19,11 @@ export class AdminCampaignsComponent implements OnInit {
   constructor(private campaignService: CampaignService) { }
 
   ngOnInit() {
-    this.getUnpublishedCampaigns();
     this.getOngoingCampaigns();
-    this.getpublishedCampaigns();
-    this.getverifiedCampaigns();
-    this.getunverifiedCampaigns();
+    this.getUnpublishedCampaigns();
+    this.getPublishedCampaigns();
+    this.getVerifiedCampaigns();
+    this.getUnverifiedCampaigns();
   }
 
   refreshCampaignList() {
@@ -43,18 +43,18 @@ export class AdminCampaignsComponent implements OnInit {
       this.unpublishedCampaigns = res['campaigns'] as Campaign[];
     });
   }
-  getpublishedCampaigns() {
+  getPublishedCampaigns() {
     this.campaignService.getPublishedCampaignsList().subscribe((res) => {
       this.publishedCampaigns = res['campaigns'] as Campaign[];
     });
   }
-  getverifiedCampaigns() {
+  getVerifiedCampaigns() {
     this.campaignService.getVerifiedCampaignsList().subscribe((res) => {
       this.verifiedCampaigns = res['campaigns'] as Campaign[];
     });
   }
-  getunverifiedCampaigns() {
-    this.campaignService.getVerifiedCampaignsList().subscribe((res) => {
+  getUnverifiedCampaigns() {
+    this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
       this.unverifiedCampaigns = res['campaigns'] as Campaign[];
     });
   }
