@@ -68,6 +68,18 @@ router.post('/authenticate', (req, res, next) => {
     });
 });
 
+router.get('/profile/:id', (req, res) => {
+    // locate user with given id
+    User.getUserById(req.params.id, (err, user) => {
+        if (err) {
+            return res.json({ success: false });
+        }
+        else {
+            return res.json({ success: false, user: user });
+        }
+    });
+});
+
 router.get('/profile', passport.authenticate("jwt", { session: false }), (req, res, next) => {
     // return user with all other fields except hashed password
     res.json({
@@ -79,17 +91,6 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
             role: req.user.role
         }
     })
-});
-
-router.post('/profile/:id', (req, res, next) => {
-    User.getUserById(req.params.id, (err, user) => {
-        if (err) {
-            return res.json({ success: false });
-        }
-        else {
-            return res.json({ success: false, user: user });
-        }
-    });
 });
 
 module.exports = router;
