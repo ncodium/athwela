@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Campaign } from '../../../interfaces/campaign';
 import { CampaignService } from 'src/app/services/campaign.service';
 import { AuthService } from './../../../services/auth.service';
@@ -19,6 +19,7 @@ export class CampaignPageComponent implements OnInit {
   alerts: any = [];
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private campaignService: CampaignService,
     private authService: AuthService
@@ -34,6 +35,9 @@ export class CampaignPageComponent implements OnInit {
   refreshCampaign(id: String) {
     this.campaignService.getCampaign(id).subscribe((res) => {
       if (res['success']) this.campaign = res['campaign'] as Campaign;
+      else {
+        this.router.navigate(['/page-not-found']);
+      }
     });
   }
 

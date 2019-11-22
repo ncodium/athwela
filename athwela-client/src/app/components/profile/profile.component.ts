@@ -5,6 +5,7 @@ import { User } from '../../models/user.model';
 import { Campaign } from '../../models/campaign.model';
 import { CampaignService } from '../../services/campaign.service';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
+    private userService: UserService,
     private campaignService: CampaignService,
   ) { }
 
@@ -30,14 +32,16 @@ export class ProfileComponent implements OnInit {
     this.routeSub = this.route.params.subscribe(params => {
       this.userId = params['id']; // acquire userId from URL
       if (this.userId) {
-        
-        //TODO
-        //Get user profile
+        this.userService.getUser(this.userId).subscribe((res) => {
+          if (res['success']) this.user = res['user'] as User;
+          else {
+            this.router.navigate(['/page-not-found']);
+          }
+        })
       }
       else {
         this.user = this.authService.getUser();
       }
-
       this.getUserCampaignList();
     });
   }

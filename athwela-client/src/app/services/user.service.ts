@@ -6,12 +6,12 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class UserService {
-  readonly baseURL = 'http://localhost:3000/user/';
+  readonly baseURL = 'http://localhost:3000/users/';
 
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) { }
 
-  getUser(id: String) { return this.http.get(this.baseURL + 'profile' + id) }
+  getUser(id: String) { return this.http.get(this.baseURL + 'profile/' + id) }
 }

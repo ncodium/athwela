@@ -38,6 +38,7 @@ const routes: Routes = [
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
   { path: 'how-it-works', component: HowItWorksComponent },
+  { path: 'page=not-found', component: PageNotFoundComponent },
 
   // administrator only
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard, AdminGuard] },

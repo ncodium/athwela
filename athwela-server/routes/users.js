@@ -75,7 +75,7 @@ router.get('/profile/:id', (req, res) => {
             return res.json({ success: false });
         }
         else {
-            return res.json({ success: false, user: user });
+            return res.json({ success: true, user: user });
         }
     });
 });
