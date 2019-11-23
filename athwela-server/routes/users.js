@@ -55,7 +55,7 @@ router.post('/authenticate', (req, res, next) => {
                     success: true,
                     token: 'JWT ' + token,
                     user: {
-                        id: user._id,
+                        _id: user._id,
                         name: user.name,
                         username: user.username,
                         email: user.email,
@@ -98,7 +98,7 @@ router.get('/profile/:id', (req, res) => {
     });
 });
 
-router.get('/profile', passport.authenticate("jwt", { session: false }), (req, res, next) => {
+router.get('/profile', passport.authenticate("jwt", { session: false }), (req, res) => {
     // return user with all other fields except hashed password
     res.json({
         user: {

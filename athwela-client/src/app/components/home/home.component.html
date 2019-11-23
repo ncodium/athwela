@@ -16,17 +16,17 @@
     <!-- /.row -->
 
     <!-- Call to Action -->
-    <div class="card text-white bg-primary mt-5 py-3 text-center">
+    <!--    <div class="card text-white bg-primary mt-5 py-3 text-center">
         <div class="card-body">
             <h3 class="text-white m-0">It's your chance to make a difference today!</h3>
         </div>
-    </div>
+    </div> -->
 
     <!-- Content Row -->
     <h1 class="font-weight-light mt-4 mb-3">Recent Campaigns</h1>
 
     <div class="row">
-        <div *ngFor="let cmp of campaignService.campaigns" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 my-2 mb-4">
+        <div *ngFor="let cmp of campaignService.campaigns" class="col-lg-4 col-md-6 col-sm-12 my-2 mb-4">
             <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
                 target={{cmp.target}} [hideDonate]="false">
             </app-campaign-card>

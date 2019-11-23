@@ -15,8 +15,9 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileComponent implements OnInit {
   private routeSub: Subscription;
   private user: User;
+  private currentUser: User;
   private userId: string;
-  private visitor: boolean;
+  private isVisitor: boolean;
 
   campaigns: Campaign[];
 
@@ -29,18 +30,23 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.currentUser = this.authService.getUser();
+
     this.routeSub = this.route.params.subscribe(params => {
       this.userId = params['id']; // acquire userId from URL
       if (this.userId) {
         this.userService.getUser(this.userId).subscribe((res) => {
           if (res['success']) this.user = res['user'] as User;
-          else {
-            this.router.navigate(['/page-not-found']);
-          }
+          else this.router.navigate(['/page-not-found']);
+
+          // identify if the user is visitor or not
+          if (this.user._id == this.currentUser._id) this.isVisitor = false;
+          else this.isVisitor = true;
         })
       }
       else {
-        this.user = this.authService.getUser();
+        this.user = this.currentUser;
+        this.isVisitor = false; // is the owner
       }
       this.getUserCampaignList();
     });
