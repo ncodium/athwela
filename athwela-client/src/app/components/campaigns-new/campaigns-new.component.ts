@@ -41,7 +41,7 @@ export class NewCampaignComponent implements OnInit {
 
   onCreateCampaign(): void {
     this.submitted = true;
-    console.log(this.campaignForm.invalid)
+    console.log(this.f.name);
     if(this.campaignForm.invalid) { return; }
     
     const campaign = {
@@ -50,7 +50,7 @@ export class NewCampaignComponent implements OnInit {
       target: this.campaignForm.controls.target.value,
       deadline: this.campaignForm.controls.deadline.value,
       raised: 0,
-      category: this.campaignForm.controls.category.value
+      category: this.campaignForm.controls.category.value,
     }
 
     // register User
