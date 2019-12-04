@@ -10,7 +10,7 @@
                     <p class="card-text">{{user?.email}}</p>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="#" class="btn btn-primary">Settings</a>
+                    <button (click)="openSettings(settings)" class="btn btn-primary">Settings</button>
                 </div>
             </div>
         </div>
@@ -58,3 +58,65 @@
 
     </div>
 </div>
+
+<ng-template #settings>
+    <div class="modal-header">
+        <h4 class="modal-titile pull-left">Settings</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form (submit)="onRegisterSubmit()">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input type="text" [(ngModel)]="username" disabled name="username" class="form-control"
+                    id="inputUsername" aria-describedby="usernameHelp" [placeholder]="user?.username"
+                    [ngClass]="{'is-invalid': usernameInvalid}">
+                <small id="usernameHelp" class="form-text text-muted">You can't change your username.</small>
+            </div>
+            <div class="form-group">
+                <label for="inputName">Name</label>
+                <input type="text" [(ngModel)]="name" name="name" class="form-control" id="inputName"
+                    aria-describedby="nameHelp" [placeholder]="user?.name" [ngClass]="{'is-invalid': nameInvalid}">
+            </div>
+            <div class="form-group">
+                <label for="inputEmail">Email address</label>
+                <input type="email" [(ngModel)]="email" name="email" class="form-control" id="inputEmail"
+                    [placeholder]="user?.email" [ngClass]="{'is-invalid': emailInvalid}">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" [(ngModel)]="password" name="password" class="form-control" id="inputPassword"
+                    placeholder="Enter a new password" [ngClass]="{'is-invalid': passwordInvalid}"
+                    aria-describedby="passwordHelp">
+                <password-strength-meter id="passwordHelp" [enableFeedback]="true" [password]="password">
+                </password-strength-meter>
+
+            </div>
+            <div class="form-group">
+                <input type="password" [(ngModel)]="passwordConfirm" name="password-confirm" class="form-control"
+                    id="inputPasswordConfirm" placeholder="Enter your new password again for confirmation"
+                    [ngClass]="{'is-invalid': passwordMismatch || passwordInvalid}" aria-describedby="passwordHelp">
+                <small id="passwordHelp" class="form-text text-muted">If you don't want to change your password, keep
+                    these fields empty.</small>
+            </div>
+
+
+
+
+
+            <div *ngFor="let alert of alerts">
+                <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="modalRef.hide()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</ng-template>

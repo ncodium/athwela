@@ -6,6 +6,8 @@ import { Campaign } from '../../models/campaign.model';
 import { CampaignService } from '../../services/campaign.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +20,7 @@ export class ProfileComponent implements OnInit {
   private currentUser: User;
   private userId: string;
   private isVisitor: boolean;
+  modalRef: BsModalRef;
 
   campaigns: Campaign[];
 
@@ -27,6 +30,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private campaignService: CampaignService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit() {
@@ -63,5 +67,9 @@ export class ProfileComponent implements OnInit {
       this.campaigns = res['campaigns'] as Campaign[];
       console.log(this.campaigns);
     });
+  }
+
+  openSettings(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 }
