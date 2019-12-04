@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   private user: User;
   private currentUser: User;
   private userId: string;
-  private isVisitor: boolean;
+  private visitor: boolean;
   modalRef: BsModalRef;
 
   campaigns: Campaign[];
@@ -44,13 +44,14 @@ export class ProfileComponent implements OnInit {
           else this.router.navigate(['/page-not-found']);
 
           // identify if the user is visitor or not
-          if (this.user._id == this.currentUser._id) this.isVisitor = false;
-          else this.isVisitor = true;
+          console.log(this.user, this.currentUser);
+          if (this.user._id == this.currentUser._id) this.visitor = false;
+          else this.visitor = true;
         })
       }
       else {
         this.user = this.currentUser;
-        this.isVisitor = false; // is the owner
+        this.visitor = false; // is the owner
       }
       this.getUserCampaignList();
     });

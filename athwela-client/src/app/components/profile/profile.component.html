@@ -10,7 +10,7 @@
                     <p class="card-text">{{user?.email}}</p>
                 </div>
                 <div class="card-footer text-muted">
-                    <button (click)="openSettings(settings)" class="btn btn-primary">Settings</button>
+                    <button (click)="openSettings(settings)" class="btn btn-primary" *ngIf="!visitor">Settings</button>
                 </div>
             </div>
         </div>
