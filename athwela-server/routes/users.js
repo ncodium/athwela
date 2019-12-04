@@ -79,6 +79,7 @@ router.get('/profile/:id', (req, res) => {
             throw err;
         }
         else {
+            console.log(user);
             if (user) {
                 return res.json({
                     success: true,
@@ -92,7 +93,7 @@ router.get('/profile/:id', (req, res) => {
                 })
             }
             else {
-                return res.json({ success: false });
+                return res.json({ success: false, msg: 'no user' });
             }
         }
     });
