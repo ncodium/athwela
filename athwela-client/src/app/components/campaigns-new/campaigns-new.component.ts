@@ -41,7 +41,6 @@ export class NewCampaignComponent implements OnInit {
 
   onCreateCampaign(): void {
     this.submitted = true;
-    console.log(this.f.name);
     if(this.campaignForm.invalid) { return; }
     
     const campaign = {
