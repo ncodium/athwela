@@ -7,67 +7,89 @@
             <div class="card">
                 <div class="card-body">
                     <form role="form" (submit)="onCreateCampaign()" [formGroup]="campaignForm">
-                        <div class="form-group">
-                            <label for="inputTitle">Campaign name</label>
-                            <input type="name" required formControlName="name" class="form-control" id="inputTitle"
-                                [ngClass]="{ 'is-invalid': f.name.errors && (f.name.touched || f.name.dirty || submitted)}">
-                            <div *ngIf="f.name.errors && (f.name.touched || f.name.dirty || submitted)"
-                                class="alert alert-danger">
-                                <div>Campaign name is required</div>
-                            </div>
-                        </div>
+                        <tabset [justified]="true" type="pills">
+                            <tab heading="Tell Your Story">
+                                <div class="form-group">
+                                    <label for="inputTitle">Add your title</label>
+                                    <input type="name" required formControlName="name" class="form-control"
+                                        id="inputTitle"
+                                        [ngClass]="{ 'is-invalid': f.name.errors && (f.name.touched || f.name.dirty || submitted)}">
+                                    <div *ngIf="f.name.errors && (f.name.touched || f.name.dirty || submitted)"
+                                        class="alert alert-danger">
+                                        <div>Campaign name is required</div>
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <label for="inputTarget">Target (Rs.)</label>
-                            <input type="number" formControlName="target" class="form-control" id="inputTarget"
-                                [ngClass]="{ 'is-invalid': f.target.errors && (f.target.touched || f.target.dirty || submitted)}">
-                            <div *ngIf="f.target.errors && (f.target.touched || f.target.dirty || submitted)"
-                                class="alert alert-danger">
-                                <div>Target is required</div>
-                            </div>
-                        </div>
+                                <div class="form-group">
+                                    <label for="inputDescription">What are you fundraising for?</label>
+                                    <textarea
+                                        placeholder="Example: I'm raising money for my classroom! Donations will go towards books and supplies for the school this year."
+                                        formControlName="description" class="form-control" id="inputDescription"
+                                        [ngClass]="{ 'is-invalid': f.description.errors && (f.description.touched || f.description.dirty || submitted)}"></textarea>
+                                    <div *ngIf="f.description.errors && (f.description.touched || f.description.dirty || submitted)"
+                                        class="alert alert-danger">
+                                        <div>Campaign name is required</div>
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <label for="inputDescription">Description</label>
-                            <textarea formControlName="description" class="form-control" id="inputDescription"
-                                [ngClass]="{ 'is-invalid': f.description.errors && (f.description.touched || f.description.dirty || submitted)}"></textarea>
-                            <div *ngIf="f.description.errors && (f.description.touched || f.description.dirty || submitted)"
-                                class="alert alert-danger">
-                                <div>Campaign name is required</div>
-                            </div>
-                        </div>
+                                <div class="form-group">
+                                    <label for="inputCategory">Category</label>
+                                    <select formControlName="category" (ngModelChange)="onCategoryChange($event)"
+                                        class="form-control" id="inputCategory"
+                                        [ngClass]="{ 'is-invalid': f.category.errors && (f.category.touched || f.category.dirty || submitted)}">
+                                        <option disabled="disabled" selected="selected">Choose a category</option>
+                                        <option *ngFor="let category of categories" [ngValue]="category">
+                                            {{ category | titlecase}}</option>
+                                    </select>
+                                    <div *ngIf="f.category.errors && (f.category.touched || f.category.dirty || sumbitted)"
+                                        class="alert alert-danger">
+                                        <div>Category is required</div>
+                                    </div>
+                                </div>
+                            </tab>
 
-                        <div class="form-group">
-                            <label for="inputCategory">Category</label>
-                            <select formControlName="category" (ngModelChange)="onCategoryChange($event)"
-                                class="form-control" id="inputCategory"
-                                [ngClass]="{ 'is-invalid': f.category.errors && (f.category.touched || f.category.dirty || submitted)}">
-                                <option disabled="disabled" selected="selected">Choose a category</option>
-                                <option *ngFor="let category of categories" [ngValue]="category">
-                                    {{ category | titlecase}}</option>
-                            </select>
-                            <div *ngIf="f.category.errors && (f.category.touched || f.category.dirty || sumbitted)"
-                                class="alert alert-danger">
-                                <div>Category is required</div>
-                            </div>
-                        </div>
+                            <tab heading="Add your photo">
+                                <p style="text-align: justify;">Adding your photo gives donors and supporters confidence
+                                    that a real person has created the campaign.</p>
+                            </tab>
 
-                        <div class="form-group">
-                            <label for="inputDeadline">Deadline</label>
-                            <input formControlName="deadline" type="date" class="form-control" id="inputDeadline"
-                                [ngClass]="{ 'is-invalid': f.deadline.errors && (f.deadline.touched || f.deadline.dirty || submitted)}">
-                            <div *ngIf="f.deadline.errors && (f.deadline.touched || f.deadline.dirty || sumbitted)"
-                                class="alert alert-danger">
-                                <div>Deadline is required</div>
-                            </div>
-                        </div>
+                            <tab heading="Add images or videos">
+                                <p style="text-align: justify;">A crowdfunding campaign can't survive on just words
+                                    alone. Add images and/or videos that are related to the cause you're raising money
+                                    for. This helps donors connect to your cause and see what their donations are going
+                                    toward.</p>
+                            </tab>
 
-                        <button type="submit" class="btn btn-primary">Create Campaign</button>
+                            <tab heading="How much do you need and by when?">
+                                <div class="form-group">
+                                    <label for="inputTarget">Target (Rs.)</label>
+                                    <input type="number" formControlName="target" class="form-control" id="inputTarget"
+                                        [ngClass]="{ 'is-invalid': f.target.errors && (f.target.touched || f.target.dirty || submitted)}">
+                                    <div *ngIf="f.target.errors && (f.target.touched || f.target.dirty || submitted)"
+                                        class="alert alert-danger">
+                                        <div>Target is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputDeadline">Deadline</label>
+                                    <input formControlName="deadline" type="date" class="form-control"
+                                        id="inputDeadline"
+                                        [ngClass]="{ 'is-invalid': f.deadline.errors && (f.deadline.touched || f.deadline.dirty || submitted)}">
+                                    <div *ngIf="f.deadline.errors && (f.deadline.touched || f.deadline.dirty || sumbitted)"
+                                        class="alert alert-danger">
+                                        <div>Deadline is required</div>
+                                    </div>
+                                </div>
+                            </tab>
+
+                            <button type="submit" class="btn btn-primary">Create Campaign</button>
+                        </tabset>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
                     <p>
@@ -75,6 +97,6 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
