@@ -57,26 +57,32 @@ export class ProfileComponent implements OnInit {
           else this.router.navigate(['/page-not-found']);
 
           // identify if the user is visitor or not
-          if (this.user._id == this.currentUser._id) this.visitor = false;
-          else this.visitor = true;
+          if (this.user._id == this.currentUser._id) {
+            this.visitor = false;
+            this.getUserCampaignList();
+          }
+          else {
+            this.visitor = true;
+            this.getUserCampaignListById(this.user._id);
+          }
         })
       }
       else {
         this.user = this.currentUser;
         this.visitor = false; // is the owner
+        this.getUserCampaignList();
       }
-      this.getUserCampaignList();
-    });
-  }
-
-  refreshUserCampaignList(user: User) {
-    this.campaignService.getCampaignList().subscribe((res) => {
-      if (res['success']) this.campaignService.campaigns = res['campaigns'] as Campaign[];
     });
   }
 
   getUserCampaignList() {
-    this.campaignService.getCampaignList().subscribe((res) => {
+    this.campaignService.getUserCampaignsList().subscribe((res) => {
+      this.campaigns = res['campaigns'] as Campaign[];
+    });
+  }
+
+  getUserCampaignListById(id: string) {
+    this.campaignService.getUserCampaignsListById(id).subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
     });
   }

@@ -51,4 +51,10 @@ export class CampaignService {
 
     return this.http.get(this.baseURL + 'user', httpOptions).pipe();
   }
+
+  getUserCampaignsListById(id: String) {
+    return this.http.get(this.baseURL + 'user/' + id, {}).pipe();
+  }
+
+
 }

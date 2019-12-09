@@ -9,8 +9,8 @@
                     <p class="card-text">{{user?.email}}</p>
                 </div>
                 <div class="card-footer text-muted">
-                    <button (click)="openSettings(settings)" class="btn btn-primary" *ngIf="!visitor">Settings</button>
-                </div>
+                    <button class="btn btn-default">Ratings</button> 
+                    <button (click)="openSettings(settings)" class="btn btn-primary" *ngIf="!visitor">Settings</button>                </div>
             </div>
         </div>
         <div class="col-md-8 mt-2 mt-md-0">
@@ -43,7 +43,8 @@
             </div>
         </div>
     </div>
-    <h3 class="mt-4 mb-3">My Campaigns</h3>
+    <h3 *ngIf="!visitor" class="mt-4 mb-3">My Campaigns</h3>
+    <h3 *ngIf="visitor" class="mt-4 mb-3">Campaigns</h3>
     <div class="row mt-2">
         <div *ngFor="let cmp of campaigns" class="col-md-4 col-sm-6 col-xs-12 my-2">
             <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
@@ -52,7 +53,8 @@
         </div>
     </div>
 
-    <h3 class="mt-4 mb-3">My Donations</h3>
+    <h3 *ngIf="!visitor" class="mt-4 mb-3">My Donations</h3>
+    <h3 *ngIf="visitor" class="mt-4 mb-3">Donations</h3>
     <div class="row row mb-2 mt-2">
 
     </div>
