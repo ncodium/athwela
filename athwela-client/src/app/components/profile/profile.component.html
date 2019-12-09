@@ -105,17 +105,13 @@
                     these fields empty.</small>
             </div>
 
-
-
-
-
             <div *ngFor="let alert of alerts">
                 <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
             </div>
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" (click)="modalRef.hide()">Cancel</button>
+            <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
             <button type="submit" class="btn btn-primary">Update</button>
         </div>
     </form>

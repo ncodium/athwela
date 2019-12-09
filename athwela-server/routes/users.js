@@ -13,6 +13,7 @@ router.post('/register', (req, res, next) => {
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
+        role: req.body.role
     });
 
     // check if a user with the username already exist

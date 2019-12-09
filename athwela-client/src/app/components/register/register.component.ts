@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
       username: this.username,
       email: this.email,
       password: this.password,
-      //role: this.role
+      role: this.role
     }
 
     // required fields

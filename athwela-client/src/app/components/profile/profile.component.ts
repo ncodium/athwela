@@ -20,8 +20,18 @@ export class ProfileComponent implements OnInit {
   private currentUser: User;
   private userId: string;
   private visitor: boolean;
-  modalRef: BsModalRef;
 
+  private name: string;
+  private email: string;
+  private password: string;
+  private passwordConfirm: string;
+
+  private nameInvalid: boolean;
+  private emailInvalid: boolean;
+  private passwordInvalid: boolean;
+  private passwordMismatch: boolean;
+  
+  modalRef: BsModalRef;
   campaigns: Campaign[];
 
   constructor(
@@ -35,7 +45,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.authService.getUser();
-
+    this.nameInvalid = this.emailInvalid = this.passwordInvalid = this.passwordMismatch = false;
     this.routeSub = this.route.params.subscribe(params => {
       this.userId = params['id']; // acquire userId from URL
       if (this.userId) {
@@ -44,7 +54,6 @@ export class ProfileComponent implements OnInit {
           else this.router.navigate(['/page-not-found']);
 
           // identify if the user is visitor or not
-          console.log(this.user, this.currentUser);
           if (this.user._id == this.currentUser._id) this.visitor = false;
           else this.visitor = true;
         })
