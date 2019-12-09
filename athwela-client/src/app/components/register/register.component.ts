@@ -99,7 +99,7 @@ export class RegisterComponent implements OnInit {
       this.alerts = [
         {
           type: 'warning',
-          msg: `Your passwords doesn't match. Please enter your password again.`
+          msg: `Your passwords don't match. Please enter your password again.`
         }
       ];
     }
@@ -108,7 +108,7 @@ export class RegisterComponent implements OnInit {
       this.alerts = [
         {
           type: 'warning',
-          msg: `Your passwords doesn't match. Please enter your password again.`
+          msg: `Your passwords don't match. Please enter your password again.`
         }
       ];
     }

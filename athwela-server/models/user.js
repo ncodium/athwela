@@ -31,6 +31,16 @@ module.exports.addUser = function (newUser, callback) {
     });
 }
 
+module.exports.updateUser = function (updatedUser, callback) {
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(updatedUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            updatedUser.password = hash;
+            updatedUser.save(callback);
+        });
+    });
+}
+
 module.exports.comparePassword = function (candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
         if (err) throw err;

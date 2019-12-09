@@ -5,8 +5,7 @@
                 <div class="card-body">
                     <img height="90px"
                         src="http://music.virginia.edu/sites/music.virginia.edu/files/styles/faculty_profile_image/public/default_images/person-placeholder_3.png?itok=dtpqDURH">
-                    <h5 class="card-title">{{user?.name}}
-                    </h5>
+                    <h5 class="card-title">{{user?.name}}</h5>
                     <p class="card-text">{{user?.email}}</p>
                 </div>
                 <div class="card-footer text-muted">
@@ -67,13 +66,12 @@
         </button>
     </div>
 
-    <form (submit)="onRegisterSubmit()">
+    <form (submit)="onUpdateSubmit()">
         <div class="modal-body">
             <div class="form-group">
                 <label for="inputUsername">Username</label>
-                <input type="text" [(ngModel)]="username" disabled name="username" class="form-control"
-                    id="inputUsername" aria-describedby="usernameHelp" [placeholder]="user?.username"
-                    [ngClass]="{'is-invalid': usernameInvalid}">
+                <input type="text" disabled name="username" class="form-control" id="inputUsername"
+                    aria-describedby="usernameHelp" [placeholder]="user?.username">
                 <small id="usernameHelp" class="form-text text-muted">You can't change your username.</small>
             </div>
             <div class="form-group">

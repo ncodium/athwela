@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ValidateService } from 'src/app/services/validate.service';
 
 @Component({
   selector: 'app-profile',
@@ -30,9 +31,10 @@ export class ProfileComponent implements OnInit {
   private emailInvalid: boolean;
   private passwordInvalid: boolean;
   private passwordMismatch: boolean;
-  
+
   modalRef: BsModalRef;
   campaigns: Campaign[];
+  alerts: any = [];
 
   constructor(
     private router: Router,
@@ -40,7 +42,8 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private campaignService: CampaignService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private validateService: ValidateService
   ) { }
 
   ngOnInit() {
@@ -75,11 +78,83 @@ export class ProfileComponent implements OnInit {
   getUserCampaignList() {
     this.campaignService.getCampaignList().subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
-      console.log(this.campaigns);
     });
   }
 
   openSettings(template: TemplateRef<any>) {
+    this.alerts = [];
     this.modalRef = this.modalService.show(template);
+  }
+
+  onUpdateSubmit() {
+    this.nameInvalid = this.emailInvalid = this.passwordInvalid = this.passwordMismatch = false;
+
+    if (!this.name && !this.email && !this.password && !this.passwordConfirm) {
+      this.modalRef.hide();
+    }
+
+    if (this.password) {
+      if (this.password != this.passwordConfirm) {
+        this.passwordInvalid = this.passwordMismatch = true;
+        this.alerts = [
+          {
+            type: 'warning',
+            msg: `Your passwords don't match. Please try again!`
+          }
+        ];
+
+        return;
+      }
+      else {
+        // update password
+        this.user.password = this.password;
+        this.password = this.passwordConfirm = '';
+      }
+    }
+
+    if (this.name) {
+      // update name
+      this.user.name = this.name;
+    }
+
+    if (this.email) {
+      if (!this.validateService.validateEmail(this.email)) {
+        this.emailInvalid = true;
+        this.alerts = [
+          {
+            type: 'warning',
+            msg: 'Please enter a valid e-mail address'
+          }
+        ];
+        return;
+      }
+      else {
+        // update email
+        this.user.email = this.email;
+      }
+    }
+
+    this.authService.updateUser(this.user).subscribe(data => {
+      if (data['success']) {
+        this.alerts = [
+          {
+            type: 'success',
+            msg: `Your details were updated successfully.`
+          }
+        ];
+        this.userService.getUser(this.user._id).subscribe((res) => {
+          if (res['success']) this.user = res['user'] as User;
+          this.authService.storeUserProfile(this.user);
+        });
+      }
+      else {
+        this.alerts = [
+          {
+            type: 'danger',
+            msg: data
+          }
+        ];
+      }
+    })
   }
 }

@@ -70,15 +70,38 @@ router.post('/authenticate', (req, res, next) => {
     });
 });
 
+router.post('/update/:_id', (req, res, next) => {
+    // validate object id
+    if (!ObjectId.isValid(req.params._id))
+        return res.json({ success: false });
+
+    // check if a user with the _id exist
+    User.getUserById(req.params._id, function (err, user) {
+        if (!user) {
+            res.json({ success: false });
+        } else {
+            if (req.body.name) { user.name = req.body.name; }
+            if (req.body.email) { user.email = req.body.email; }
+            if (req.body.password) { user.password = req.body.password; }
+
+            User.updateUser(user, (err, user) => {
+                if (err) {
+                    res.json({ success: false, msg: 'User update failed.' });
+                } else {
+                    res.json({ success: true, msg: 'User updated successfully' });
+                }
+            });
+        }
+    });
+});
+
 router.get('/profile/:id', (req, res) => {
     // locate user with given id
     if (!ObjectId.isValid(req.params.id))
-    return res.json({ success: false });
+        return res.json({ success: false });
 
     User.getUserById(req.params.id, (err, user) => {
-        if (err) {
-            throw err;
-        }
+        if (err) { throw err; }
         else {
             if (user) {
                 return res.json({
