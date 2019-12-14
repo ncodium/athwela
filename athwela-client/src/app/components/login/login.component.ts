@@ -96,7 +96,6 @@ export class LoginComponent implements OnInit {
           else this.router.navigate(['/profile']);
 
         } else {
-          console.log(data);
           this.alerts = [
             {
               type: 'danger',

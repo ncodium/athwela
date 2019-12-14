@@ -169,7 +169,6 @@ export class ProfileComponent implements OnInit {
     }
 
     this.authService.updateUser(this.user).subscribe(data => {
-      console.log(data);
       if (data['success']) {
         this.alerts = [
           {
