@@ -16,8 +16,9 @@
         <div class="col-md-8 mt-2 mt-md-0">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Your contributions</h5>
-                    <p class="card-text">Following is a quick summary of your contributions to Athwela.</p>
+                    <h5 class="card-title" *ngIf="!visitor" >Your contributions</h5>
+                    <h5 class="card-title" *ngIf="visitor" >Contributions</h5>
+                    <p class="card-text">Following is a quick summary of contributions to Athwela.</p>
                     <div class="row">
                         <div class="col-md-6 my-2 my-md-0">
                             <div class="card text-white bg-primary">
