@@ -66,9 +66,10 @@ export class RegisterComponent implements OnInit {
       role: this.role
     }
 
+    this.highlightInvalidInputFields();
+
     // required fields
     if (!this.username && !this.email && !this.password && !this.name) {
-      this.highlightInvalidInputFields();
       this.alerts = [
         {
           type: 'warning',
@@ -77,7 +78,6 @@ export class RegisterComponent implements OnInit {
       ];
     }
     else if (!this.username) {
-      this.highlightInvalidInputFields();
       this.alerts = [
         {
           type: 'warning',
@@ -86,7 +86,6 @@ export class RegisterComponent implements OnInit {
       ];
     }
     else if (!this.password) {
-      this.highlightInvalidInputFields();
       this.alerts = [
         {
           type: 'warning',
@@ -95,7 +94,6 @@ export class RegisterComponent implements OnInit {
       ];
     }
     else if (!this.passwordConfirm) {
-      this.highlightInvalidInputFields();
       this.alerts = [
         {
           type: 'warning',
@@ -104,7 +102,6 @@ export class RegisterComponent implements OnInit {
       ];
     }
     else if (this.passwordMismatch) {
-      this.highlightInvalidInputFields();
       this.alerts = [
         {
           type: 'warning',
@@ -113,7 +110,6 @@ export class RegisterComponent implements OnInit {
       ];
     }
     else if (!this.name) {
-      this.highlightInvalidInputFields();
       this.alerts = [
         {
           type: 'warning',
@@ -122,7 +118,6 @@ export class RegisterComponent implements OnInit {
       ];
     }
     else if (!this.email) {
-      this.highlightInvalidInputFields();
       this.alerts = [
         {
           type: 'warning',
@@ -131,7 +126,6 @@ export class RegisterComponent implements OnInit {
       ];
     }
     else if (!this.validateService.validateRegister(user)) {
-      this.highlightInvalidInputFields();
       this.alerts = [
         {
           type: 'danger',
@@ -141,8 +135,6 @@ export class RegisterComponent implements OnInit {
     }
     // validate Email
     else if (!this.validateService.validateEmail(user.email)) {
-      this.highlightInvalidInputFields();
-
       // additionally
       this.emailInvalid = true;
 
@@ -155,8 +147,6 @@ export class RegisterComponent implements OnInit {
     }
     // register User
     else this.authService.registerUser(user).subscribe(data => {
-      this.highlightInvalidInputFields();
-
       if (data['success']) {
         this.alerts = [
           {

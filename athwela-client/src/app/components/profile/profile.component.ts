@@ -47,42 +47,47 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.authService.loggedIn(), this.authService.getUser());
-    if (this.authService.loggedIn()) {
-      this.nameInvalid = this.emailInvalid = this.passwordInvalid = this.passwordMismatch = false;
-      this.currentUser = this.authService.getUser();
-      this.routeSub = this.route.params.subscribe(params => {
-        this.userId = params['id']; // acquire userId from URL
+    this.routeSub = this.route.params.subscribe(params => {
+      this.userId = params['id']; // acquire userId from URL
+
+      if (this.authService.loggedIn()) {
+        // user is logged in
+        this.nameInvalid = this.emailInvalid = this.passwordInvalid = this.passwordMismatch = false;
+        this.currentUser = this.authService.getUser(); // get logged in user
 
         if (this.userId) {
+          // id included in the url
           this.userService.getUser(this.userId).subscribe((res) => {
             if (res['success']) this.user = res['user'] as User;
             else this.router.navigate(['/page-not-found']);
 
             // identify if the user is visitor or not
             if (this.user._id == this.currentUser._id) {
+              // current user is the owner of the profile
               this.visitor = false;
               this.getUserCampaignList();
             }
             else {
+              // current user is not the owner of the profile
               this.visitor = true;
               this.getUserCampaignListById(this.user._id);
             }
           })
         }
         else {
+          // id not included in the url
+          // not a visitor
           this.user = this.currentUser;
           this.visitor = false; // is the owner
           this.getUserCampaignList();
         }
-      });
-    }
-    else {
-      this.visitor = true;
-      this.routeSub = this.route.params.subscribe(params => {
-        this.userId = params['id']; // acquire userId from URL
+      }
+      else {
+        // user is anonymous
+        this.visitor = true;
 
         if (this.userId) {
+          // id included in the url
           this.userService.getUser(this.userId).subscribe((res) => {
             if (res['success']) this.user = res['user'] as User;
             else this.router.navigate(['/page-not-found']);
@@ -91,10 +96,11 @@ export class ProfileComponent implements OnInit {
           })
         }
         else {
+          // id not included in the url
           this.router.navigate(['/page-not-found']);
         }
-      });
-    }
+      }
+    });
   }
 
   getUserCampaignList() {
