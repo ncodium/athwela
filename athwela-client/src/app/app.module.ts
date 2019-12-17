@@ -24,6 +24,7 @@ import { HomeFooterComponent } from './components/home-footer/home-footer.compon
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { CampaignCommentComponent } from './components/shared/campaign-comment/campaign-comment.component';
 
 // admininstrator components
 import { AdminDashboardComponent } from './components/administrator/admin-dashboard/admin-dashboard.component';
@@ -71,6 +72,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { HttpErrorModalComponent } from './components/shared/http-error-modal/http-error-modal.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,6 +102,7 @@ import { HttpErrorModalComponent } from './components/shared/http-error-modal/ht
     TruncateTextPipe,
     HttpErrorModalComponent,
     FooterComponent,
+    CampaignCommentComponent,
   ],
   imports: [
     BrowserModule,

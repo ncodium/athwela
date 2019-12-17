@@ -2,7 +2,7 @@
     <div class="page-header" *ngIf="campaign">
         <h1>{{campaign?.name}}</h1>
         <h6>
-            <a [routerLink]="['/profile', campaign.owner._id]">{{campaign?.owner.name}}</a> 
+            <a [routerLink]="['/profile', campaign.owner._id]">{{campaign?.owner.name}}</a>
             is organizing this fundraiser
         </h6>
     </div>
@@ -14,6 +14,9 @@
             </div>
             <img src="http://placehold.jp/720x320.png" class="img-fluid rounded mb-2 mb-lg-0">
             <p class="mt-2" style="white-space:pre-wrap;">{{campaign?.description}}</p>
+
+            <app-campaign-comment></app-campaign-comment>
+
         </div>
 
         <!-- Standard User -->
@@ -95,4 +98,5 @@
         </div>
 
     </div>
+
 </div>
