@@ -38,13 +38,13 @@ export class ModCampaignsComponent implements OnInit {
 
   refreshAllCampaignList() {
     this.campaignService.getCampaignList().subscribe((res) => {
-      this.allcampaigns = res['campaigns'] ;
+      this.allcampaigns = res['campaigns'];
     });
   }
 
   refreshVerifiedCampaignList() {
     this.campaignService.getVerifiedCampaignsList().subscribe((res) => {
-      this.verifiedcampaigns = res['campaigns'] ;
+      this.verifiedcampaigns = res['campaigns'];
     });
   }
 
@@ -54,12 +54,9 @@ export class ModCampaignsComponent implements OnInit {
     });
   }
 
-
   // refreshUnverifiedCampaignList() {
   //   this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
   //     this.unverifiedcampaigns = res['campaigns'] as Campaign[];
   //   });
   // }
-
-
 }
