@@ -6,5 +6,6 @@ export class Campaign {
     raised: number = 0;
     deadline: Date;
     category?: string;
-	owner?: any;
+    owner?: any;
+    verified_by?: any;
 }

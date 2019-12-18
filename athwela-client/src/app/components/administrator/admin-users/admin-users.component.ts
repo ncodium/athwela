@@ -15,6 +15,7 @@ export class AdminUsersComponent implements OnInit {
   modalRef: BsModalRef;
 
   ngOnInit() { }
+  
   constructor(private modalService: BsModalService) { }
 
   public scatterChartOptions: ChartOptions = {

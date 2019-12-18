@@ -128,6 +128,7 @@ export class ProfileComponent implements OnInit {
     }
 
     if (this.password) {
+      console.log("lol");
       if (this.password != this.passwordConfirm) {
         this.passwordInvalid = this.passwordMismatch = true;
         this.alerts = [

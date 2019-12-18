@@ -13,14 +13,15 @@ import { CampaignService } from '../../../services/campaign.service';
 })
 export class AdminDashboardComponent implements OnInit {
   allCampaigns: Campaign[];
+  public barChartLabels: Label[] = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july'];
 
-   
-  constructor(private campaignService: CampaignService) { } public barChartLabels: Label[] = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july'];
+  constructor(private campaignService: CampaignService) { }
+
   ngOnInit() {
     this.getOngoingCampaigns();
-    
-   }
-   getOngoingCampaigns() {
+  }
+
+  getOngoingCampaigns() {
     this.campaignService.getCampaignList().subscribe((res) => {
       this.allCampaigns = res['campaigns'] as Campaign[];
     });
@@ -44,5 +45,4 @@ export class AdminDashboardComponent implements OnInit {
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Donations' },
     { data: [28, 48, 40, 19, 86, 27, 90], label: 'Campaingns' }
   ];
-
 }

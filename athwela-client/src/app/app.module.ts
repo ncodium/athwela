@@ -61,7 +61,7 @@ import { MychartComponent } from './components/shared/mychart/mychart.component'
 
 // fa icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
@@ -147,6 +147,8 @@ import { HttpErrorModalComponent } from './components/shared/http-error-modal/ht
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faSearch, faInbox, faUser);
+    library.addIcons(faSearch);
+    library.addIcons(faInbox);
+    library.addIcons(faUser);
   }
 }

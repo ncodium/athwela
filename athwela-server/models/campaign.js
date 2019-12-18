@@ -17,7 +17,8 @@ var Campaign = mongoose.model('Campaign', new Schema(
         comments: [{ 
             owner: { type: ObjectId, ref: 'User', required: true },
             body: { type: String, required:true }
-        }]
+        }],
+        verified_by: { type: ObjectId, ref: 'User', required: false }
     },
     {
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

@@ -70,4 +70,5 @@ export class CampaignPageComponent implements OnInit {
       });
     });
   }
+
 }
