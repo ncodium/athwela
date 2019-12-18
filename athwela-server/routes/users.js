@@ -77,14 +77,18 @@ router.post('/update/:_id', (req, res, next) => {
 
     // check if a user with the _id exist
     User.getUserById(req.params._id, function (err, user) {
+        var rehash = false;
         if (!user) {
             res.json({ success: false });
         } else {
             if (req.body.name) { user.name = req.body.name; }
             if (req.body.email) { user.email = req.body.email; }
-            if (req.body.password) { user.password = req.body.password; }
+            if (req.body.password) {
+                rehash = true;
+                user.password = req.body.password;
+            }
 
-            User.updateUser(user, (err, user) => {
+            User.updateUser(user, rehash, (err, user) => {
                 if (err) {
                     res.json({ success: false, msg: 'User update failed.' });
                 } else {

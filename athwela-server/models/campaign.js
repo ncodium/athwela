@@ -13,6 +13,7 @@ var Campaign = mongoose.model('Campaign', new Schema(
         deadline: { type: Date, required: true },
         donations: [{ type: ObjectId, ref: 'Donation' }],
         verified: { type: Boolean, default: false },
+        verified_by: { type: ObjectId, ref: 'User', required: false },
         published: { type: Boolean, default: false }
     },
     {
