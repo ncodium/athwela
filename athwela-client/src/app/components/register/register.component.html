@@ -11,12 +11,12 @@
             <label for="inputUsername">Username</label>
             <input type="text" [(ngModel)]="username" name="username" class="form-control" id="exampleInputUsername"
                 aria-describedby="usernameHelp" placeholder="Enter your username"
-                [ngClass]="{'is-invalid': usernameInvalid}">
+                [ngClass]="{ 'is-invalid': usernameInvalid }">
         </div>
         <div class="form-group">
             <label for="inputPassword">Password</label>
             <input type="password" [(ngModel)]="password" name="password" class="form-control" id="inputPassword"
-                placeholder="Enter your password" [ngClass]="{'is-invalid': passwordInvalid}"
+                placeholder="Enter your password" [ngClass]="{ 'is-invalid': passwordInvalid }"
                 aria-describedby="passwordHelp">
             <password-strength-meter id="passwordHelp" [enableFeedback]="true" [password]="password">
             </password-strength-meter>
@@ -24,19 +24,20 @@
         <div class="form-group">
             <input type="password" [(ngModel)]="passwordConfirm" name="password-confirm" class="form-control"
                 id="inputPasswordConfirm" placeholder="Enter your password again for confirmation"
-                [ngClass]="{'is-invalid': passwordMismatch || passwordInvalid}" aria-describedby="passwordHelp">
+                [ngClass]="{ 'is-invalid': passwordMismatch || passwordInvalid }" aria-describedby="passwordHelp">
         </div>
         <div class="form-group">
             <label for="inputName">Name</label>
             <input type="text" [(ngModel)]="name" name="name" class="form-control" id="inputName"
-                aria-describedby="nameHelp" placeholder="Enter your name" [ngClass]="{'is-invalid': nameInvalid}">
+                aria-describedby="nameHelp" placeholder="Enter your name" [ngClass]="{ 'is-invalid': nameInvalid }">
         </div>
         <div class="form-group">
             <label for="inputEmail">Email address</label>
             <input type="email" [(ngModel)]="email" name="email" class="form-control" id="inputEmail"
-                placeholder="Enter your email address" [ngClass]="{'is-invalid': emailInvalid}">
+                placeholder="Enter your email address" [ngClass]="{ 'is-invalid': emailInvalid }">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
+         
 
         <div *ngFor="let alert of alerts">
             <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
@@ -54,7 +55,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+        <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{ closeBtnName }}</button>
         <button type="submit" class="btn btn-primary">Register</button>
     </div>
 </form>

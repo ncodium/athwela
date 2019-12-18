@@ -5,19 +5,20 @@
                 <div class="card-body">
                     <img height="90px"
                         src="http://music.virginia.edu/sites/music.virginia.edu/files/styles/faculty_profile_image/public/default_images/person-placeholder_3.png?itok=dtpqDURH">
-                    <h5 class="card-title">{{user?.name}}</h5>
-                    <p class="card-text">{{user?.email}}</p>
+                    <h5 class="card-title">{{ user?.name }}</h5>
+                    <p class="card-text">{{ user?.email }}</p>
                 </div>
                 <div class="card-footer text-muted">
-                    <button class="btn btn-default">Ratings</button> 
-                    <button (click)="openSettings(settings)" class="btn btn-primary" *ngIf="!visitor">Settings</button>                </div>
+                    <button class="btn btn-default">Ratings</button>
+                    <button (click)="openSettings(settings)" class="btn btn-primary" *ngIf="!visitor">Settings</button>
+                </div>
             </div>
         </div>
         <div class="col-md-8 mt-2 mt-md-0">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" *ngIf="!visitor" >Your contributions</h5>
-                    <h5 class="card-title" *ngIf="visitor" >Contributions</h5>
+                    <h5 class="card-title" *ngIf="!visitor">Your contributions</h5>
+                    <h5 class="card-title" *ngIf="visitor">Contributions</h5>
                     <p class="card-text">Following is a quick summary of contributions to Athwela.</p>
                     <div class="row">
                         <div class="col-md-6 my-2 my-md-0">
@@ -77,33 +78,37 @@
                     aria-describedby="usernameHelp" [placeholder]="user?.username">
                 <small id="usernameHelp" class="form-text text-muted">You can't change your username.</small>
             </div>
+
             <div class="form-group">
                 <label for="inputName">Name</label>
                 <input type="text" [(ngModel)]="name" name="name" class="form-control" id="inputName"
-                    aria-describedby="nameHelp" [placeholder]="user?.name" [ngClass]="{'is-invalid': nameInvalid}">
+                    aria-describedby="nameHelp" [placeholder]="user?.name" [ngClass]="{ 'is-invalid': nameInvalid }">
             </div>
+
             <div class="form-group">
                 <label for="inputEmail">Email address</label>
                 <input type="email" [(ngModel)]="email" name="email" class="form-control" id="inputEmail"
-                    [placeholder]="user?.email" [ngClass]="{'is-invalid': emailInvalid}">
+                    [placeholder]="user?.email" [ngClass]="{ 'is-invalid': emailInvalid }">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                     else.</small>
             </div>
+
             <div class="form-group">
                 <label for="inputPassword">Password</label>
                 <input type="password" [(ngModel)]="password" name="password" class="form-control" id="inputPassword"
-                    placeholder="Enter a new password" [ngClass]="{'is-invalid': passwordInvalid}"
+                    placeholder="Enter a new password" [ngClass]="{ 'is-invalid': passwordInvalid }"
                     aria-describedby="passwordHelp">
                 <password-strength-meter id="passwordHelp" [enableFeedback]="true" [password]="password">
                 </password-strength-meter>
-
             </div>
             <div class="form-group">
                 <input type="password" [(ngModel)]="passwordConfirm" name="password-confirm" class="form-control"
                     id="inputPasswordConfirm" placeholder="Enter your new password again for confirmation"
-                    [ngClass]="{'is-invalid': passwordMismatch || passwordInvalid}" aria-describedby="passwordHelp">
-                <small id="passwordHelp" class="form-text text-muted">If you don't want to change your password, keep
-                    these fields empty.</small>
+                    [ngClass]="{ 'is-invalid': passwordMismatch || passwordInvalid }" aria-describedby="passwordHelp">
+                <small id="passwordHelp" class="form-text text-muted">
+                    If you don't want to change your password, keep
+                    these fields empty.
+                </small>
             </div>
 
             <div *ngFor="let alert of alerts">
