@@ -13,7 +13,11 @@ var Campaign = mongoose.model('Campaign', new Schema(
         deadline: { type: Date, required: true },
         donations: [{ type: ObjectId, ref: 'Donation' }],
         verified: { type: Boolean, default: false },
-        published: { type: Boolean, default: false }
+        published: { type: Boolean, default: false },
+        comments: [{ 
+            owner: { type: ObjectId, ref: 'User', required: true },
+            body: { type: String, required:true }
+        }]
     },
     {
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

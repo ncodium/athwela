@@ -156,6 +156,24 @@ router.put('/:id/unpublish', (req, res) => {
     });
 });
 
+router.post('/:id/comment' , passport.authenticate("jwt", { session: false }), (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given Id: ${req.params.id}`);
+    
+    if(!req.body.body)
+        return res.status(400).send(`No body in comment`);
+
+    comment = {
+        owner: req.user._id,
+        body: req.body.body
+    }
+
+    Campaign.findByIdAndUpdate(req.params.id, { $push: { comments: comment  } }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
 router.delete('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.send({ success: false, msg: `No campaign exist with given Id: ${req.params.id}` });
