@@ -25,10 +25,49 @@ export class CampaignService {
   getUnpublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
   getVerifiedCampaignsList() { return this.http.get(this.baseURL + 'verified') }
   getUnverifiedCampaignsList() { return this.http.get(this.baseURL + 'unverified') }
-  publishCampaign(id: String) { return this.http.put(this.baseURL + id + '/publish', {}) }
-  unpublishCampaign(id: String) { return this.http.put(this.baseURL + id + '/unpublish', {}) }
-  verifyCampaign(id: String) { return this.http.put(this.baseURL + id + '/verify', {}) }
-  unverifyCampaign(id: String) { return this.http.put(this.baseURL + id + '/unverify', {}) }
+
+  publishCampaign(id: String) {
+    this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
+      })
+    };
+
+    return this.http.put(this.baseURL + id + '/publish', {}, httpOptions);
+  }
+
+  unpublishCampaign(id: String) {
+    this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
+      })
+    };
+    return this.http.put(this.baseURL + id + '/unpublish', {}, httpOptions);
+  }
+
+  verifyCampaign(id: String) {
+    this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
+      })
+    };
+
+    return this.http.put(this.baseURL + id + '/verify', {}, httpOptions);
+  }
+
+  unverifyCampaign(id: String) {
+    this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
+      })
+    };
+
+    return this.http.put(this.baseURL + id + '/unverify', {}, httpOptions);
+  }
 
   createCampaign(campaign: Campaign) {
     this.authService.loadToken();
@@ -55,6 +94,5 @@ export class CampaignService {
   getUserCampaignsListById(id: String) {
     return this.http.get(this.baseURL + 'user/' + id, {}).pipe();
   }
-
 
 }

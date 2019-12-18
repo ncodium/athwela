@@ -31,27 +31,23 @@ export class AuthService {
 
   updateUser(user) {
     this.loadToken();
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': this.authToken
       })
     };
-
     return this.http.post('http://localhost:3000/users/update/' + this.user._id, user, httpOptions).pipe();
   }
 
   getProfile() {
     this.loadToken();
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': this.authToken
       })
     };
-
     return this.http.get('http://localhost:3000/users/profile', httpOptions).pipe();
   }
 
@@ -86,7 +82,6 @@ export class AuthService {
   logOut() {
     this.authToken = this.user = this.role = null;
     localStorage.clear();
-
     this.router.navigate(['/']);
   }
 

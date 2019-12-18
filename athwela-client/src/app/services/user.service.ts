@@ -13,5 +13,7 @@ export class UserService {
     private authService: AuthService
   ) { }
 
-  getUser(id: String) { return this.http.get(this.baseURL + 'profile/' + id) }
+  getUser(id: String) {
+    return this.http.get(this.baseURL + 'profile/' + id)
+  }
 }
