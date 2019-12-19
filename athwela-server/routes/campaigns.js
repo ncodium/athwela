@@ -171,8 +171,11 @@ router.put('/:id/verify', passport.authenticate("jwt", { session: false }), (req
         }
     },
         { new: true }, (err, doc) => {
-            if (!err) { res.send(doc); }
-            else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+            if (!err) {
+                res.send(doc);
+            } else {
+                console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2));
+            }
         });
 });
 
@@ -181,8 +184,11 @@ router.put('/:id/unverify', (req, res) => {
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
 
     Campaign.findByIdAndUpdate(req.params.id, { $set: { verified: 'false' } }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+        if (!err) {
+            res.send(doc);
+        } else {
+            console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2));
+        }
     });
 });
 
@@ -191,8 +197,11 @@ router.put('/:id/publish', (req, res) => {
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
 
     Campaign.findByIdAndUpdate(req.params.id, { $set: { published: 'true' } }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+        if (!err) {
+            res.send(doc);
+        } else {
+            console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2));
+        }
     });
 });
 
@@ -201,26 +210,32 @@ router.put('/:id/unpublish', (req, res) => {
         return res.status(400).send(`No record with given Id: ${req.params.id}`);
 
     Campaign.findByIdAndUpdate(req.params.id, { $set: { published: 'false' } }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+        if (!err) {
+            res.send(doc);
+        } else {
+            console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2));
+        }
     });
 });
 
-router.post('/:id/comment' , passport.authenticate("jwt", { session: false }), (req, res) => {
+router.post('/:id/comment', passport.authenticate("jwt", { session: false }), (req, res) => {
     if (!ObjectId.isValid(req.params.id))
-        return res.status(400).send(`No record with given Id: ${req.params.id}`);
-    
-    if(!req.body.body)
+        return res.status(400).send(`No campaign with given Id: ${req.params.id}`);
+
+    if (!req.body.body)
         return res.status(400).send(`No body in comment`);
 
-    comment = {
+    const comment = {
         owner: req.user._id,
         body: req.body.body
     }
 
-    Campaign.findByIdAndUpdate(req.params.id, { $push: { comments: comment  } }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2)); }
+    Campaign.findByIdAndUpdate(req.params.id, { $push: { comments: comment } }, { new: true }, (err, doc) => {
+        if (!err) {
+            res.send(doc);
+        } else {
+            console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2));
+        }
     });
 });
 
@@ -229,8 +244,11 @@ router.delete('/:id', (req, res) => {
         return res.send({ success: false, msg: `No campaign exist with given Id: ${req.params.id}` });
 
     Campaign.findByIdAndRemove(req.params.id, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else res.send({ success: false, error: err });
+        if (!err) {
+            res.send(doc);
+        } else {
+            res.send({ success: false, error: err });
+        }
     });
 });
 
