@@ -1,21 +1,74 @@
-<div class="container pb-cmnt-container">
+<h3 class="mt-5">Comments</h3>
+
+<div class="container">
     <div class="row">
-        <!-- <div class="col-md-8 offset-md-3"> -->
-        <!-- <div class="card card-info col-md-12"> -->
-        <h3>Comments</h3>
-        <div class="card-block col-md-12">
-            <textarea placeholder="Write your comment here!" class="pb-cmnt-textarea col-md-12 mt-2"></textarea>
-            <form class="form-inline">
-                <!-- <div class="btn-group">
-                          <button class="btn" type="button"><span class="fa fa-picture-o fa-lg"></span></button>
-                          <button class="btn" type="button"><span class="fa fa-video-camera fa-lg"></span></button>
-                          <button class="btn" type="button"><span class="fa fa-microphone fa-lg"></span></button>
-                          <button class="btn" type="button"><span class="fa fa-music fa-lg"></span></button>
-                      </div> -->
-                <button class="btn btn-primary float-xs-right ml-auto" type="button">Post</button>
-            </form>
+        <div class="media comment-box">
+            <div class="media-left">
+                <a href="#">
+                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">John Doe</h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                    with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                    publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <!-- <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="img-responsive user-photo"
+                                src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Jane Doe</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and scrambled it to make a type specimen book. It has survived not only five
+                            centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                            passages, and more recently with desktop publishing software like Aldus PageMaker including
+                            versions of Lorem Ipsum.</p>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="img-responsive user-photo"
+                                src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">John Doe</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and scrambled it to make a type specimen book. It has survived not only five
+                            centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                            passages, and more recently with desktop publishing software like Aldus PageMaker including
+                            versions of Lorem Ipsum.</p>
+                    </div>
+                </div> -->
+            </div>
         </div>
-        <!-- </div> -->
-        <!-- </div> -->
+
+        <div class="media comment-box comment-user">
+            <div class="media-left">
+                <a href="#">
+                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">Current user</h4>
+                <textarea placeholder="Write your comment here.."
+                    class="comment-textarea mxy-2 form-control"></textarea>
+                <form class="form-inline">
+                    <button class="btn btn-primary float-xs-right ml-auto my-2" type="button">Post</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
