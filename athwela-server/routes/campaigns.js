@@ -129,6 +129,7 @@ router.get('/:id', (req, res) => {
     Campaign.findById(req.params.id)
         .populate('owner', '-password')
         .populate('verified_by', '-password')
+        .populate('comments.owner', '-password')
         .exec(function (err, doc) {
             if (!err)
                 res.send({ success: true, campaign: doc });

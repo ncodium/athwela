@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-campaign-comment',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./campaign-comment.component.scss']
 })
 export class CampaignCommentComponent implements OnInit {
+  @Input() comments: any;
 
   constructor() { }
 

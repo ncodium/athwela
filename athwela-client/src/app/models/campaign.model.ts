@@ -8,4 +8,5 @@ export class Campaign {
     category?: string;
     owner?: any;
     verified_by?: any;
+    comments?: any;
 }

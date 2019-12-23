@@ -7,4 +7,5 @@ export interface Campaign {
     deadline: Date;
     category?: string;
     owner?: any;
+    comments?: any;
 }
