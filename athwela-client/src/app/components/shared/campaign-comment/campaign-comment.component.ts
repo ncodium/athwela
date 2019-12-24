@@ -21,6 +21,7 @@ export class CampaignCommentComponent implements OnInit {
   onSubmit() {
     this.comment.emit(this.body);
     this.submitted = true;
+    this.body = '';
   }
 
 }
