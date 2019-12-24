@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-campaign-comment',
@@ -6,11 +6,21 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./campaign-comment.component.scss']
 })
 export class CampaignCommentComponent implements OnInit {
+  body: String;
+  submitted = false;
   @Input() comments: any;
+  @Input() loggedIn: boolean = false;
+  @Input() loading: boolean = true;
+  @Input() user: any;
+  @Output() comment = new EventEmitter<String>();
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  onSubmit() {
+    this.comment.emit(this.body);
+    this.submitted = true;
   }
 
 }

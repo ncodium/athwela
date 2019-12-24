@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="media comment-box comment-user"  *ngFor="let comment of comments">
+        <div class="media comment-box comment-user" *ngFor="let comment of comments">
             <div class="media-left">
                 <a href="#">
                     <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
@@ -14,60 +14,66 @@
                     {{ comment.body }}
                 </p>
                 <!-- Subcomments
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="img-responsive user-photo"
-                                src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                        </a>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="img-responsive user-photo"
+                                    src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Jane Doe</h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                                been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                                galley of type and scrambled it to make a type specimen book. It has survived not only five
+                                centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                                passages, and more recently with desktop publishing software like Aldus PageMaker including
+                                versions of Lorem Ipsum.</p>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading">Jane Doe</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                            galley of type and scrambled it to make a type specimen book. It has survived not only five
-                            centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                            passages, and more recently with desktop publishing software like Aldus PageMaker including
-                            versions of Lorem Ipsum.</p>
-                    </div>
-                </div>
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="img-responsive user-photo"
-                                src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading">John Doe</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                            galley of type and scrambled it to make a type specimen book. It has survived not only five
-                            centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                            passages, and more recently with desktop publishing software like Aldus PageMaker including
-                            versions of Lorem Ipsum.</p>
-                    </div>
-                </div> 
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="img-responsive user-photo"
+                                    src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">John Doe</h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                                been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                                galley of type and scrambled it to make a type specimen book. It has survived not only five
+                                centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                                passages, and more recently with desktop publishing software like Aldus PageMaker including
+                                versions of Lorem Ipsum.</p>
+                        </div>
+                    </div> 
                 -->
             </div>
         </div>
-
-        <div class="media comment-box comment-user">
+        <div *ngIf="loading; else loaded">
+            Loading...
+        </div>
+        <div class="media comment-box comment-user" *ngIf="loggedIn; else noAccess" #loaded>
             <div class="media-left">
                 <a href="#">
                     <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading">Current user</h4>
-                <textarea placeholder="Write your comment here.."
-                    class="comment-textarea mxy-2 form-control"></textarea>
-                <form class="form-inline">
-                    <button class="btn btn-primary float-xs-right ml-auto my-2" type="button">Post</button>
+                <h4 class="media-heading">{{ user.name }}</h4>
+                <form class="form-inline" (ngSubmit)="onSubmit()">
+                    <textarea placeholder="Write your comment here.." class="comment-textarea mxy-2 form-control"
+                        [(ngModel)]="body" name="bodyModel" #bodyModel="ngModel"></textarea>
+                    <div [hidden]="bodyModel.valid || bodyModel.pristine" class="alert alert-danger"></div>
+                    <button class="btn btn-primary float-xs-right ml-auto my-2" type="submit">Post</button>
                 </form>
             </div>
         </div>
+        <ng-template #noAccess>
+            You have to be logged in to comment..
+        </ng-template>
     </div>
 </div>

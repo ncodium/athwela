@@ -13,6 +13,7 @@ import { AuthService } from './../../../services/auth.service';
 export class CampaignPageComponent implements OnInit {
   private routeSub: Subscription;
   private loading: Boolean;
+  private loadingComments: Boolean = true;
   private campaign: Campaign;
   private campaignId: String;
 
@@ -34,7 +35,10 @@ export class CampaignPageComponent implements OnInit {
 
   refreshCampaign(id: String) {
     this.campaignService.getCampaign(id).subscribe((res) => {
-      if (res['success']) this.campaign = res['campaign'] as Campaign;
+      if (res['success']) {
+        this.campaign = res['campaign'] as Campaign;
+        this.loadingComments = false;
+      }
       else {
         this.router.navigate(['/page-not-found']);
       }
@@ -46,7 +50,7 @@ export class CampaignPageComponent implements OnInit {
       if (res) this.refreshCampaign(this.campaignId);
       this.alerts.push({
         type: 'success',
-        msg: `The campaign has been verified successfully`
+        msg: `The campaign has been verified successfully.`
       });
     });
   }
@@ -56,7 +60,7 @@ export class CampaignPageComponent implements OnInit {
       if (res) this.refreshCampaign(this.campaignId);
       this.alerts.push({
         type: 'success',
-        msg: `The campaign has been published successfully`
+        msg: `The campaign has been published successfully.`
       });
     })
   }
@@ -66,9 +70,22 @@ export class CampaignPageComponent implements OnInit {
       if (res) this.refreshCampaign(this.campaignId);
       this.alerts.push({
         type: 'info',
-        msg: `The campaign has been unpublished successfully`
+        msg: `The campaign has been unpublished successfully.`
       });
     });
   }
 
+  onCommentSubmit(body: String) {
+    this.loadingComments = true;
+    this.campaignService.createComment(this.campaignId, body).subscribe((res) => {
+      if (res) this.refreshCampaign(this.campaignId);
+
+      this.alerts.push({
+        type: 'success',
+        msg: `Your comment has been posted successfully.`
+      });
+
+      this.loadingComments = false;
+    })
+  }
 }

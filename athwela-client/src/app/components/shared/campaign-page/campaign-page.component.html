@@ -151,7 +151,9 @@
         </div>
 
         <div class="col-md-12">
-            <app-campaign-comment [comments]="campaign?.comments"></app-campaign-comment>
+            <app-campaign-comment [comments]="campaign?.comments" (comment)="onCommentSubmit($event)"
+                [loading]="loadingComments" [loggedIn]="authService.loggedIn()" [user]="authService.getUser()">
+            </app-campaign-comment>
         </div>
     </div>
 </div>

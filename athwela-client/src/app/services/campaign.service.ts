@@ -80,6 +80,17 @@ export class CampaignService {
     return this.http.post(this.baseURL, campaign, httpOptions).pipe();
   }
 
+  createComment(id: String, body: String) {
+    this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
+      })
+    };
+
+    return this.http.post(this.baseURL + id + '/comment', { body: body }, httpOptions).pipe();
+  }
+
   getUserCampaignsList() {
     this.authService.loadToken();
     const httpOptions = {
