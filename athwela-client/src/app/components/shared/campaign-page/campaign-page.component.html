@@ -151,7 +151,7 @@
         </div>
 
         <div class="col-md-12">
-            <app-campaign-comment [comments]="campaign?.comments" (comment)="onCommentSubmit($event)"
+            <app-campaign-comment *ngIf="campaign?.published" [comments]="campaign?.comments" (comment)="onCommentSubmit($event)"
                 [loading]="loadingComments" [loggedIn]="authService.loggedIn()" [user]="authService.getUser()">
             </app-campaign-comment>
         </div>

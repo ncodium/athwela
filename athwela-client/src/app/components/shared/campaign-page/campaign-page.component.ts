@@ -78,7 +78,7 @@ export class CampaignPageComponent implements OnInit {
   onCommentSubmit(body: String) {
     this.loadingComments = true;
     this.campaignService.createComment(this.campaignId, body).subscribe((res) => {
-      if (res) this.refreshCampaign(this.campaignId);
+      this.refreshCampaign(this.campaignId);
 
       this.alerts.push({
         type: 'success',
