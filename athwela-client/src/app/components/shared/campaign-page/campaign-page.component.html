@@ -17,11 +17,15 @@
             </div>
             <img src="http://placehold.jp/720x320.png" class="img-fluid rounded mb-2 mb-lg-0">
             <p class="mt-2" style="white-space:pre-wrap;">{{ campaign?.description }}</p>
-
+            <!-- On small screens donations section should be shown here -->
+            <!-- Comments -->
+            <app-campaign-comment *ngIf="campaign?.published" [comments]="campaign?.comments"
+                (comment)="onCommentSubmit($event)" [loading]="loadingComments" [loggedIn]="authService.loggedIn()"
+                [user]="authService.getUser()" (delete)="onDelete($event)">
+            </app-campaign-comment>
         </div>
 
         <div class="col-md-4">
-
             <!-- Standard User -->
             <div class="card" *ngIf="authService.isUser()">
                 <h5 class="card-header">Rs.{{ campaign?.target }} target</h5>
@@ -148,13 +152,14 @@
                 </ng-template>
             </div>
 
+            <div class="card mt-4">
+                <h5 class="card-header">Donations</h5>
+                <div class="card-body">
+                    This card shows the donations.
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-12">
-            <app-campaign-comment *ngIf="campaign?.published" [comments]="campaign?.comments" (comment)="onCommentSubmit($event)"
-                [loading]="loadingComments" [loggedIn]="authService.loggedIn()" [user]="authService.getUser()" (delete)="onDelete($event)">
-            </app-campaign-comment>
-        </div>
     </div>
 </div>
 
