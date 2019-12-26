@@ -164,5 +164,17 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
         }
     })
 });
+router.delete('/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.send({ success: false, msg: `No user exist with given Id: ${req.params.id}` });
+
+    Campaign.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (!err) {
+            res.send(doc);
+        } else {
+            res.send({ success: false, error: err });
+        }
+    });
+});
 
 module.exports = router;
