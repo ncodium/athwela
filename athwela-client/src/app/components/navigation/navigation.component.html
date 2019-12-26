@@ -84,13 +84,13 @@
 
                 <!-- General -->
                 <li *ngIf="authService.loggedIn()" class="nav-item">
-                    <a class="nav-link" href="#" (click)="onLogoutClick()">Sign out</a>
+                    <button class="btn btn-default nav-link" (click)="onLogoutClick()">Sign out</button>
                 </li>
                 <li *ngIf="!authService.loggedIn()" class="nav-item">
-                    <a class="nav-link" href="#" (click)="openLoginModal()">Sign in</a>
+                    <button class="btn btn-default nav-link" (click)="openLoginModal()">Sign in</button>
                 </li>
                 <li *ngIf="!authService.loggedIn()" class="nav-item">
-                    <a class="nav-link" href="#" (click)="openRegisterModal()">Register</a>
+                    <button class="btn btn-default nav-link" (click)="openRegisterModal()">Register</button>
                 </li>
             </ul>
         </div>
