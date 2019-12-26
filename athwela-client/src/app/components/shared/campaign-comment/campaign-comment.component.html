@@ -12,7 +12,11 @@
                 <h4 class="media-heading">{{ comment.owner.name }}</h4>
                 <p>
                     {{ comment.body }}
+                    <br />
+                    <button *ngIf="comment.owner._id==user?._id" (click)="onDelete(comment._id)"
+                        class="btn btn-warning mt-2">Delete</button>
                 </p>
+
                 <!-- Subcomments
                     <div class="media">
                         <div class="media-left">

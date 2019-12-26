@@ -13,6 +13,7 @@ export class CampaignCommentComponent implements OnInit {
   @Input() loading: boolean = true;
   @Input() user: any;
   @Output() comment = new EventEmitter<String>();
+  @Output() delete = new EventEmitter<String>();
 
   constructor() { }
 
@@ -22,6 +23,10 @@ export class CampaignCommentComponent implements OnInit {
     this.comment.emit(this.body);
     this.submitted = true;
     this.body = '';
+  }
+
+  onDelete(id: String) {
+    this.delete.emit(id);
   }
 
 }

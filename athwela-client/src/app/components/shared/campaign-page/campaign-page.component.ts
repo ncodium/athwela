@@ -88,4 +88,19 @@ export class CampaignPageComponent implements OnInit {
       this.loadingComments = false;
     })
   }
+
+  onDelete(commentId: String) {
+    console.log(commentId);
+    this.loadingComments = true;
+    this.campaignService.deleteComment(this.campaignId, commentId).subscribe((res) => {
+      this.refreshCampaign(this.campaignId);
+
+      this.alerts.push({
+        type: 'success',
+        msg: `Your comment has been deleted successfully.`
+      });
+
+      this.loadingComments = false;
+    })
+  }
 }

@@ -240,6 +240,25 @@ router.post('/:id/comment', passport.authenticate("jwt", { session: false }), (r
     });
 });
 
+router.delete('/:id/comment/:commentId', passport.authenticate("jwt", { session: false }), (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No campaign with given Id: ${req.params.id}`);
+    if (!ObjectId.isValid(req.params.commentId))
+        return res.status(400).send(`No campaign with given Id: ${req.params.commentId}`);
+
+    Campaign.findByIdAndUpdate(req.params.id, {
+        $pull: {
+            comments: { _id: req.params.commentId }
+        }
+    }, (err, doc) => {
+        if (!err) {
+            res.send(doc);
+        } else {
+            console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2));
+        }
+    });
+});
+
 router.delete('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.send({ success: false, msg: `No campaign exist with given Id: ${req.params.id}` });

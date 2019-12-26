@@ -91,6 +91,17 @@ export class CampaignService {
     return this.http.post(this.baseURL + id + '/comment', { body: body }, httpOptions).pipe();
   }
 
+  deleteComment(campaignId: String, commentId: String) {
+    this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
+      })
+    };
+
+    return this.http.delete(this.baseURL + campaignId + '/comment/' + commentId, httpOptions).pipe();
+  }
+
   getUserCampaignsList() {
     this.authService.loadToken();
     const httpOptions = {
