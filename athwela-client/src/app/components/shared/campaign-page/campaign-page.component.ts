@@ -90,7 +90,6 @@ export class CampaignPageComponent implements OnInit {
   }
 
   onDelete(commentId: String) {
-    console.log(commentId);
     this.loadingComments = true;
     this.campaignService.deleteComment(this.campaignId, commentId).subscribe((res) => {
       this.refreshCampaign(this.campaignId);
