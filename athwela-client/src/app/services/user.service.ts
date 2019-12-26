@@ -17,10 +17,11 @@ export class UserService {
   getUser(id: String) {
     return this.http.get(this.baseURL + 'profile/' + id)
   }
-  registermod(user) {
+
+  registerMod(user) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/register/moderator', user, { headers: headers }).pipe();
+    return this.http.post('http://localhost:3000/users/register/mod', user, { headers: headers }).pipe();
   }
 
 }

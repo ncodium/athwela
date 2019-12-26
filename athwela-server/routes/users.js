@@ -15,7 +15,7 @@ router.post('/register', (req, res, next) => {
         password: req.body.password,
         role: req.body.role
     });
-   
+
     // check if a user with the username already exist
     User.find({ username: newUser.username }, function (err, user) {
         if (user.length) {
@@ -33,7 +33,7 @@ router.post('/register', (req, res, next) => {
     });
 });
 
-router.post('/register/moderator', (req, res, next) => {
+router.post('/register/mod', (req, res, next) => {
     // create a new moderator
     let newUser = new User({
         name: req.body.name,
@@ -42,7 +42,7 @@ router.post('/register/moderator', (req, res, next) => {
         password: req.body.password,
         role: "mod"
     });
-   
+
     // check if a user with the username already exist
     User.find({ username: newUser.username }, function (err, user) {
         if (user.length) {
@@ -165,6 +165,7 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
         }
     })
 });
+
 router.delete('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.send({ success: false, msg: `No user exist with given Id: ${req.params.id}` });
