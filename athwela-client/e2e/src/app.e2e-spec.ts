@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to athwela-client!');
+    expect(page.getTitleText()).toEqual('athwela-client app is running!');
   });
 
   afterEach(async () => {
