@@ -15,7 +15,7 @@ router.post('/register', (req, res, next) => {
         password: req.body.password,
         role: req.body.role
     });
-
+   
     // check if a user with the username already exist
     User.find({ username: newUser.username }, function (err, user) {
         if (user.length) {
@@ -27,6 +27,33 @@ router.post('/register', (req, res, next) => {
                     res.json({ success: false, msg: 'User registration failed.' });
                 } else {
                     res.json({ success: true, msg: 'User registered successfully' });
+                }
+            });
+        }
+    });
+});
+
+router.post('/register/moderator', (req, res, next) => {
+    // create a new moderator
+    let newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password,
+        role: "mod"
+    });
+   
+    // check if a user with the username already exist
+    User.find({ username: newUser.username }, function (err, user) {
+        if (user.length) {
+            res.json({ success: false, username_exist: true });
+        } else {
+            // register new user account
+            User.addUser(newUser, (err, user) => {
+                if (err) {
+                    res.json({ success: false, msg: 'moderator registration failed.' });
+                } else {
+                    res.json({ success: true, msg: 'moderator registered successfully' });
                 }
             });
         }
@@ -137,6 +164,18 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
             role: req.user.role
         }
     })
+});
+router.delete('/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.send({ success: false, msg: `No user exist with given Id: ${req.params.id}` });
+
+    Campaign.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (!err) {
+            res.send(doc);
+        } else {
+            res.send({ success: false, error: err });
+        }
+    });
 });
 
 module.exports = router;
