@@ -5,7 +5,7 @@
         <div class="media comment-box comment-user" *ngFor="let comment of comments">
             <div class="media-left">
                 <a [routerLink]="['/profile', comment.owner._id]">
-                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                    <img class="img-responsive user-photo" src="assets/user.png">
                 </a>
             </div>
             <div class="media-body">
@@ -65,7 +65,7 @@
         <div class="media comment-box comment-user" *ngIf="loggedIn; else noAccess" #loaded>
             <div class="media-left">
                 <a href="#">
-                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                    <img class="img-responsive user-photo" src="assets/user.png">
                 </a>
             </div>
             <div class="media-body">
