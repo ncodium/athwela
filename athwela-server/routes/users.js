@@ -32,8 +32,9 @@ router.post('/register', (req, res, next) => {
         }
     });
 });
+
 router.post('/register/moderator', (req, res, next) => {
-    // create a new user object
+    // create a new moderator
     let newUser = new User({
         name: req.body.name,
         email: req.body.email,
