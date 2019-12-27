@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-campaign-card',
   templateUrl: './campaign-card.component.html',
-  styleUrls: ['./campaign-card.component.scss']
+  styleUrls: ['./campaign-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CampaignCardComponent implements OnInit {
   @Input() public id: string;

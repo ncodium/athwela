@@ -1,19 +1,17 @@
 <div class="container">
-    <!-- Heading Row -->
     <div class="row align-items-center my-5">
         <div class="col-lg-8">
             <img class="img-fluid rounded mb-4 mb-lg-0" src="assets/900x400.png" alt="">
         </div>
-        <!-- /.col-lg-8 -->
+
         <div class="col-lg-4">
-            <h1 class="font-weight-light">Fundraising for the people and causes you care about</h1>
+            <h1 class="">Fundraising for the people and causes you care about.</h1>
             <p>This is a small description about the website and what you can do with it.</p>
             <a class="btn btn-primary mr-3" (click)="openRegisterModal()" href="#">Get Started!</a>
             <a class="btn" [routerLink]="['/how-it-works']">How it works?</a>
         </div>
-        <!-- /.col-md-4 -->
+
     </div>
-    <!-- /.row -->
 
     <!-- Call to Action -->
     <!--    <div class="card text-white bg-primary mt-5 py-3 text-center">
@@ -22,8 +20,7 @@
         </div>
     </div> -->
 
-    <!-- Content Row -->
-    <h1 class="font-weight-light mt-4 mb-3">Recent Campaigns</h1>
+    <h2 class=" mt-4 mb-3">Recent Campaigns</h2>
 
     <div class="row">
         <div *ngFor="let cmp of campaignService.campaigns" class="col-lg-4 col-md-6 col-sm-12 my-2 mb-4">
@@ -33,9 +30,7 @@
         </div>
 
     </div>
-    <!-- /.row -->
 
 </div>
-<!-- /.container -->
 
 <app-home-footer></app-home-footer>

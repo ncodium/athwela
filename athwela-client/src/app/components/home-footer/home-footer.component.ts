@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-home-footer',
   templateUrl: './home-footer.component.html',
-  styleUrls: ['./home-footer.component.scss']
+  styleUrls: ['./home-footer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeFooterComponent implements OnInit {
   constructor() { }
-
   ngOnInit() { }
 }

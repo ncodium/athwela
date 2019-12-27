@@ -48,8 +48,8 @@ export class NewCampaignComponent implements OnInit {
       description: this.campaignForm.controls.description.value,
       target: this.campaignForm.controls.target.value,
       deadline: this.campaignForm.controls.deadline.value,
-      raised: 0,
       category: this.campaignForm.controls.category.value,
+      raised: 0,
     }
 
     // register User

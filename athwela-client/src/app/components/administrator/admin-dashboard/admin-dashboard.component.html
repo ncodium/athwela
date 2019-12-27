@@ -57,18 +57,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="mt-4 mb-2 col-md-12">
-            <h2>Top Campaigns</h2>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div *ngFor="let cmp of allCampaigns" class="col-md-6 my-2">
-            <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
-                raised={{cmp.raised}} target={{cmp.target}}>
-            </app-campaign-card>
-        </div>
-    </div>
 </div>
 
 <app-footer></app-footer>

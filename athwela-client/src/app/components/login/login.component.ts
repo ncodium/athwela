@@ -1,9 +1,9 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +11,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  public onClose: Subject<boolean>;
+
   username: String;
   password: String;
   usernameInvalid = false;
@@ -30,12 +32,19 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.onClose = new Subject();
+
     this.alerts = [
       {
         type: 'info',
         msg: 'Please enter your username and password in their respective fields and click on <strong>Sign in</strong> to continue.'
       }
     ]
+  }
+
+  onCancel() {
+    this.onClose.next(false);
+    this.bsModalRef.hide();
   }
 
   onLoginSubmit() {
@@ -90,10 +99,16 @@ export class LoginComponent implements OnInit {
             }
           ];
 
+          this.onClose.next(true);
           this.bsModalRef.hide();
-          if (this.authService.isAdmin()) this.router.navigate(['/admin']);
-          else if (this.authService.isMod()) this.router.navigate(['/mod']);
-          else this.router.navigate(['/profile']);
+
+          // navigate to appropriate dashboards
+          if (this.authService.isAdmin())
+            this.router.navigate(['/admin']);
+          else if (this.authService.isMod())
+            this.router.navigate(['/mod']);
+          else
+            this.router.navigate(['/profile']);
 
         } else {
           this.alerts = [

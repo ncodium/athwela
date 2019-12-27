@@ -65,12 +65,12 @@ export class ProfileComponent implements OnInit {
             if (this.user._id == this.currentUser._id) {
               // current user is the owner of the profile
               this.visitor = false;
-              this.getUserCampaignList();
+              this.getUserCampaigns();
             }
             else {
               // current user is not the owner of the profile
               this.visitor = true;
-              this.getUserCampaignListById(this.user._id);
+              this.getUserCampaignsById(this.user._id);
             }
           })
         }
@@ -79,7 +79,7 @@ export class ProfileComponent implements OnInit {
           // not a visitor
           this.user = this.currentUser;
           this.visitor = false; // is the owner
-          this.getUserCampaignList();
+          this.getUserCampaigns();
         }
       }
       else {
@@ -92,7 +92,7 @@ export class ProfileComponent implements OnInit {
             if (res['success']) this.user = res['user'] as User;
             else this.router.navigate(['/page-not-found']);
 
-            this.getUserCampaignListById(this.user._id);
+            this.getUserCampaignsById(this.user._id);
           })
         }
         else {
@@ -103,14 +103,14 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getUserCampaignList() {
-    this.campaignService.getUserCampaignsList().subscribe((res) => {
+  getUserCampaigns() {
+    this.campaignService.getUserCampaigns().subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
     });
   }
 
-  getUserCampaignListById(id: string) {
-    this.campaignService.getUserCampaignsListById(id).subscribe((res) => {
+  getUserCampaignsById(id: string) {
+    this.campaignService.getUserCampaignsById(id).subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
     });
   }
@@ -128,7 +128,6 @@ export class ProfileComponent implements OnInit {
     }
 
     if (this.password) {
-      console.log("lol");
       if (this.password != this.passwordConfirm) {
         this.passwordInvalid = this.passwordMismatch = true;
         this.alerts = [

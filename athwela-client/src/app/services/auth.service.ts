@@ -56,56 +56,53 @@ export class AuthService {
     return this.user;
   }
 
-  storeUserData(token, user) {  
+  storeUserData(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('role', user.role);
     this.authToken = token;
     this.user = user;
+    this.role = user.role;
   }
-  
-  storeUserProfile(user) {  
+
+  storeUserProfile(user) {
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('role', user.role);
     this.user = user;
+    this.role = user.role;
   }
 
   loadToken() {
-    const token = localStorage.getItem('id_token');
-    this.authToken = token;
+    this.authToken = localStorage.getItem('id_token');
   }
 
   loggedIn() {
     const helper = new JwtHelperService();
     this.loadToken();
     return !helper.isTokenExpired(this.authToken);
+    // TODO: Check if role embedded in token matches to locally stored role
   }
 
-  logOut() {
-    this.authToken = this.user = this.role = null;
+  logout() {
     localStorage.clear();
+    this.authToken = this.user = this.role = null;
     this.router.navigate(['/']);
   }
 
+  // helpers
+
   isAdmin() {
-    if (this.loggedIn()) {
-      this.role = JSON.parse(localStorage.getItem('user')).role;
-      return this.role === 'admin';
-    }
-    return false;
+    this.role = localStorage.getItem('role');
+    return this.role === 'admin';
   }
 
   isMod() {
-    if (this.loggedIn()) {
-      this.role = JSON.parse(localStorage.getItem('user')).role;
-      return this.role === 'mod';
-    }
-    return false;
+    this.role = localStorage.getItem('role');
+    return this.role === 'mod';
   }
 
   isUser() {
-    if (this.loggedIn()) {
-      this.role = JSON.parse(localStorage.getItem('user')).role;
-      return this.role === 'user';
-    }
-    return false;
+    this.role = localStorage.getItem('role');
+    return this.role === 'user';
   }
 }

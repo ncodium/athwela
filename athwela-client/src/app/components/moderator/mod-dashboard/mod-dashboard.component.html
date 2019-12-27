@@ -3,97 +3,107 @@
         <div class="col-md-4">
             <div class="card text-center">
                 <div class="card-body">
-                    <img height="90px"
-                        src="http://music.virginia.edu/sites/music.virginia.edu/files/styles/faculty_profile_image/public/default_images/person-placeholder_3.png?itok=dtpqDURH">
-                    <h5 class="card-title">{{ user?.name }}
-                    </h5>
+                    <img height="90px" src="assets/user.png">
+                    <h5 class="card-title">{{ user?.name }}</h5>
                     <p class="card-text">{{ user?.email }}</p>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="#" class="btn btn-primary">Settings</a>
+                    <button class="btn btn-default">Ratings</button>
+                    <button (click)="openSettings(settings)" class="btn btn-primary">Settings</button>
                 </div>
             </div>
         </div>
         <div class="col-md-8 mt-2 mt-md-0">
-            <div class="row">
-                <div class="col-md-6 my-2 my-md-0">
-                    <div class="card text-white bg-primary">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Campaigns
-                            </p>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Your contributions</h5>
+                    <p class="card-text">Following is a quick summary of contributions to Athwela.</p>
+                    <div class="row">
+                        <div class="col-md-6 my-2 my-md-0">
+                            <div class="card text-white bg-primary">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        Campaigns
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 my-2 my-md-0">
+                            <div class="card text-white bg-success">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        Campaigns
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6  my-2 my-md-0">
-                    <div class="card text-white bg-success">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Users
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row mt-5">
-                <div class="col-md-12  my-2 my-md-0">
-                    <!-- <div class="card text-white bg-dark">
-                        <div class="card-body">
-                            <p class="card-text"> -->
-                    <a class="btn btn-primary bg-dark" [routerLink]="['/campaign/new']"
-                        routerLinkActive="router-link-active">Create Campaigns</a>
-                    <!-- </p>
-                        </div>
-                    </div> -->
-                </div>
             </div>
-
-        </div>
-    </div>
-    <h3 class="mt-4 mb-3">Campaigns</h3>
-    <div class="row mb-2 mt-2">
-        <div *ngFor="let cmp of campaignService.campaigns" class="col-md-6 mb-4">
-            <app-campaign-card [hideDonate]="true" id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
-                raised={{cmp.raised}} target={{cmp.target}}>
-            </app-campaign-card>
-        </div>
-    </div>
-    <h3 class="mt-4 mb-3">Users</h3>
-    <div class="row row mb-2 mt-2">
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
+
+<ng-template #settings>
+    <div class="modal-header">
+        <h4 class="modal-titile pull-left">Settings</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form (submit)="onUpdateSubmit()">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input type="text" disabled name="username" class="form-control" id="inputUsername"
+                    aria-describedby="usernameHelp" [placeholder]="user?.username">
+                <small id="usernameHelp" class="form-text text-muted">You can't change your username.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="inputName">Name</label>
+                <input type="text" [(ngModel)]="name" name="name" class="form-control" id="inputName"
+                    aria-describedby="nameHelp" [placeholder]="user?.name" [ngClass]="{ 'is-invalid': nameInvalid }">
+            </div>
+
+            <div class="form-group">
+                <label for="inputEmail">Email address</label>
+                <input type="email" [(ngModel)]="email" name="email" class="form-control" id="inputEmail"
+                    [placeholder]="user?.email" [ngClass]="{ 'is-invalid': emailInvalid }">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" [(ngModel)]="password" name="password" class="form-control" id="inputPassword"
+                    placeholder="Enter a new password" [ngClass]="{ 'is-invalid': passwordInvalid }"
+                    aria-describedby="passwordHelp">
+                <password-strength-meter id="passwordHelp" [enableFeedback]="true" [password]="password">
+                </password-strength-meter>
+            </div>
+            <div class="form-group">
+                <input type="password" [(ngModel)]="passwordConfirm" name="password-confirm" class="form-control"
+                    id="inputPasswordConfirm" placeholder="Enter your new password again for confirmation"
+                    [ngClass]="{ 'is-invalid': passwordMismatch || passwordInvalid }" aria-describedby="passwordHelp">
+                <small id="passwordHelp" class="form-text text-muted">
+                    If you don't want to change your password, keep
+                    these fields empty.
+                </small>
+            </div>
+
+            <div *ngFor="let alert of alerts">
+                <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</ng-template>
 
 <app-footer></app-footer>

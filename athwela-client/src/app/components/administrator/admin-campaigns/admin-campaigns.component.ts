@@ -9,52 +9,49 @@ import { CampaignService } from '../../../services/campaign.service';
   providers: [CampaignService]
 })
 export class AdminCampaignsComponent implements OnInit {
-  unpublishedCampaigns: Campaign[];
-  ongoingCampaigns: Campaign[];
-  allCampaigns: Campaign[];
+  campaigns: Campaign[];
   publishedCampaigns: Campaign[];
-  unverifiedCampaigns: Campaign[];
   verifiedCampaigns: Campaign[];
+  unverifiedCampaigns: Campaign[];
 
-  constructor(private campaignService: CampaignService) { }
+  constructor(
+    private campaignService: CampaignService
+  ) { }
 
   ngOnInit() {
-    this.getOngoingCampaigns();
-    this.getUnpublishedCampaigns();
+    this.getCampaigns();
     this.getPublishedCampaigns();
+    this.getUnpublishedCampaigns();
     this.getVerifiedCampaigns();
     this.getUnverifiedCampaigns();
   }
 
-  refreshCampaignList() {
-    this.campaignService.getRecentCampaignsList().subscribe((res) => {
-      this.campaignService.campaigns = res['campaigns'] as Campaign[];
+  getCampaigns() {
+    this.campaignService.getCampaigns().subscribe((res) => {
+      this.campaigns = res['campaigns'] as Campaign[];
     });
   }
 
-  getOngoingCampaigns() {
-    this.campaignService.getCampaignList().subscribe((res) => {
-      this.allCampaigns = res['campaigns'] as Campaign[];
+  getPublishedCampaigns() {
+    this.campaignService.getPublishedCampaigns().subscribe((res) => {
+      this.publishedCampaigns = res['campaigns'] as Campaign[];
     });
   }
 
   getUnpublishedCampaigns() {
-    this.campaignService.getUnpublishedCampaignsList().subscribe((res) => {
-      this.unpublishedCampaigns = res['campaigns'] as Campaign[];
-    });
-  }
-  getPublishedCampaigns() {
-    this.campaignService.getPublishedCampaignsList().subscribe((res) => {
+    this.campaignService.getUnpublishedCampaigns().subscribe((res) => {
       this.publishedCampaigns = res['campaigns'] as Campaign[];
     });
   }
+
   getVerifiedCampaigns() {
-    this.campaignService.getVerifiedCampaignsList().subscribe((res) => {
+    this.campaignService.getVerifiedCampaigns().subscribe((res) => {
       this.verifiedCampaigns = res['campaigns'] as Campaign[];
     });
   }
+
   getUnverifiedCampaigns() {
-    this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
+    this.campaignService.getUnverifiedCampaigns().subscribe((res) => {
       this.unverifiedCampaigns = res['campaigns'] as Campaign[];
     });
   }

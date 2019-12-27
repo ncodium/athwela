@@ -14,16 +14,13 @@ import { CampaignService } from '../../../services/campaign.service';
 })
 export class ModDashboardComponent implements OnInit {
   user: Object;
-  private campaign: Campaign;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private campaignService: CampaignService
   ) { }
 
   ngOnInit() {
-    this.refreshCampaignList();
     this.authService.getProfile().subscribe(profile => {
       this.user = profile['user'];
     },
@@ -32,12 +29,6 @@ export class ModDashboardComponent implements OnInit {
         return false;
       }
     );
-  }
-
-  refreshCampaignList() {
-    this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
-      this.campaignService.campaigns = res['campaigns'] as Campaign[];
-    });
   }
 
 

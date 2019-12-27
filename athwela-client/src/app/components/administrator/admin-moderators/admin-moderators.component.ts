@@ -13,7 +13,6 @@ export class AdminModeratorsComponent implements OnInit {
   modalRef: BsModalRef;
 
   constructor(private modalService: BsModalService) { }
-  
   ngOnInit() { }
 
   public scatterChartOptions: ChartOptions = {

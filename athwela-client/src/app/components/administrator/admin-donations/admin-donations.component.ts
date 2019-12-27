@@ -24,6 +24,5 @@ export class AdminDonationsComponent implements OnInit {
   ];
 
   constructor() { }
-
   ngOnInit() { }
 }

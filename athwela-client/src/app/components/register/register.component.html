@@ -37,7 +37,6 @@
                 placeholder="Enter your email address" [ngClass]="{ 'is-invalid': emailInvalid }">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-         
 
         <div *ngFor="let alert of alerts">
             <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
@@ -51,6 +50,7 @@
             <small id="roleHelp" class="form-text text-muted">This field is temporary until proper Moderator and
                 Administrator registration is implemented.</small>
         </div>
+        <!---->
 
     </div>
 

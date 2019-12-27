@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Campaign } from '../interfaces/campaign';
+import { Campaign } from '../models/campaign.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +18,13 @@ export class CampaignService {
   ) { }
 
   getCampaign(id: String) { return this.http.get(this.baseURL + id) }
-  getCampaignList() { return this.http.get(this.baseURL) }
+  getCampaigns() { return this.http.get(this.baseURL) }
+  getRecentCampaigns() { return this.http.get(this.baseURL + 'recent') }
+  getPublishedCampaigns() { return this.http.get(this.baseURL + 'published') }
+  getUnpublishedCampaigns() { return this.http.get(this.baseURL + 'unpublished') }
+  getVerifiedCampaigns() { return this.http.get(this.baseURL + 'verified') }
+  getUnverifiedCampaigns() { return this.http.get(this.baseURL + 'unverified') }
   getCategories() { return this.http.get(this.baseURL + 'categories') }
-  getRecentCampaignsList() { return this.http.get(this.baseURL + 'recent') }
-  getPublishedCampaignsList() { return this.http.get(this.baseURL + 'published') }
-  getUnpublishedCampaignsList() { return this.http.get(this.baseURL + 'unpublished') }
-  getVerifiedCampaignsList() { return this.http.get(this.baseURL + 'verified') }
-  getUnverifiedCampaignsList() { return this.http.get(this.baseURL + 'unverified') }
 
   publishCampaign(id: String) {
     this.authService.loadToken();
@@ -102,7 +102,7 @@ export class CampaignService {
     return this.http.delete(this.baseURL + campaignId + '/comment/' + commentId, httpOptions).pipe();
   }
 
-  getUserCampaignsList() {
+  getUserCampaigns() {
     this.authService.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -113,8 +113,7 @@ export class CampaignService {
     return this.http.get(this.baseURL + 'user', httpOptions).pipe();
   }
 
-  getUserCampaignsListById(id: String) {
+  getUserCampaignsById(id: String) {
     return this.http.get(this.baseURL + 'user/' + id, {}).pipe();
   }
-
 }

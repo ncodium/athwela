@@ -1,10 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 
 // general custom components
@@ -18,13 +18,12 @@ import { CommunityComponent } from './components/user/community/community.compon
 import { CampaignsComponent } from './components/campaigns/campaigns.component';
 import { NewCampaignComponent } from './components/campaigns-new/campaigns-new.component';
 import { CampaignPageComponent } from './components/shared/campaign-page/campaign-page.component';
-import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { CampaignCardComponent } from './components/shared/campaign-card/campaign-card.component';
+import { CampaignCommentComponent } from './components/shared/campaign-comment/campaign-comment.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
-import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
-import { CampaignCommentComponent } from './components/shared/campaign-comment/campaign-comment.component';
+import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 
 // admininstrator components
 import { AdminDashboardComponent } from './components/administrator/admin-dashboard/admin-dashboard.component';
@@ -42,12 +41,10 @@ import { ModUsersComponent } from './components/moderator/mod-users/mod-users.co
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 
-// custom guards
+// route guards
 import { AuthGuard } from './guards/auth.guard';
-import { AdminGuard } from './guards/admin.guard';
-import { ModGuard } from './guards/mod.guard';
 
-// ngx-bootstrap modules
+// ngx-bootstrap
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -55,23 +52,17 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
-// charts
-import { ChartsModule } from 'ng2-charts';
-import { MychartComponent } from './components/shared/mychart/mychart.component';
-
-// fa icons
+// icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
-// custom pipes
-import { TruncateTextPipe } from './pipes/truncate-text.pipe';
-
 // additional modules
+import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
-import { HttpErrorModalComponent } from './components/shared/http-error-modal/http-error-modal.component';
-
+import { ChartsModule } from 'ng2-charts';
+import { MychartComponent } from './components/shared/mychart/mychart.component';
 
 @NgModule({
   declarations: [
@@ -86,13 +77,14 @@ import { HttpErrorModalComponent } from './components/shared/http-error-modal/ht
     CampaignsComponent,
     NewCampaignComponent,
     CampaignCardComponent,
+    CampaignCommentComponent,
     AdminDashboardComponent,
     AdminCampaignsComponent,
     AdminDonationsComponent,
     AdminUsersComponent,
+    AdminModeratorsComponent,
     HomeFooterComponent,
     MychartComponent,
-    AdminModeratorsComponent,
     ModDashboardComponent,
     CampaignPageComponent,
     PageNotFoundComponent,
@@ -100,9 +92,7 @@ import { HttpErrorModalComponent } from './components/shared/http-error-modal/ht
     ModCampaignsComponent,
     ModUsersComponent,
     TruncateTextPipe,
-    HttpErrorModalComponent,
     FooterComponent,
-    CampaignCommentComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,23 +116,14 @@ import { HttpErrorModalComponent } from './components/shared/http-error-modal/ht
     ValidateService,
     AuthService,
     HttpClientModule,
-    AuthGuard,
-    AdminGuard,
-    ModGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptor,
-      multi: true,
-      deps: [BsModalService]
-    }
+    AuthGuard
   ],
   bootstrap: [
     AppComponent, NavigationComponent
   ],
   entryComponents: [
     LoginComponent,
-    RegisterComponent,
-    CampaignCardComponent
+    RegisterComponent
   ]
 })
 export class AppModule {

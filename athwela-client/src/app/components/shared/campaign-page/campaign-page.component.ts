@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Campaign } from '../../../interfaces/campaign';
+import { Campaign } from '../../../models/campaign.model';
 import { CampaignService } from 'src/app/services/campaign.service';
 import { AuthService } from './../../../services/auth.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-campaign-page',
@@ -11,13 +12,19 @@ import { AuthService } from './../../../services/auth.service';
   styleUrls: ['./campaign-page.component.scss']
 })
 export class CampaignPageComponent implements OnInit {
-  private routeSub: Subscription;
-  private loading: Boolean;
-  private loadingComments: Boolean = true;
-  private campaign: Campaign;
-  private campaignId: String;
+  routeSub: Subscription;
+  loading: Boolean;
+  loadingComments: Boolean = true;
+  campaign: Campaign;
+  campaignId: String;
 
   alerts: any = [];
+
+  loggedIn: Boolean;
+  isAdmin: Boolean;
+  isMod: Boolean;
+  isUser: Boolean;
+  user: User;
 
   constructor(
     private router: Router,
@@ -31,6 +38,22 @@ export class CampaignPageComponent implements OnInit {
       this.campaignId = params['id']; // acquire campaignId from URL and request campaign content
       this.refreshCampaign(this.campaignId);
     });
+
+    this.authReset()
+  }
+
+  authReset() {
+    this.loggedIn = this.authService.loggedIn();
+    if (this.loggedIn) {
+      this.user = this.authService.getUser();
+      this.isAdmin = this.user.role == 'admin';
+      this.isMod = this.user.role == 'mod';
+      this.isUser = this.user.role == 'user';
+    }
+    else {
+      this.user = null;
+      this.isAdmin = this.isMod = this.isUser = false;
+    }
   }
 
   refreshCampaign(id: String) {

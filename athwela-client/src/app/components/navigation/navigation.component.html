@@ -4,48 +4,56 @@
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav mr-auto">
+                <!-- Anonymous -->
+                <ng-template [ngIf]="!loggedIn">
+                    <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                        <a class="nav-link" href [routerLink]="['/campaigns']">Donate</a>
+                    </li>
+                    <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                        <a class="nav-link" href [routerLink]="['/how-it-works']">How it works</a>
+                    </li>
+                </ng-template>
 
-                <!-- General -->
-                <li *ngIf="!(authService.isAdmin() || authService.isMod())" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/campaigns']">Donate</a>
-                </li>
-                <li *ngIf="!(authService.isAdmin() || authService.isMod())" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/campaign/new']">Start a campaign</a>
-                </li>
-                <li *ngIf="!(authService.isAdmin() || authService.isMod())" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/how-it-works']">How it works</a>
-                </li>
+                <ng-template [ngIf]="loggedIn">
+                    <!-- User -->
+                    <ng-template [ngIf]="isUser">
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                            <a class="nav-link" href [routerLink]="['/campaigns']">Donate</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                            <a class="nav-link" href [routerLink]="['/campaign/new']">Start a campaign</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                            <a class="nav-link" href [routerLink]="['/how-it-works']">How it works</a>
+                        </li>
+                    </ng-template>
 
-                <!-- Administrator -->
-                <li *ngIf="authService.isAdmin()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/admin/campaigns']">Campaigns</a>
-                </li>
-                <li *ngIf="authService.isAdmin()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/admin/donations']">Donations</a>
-                </li>
-                <li *ngIf="authService.isAdmin()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/admin/users']">Users</a>
-                </li>
-                <li *ngIf="authService.isAdmin()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/admin/moderators']">Moderators</a>
-                </li>
+                    <!-- Administrator -->
+                    <ng-template [ngIf]="isAdmin">
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                            <a class="nav-link" href [routerLink]="['/admin/campaigns']">Campaigns</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                            <a class="nav-link" href [routerLink]="['/admin/donations']">Donations</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                            <a class="nav-link" href [routerLink]="['/admin/users']">Users</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                            <a class="nav-link" href [routerLink]="['/admin/moderators']">Moderators</a>
+                        </li>
+                    </ng-template>
 
-                <!-- Moderator -->
-                <li *ngIf="authService.isMod()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/mod/campaigns']">Campaigns</a>
-                </li>
-                <li *ngIf="authService.isMod()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/mod/users']">Users</a>
-                </li>
+                    <!-- Moderator -->
+                    <ng-template [ngIf]="isMod">
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                            <a class="nav-link" href [routerLink]="['/mod/campaigns']">Campaigns</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                            <a class="nav-link" href [routerLink]="['/mod/users']">Users</a>
+                        </li>
+                    </ng-template>
+                </ng-template>
 
             </ul>
         </div>
@@ -62,36 +70,42 @@
                     <a class="nav-link" alt="search" href="#" [routerLink]="['/']">
                         <fa-icon [icon]="['fas', 'search']"></fa-icon>
                     </a>
-                </li> -->
+                </li>
+                -->
 
-                <!-- Administrator -->
-                <li *ngIf="authService.isAdmin()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/admin']">Dashboard</a>
-                </li>
+                <ng-template [ngIf]="loggedIn">
+                    <!-- Administrator -->
+                    <li *ngIf="isAdmin" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"
+                        class="nav-item">
+                        <a class="nav-link" href [routerLink]="['/admin']">Dashboard</a>
+                    </li>
 
-                <!-- Moderator -->
-                <li *ngIf="authService.isMod()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/mod']">Dashboard</a>
-                </li>
+                    <!-- Moderator -->
+                    <li *ngIf="isMod" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"
+                        class="nav-item">
+                        <a class="nav-link" href [routerLink]="['/mod']">Dashboard</a>
+                    </li>
 
-                <!-- User -->
-                <li *ngIf="authService.isUser()" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                    <a class="nav-link" href [routerLink]="['/profile']">Profile</a>
-                </li>
+                    <!-- User -->
+                    <li *ngIf="isUser" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"
+                        class="nav-item">
+                        <a class="nav-link" href [routerLink]="['/profile']">Profile</a>
+                    </li>
 
-                <!-- General -->
-                <li *ngIf="authService.loggedIn()" class="nav-item">
-                    <button class="btn btn-default nav-link" (click)="onLogoutClick()">Sign out</button>
-                </li>
-                <li *ngIf="!authService.loggedIn()" class="nav-item">
-                    <button class="btn btn-default nav-link" (click)="openLoginModal()">Sign in</button>
-                </li>
-                <li *ngIf="!authService.loggedIn()" class="nav-item">
-                    <button class="btn btn-default nav-link" (click)="openRegisterModal()">Register</button>
-                </li>
+                    <!-- General -->
+                    <li class="nav-item">
+                        <button class="btn btn-default nav-link" (click)="onLogoutClick()">Sign out</button>
+                    </li>
+                </ng-template>
+
+                <ng-template [ngIf]="!loggedIn">
+                    <li class="nav-item">
+                        <button class="btn btn-default nav-link" (click)="openLoginModal()">Sign in</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-default nav-link" (click)="openRegisterModal()">Register</button>
+                    </li>
+                </ng-template>
             </ul>
         </div>
     </div>

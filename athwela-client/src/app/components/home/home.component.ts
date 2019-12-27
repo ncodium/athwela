@@ -19,11 +19,11 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.refreshCampaignList();
+    this.refreshCampaigns();
   }
 
-  refreshCampaignList() {
-    this.campaignService.getCampaignList().subscribe((res) => {
+  refreshCampaigns() {
+    this.campaignService.getCampaigns().subscribe((res) => {
       if (res['success']) this.campaignService.campaigns = res['campaigns'] as Campaign[];
     });
   }

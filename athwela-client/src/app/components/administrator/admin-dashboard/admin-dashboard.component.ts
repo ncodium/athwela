@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SingleDataSet, Label } from 'ng2-charts';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Campaign } from '../../../models/campaign.model';
 import { CampaignService } from '../../../services/campaign.service';
 
 
@@ -12,20 +11,13 @@ import { CampaignService } from '../../../services/campaign.service';
   providers: [CampaignService]
 })
 export class AdminDashboardComponent implements OnInit {
-  allCampaigns: Campaign[];
   public barChartLabels: Label[] = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july'];
 
-  constructor(private campaignService: CampaignService) { }
+  constructor(
+    private campaignService: CampaignService
+  ) { }
 
-  ngOnInit() {
-    this.getOngoingCampaigns();
-  }
-
-  getOngoingCampaigns() {
-    this.campaignService.getCampaignList().subscribe((res) => {
-      this.allCampaigns = res['campaigns'] as Campaign[];
-    });
-  }
+  ngOnInit() { }
 
   public barChartOptions: ChartOptions = {
     responsive: true,

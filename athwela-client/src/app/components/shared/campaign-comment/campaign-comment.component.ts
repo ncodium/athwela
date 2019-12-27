@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-campaign-comment',
   templateUrl: './campaign-comment.component.html',
-  styleUrls: ['./campaign-comment.component.scss']
+  styleUrls: ['./campaign-comment.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CampaignCommentComponent implements OnInit {
   body: String;

@@ -12,9 +12,9 @@ import { Campaign } from '../../../models/campaign.model';
 })
 export class ModCampaignsComponent implements OnInit {
   user: Object;
-  verifiedcampaigns: any;
-  unverifiedcampaigns: Campaign[];
-  allcampaigns: any;
+  verifiedCampaigns: any;
+  unverifiedCampaigns: Campaign[];
+  campaigns: any;
 
   constructor(
     private authService: AuthService,
@@ -23,7 +23,9 @@ export class ModCampaignsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.refreshUnVerifiedCampaignList();
+    this.getCampaigns();
+    this.getUnverifiedCampaigns();
+    this.getVerifiedCampaigns();
     this.authService.getProfile().subscribe(profile => {
       this.user = profile['user'];
     },
@@ -32,31 +34,23 @@ export class ModCampaignsComponent implements OnInit {
         return false;
       }
     );
-    this.refreshVerifiedCampaignList();
-    this.refreshAllCampaignList();
   }
 
-  refreshAllCampaignList() {
-    this.campaignService.getCampaignList().subscribe((res) => {
-      this.allcampaigns = res['campaigns'];
+  getCampaigns() {
+    this.campaignService.getCampaigns().subscribe((res) => {
+      this.campaigns = res['campaigns'];
     });
   }
 
-  refreshVerifiedCampaignList() {
-    this.campaignService.getVerifiedCampaignsList().subscribe((res) => {
-      this.verifiedcampaigns = res['campaigns'];
+  getVerifiedCampaigns() {
+    this.campaignService.getVerifiedCampaigns().subscribe((res) => {
+      this.verifiedCampaigns = res['campaigns'];
     });
   }
 
-  refreshUnVerifiedCampaignList() {
-    this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
-      this.unverifiedcampaigns = res['campaigns'] as Campaign[];
+  getUnverifiedCampaigns() {
+    this.campaignService.getUnverifiedCampaigns().subscribe((res) => {
+      this.unverifiedCampaigns = res['campaigns'] as Campaign[];
     });
   }
-
-  // refreshUnverifiedCampaignList() {
-  //   this.campaignService.getUnverifiedCampaignsList().subscribe((res) => {
-  //     this.unverifiedcampaigns = res['campaigns'] as Campaign[];
-  //   });
-  // }
 }
