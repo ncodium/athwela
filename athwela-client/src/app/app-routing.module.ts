@@ -2,24 +2,24 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // components
-import { HomeComponent } from './components/home/home.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { MessagesComponent } from './components/user/messages/messages.component';
-import { CommunityComponent } from './components/user/community/community.component';
-import { CampaignsComponent } from './components/campaigns/campaigns.component';
-import { NewCampaignComponent } from './components/campaigns-new/campaigns-new.component';
-import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
-import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
-import { CampaignPageComponent } from './components/shared/campaign-page/campaign-page.component';
-import { AdminDashboardComponent } from './components/administrator/admin-dashboard/admin-dashboard.component';
-import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
-import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
-import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
-import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
-import { MychartComponent } from './components/shared/mychart/mychart.component';
-import { ModDashboardComponent } from './components/moderator/mod-dashboard/mod-dashboard.component';
-import { ModCampaignsComponent } from './components/moderator/mod-campaigns/mod-campaigns.component';
-import { ModUsersComponent } from './components/moderator/mod-users/mod-users.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { MessagesComponent } from './pages/messages/messages.component';
+import { CommunityComponent } from './pages/community/community.component';
+import { CampaignsComponent } from './pages/campaigns/campaigns.component';
+import { NewCampaignComponent } from './pages/campaigns-new/campaigns-new.component';
+import { CampaignPageComponent } from './pages/campaign-page/campaign-page.component';
+import { HowItWorksComponent } from './pages/how-it-works/how-it-works.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { AdminCampaignsComponent } from './pages/admin-campaigns/admin-campaigns.component';
+import { AdminDonationsComponent } from './pages/admin-donations/admin-donations.component';
+import { AdminUsersComponent } from './pages/admin-users/admin-users.component';
+import { AdminModeratorsComponent } from './pages/admin-moderators/admin-moderators.component';
+import { ModDashboardComponent } from './pages/mod-dashboard/mod-dashboard.component';
+import { ModCampaignsComponent } from './pages/mod-campaigns/mod-campaigns.component';
+import { ModUsersComponent } from './pages/mod-users/mod-users.component';
+import { MychartComponent } from './components/mychart/mychart.component';
 
 // route guard
 import { AuthGuard } from './guards/auth.guard';

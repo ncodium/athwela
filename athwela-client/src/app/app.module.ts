@@ -8,40 +8,36 @@ import { HttpClientModule } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 
 // general custom components
-import { NavigationComponent } from './components/navigation/navigation.component';
+import { NavigationComponent } from './navigation/navigation.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { HomeComponent } from './components/home/home.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { MessagesComponent } from './components/user/messages/messages.component';
-import { CommunityComponent } from './components/user/community/community.component';
-import { CampaignsComponent } from './components/campaigns/campaigns.component';
-import { NewCampaignComponent } from './components/campaigns-new/campaigns-new.component';
-import { CampaignPageComponent } from './components/shared/campaign-page/campaign-page.component';
-import { CampaignCardComponent } from './components/shared/campaign-card/campaign-card.component';
-import { CampaignCommentComponent } from './components/shared/campaign-comment/campaign-comment.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { MessagesComponent } from './pages/messages/messages.component';
+import { CommunityComponent } from './pages/community/community.component';
+import { CampaignsComponent } from './pages/campaigns/campaigns.component';
+import { NewCampaignComponent } from './pages/campaigns-new/campaigns-new.component';
+import { CampaignPageComponent } from './pages/campaign-page/campaign-page.component';
+import { CampaignCardComponent } from './components/campaign-card/campaign-card.component';
+import { CampaignCommentComponent } from './components/campaign-comment/campaign-comment.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
-import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
-import { FooterComponent } from './components/shared/footer/footer.component';
-import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
+import { HowItWorksComponent } from './pages/how-it-works/how-it-works.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { AdminCampaignsComponent } from './pages/admin-campaigns/admin-campaigns.component';
+import { AdminDonationsComponent } from './pages/admin-donations/admin-donations.component';
+import { AdminUsersComponent } from './pages/admin-users/admin-users.component';
+import { AdminModeratorsComponent } from './pages/admin-moderators/admin-moderators.component';
+import { ModDashboardComponent } from './pages/mod-dashboard/mod-dashboard.component';
+import { ModCampaignsComponent } from './pages/mod-campaigns/mod-campaigns.component';
+import { ModUsersComponent } from './pages/mod-users/mod-users.component';
 
-// admininstrator components
-import { AdminDashboardComponent } from './components/administrator/admin-dashboard/admin-dashboard.component';
-import { AdminCampaignsComponent } from './components/administrator/admin-campaigns/admin-campaigns.component';
-import { AdminDonationsComponent } from './components/administrator/admin-donations/admin-donations.component';
-import { AdminUsersComponent } from './components/administrator/admin-users/admin-users.component';
-import { AdminModeratorsComponent } from './components/administrator/admin-moderators/admin-moderators.component';
-
-// moderator components
-import { ModDashboardComponent } from './components/moderator/mod-dashboard/mod-dashboard.component';
-import { ModCampaignsComponent } from './components/moderator/mod-campaigns/mod-campaigns.component';
-import { ModUsersComponent } from './components/moderator/mod-users/mod-users.component';
-
-// custom services
+// services
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 
-// route guards
+// guards
 import { AuthGuard } from './guards/auth.guard';
 
 // ngx-bootstrap
@@ -58,11 +54,11 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
-// additional modules
-import { TruncateTextPipe } from './pipes/truncate-text.pipe';
+// additional
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { ChartsModule } from 'ng2-charts';
-import { MychartComponent } from './components/shared/mychart/mychart.component';
+import { TruncateTextPipe } from './pipes/truncate-text.pipe';
+import { MychartComponent } from './components/mychart/mychart.component';
 
 @NgModule({
   declarations: [

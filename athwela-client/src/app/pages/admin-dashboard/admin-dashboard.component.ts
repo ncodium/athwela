@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SingleDataSet, Label } from 'ng2-charts';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { CampaignService } from '../../../services/campaign.service';
+import { CampaignService } from '../../services/campaign.service';
 
 
 @Component({

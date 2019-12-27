@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Campaign } from '../../../models/campaign.model';
+import { Campaign } from '../../models/campaign.model';
 import { CampaignService } from 'src/app/services/campaign.service';
-import { AuthService } from './../../../services/auth.service';
+import { AuthService } from './../../services/auth.service';
 import { User } from 'src/app/models/user.model';
 
 @Component({
