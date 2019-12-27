@@ -19,7 +19,7 @@ import { CampaignsComponent } from './pages/campaigns/campaigns.component';
 import { NewCampaignComponent } from './pages/campaigns-new/campaigns-new.component';
 import { CampaignPageComponent } from './pages/campaign-page/campaign-page.component';
 import { CampaignCardComponent } from './components/campaign-card/campaign-card.component';
-import { CampaignCommentComponent } from './components/campaign-comment/campaign-comment.component';
+import { CampaignCommentsComponent } from './components/campaign-comments/campaign-comments.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { HowItWorksComponent } from './pages/how-it-works/how-it-works.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -73,7 +73,7 @@ import { MychartComponent } from './components/mychart/mychart.component';
     CampaignsComponent,
     NewCampaignComponent,
     CampaignCardComponent,
-    CampaignCommentComponent,
+    CampaignCommentsComponent,
     AdminDashboardComponent,
     AdminCampaignsComponent,
     AdminDonationsComponent,

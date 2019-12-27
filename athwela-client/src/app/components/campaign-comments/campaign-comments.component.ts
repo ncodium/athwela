@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-campaign-comment',
-  templateUrl: './campaign-comment.component.html',
-  styleUrls: ['./campaign-comment.component.scss'],
+  selector: 'app-campaign-comments',
+  templateUrl: './campaign-comments.component.html',
+  styleUrls: ['./campaign-comments.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CampaignCommentComponent implements OnInit {
+export class CampaignCommentsComponent implements OnInit {
   body: String;
   submitted = false;
   @Input() comments: any;

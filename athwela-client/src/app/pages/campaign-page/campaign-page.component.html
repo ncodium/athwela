@@ -21,10 +21,10 @@
             <!-- On small screens donations section should be shown here -->
 
             <!-- Comments -->
-            <app-campaign-comment *ngIf="campaign?.published" [comments]="campaign?.comments"
+            <app-campaign-comments *ngIf="campaign?.published" [comments]="campaign?.comments"
                 (comment)="onCommentSubmit($event)" [loading]="loadingComments" [loggedIn]="loggedIn" [user]="user"
                 (delete)="onDelete($event)">
-            </app-campaign-comment>
+            </app-campaign-comments>
         </div>
 
         <div class="col-md-4">
