@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../models/user.model'
 import { Router } from '@angular/router';
+import { AppConfig } from '../config/app-config';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +21,13 @@ export class AuthService {
   registerUser(user) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/register', user, { headers: headers }).pipe();
+    return this.http.post(AppConfig.BASE_URL + 'users/register', user, { headers: headers }).pipe();
   }
 
   authenticateUser(user) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/authenticate', user, { headers: headers }).pipe();
+    return this.http.post(AppConfig.BASE_URL + 'users/authenticate', user, { headers: headers }).pipe();
   }
 
   updateUser(user) {
@@ -37,7 +38,7 @@ export class AuthService {
         'Authorization': this.authToken
       })
     };
-    return this.http.post('http://localhost:3000/users/update/' + this.user._id, user, httpOptions).pipe();
+    return this.http.post(AppConfig.BASE_URL + 'users/update/' + this.user._id, user, httpOptions).pipe();
   }
 
   getProfile() {
@@ -48,7 +49,7 @@ export class AuthService {
         'Authorization': this.authToken
       })
     };
-    return this.http.get('http://localhost:3000/users/profile', httpOptions).pipe();
+    return this.http.get(AppConfig.BASE_URL + 'users/profile', httpOptions).pipe();
   }
 
   getUser() {

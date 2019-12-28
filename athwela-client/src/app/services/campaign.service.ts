@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Campaign } from '../models/campaign.model';
+import { AppConfig } from '../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CampaignService {
-  readonly baseURL = 'http://localhost:3000/campaigns/';
-
   selectedCampaign: Campaign;
   campaigns: Campaign[];
 
@@ -17,14 +16,14 @@ export class CampaignService {
     private authService: AuthService
   ) { }
 
-  getCampaign(id: String) { return this.http.get(this.baseURL + id) }
-  getCampaigns() { return this.http.get(this.baseURL) }
-  getRecentCampaigns() { return this.http.get(this.baseURL + 'recent') }
-  getPublishedCampaigns() { return this.http.get(this.baseURL + 'published') }
-  getUnpublishedCampaigns() { return this.http.get(this.baseURL + 'unpublished') }
-  getVerifiedCampaigns() { return this.http.get(this.baseURL + 'verified') }
-  getUnverifiedCampaigns() { return this.http.get(this.baseURL + 'unverified') }
-  getCategories() { return this.http.get(this.baseURL + 'categories') }
+  getCampaign(id: String) { return this.http.get(AppConfig.BASE_URL + 'campaigns/' + id) }
+  getCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/') }
+  getRecentCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/recent') }
+  getPublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/published') }
+  getUnpublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unpublished') }
+  getVerifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/verified') }
+  getUnverifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified') }
+  getCategories() { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories') }
 
   publishCampaign(id: String) {
     this.authService.loadToken();
@@ -34,7 +33,7 @@ export class CampaignService {
       })
     };
 
-    return this.http.put(this.baseURL + id + '/publish', {}, httpOptions);
+    return this.http.put(AppConfig.BASE_URL + 'campaigns/' + id + '/publish', {}, httpOptions);
   }
 
   unpublishCampaign(id: String) {
@@ -44,7 +43,7 @@ export class CampaignService {
         'Content-Type': 'application/json', 'Authorization': this.authService.authToken
       })
     };
-    return this.http.put(this.baseURL + id + '/unpublish', {}, httpOptions);
+    return this.http.put(AppConfig.BASE_URL + 'campaigns/' + id + '/unpublish', {}, httpOptions);
   }
 
   verifyCampaign(id: String) {
@@ -55,7 +54,7 @@ export class CampaignService {
       })
     };
 
-    return this.http.put(this.baseURL + id + '/verify', {}, httpOptions);
+    return this.http.put(AppConfig.BASE_URL + 'campaigns/' + id + '/verify', {}, httpOptions);
   }
 
   unverifyCampaign(id: String) {
@@ -66,7 +65,7 @@ export class CampaignService {
       })
     };
 
-    return this.http.put(this.baseURL + id + '/unverify', {}, httpOptions);
+    return this.http.put(AppConfig.BASE_URL + 'campaigns/' + id + '/unverify', {}, httpOptions);
   }
 
   createCampaign(campaign: Campaign) {
@@ -77,7 +76,7 @@ export class CampaignService {
       })
     };
 
-    return this.http.post(this.baseURL, campaign, httpOptions).pipe();
+    return this.http.post(AppConfig.BASE_URL + 'campaigns/', campaign, httpOptions).pipe();
   }
 
   createComment(id: String, body: String) {
@@ -88,7 +87,7 @@ export class CampaignService {
       })
     };
 
-    return this.http.post(this.baseURL + id + '/comment', { body: body }, httpOptions).pipe();
+    return this.http.post(AppConfig.BASE_URL + 'campaigns/' + id + '/comment', { body: body }, httpOptions).pipe();
   }
 
   deleteComment(campaignId: String, commentId: String) {
@@ -99,7 +98,7 @@ export class CampaignService {
       })
     };
 
-    return this.http.delete(this.baseURL + campaignId + '/comment/' + commentId, httpOptions).pipe();
+    return this.http.delete(AppConfig.BASE_URL + 'campaigns/' + campaignId + '/comment/' + commentId, httpOptions).pipe();
   }
 
   getUserCampaigns() {
@@ -110,10 +109,10 @@ export class CampaignService {
       })
     };
 
-    return this.http.get(this.baseURL + 'user', httpOptions).pipe();
+    return this.http.get(AppConfig.BASE_URL + 'campaigns/user', httpOptions).pipe();
   }
 
   getUserCampaignsById(id: String) {
-    return this.http.get(this.baseURL + 'user/' + id, {}).pipe();
+    return this.http.get(AppConfig.BASE_URL + 'campaigns/user/' + id, {}).pipe();
   }
 }

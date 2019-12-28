@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 
-// general custom components
+// general
 import { NavigationComponent } from './navigation/navigation.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -59,6 +59,7 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { ChartsModule } from 'ng2-charts';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { MychartComponent } from './components/mychart/mychart.component';
     ChartsModule,
     PasswordStrengthMeterModule,
     ReactiveFormsModule,
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    FileUploadModule
   ],
   providers: [
     Title,

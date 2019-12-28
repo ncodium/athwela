@@ -2,25 +2,24 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user.model';
+import { AppConfig } from '../config/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  readonly baseURL = 'http://localhost:3000/users/';
-
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) { }
 
   getUser(id: String) {
-    return this.http.get(this.baseURL + 'profile/' + id)
+    return this.http.get(AppConfig.BASE_URL + 'profile/' + id)
   }
 
   registerMod(user: User) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/register/mod', user, { headers: headers }).pipe();
+    return this.http.post(AppConfig.BASE_URL + 'users/register/mod', user, { headers: headers }).pipe();
   }
 }

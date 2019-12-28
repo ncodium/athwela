@@ -5,10 +5,12 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
+const appconfig = require('./config/appconfig');
 
 // custom routes
 const users = require('./routes/users');
-const campaigns = require('./routes/campaigns.js');
+const campaigns = require('./routes/campaigns');
+const upload = require('./routes/upload');
 
 // establish database connection
 mongoose.connect(config.database, {
@@ -25,7 +27,7 @@ mongoose.connection.on('error', (err) => {
 
 // initiate app
 const app = express();
-const port = 3000;
+const port = appconfig.port;
 
 // middleware
 app.use(cors());
@@ -40,8 +42,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // routes
 app.use('/users', users);
 app.use('/campaigns', campaigns);
+app.use('/upload', upload);
+app.use("/public", express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
-    res.send('Invalid endpoint');
+    res.send('Athwela API v1');
 });
 
 app.listen(port, () => {

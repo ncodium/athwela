@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <div class="card text-center">
                 <div class="card-body">
-                    <img height="90px" src="assets/user.png">
+                    <img height="90px" [src]="avatar">
                     <h5 class="card-title">{{ user?.name }}</h5>
                     <p class="card-text">{{ user?.email }}</p>
                 </div>
@@ -105,12 +105,25 @@
             </div>
 
             <div class="form-group">
+                <label for="inputAvatar">Avatar</label><br />
+                <input type="file" ng2FileSelect [uploader]="uploader" class="mt-2" id="inputAvatar" />
+                <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+                    [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
+                <small class="form-text text-muted">
+                    Select a photo and upload it to add or change your avatar.
+                </small>
+            </div>
+
+
+
+            <div class="form-group">
                 <label for="inputEmail">Email address</label>
                 <input type="email" [(ngModel)]="email" name="email" class="form-control" id="inputEmail"
                     [placeholder]="user?.email" [ngClass]="{ 'is-invalid': emailInvalid }">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                     else.</small>
             </div>
+
 
             <div class="form-group">
                 <label for="inputPassword">Password</label>

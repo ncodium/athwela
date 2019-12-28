@@ -9,6 +9,8 @@ import { UserService } from 'src/app/services/user.service';
 import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ValidateService } from 'src/app/services/validate.service';
+import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
+import { AppConfig } from 'src/app/config/app-config';
 
 @Component({
   selector: 'app-profile',
@@ -16,27 +18,31 @@ import { ValidateService } from 'src/app/services/validate.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  private routeSub: Subscription;
-  private user: User;
-  private currentUser: User;
-  private userId: string;
-  private visitor: boolean;
-  private noCampaigns: boolean = true;
-  private noDonations: boolean = true;
-
-  private name: string;
-  private email: string;
-  private password: string;
-  private passwordConfirm: string;
-
-  private nameInvalid: boolean;
-  private emailInvalid: boolean;
-  private passwordInvalid: boolean;
-  private passwordMismatch: boolean;
-
-  modalRef: BsModalRef;
-  campaigns: Campaign[];
   alerts: any = [];
+  routeSub: Subscription;
+  modalRef: BsModalRef;
+  uploader: FileUploader;
+  hasBaseDropZoneOver: boolean;
+  hasAnotherDropZoneOver: boolean;
+  response: any;
+
+  user: User;
+  userId: string;
+  currentUser: User;
+  visitor: boolean;
+  campaigns: Campaign[];
+  noCampaigns: boolean = true;
+  noDonations: boolean = true;
+
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  nameInvalid: boolean;
+  emailInvalid: boolean;
+  passwordInvalid: boolean;
+  passwordMismatch: boolean;
+  avatar: string ="../../../assets/user.png";
 
   constructor(
     private router: Router,
@@ -46,9 +52,22 @@ export class ProfileComponent implements OnInit {
     private campaignService: CampaignService,
     private modalService: BsModalService,
     private validateService: ValidateService
-  ) { }
+
+  ) {
+    this.uploader = new FileUploader({
+      url: AppConfig.BASE_URL + 'upload',
+      itemAlias: 'photo'
+    });
+  }
 
   ngOnInit() {
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      this.response = JSON.parse(response);
+      alert('File uploaded successfully!');
+      this.avatar = AppConfig.BASE_URL + this.response.path;
+    };
+
     this.routeSub = this.route.params.subscribe(params => {
       this.userId = params['id']; // acquire userId from URL
 
