@@ -20,15 +20,25 @@
         </div>
     </div> -->
 
-    <h2 class=" mt-4 mb-3">Recent Campaigns</h2>
+    <h2 class="mt-4 mb-3">Recent Campaigns</h2>
 
-    <div class="row">
+    <div class="row mb-4">
         <div *ngFor="let cmp of campaignService.campaigns" class="col-lg-4 col-md-6 col-sm-12 my-2 mb-4">
             <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
                 target={{cmp.target}} [hideDonate]="false">
             </app-campaign-card>
         </div>
 
+        <div class="col-md-12">
+            <div class="card" style="width: 100%;" *ngIf="noCampaigns">
+                <div class="card-body text-center">
+                    <p class="card-text my-4">
+                        Nothing here yet..
+                    </p>
+                    <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Start a fundraising campaign</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

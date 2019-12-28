@@ -12,6 +12,7 @@ import { CampaignService } from '../../services/campaign.service';
 })
 export class HomeComponent implements OnInit {
   modalRef: BsModalRef;
+  noCampaigns: boolean = true;
 
   constructor(
     private campaignService: CampaignService,
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
   refreshCampaigns() {
     this.campaignService.getCampaigns().subscribe((res) => {
       if (res['success']) this.campaignService.campaigns = res['campaigns'] as Campaign[];
+      this.noCampaigns = (this.campaignService.campaigns.length == 0);
     });
   }
 

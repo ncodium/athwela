@@ -3,8 +3,7 @@
         <div class="col-md-4">
             <div class="card text-center">
                 <div class="card-body">
-                    <img height="90px"
-                        src="assets/user.png">
+                    <img height="90px" src="assets/user.png">
                     <h5 class="card-title">{{ user?.name }}</h5>
                     <p class="card-text">{{ user?.email }}</p>
                 </div>
@@ -45,6 +44,7 @@
             </div>
         </div>
     </div>
+
     <h3 *ngIf="!visitor" class="mt-4 mb-3">My Campaigns</h3>
     <h3 *ngIf="visitor" class="mt-4 mb-3">Campaigns</h3>
     <div class="row mt-2">
@@ -53,12 +53,31 @@
                 target={{cmp.target}} [hideDonate]="true">
             </app-campaign-card>
         </div>
+        <div class="col-md-12">
+            <div class="card" style="width: 100%;" *ngIf="noCampaigns">
+                <div class="card-body text-center">
+                    <p class="card-text my-4">
+                        Nothing here yet..
+                    </p>
+                    <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Start a fundraising campaign</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <h3 *ngIf="!visitor" class="mt-4 mb-3">My Donations</h3>
     <h3 *ngIf="visitor" class="mt-4 mb-3">Donations</h3>
-    <div class="row row mb-2 mt-2">
-
+    <div class="row mb-2 mt-4">
+        <div class="col-md-12" *ngIf="noDonations">
+            <div class="card" style="width: 100%;">
+                <div class="card-body text-center">
+                    <p class="card-text my-4">
+                        Nothing here yet..
+                    </p>
+                    <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Make a donation</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

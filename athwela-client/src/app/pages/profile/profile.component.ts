@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit {
   private currentUser: User;
   private userId: string;
   private visitor: boolean;
+  private noCampaigns: boolean = true;
+  private noDonations: boolean = true;
 
   private name: string;
   private email: string;
@@ -106,12 +108,14 @@ export class ProfileComponent implements OnInit {
   getUserCampaigns() {
     this.campaignService.getUserCampaigns().subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
+      this.noCampaigns = (this.campaigns.length == 0);
     });
   }
 
   getUserCampaignsById(id: string) {
     this.campaignService.getUserCampaignsById(id).subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
+      this.noCampaigns = (this.campaigns.length == 0);
     });
   }
 
