@@ -37,13 +37,12 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 // serve resources from public folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
 // routes
 app.use('/users', users);
 app.use('/campaigns', campaigns);
 app.use('/upload', upload);
-app.use("/public", express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.send('Athwela API v1');
 });
