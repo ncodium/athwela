@@ -3,7 +3,9 @@
         <div class="col-md-4">
             <div class="card text-center">
                 <div class="card-body">
-                    <img class="image-cover" height="120px" [src]="user?.avatar"
+                    <img *ngIf="user.avatar" class="image-cover" height="120px" [src]="user.avatar"
+                        data-holder-rendered="true">
+                    <img *ngIf="!user.avatar" class="image-cover" height="120px" src="assets/user.png"
                         data-holder-rendered="true">
                     <h5 class="card-title mt-2">{{ user?.name }}</h5>
                     <p class="card-text">{{ user?.email }}</p>

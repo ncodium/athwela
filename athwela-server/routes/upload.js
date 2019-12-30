@@ -3,13 +3,17 @@ const router = express.Router();
 const appconfig = require('../config/appconfig');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs')
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, appconfig.public)
+        fs.mkdir(appconfig.public, err => {
+            if (err) console.log(err.message); // directory exists
+            cb(null, appconfig.public);
+        })
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 })
 
