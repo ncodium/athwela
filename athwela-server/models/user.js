@@ -7,7 +7,8 @@ const UserSchema = mongooose.Schema({
     password: { type: String, required: true },
     email: { type: String, required: true },
     name: { type: String, required: true },
-    role: { type: String, default: 'user' }
+    role: { type: String, default: 'user' },
+    avatar: { type: String, required: false }
 });
 
 const User = module.exports = mongooose.model('User', UserSchema);

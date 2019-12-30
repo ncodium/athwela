@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
   emailInvalid: boolean;
   passwordInvalid: boolean;
   passwordMismatch: boolean;
-  avatar: string ="../../../assets/user.png";
+  avatar: string;
 
   constructor(
     private router: Router,
@@ -56,7 +56,9 @@ export class ProfileComponent implements OnInit {
   ) {
     this.uploader = new FileUploader({
       url: AppConfig.BASE_URL + 'upload',
-      itemAlias: 'photo'
+      itemAlias: 'photo',
+      maxFileSize: 5 * 1024 * 1024, // 5MB
+      allowedMimeType: ['image/png', 'image/jpeg'] //will be loaded only PNG and JPG files
     });
   }
 
@@ -67,6 +69,9 @@ export class ProfileComponent implements OnInit {
       alert('File uploaded successfully!');
       this.avatar = AppConfig.BASE_URL + this.response.path;
     };
+    this.uploader.onWhenAddingFileFailed = (item: any, response: any, options: any) => {
+      alert('You cannot upload this file!\nPlease choose a picture with PNG or JPEG formats with size less than 5MB.');
+    }
 
     this.routeSub = this.route.params.subscribe(params => {
       this.userId = params['id']; // acquire userId from URL
@@ -172,6 +177,11 @@ export class ProfileComponent implements OnInit {
     if (this.name) {
       // update name
       this.user.name = this.name;
+    }
+
+    if (this.avatar) {
+      // update avatar
+      this.user.avatar = this.avatar;
     }
 
     if (this.email) {

@@ -87,7 +87,8 @@ router.post('/authenticate', (req, res, next) => {
                         name: user.name,
                         username: user.username,
                         email: user.email,
-                        role: user.role
+                        role: user.role,
+                        avatar: user.avatar
                     }
                 });
             } else {
@@ -110,6 +111,7 @@ router.post('/update/:_id', (req, res, next) => {
         } else {
             if (req.body.name) { user.name = req.body.name; }
             if (req.body.email) { user.email = req.body.email; }
+            if (req.body.avatar) { user.avatar = req.body.avatar; }
             if (req.body.password) {
                 rehash = true;
                 user.password = req.body.password;
@@ -142,7 +144,8 @@ router.get('/profile/:id', (req, res) => {
                         name: user.name,
                         username: user.username,
                         email: user.email,
-                        role: user.role
+                        role: user.role,
+                        avatar: user.avatar
                     }
                 })
             }
@@ -161,7 +164,8 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
             name: req.user.name,
             username: req.user.username,
             email: req.user.email,
-            role: req.user.role
+            role: req.user.role,
+            avatar: req.user.avatar
         }
     })
 });

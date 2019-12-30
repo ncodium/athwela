@@ -14,7 +14,7 @@ export class UserService {
   ) { }
 
   getUser(id: String) {
-    return this.http.get(AppConfig.BASE_URL + 'profile/' + id)
+    return this.http.get(AppConfig.BASE_URL + 'users/profile/' + id)
   }
 
   registerMod(user: User) {
