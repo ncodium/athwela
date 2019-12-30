@@ -99,6 +99,10 @@ router.get('/categories', (req, res) => {
         });
 });
 
+// router.get('/categories/:category', (req,res) => {
+
+// });
+
 router.get('/user', passport.authenticate("jwt", { session: false }), (req, res) => {
     Campaign.find({
         'owner': new ObjectId(req.user._id)
