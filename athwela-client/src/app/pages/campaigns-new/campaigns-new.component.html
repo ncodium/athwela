@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <form role="form" (submit)="onCreateCampaign()" [formGroup]="campaignForm">
-                        <tabset [justified]="true" type="pills">
+                        <tabset [justified]="true" type="pills" #staticTabs>
                             <tab heading="Tell Your Story">
                                 <div class="form-group">
                                     <label for="inputTitle">Add your title</label>
@@ -87,7 +87,11 @@
                                 </div>
                             </tab>
 
-                            <button type="submit" class="btn btn-primary">Create Campaign</button>
+                            <button *ngIf="campaignForm.valid" type="submit" class="btn btn-primary">Create Campaign</button>
+                            <button *ngIf="campaignForm.invalid" type="button" class="btn btn-secondary" (click)="nextTab(0)">Next</button>
+                            <button *ngIf="campaignForm.invalid" type="button" class="btn btn-secondary" (click)="nextTab(1)">Next</button>
+                            <button *ngIf="campaignForm.invalid" type="button" class="btn btn-secondary" (click)="nextTab(2)">Next</button>
+                            <button *ngIf="campaignForm.invalid" type="button" class="btn btn-secondary" (click)="nextTab(3)">Next</button>
                         </tabset>
                     </form>
                 </div>

@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
+import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 
 // general
 import { NavigationComponent } from './navigation/navigation.component';
@@ -47,6 +48,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+// import { PaginationModule}
 
 // icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';

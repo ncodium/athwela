@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CampaignService } from '../../services/campaign.service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
+import { TabsetComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-campaigns-new',
@@ -14,6 +15,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class NewCampaignComponent implements OnInit {
   campaignForm: FormGroup;
   submitted = false;
+  @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
 
   id: string;
   categories: string[] = ["medical", "education"]
@@ -61,5 +63,9 @@ export class NewCampaignComponent implements OnInit {
         // show error
       }
     });
+  }
+
+  nextTab(tabId: number) {
+    this.staticTabs.tabs[tabId].active = true;
   }
 }
