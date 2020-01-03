@@ -1,12 +1,14 @@
-<div class="container mt-3">
-    <div class="page-header" *ngIf="campaign">
-        <h1>{{ campaign?.name }}</h1>
+<div class="container mt-5">
+    <div class="page-header mb-5" *ngIf="campaign">
+        <h1 class="mb-2">
+            {{ campaign?.name }}
+        </h1>
         <h6>
+            Created by &nbsp;
             <a [routerLink]="['/profile', campaign.owner._id]">
                 <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                 {{ campaign?.owner.name }}
             </a>
-            is organizing this fundraising campaign.
         </h6>
     </div>
 
@@ -16,7 +18,7 @@
                 <alert [type]="alert.type" [dismissible]="true">{{ alert.msg }}</alert>
             </div>
             <img src="assets/720x320.png" class="img-fluid rounded mb-2 mb-lg-0">
-            <p class="mt-2" style="white-space:pre-wrap;">{{ campaign?.description }}</p>
+            <p class="my-5" style="white-space:pre-wrap;">{{ campaign?.description }}</p>
 
             <!-- On small screens donations section should be shown here -->
 
@@ -30,16 +32,16 @@
         <div class="col-md-4">
             <!-- Standard User -->
             <div class="card" *ngIf="isUser">
-                <h5 class="card-header">Rs.{{ campaign?.target }} target</h5>
+                <!-- <h5 class="card-header">Rs.{{ campaign?.target }} target</h5> -->
                 <div class="card-body">
                     <p class="card-text">
-                        <div class="progress" *ngIf="campaign?.verified || campaign?.published" style="height: 20px;">
+                        <div class="progress" *ngIf="campaign?.verified || campaign?.published" style="height: 16px;">
                             <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="5"
                                 aria-valuemin="0" aria-valuemax="100">
                             </div>
                         </div>
                         <div class="mt-1 mb-4" *ngIf="campaign?.verified || campaign?.published; else elseDesc">Rs.
-                            {{ campaign?.raised }} out of Rs. {{ campaign?.target }} raised.
+                            {{ campaign?.raised }} raised of Rs. {{ campaign?.target }}
                         </div>
                         <ng-template #elseDesc>
                             This campaign is pending verification from a moderator.
@@ -47,16 +49,16 @@
                         <div class="text-center" *ngIf="campaign?.verified || campaign?.published">
                             <button class="btn btn-primary" *ngIf="!hideDonate"
                                 [disabled]="!campaign?.published">Donate</button>
-                            <button class="btn btn-info ml-2" href="#" [disabled]="!campaign?.published">Share</button>
+                            <button class="btn btn-outline-dark ml-2" href="#"
+                                [disabled]="!campaign?.published">Share</button>
                         </div>
                 </div>
                 <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
+                    Verified by &nbsp;
                     <a [routerLink]="['/profile', campaign.verified_by._id]">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                         {{ campaign?.verified_by.name }}
                     </a>
-                    has verified this fundraising campaign.
-
                 </div>
                 <ng-template #elseBlock>
                     <button class="btn btn-info" *ngIf="!hideDonate" disabled>Pending</button>
@@ -65,7 +67,7 @@
 
             <!-- Anonymous User -->
             <div class="card" *ngIf="!loggedIn">
-                <h5 class="card-header">Rs.{{ campaign?.target }} target</h5>
+                <!-- <h5 class="card-header">Rs.{{ campaign?.target }} target</h5> -->
                 <div class="card-body">
                     <p class="card-text">
                         <div class="progress" *ngIf="campaign?.verified || campaign?.published" style="height: 20px;">
@@ -74,7 +76,7 @@
                             </div>
                         </div>
                         <div class="mt-1 mb-4" *ngIf="campaign?.verified || campaign?.published; else elseDesc">Rs.
-                            {{ campaign?.raised }} out of Rs. {{ campaign?.target }} raised.
+                            {{ campaign?.raised }} raised of Rs. {{ campaign?.target }}
                         </div>
                         <ng-template #elseDesc>
                             This campaign is pending verification from a moderator.
@@ -86,12 +88,11 @@
                         </div>
                 </div>
                 <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
+                    Verified by &nbsp;
                     <a [routerLink]="['/profile', campaign.verified_by._id]">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                         {{ campaign?.verified_by.name }}
                     </a>
-                    has verified this fundraising campaign.
-
                 </div>
                 <ng-template #elseBlock>
                     <button class="btn btn-info" *ngIf="!hideDonate" disabled>Pending</button>
@@ -100,7 +101,7 @@
 
             <!-- Moderator -->
             <div class="card" *ngIf="isMod">
-                <h5 class="card-header">Rs. {{ campaign?.target }} target</h5>
+                <!-- <h5 class="card-header">Rs. {{ campaign?.target }} target</h5> -->
                 <div class="card-body">
                     <p class="card-text">
                         <div class="mb-4">This campaign has a Rs. {{ campaign?.target }} target.</div>
@@ -112,12 +113,11 @@
                         </div>
                 </div>
                 <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
+                    Verified by &nbsp;
                     <a [routerLink]="['/profile', campaign.verified_by._id]">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                         {{ campaign?.verified_by.name }}
                     </a>
-                    has verified this fundraising campaign.
-
                 </div>
                 <ng-template #elseBlock>
                     <button class="btn btn-info" *ngIf="!hideDonate" disabled>Pending</button>
@@ -126,7 +126,7 @@
 
             <!--Admin-->
             <div class="card" *ngIf="isAdmin">
-                <h5 class="card-header">Rs. {{ campaign?.target }} target</h5>
+                <!-- <h5 class="card-header">Rs. {{ campaign?.target }} target</h5> -->
                 <div class="card-body">
                     <p class="card-text">
                         <div class="mb-4">This campaign has a Rs. {{ campaign?.target }} target.</div>
@@ -142,12 +142,11 @@
                         </div>
                 </div>
                 <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
+                    Verified by &nbsp;
                     <a [routerLink]="['/profile', campaign.verified_by._id]">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                         {{ campaign?.verified_by.name }}
                     </a>
-                    has verified this fundraising campaign.
-
                 </div>
                 <ng-template #elseBlock>
                     <button class="btn btn-info" *ngIf="!hideDonate" disabled>Pending</button>

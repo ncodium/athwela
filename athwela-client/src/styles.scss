@@ -1,4 +1,6 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import "./assets/growth/bootstrap4-growth.min.css";
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
 html body {
   height: 100%;
@@ -6,5 +8,5 @@ html body {
 
 body {
   padding-top: 56px;
-  background: #f4f3ef;
+  font-family: 'Raleway', sans-serif;
 }
