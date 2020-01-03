@@ -1,4 +1,4 @@
-<h3 class="mt-2">Comments</h3>
+<h3 class="mt-2 mb-2">Comments</h3>
 
 <div class="container">
     <div class="row">
@@ -15,7 +15,7 @@
                     <br />
                     <form class="form-inline" *ngIf="comment.owner._id==user?._id">
                         <button (click)="onDelete(comment._id)"
-                            class="btn btn-warning float-xs-right ml-auto my-2">Delete</button>
+                            class="btn btn-default btn-sm float-xs-right ml-auto ">Delete</button>
                     </form>
                 </div>
 
