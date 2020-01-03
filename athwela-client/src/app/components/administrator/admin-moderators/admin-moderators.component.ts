@@ -16,11 +16,11 @@ import { ValidateService } from 'src/app/services/validate.service';
   styleUrls: ['./admin-moderators.component.scss']
 })
 export class AdminModeratorsComponent implements OnInit {
-  name: String;
-  username: String;
-  email: String;
-  password: String;
-  passwordConfirm: String;
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
 
   nameInvalid: boolean;
   emailInvalid: boolean;
@@ -35,8 +35,8 @@ export class AdminModeratorsComponent implements OnInit {
   constructor(private modalService: BsModalService,
     private validateService: ValidateService,
     private authService: AuthService,
-    private router: Router,
-    public bsModalRef: BsModalRef
+    private userService: UserService,
+    private router: Router
     ) { }
   
     highlightInvalidInputFields() {
@@ -62,32 +62,131 @@ export class AdminModeratorsComponent implements OnInit {
        }
      ]
    }
-
-   onRegisterSubmit() {
+   onRegisterSubmit() {    
     // generate an object from the data provided in fields
     const user = {
       name: this.name,
       username: this.username,
       email: this.email,
       password: this.password,
- 
+      role: 'mod'
+      
     }
 
     this.highlightInvalidInputFields();
+
     // required fields
     if (!this.username && !this.email && !this.password && !this.name) {
       this.alerts = [
         {
           type: 'warning',
+          msg: `all fields required`
+        }
+      ];
+    }
+    else if (!this.username) {
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Please provide your username to continue.`
+        }
+      ];
+    }
+    else if (!this.password) {
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Please provide a password for your account to continue.`
+        }
+      ];
+    }
+    else if (!this.passwordConfirm) {
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Your passwords don't match. Please enter your password again.`
+        }
+      ];
+    }
+    else if (this.passwordMismatch) {
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Your passwords don't match. Please enter your password again.`
+        }
+      ];
+    }
+    else if (!this.name) {
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Please type in your name to continue.`
+        }
+      ];
+    }
+    else if (!this.email) {
+      this.alerts = [
+        {
+          type: 'warning',
+          msg: `Please provide your email address to continue.`
+        }
+      ];
+    }
+    else if (!this.validateService.validateRegister(user)) {
+      this.alerts = [
+        {
+          type: 'danger',
           msg: `You have to complete the form correctly first before submitting it.`
         }
       ];
     }
+    // validate Email
+    else if (!this.validateService.validateEmail(user.email)) {
+      // additionally
+      this.emailInvalid = true;
 
+      this.alerts = [
+        {
+          type: 'danger',
+          msg: `The e-mail address you have entered seems to be invalid. Please use a valid email to continue.`
+        }
+      ];
+    }
+    // register User
+    else this.userService.registermod(user).subscribe(data => {
+      if (data['success']) {
+        this.alerts = [
+          {
+            type: 'success',
+            msg: `moderator registered`
+          }
+        ];
+      }
+      else if (data['username_exist']) {
+        this.alerts = [
+          {
+            type: 'warning',
+            msg: `You can't register because an account with the username <strong>` + this.username + `</strong> already exist. Please try another username!`
+          }
+        ];
+      } else {
+        this.alerts = [
+          {
+            type: 'danger',
+            msg: `Something went wrong! Please try again later.`
+          }
+        ];
+      }
+    });
+  }
 
-//   public scatterChartOptions: ChartOptions = {
-//    responsive: true,
-//  };
+    
+    
+
+     
+    public scatterChartOptions: ChartOptions = {
+      responsive: true,
+    };
 
   //  public scatterChartData: ChartDataSets[] = [
   //    {
@@ -105,9 +204,9 @@ export class AdminModeratorsComponent implements OnInit {
   
   public scatterChartType: ChartType = 'scatter';
 
-  openModal(template: TemplateRef<any>) {
+  openRegister(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
   }
-}
+
 

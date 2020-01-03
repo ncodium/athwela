@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
  
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class UserService {
   getUser(id: String) {
     return this.http.get(this.baseURL + 'profile/' + id)
   }
-  registermod(user) {
+  registermod(user: User) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/users/register/moderator', user, { headers: headers }).pipe();

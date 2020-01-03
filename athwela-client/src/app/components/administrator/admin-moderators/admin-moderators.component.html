@@ -6,7 +6,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 mt-4 mb-2">
-            <button (click)="openRegister(register)" class="btn btn-primary" >Register</button>
+            <button (click)="openRegister(register)" class="btn btn-primary" >Add moderators</button>
         </div>
     </div>
     <div class="row">
@@ -86,7 +86,7 @@
     <ng-template #register>
         <div class="modal-header">
             <h4 class="modal-titile pull-left">Register</h4>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+            <button type="button" class="close pull-right" aria-label="Close"  (click)="modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
