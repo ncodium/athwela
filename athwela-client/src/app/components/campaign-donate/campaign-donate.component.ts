@@ -19,4 +19,7 @@ export class CampaignDonateComponent implements OnInit {
     console.log(this.campaign);
   }
 
+  onDonateClick() {
+   
+  }
 }

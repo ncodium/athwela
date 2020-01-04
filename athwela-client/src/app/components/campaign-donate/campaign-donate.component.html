@@ -1,5 +1,3 @@
-<script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
-
 <div class="modal-header">
     <h4 class="modal-title pull-left">{{ title }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
@@ -14,7 +12,8 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">Rs.</div>
                 </div>
-                <input type="number" class="form-control" id="form-control-amount" aria-describedby="amountHelp">
+                <input type="number" min="500" step="500" max="25000" class="form-control" id="form-control-amount"
+                    aria-describedby="amountHelp">
             </div>
             <small id="amountHelp" class="form-text text-muted">
                 How much you want to donate?
@@ -27,9 +26,12 @@
                 Add a comment for your donation.
             </small>
         </div>
+        <a href="https://www.payhere.lk" target="_blank"><img
+                src="https://www.payhere.lk/downloads/images/payhere_long_banner.png" alt="PayHere" width="100%" /></a>
     </div>
+
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
-        <button type="button" class="ml-2 btn btn-primary" (click)="bsModalRef.hide()">Donate</button>
+        <button type="button" class="ml-2 btn btn-primary" (click)="onDonateClick()">Donate</button>
     </div>
 </form>
