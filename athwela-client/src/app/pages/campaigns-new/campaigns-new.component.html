@@ -49,10 +49,17 @@
                             </tab>
 
                             <tab heading="Add your photo">
-                                <p style="text-align: justify;">
-                                    Adding your photo gives donors and supporters confidence
-                                    that a real person has created the campaign.
-                                </p>
+                                <div class="form-group">
+                                    <p style="text-align: justify;">
+                                        Adding your photo gives donors and supporters confidence
+                                        that a real person has created the campaign.
+                                    </p>
+                                    <input type="file" ng2FileSelect [uploader]="uploader" class="mt-2" id="inputAvatar" />
+                                    <button type="button" class="btn btn-success btn-s" (cilck)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
+                                    <small class="form-text text-muted">
+                                        Select a photo and upload it to add or change your avatar
+                                    </small>
+                                </div>
                             </tab>
 
                             <tab heading="Add images or videos">
@@ -88,10 +95,8 @@
                             </tab>
 
                             <button *ngIf="campaignForm.valid" type="submit" class="btn btn-primary">Create Campaign</button>
-                            <button *ngIf="campaignForm.invalid" type="button" class="btn btn-secondary" (click)="nextTab(0)">Next</button>
-                            <button *ngIf="campaignForm.invalid" type="button" class="btn btn-secondary" (click)="nextTab(1)">Next</button>
-                            <button *ngIf="campaignForm.invalid" type="button" class="btn btn-secondary" (click)="nextTab(2)">Next</button>
-                            <button *ngIf="campaignForm.invalid" type="button" class="btn btn-secondary" (click)="nextTab(3)">Next</button>
+                            <button *ngIf="campaignForm.invalid" type="button" class="btn btn-secondary" (click)="getActiveTab()">Previous</button>
+                            <button *ngIf="campaignForm.invalid" type="button" class="btn btn-secondary" (click)="nextTab()">Next</button>
                         </tabset>
                     </form>
                 </div>
