@@ -62,6 +62,7 @@ import { ChartsModule } from 'ng2-charts';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { CampaignDonateComponent } from './components/campaign-donate/campaign-donate.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     ModUsersComponent,
     TruncateTextPipe,
     FooterComponent,
+    CampaignDonateComponent,
   ],
   imports: [
     BrowserModule,
@@ -123,7 +125,8 @@ import { FileUploadModule } from 'ng2-file-upload';
   ],
   entryComponents: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CampaignDonateComponent
   ]
 })
 export class AppModule {

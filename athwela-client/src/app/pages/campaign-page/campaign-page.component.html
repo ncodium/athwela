@@ -24,8 +24,7 @@
 
             <!-- Comments -->
             <app-campaign-comments *ngIf="campaign?.published" [comments]="campaign?.comments"
-                (comment)="onCommentSubmit($event)" [loading]="loadingComments" [loggedIn]="loggedIn" [user]="user"
-                (delete)="onDelete($event)">
+                (comment)="onCommentSubmit($event)" [loggedIn]="loggedIn" [user]="user" (delete)="onDelete($event)">
             </app-campaign-comments>
         </div>
 
@@ -48,8 +47,8 @@
                         </div>
                     </ng-template>
                     <div class="text-center" *ngIf="campaign?.verified || campaign?.published">
-                        <button class="btn btn-primary" *ngIf="!hideDonate"
-                            [disabled]="!campaign?.published">Donate</button>
+                        <button class="btn btn-primary" *ngIf="!hideDonate" [disabled]="!campaign?.published"
+                            (click)="onDonateClick()">Donate</button>
                         <button class="btn btn-outline-dark ml-4" href="#"
                             [disabled]="!campaign?.published">Share</button>
                     </div>

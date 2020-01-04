@@ -84,7 +84,7 @@
 
             <div class="form-group">
                 <label for="inputAvatar">Avatar</label><br />
-                <input type="file" ng2FileSelect [uploader]="uploader" class="mt-2" id="inputAvatar" />
+                <input type="file" ng2FileSelect [uploader]="uploader" class="form-control-file" id="inputAvatar" />
                 <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
                     [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
                 <small class="form-text text-muted">

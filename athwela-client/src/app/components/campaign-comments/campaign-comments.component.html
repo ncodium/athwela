@@ -5,17 +5,17 @@
         <div class="media comment-box comment-user" *ngFor="let comment of comments">
             <div class="media-left">
                 <a [routerLink]="['/profile', comment.owner._id]">
-                    <img class="img-responsive user-photo" src="assets/user.png">
+                    <img class="img-responsive user-photo" src="{{ comment.owner.avatar }}">
                 </a>
             </div>
-            <div class="media-body">
+            <div class="media-body shadow-sm">
                 <h4 class="media-heading">{{ comment.owner.name }}</h4>
                 <div class="content">
                     {{ comment.body }}
                     <br />
                     <form class="form-inline" *ngIf="comment.owner._id==user?._id">
                         <button (click)="onDelete(comment._id)"
-                            class="btn btn-default btn-sm float-xs-right ml-auto ">Delete</button>
+                            class="btn btn-default btn-sm float-xs-right ml-auto">Delete</button>
                     </form>
                 </div>
 
@@ -59,13 +59,11 @@
                 -->
             </div>
         </div>
-        <div *ngIf="loading; else loaded">
-            Loading...
-        </div>
-        <div class="media comment-box comment-user" *ngIf="loggedIn; else noAccess" #loaded>
+
+        <div class="media comment-box comment-user" *ngIf="loggedIn; else noAccess">
             <div class="media-left">
                 <a href="#">
-                    <img class="img-responsive user-photo" src="assets/user.png">
+                    <img class="img-responsive user-photo" src="{{ user.avatar }}">
                 </a>
             </div>
             <div class="media-body">
