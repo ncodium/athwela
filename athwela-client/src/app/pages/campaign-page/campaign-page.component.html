@@ -32,114 +32,110 @@
         <div class="col-md-4">
             <!-- Standard User -->
             <div class="card shadow" *ngIf="isUser">
-                <!-- <h5 class="card-header">Rs.{{ campaign?.target }} target</h5> -->
                 <div class="card-body">
-                    <p class="card-text">
-                        <div class="progress" *ngIf="campaign?.verified || campaign?.published" style="height: 16px;">
-                            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="5"
-                                aria-valuemin="0" aria-valuemax="100">
-                            </div>
+                    <div class="progress" *ngIf="campaign?.verified || campaign?.published" style="height: 12px;">
+                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="5"
+                            aria-valuemin="0" aria-valuemax="100">
                         </div>
-                        <div class="mt-1 mb-4" *ngIf="campaign?.verified || campaign?.published; else elseDesc">Rs.
-                            {{ campaign?.raised }} raised of Rs. {{ campaign?.target }}
-                        </div>
-                        <ng-template #elseDesc>
+                    </div>
+                    <div class="mt-2 mb-4 text-muted" *ngIf="campaign?.verified || campaign?.published; else elseDesc">
+                        Rs. {{ campaign?.raised }} raised of Rs. {{ campaign?.target }}
+                    </div>
+                    <ng-template #elseDesc>
+                        <h5>Pending</h5>
+                        <div class="mt-2 mb-1 text-muted">
                             This campaign is pending verification from a moderator.
-                        </ng-template>
-                        <div class="text-center" *ngIf="campaign?.verified || campaign?.published">
-                            <button class="btn btn-primary" *ngIf="!hideDonate"
-                                [disabled]="!campaign?.published">Donate</button>
-                            <button class="btn btn-outline-dark ml-2" href="#"
-                                [disabled]="!campaign?.published">Share</button>
                         </div>
+                    </ng-template>
+                    <div class="text-center" *ngIf="campaign?.verified || campaign?.published">
+                        <button class="btn btn-primary" *ngIf="!hideDonate"
+                            [disabled]="!campaign?.published">Donate</button>
+                        <button class="btn btn-outline-dark ml-4" href="#"
+                            [disabled]="!campaign?.published">Share</button>
+                    </div>
                 </div>
-                <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
+                <div class="card-footer" *ngIf="campaign?.verified || campaign?.published">
                     Verified by &nbsp;
                     <a [routerLink]="['/profile', campaign.verified_by._id]">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                         {{ campaign?.verified_by.name }}
                     </a>
                 </div>
-                <ng-template #elseBlock>
-                    <button class="btn btn-info" *ngIf="!hideDonate" disabled>Pending</button>
-                </ng-template>
             </div>
 
             <!-- Anonymous User -->
             <div class="card shadow" *ngIf="!loggedIn">
-                <!-- <h5 class="card-header">Rs.{{ campaign?.target }} target</h5> -->
                 <div class="card-body">
-                    <p class="card-text">
-                        <div class="progress" *ngIf="campaign?.verified || campaign?.published" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="5"
-                                aria-valuemin="0" aria-valuemax="100">
-                            </div>
+                    <div class="progress" *ngIf="campaign?.verified || campaign?.published" style="height: 12px;">
+                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="5"
+                            aria-valuemin="0" aria-valuemax="100">
                         </div>
-                        <div class="mt-1 mb-4" *ngIf="campaign?.verified || campaign?.published; else elseDesc">Rs.
-                            {{ campaign?.raised }} raised of Rs. {{ campaign?.target }}
-                        </div>
-                        <ng-template #elseDesc>
+                    </div>
+                    <div class="mt-2 mb-4 text-muted" *ngIf="campaign?.verified || campaign?.published; else elseDesc">
+                        Rs.
+                        {{ campaign?.raised }} raised of Rs. {{ campaign?.target }}
+                    </div>
+                    <ng-template #elseDesc>
+                        <h5>Pending</h5>
+                        <div class="mt-2 mb-1 text-muted">
                             This campaign is pending verification from a moderator.
-                        </ng-template>
-                        <div class="text-center" *ngIf="campaign?.verified || campaign?.published">
-                            <button class="btn btn-primary" *ngIf="!hideDonate"
-                                [disabled]="!campaign?.published">Donate</button>
-                            <button class="btn btn-info ml-2" [disabled]="!campaign?.published">Share</button>
                         </div>
+                    </ng-template>
+                    <div class="text-center" *ngIf="campaign?.verified || campaign?.published">
+                        <button class="btn btn-primary" *ngIf="!hideDonate"
+                            [disabled]="!campaign?.published">Donate</button>
+                        <button class="btn btn-outline-dark ml-4" [disabled]="!campaign?.published">Share</button>
+                    </div>
                 </div>
-                <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
+                <div class="card-footer" *ngIf="campaign?.verified || campaign?.published">
                     Verified by &nbsp;
                     <a [routerLink]="['/profile', campaign.verified_by._id]">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                         {{ campaign?.verified_by.name }}
                     </a>
                 </div>
-                <ng-template #elseBlock>
-                    <button class="btn btn-info" *ngIf="!hideDonate" disabled>Pending</button>
-                </ng-template>
+
             </div>
 
             <!-- Moderator -->
             <div class="card shadow" *ngIf="isMod">
-                <!-- <h5 class="card-header">Rs. {{ campaign?.target }} target</h5> -->
                 <div class="card-body">
-                    <p class="card-text">
-                        <div class="mb-4">This campaign has a Rs. {{ campaign?.target }} target.</div>
-                        <div class="text-center">
-                            <button class="btn btn-warning" *ngIf="campaign?.verified == false"
-                                (click)="verifyCampaign()" href>Verify</button>
-                            <button class="btn btn-warning" [disabled]="true"
-                                *ngIf="campaign?.verified == true">Verified</button>
+                    <h4 class="card-title">Rs. {{ campaign?.target }}</h4>
+                    <div *ngIf="!campaign?.verified">
+                        <div class="card-text mt-2 text-muted">
+                            This campaign is pending verification from a moderator.
                         </div>
+                        <button class="btn btn-warning card-link mt-2" *ngIf="campaign?.verified == false"
+                            (click)="verifyCampaign()" href>Verify</button>
+                    </div>
                 </div>
-                <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
+                <div class="card-footer" *ngIf="campaign?.verified || campaign?.published">
                     Verified by &nbsp;
                     <a [routerLink]="['/profile', campaign.verified_by._id]">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                         {{ campaign?.verified_by.name }}
                     </a>
                 </div>
-                <ng-template #elseBlock>
-                    <button class="btn btn-info" *ngIf="!hideDonate" disabled>Pending</button>
-                </ng-template>
             </div>
 
             <!--Admin-->
             <div class="card shadow" *ngIf="isAdmin">
-                <!-- <h5 class="card-header">Rs. {{ campaign?.target }} target</h5> -->
                 <div class="card-body">
-                    <p class="card-text">
-                        <div class="mb-4">This campaign has a Rs. {{ campaign?.target }} target.</div>
-                        <div class="text-center">
-                            <button class="btn btn-warning mx-2" *ngIf="campaign?.verified == false"
-                                (click)="verifyCampaign()">Verify</button>
-                            <button class="btn btn-warning mx-2" [disabled]="true"
-                                *ngIf="campaign?.verified == true">Verified</button>
-                            <button class="btn btn-info mx-2" *ngIf="campaign?.published == false"
-                                (click)="publishCampaign()" [disabled]="!campaign?.verified">Publish</button>
-                            <button class="btn btn-info mx-2" *ngIf="campaign?.published == true"
-                                (click)="unpublishCampaign()">Unpublish</button>
+                    <h4 class="card-title">Rs. {{ campaign?.target }}</h4>
+                    <div class="card-text mt-2 text-muted">
+                        <div *ngIf="!campaign?.verified">
+                            This campaign is pending verification from a moderator.
                         </div>
+                        <div *ngIf="campaign?.verified && !campaign?.published">
+                            Publish the campaign to accept donations.
+                        </div>
+                        <button class="btn btn-warning card-link mt-2" *ngIf="campaign?.verified == false"
+                            (click)="verifyCampaign()">Verify</button>
+                        <button class="btn btn-info card-link mt-2 text-white" *ngIf="campaign?.published == false"
+                            (click)="publishCampaign()" [disabled]="!campaign?.verified">Publish</button>
+                        <button class="btn btn-info card-link mt-2 text-white" *ngIf="campaign?.published == true"
+                            (click)="unpublishCampaign()">Unpublish</button>
+                    </div>
                 </div>
                 <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
                     Verified by &nbsp;
@@ -148,9 +144,6 @@
                         {{ campaign?.verified_by.name }}
                     </a>
                 </div>
-                <ng-template #elseBlock>
-                    <button class="btn btn-info" *ngIf="!hideDonate" disabled>Pending</button>
-                </ng-template>
             </div>
 
             <div class="order-md-2 mb-4 mt-5">
@@ -161,21 +154,21 @@
                 <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                            <h6 class="my-0">Product name</h6>
+                            <h6 class="my-0">Anjula Karunarathne</h6>
                             <small class="text-muted">Brief description</small>
                         </div>
                         <span class="text-muted">$12</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                            <h6 class="my-0">Second product</h6>
+                            <h6 class="my-0">Lakshan Anjula</h6>
                             <small class="text-muted">Brief description</small>
                         </div>
                         <span class="text-muted">$8</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                            <h6 class="my-0">Third item</h6>
+                            <h6 class="my-0">Anjula Lakshan</h6>
                             <small class="text-muted">Brief description</small>
                         </div>
                         <span class="text-muted">$5</span>
