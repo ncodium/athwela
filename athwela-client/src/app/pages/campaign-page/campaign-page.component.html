@@ -131,9 +131,9 @@
                         </div>
                         <button class="btn btn-warning card-link mt-2" *ngIf="campaign?.verified == false"
                             (click)="verifyCampaign()">Verify</button>
-                        <button class="btn btn-info card-link mt-2" *ngIf="campaign?.published == false"
+                        <button class="btn btn-info card-link mt-2 text-white" *ngIf="campaign?.published == false"
                             (click)="publishCampaign()" [disabled]="!campaign?.verified">Publish</button>
-                        <button class="btn btn-info card-link mt-2" *ngIf="campaign?.published == true"
+                        <button class="btn btn-info card-link mt-2 text-white" *ngIf="campaign?.published == true"
                             (click)="unpublishCampaign()">Unpublish</button>
                     </div>
                 </div>
