@@ -1,0 +1,3 @@
+module.exports = {
+    payhere_secret: ''
+}

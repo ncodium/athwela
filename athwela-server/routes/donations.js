@@ -16,21 +16,17 @@ router.post('/:campaign_id/:user_id', (req, res) => {
         method: req.body.method,
     });
 
-    // // check if a user with the username already exist
-    // User.find({ username: newUser.username }, function (err, user) {
-    //     if (user.length) {
-    //         res.json({ success: false, username_exist: true });
-    //     } else {
-    //         // register new user account
-    //         User.addUser(newUser, (err, user) => {
-    //             if (err) {
-    //                 res.json({ success: false, msg: 'moderator registration failed.' });
-    //             } else {
-    //                 res.json({ success: true, msg: 'moderator registered successfully' });
-    //             }
-    //         });
-    //     }
-    // });
+    // check if donation already exist
+    Donation.find({ _id: newDonation._id }, function (err, donation) {
+        // if (donation.length) {
+        //     // already exist
+        //     Donation.findByIdAndUpdate()
+        //     Campaign.findByIdAndUpdate()
+        // } else {
+        //     // register new user account
+        //     Donation.
+        // }
+    });
 })
 
 module.exports = router;

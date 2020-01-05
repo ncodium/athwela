@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const ObjectId = require('mongoose').Types.ObjectId;
-var { Campaign } = require('../models/campaign');
+const { Campaign } = require('../models/campaign');
 
 router.get('/', (req, res) => {
     Campaign.find((err, docs) => {

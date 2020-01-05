@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const appconfig = require('../config/appconfig');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs')
+const appconfig = require('../config/appconfig');
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         fs.mkdir(appconfig.public, err => {
             if (err) console.log(err.message); // directory exists
@@ -17,7 +17,7 @@ var storage = multer.diskStorage({
     }
 })
 
-var upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
 router.post('/', upload.single('photo'), (req, res) => {
     if (!req.file) {
