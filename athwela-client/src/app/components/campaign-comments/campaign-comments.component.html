@@ -9,7 +9,7 @@
                 </a>
             </div>
             <div class="media-body shadow-sm">
-                <h4 class="media-heading">{{ comment.owner.name }}</h4>
+                <h6 class="media-heading">{{ comment.owner.name }}</h6>
                 <div class="content">
                     {{ comment.body }}
                     <br />
@@ -67,7 +67,7 @@
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading">{{ user.name }}</h4>
+                <h6 class="media-heading">{{ user.name }}</h6>
                 <form class="form-inline" (ngSubmit)="onSubmit()">
                     <textarea placeholder="Write your comment here.." class="comment-textarea mxy-2 form-control"
                         [(ngModel)]="body" name="bodyModel" #bodyModel="ngModel"></textarea>
