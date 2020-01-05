@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId
-var { Donation } = require('./donation');
+const { donationSchema } = require('./donation');
 
-var Campaign = mongoose.model('Campaign', new Schema(
+const campaignSchema = new Schema(
     {
         name: { type: String, required: true },
         description: { type: String, required: true },
@@ -19,11 +19,13 @@ var Campaign = mongoose.model('Campaign', new Schema(
             body: { type: String, required: true }
         }],
         verified_by: { type: ObjectId, ref: 'User', required: false },
-        donations: [Donation]
+        donations: [donationSchema]
     },
     {
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
     }
-));
+);
+
+const Campaign = mongoose.model('Campaign', campaignSchema);
 
 module.exports = { Campaign };
