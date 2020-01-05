@@ -50,7 +50,7 @@ router.post('/:campaign_id/:user_id', (req, res) => {
             })
 
         } else {
-            // save donation
+            // does not exist
             new_donation.save((err, don) => {
                 if (!err) {
                     // add to campaign

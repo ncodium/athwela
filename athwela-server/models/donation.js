@@ -17,7 +17,7 @@ const donationSchema = new Schema(
         campaign: { type: ObjectId, ref: 'Campaign', required: false },
     },
     {
-        timestamps: { createdAt: 'created_at' }
+        timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
     }
 );
 
