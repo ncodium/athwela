@@ -48,7 +48,8 @@ export class CampaignPageComponent implements OnInit {
   onDonateClick() {
     const initialState = {
       title: "Donate",
-      campaign: this.campaign
+      campaign: this.campaign,
+      user: this.authService.getUser()
     };
 
     this.bsModalRef = this.modalService.show(CampaignDonateComponent, { initialState });

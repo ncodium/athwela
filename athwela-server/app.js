@@ -10,6 +10,7 @@ const appconfig = require('./config/appconfig');
 // custom routes
 const users = require('./routes/users');
 const campaigns = require('./routes/campaigns');
+const donations = require('./routes/donations');
 const upload = require('./routes/upload');
 
 // establish database connection
@@ -42,6 +43,7 @@ app.use("/public", express.static(path.join(__dirname, 'public')));
 // routes
 app.use('/users', users);
 app.use('/campaigns', campaigns);
+app.use('/donations', donations);
 app.use('/upload', upload);
 app.get('/', (req, res) => {
     res.send('Athwela API v1');

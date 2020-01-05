@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId
+var { Donation } = require('./donation');
 
 var Campaign = mongoose.model('Campaign', new Schema(
     {
@@ -11,12 +12,12 @@ var Campaign = mongoose.model('Campaign', new Schema(
         target: { type: Number, required: true },
         raised: { type: Number, default: 0 },
         deadline: { type: Date, required: true },
-        donations: [{ type: ObjectId, ref: 'Donation' }],
+        //donations: [{ type: Donation, required: false }],
         verified: { type: Boolean, default: false },
         published: { type: Boolean, default: false },
-        comments: [{ 
+        comments: [{
             owner: { type: ObjectId, ref: 'User', required: true },
-            body: { type: String, required:true }
+            body: { type: String, required: true }
         }],
         verified_by: { type: ObjectId, ref: 'User', required: false }
     },

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Campaign } from 'src/app/models/campaign.model';
+import { User } from 'src/app/models/user.model';
+import { AppConfig } from './../../config/app-config'
 
 @Component({
   selector: 'app-campaign-donate',
@@ -7,9 +10,14 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./campaign-donate.component.scss']
 })
 export class CampaignDonateComponent implements OnInit {
-  title: string;
-  campaign: any;
   closeBtnName: string;
+  title: string;
+  campaign: Campaign;
+  user: User;
+  return_url: string;
+  cancel_url: string;
+  notify_url: string;
+  merchantId = AppConfig.PAYHERE_MERCHANT;
 
   constructor(
     public bsModalRef: BsModalRef
