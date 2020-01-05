@@ -5,6 +5,16 @@ const appconfig = require('../config/appconfig');
 const { Campaign } = require('../models/campaign');
 const { Donation, donationSchema } = require('../models/donation');
 
+router.get('/', (req, res) => {
+    // return all documents
+    Donation.find((err, docs) => {
+        if (!err)
+            res.json({ donations: docs, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
+
 router.get('/:id', (req, res) => {
     // locate donation with given id
     Donation.findOne({ donation_id: req.params.id }, (err, doc) => {
@@ -13,6 +23,18 @@ router.get('/:id', (req, res) => {
         else
             res.send({ success: false, error: err });
     });
+});
+
+router.get('/user/:id', (req, res) => {
+    // locate donations with given donor id
+    Donation.find({ donor: req.params.id })
+        .populate('campaign', '-donations')
+        .exec(function (err, docs) {
+            if (!err)
+                res.send({ success: true, donations: docs });
+            else
+                res.send({ success: false, error: err });
+        });
 });
 
 router.post('/:campaign_id/:user_id', (req, res) => {

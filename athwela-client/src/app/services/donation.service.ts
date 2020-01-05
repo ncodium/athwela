@@ -13,4 +13,12 @@ export class DonationService {
   getDonation(id: String) {
     return this.http.get(AppConfig.BASE_URL + 'donations/' + id)
   }
+
+  getDonations() {
+    return this.http.get(AppConfig.BASE_URL + 'donations');
+  }
+
+  getUserDonations(id: String) {
+    return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id)
+  }
 }
