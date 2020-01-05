@@ -168,7 +168,10 @@ export class CampaignPageComponent implements OnInit {
   }
 
   generatePercentage(campaign: Campaign) {
-    this.percentage = campaign.raised / campaign.target * 100;
+    const percentage = campaign.raised / campaign.target * 100;
+    if (percentage > 100) this.percentage = 100;
+    else this.percentage = percentage;
+
     if (campaign.complete) {
       this.percentageType = 'success';
     }

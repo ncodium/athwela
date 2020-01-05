@@ -24,6 +24,8 @@ router.post('/:campaign_id/:user_id', (req, res) => {
         status_code: req.body.status_code,
         status_message: req.body.status_message,
         method: req.body.method,
+        donor: req.params.user_id,
+        campaign: req.params.campaign_id
     });
 
     // TODO
