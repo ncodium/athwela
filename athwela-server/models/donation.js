@@ -6,7 +6,7 @@ const { User } = require('./user');
 
 const donationSchema = new Schema(
     {
-        _id: { type: String, required: true },
+        donation_id: { type: String, required: true },
         payment_id: { type: String, required: true },
         amount: { type: Number, required: true },
         currency: { type: String, required: true },

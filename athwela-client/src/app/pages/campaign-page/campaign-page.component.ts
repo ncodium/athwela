@@ -7,6 +7,7 @@ import { AuthService } from './../../services/auth.service';
 import { User } from 'src/app/models/user.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CampaignDonateComponent } from '../../components/campaign-donate/campaign-donate.component';
+import { CampaignDonationConfirmComponent } from '../../components/campaign-donation-confirm/campaign-donation-confirm.component';
 
 @Component({
   selector: 'app-campaign-page',
@@ -28,6 +29,8 @@ export class CampaignPageComponent implements OnInit {
   isUser: Boolean;
   user: User;
 
+  donationId: String;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -39,8 +42,32 @@ export class CampaignPageComponent implements OnInit {
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
       this.campaignId = params['id']; // acquire campaignId from URL and request campaign content
-      this.refreshCampaign(this.campaignId);
+      this.campaignService.getCampaign(this.campaignId).subscribe((res) => {
+        if (res['success']) {
+          this.campaign = res['campaign'] as Campaign;
+          this.route.queryParamMap.subscribe(queryParams => {
+            this.donationId = queryParams.get("order_id");
+            if (this.donationId) {
+              const initialState = {
+                title: "Donate",
+                campaign: this.campaign,
+                user: this.authService.getUser(),
+                donationId: this.donationId
+              };
+
+              this.bsModalRef = this.modalService.show(CampaignDonationConfirmComponent, { initialState });
+              this.bsModalRef.content.closeBtnName = 'Close';
+            }
+          })
+        }
+        else {
+          this.router.navigate(['/page-not-found']);
+        }
+      });
+
     });
+
+
 
     this.authReset()
   }

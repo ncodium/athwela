@@ -10,7 +10,7 @@
             <label for="form-control-amount">Amount</label>
             <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                    <div class="input-group-text">Rs.</div>
+                    <div class="input-group-text">LKR</div>
                 </div>
                 <input type="number" min="500" step="500" max="25000" class="form-control" id="form-control-amount"
                     aria-describedby="amountHelp" name="amount">
@@ -26,24 +26,26 @@
                 Add a comment for your donation.
             </small>
         </div>
+        <div class="form-group">
 
-        <input type="hidden" name="merchant_id" [value]="merchantId">
-        <input type="hidden" name="return_url" [value]="return_url">
-        <input type="hidden" name="cancel_url" [value]="cancel_url">
-        <input type="hidden" name="notify_url" [value]="notify_url">
+            <input type="hidden" name="merchant_id" [value]="merchantId">
+            <input type="hidden" name="return_url" [value]="returnUrl">
+            <input type="hidden" name="cancel_url" [value]="cancelUrl">
+            <input type="hidden" name="notify_url" [value]="notifyUrl">
 
-        <input type="hidden" name="order_id" [value]="campaign._id">
-        <input type="hidden" name="items" [value]="campaign.name"><br>
-        <input type="hidden" name="currency" value="LKR">
+            <input type="hidden" name="order_id" [value]="donationId">
+            <input type="hidden" name="items" [value]="campaign.name"><br>
+            <input type="hidden" name="currency" value="LKR">
 
-        <input type="text" name="first_name" [value]="user.name">
-        <input type="text" name="last_name" value="Perera"><br>
-        <input type="text" name="email" [value]="user.email">
-        <input type="text" name="phone" value="0771234567"><br>
-        <input type="text" name="address" value="No.1, Galle Road">
-        <input type="text" name="city" value="Colombo">
+            <input type="text" name="first_name" [value]="user.name">
+            <input type="text" name="last_name" value="Perera"><br>
+            <input type="text" name="email" [value]="user.email">
+            <input type="text" name="phone" value="0771234567"><br>
+            <input type="text" name="address" value="No.1, Galle Road">
+            <input type="text" name="city" value="Colombo">
 
-        <input type="hidden" name="country" value="Sri Lanka"><br><br>
+            <input type="hidden" name="country" value="Sri Lanka"><br><br>
+        </div>
 
         <a href="https://www.payhere.lk" target="_blank"><img
                 src="https://www.payhere.lk/downloads/images/payhere_long_banner.png" alt="PayHere" width="100%" /></a>
