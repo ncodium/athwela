@@ -65,7 +65,6 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,7 +114,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ReactiveFormsModule,
     TabsModule.forRoot(),
     FileUploadModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
   providers: [
     Title,

@@ -20,6 +20,8 @@ export class CampaignPageComponent implements OnInit {
   loading: Boolean;
   campaign: Campaign;
   campaignId: String;
+  percentage: Number;
+  percentageType: String;
 
   alerts: any = [];
 
@@ -45,6 +47,8 @@ export class CampaignPageComponent implements OnInit {
       this.campaignService.getCampaign(this.campaignId).subscribe((res) => {
         if (res['success']) {
           this.campaign = res['campaign'] as Campaign;
+          this.generatePercentage(this.campaign);
+
           this.route.queryParamMap.subscribe(queryParams => {
             this.donationId = queryParams.get("order_id");
             if (this.donationId) {
@@ -101,6 +105,7 @@ export class CampaignPageComponent implements OnInit {
     this.campaignService.getCampaign(id).subscribe((res) => {
       if (res['success']) {
         this.campaign = res['campaign'] as Campaign;
+        this.generatePercentage(this.campaign);
       }
       else {
         this.router.navigate(['/page-not-found']);
@@ -160,5 +165,15 @@ export class CampaignPageComponent implements OnInit {
       });
 
     })
+  }
+
+  generatePercentage(campaign: Campaign) {
+    this.percentage = campaign.raised / campaign.target * 100;
+    if (campaign.complete) {
+      this.percentageType = 'success';
+    }
+    else {
+      this.percentageType = 'info';
+    }
   }
 }

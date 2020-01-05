@@ -9,4 +9,5 @@ export class Campaign {
     owner?: any;
     verified_by?: any;
     comments?: any;
+    complete?: boolean;
 }

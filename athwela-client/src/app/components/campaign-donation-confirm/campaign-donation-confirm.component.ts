@@ -28,7 +28,6 @@ export class CampaignDonationConfirmComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.refreshData();
 
     this.interval = setInterval(() => {
       /** refresh every 5 seconds */
@@ -39,17 +38,12 @@ export class CampaignDonationConfirmComponent implements OnInit {
 
   refreshData() {
     this.donationService.getDonation(this.donationId).subscribe((res) => {
-      console.log(res);
       if (res['success']) {
         this.donation = res['donation'];
         if (this.donation) {
           clearInterval(this.interval);
           this.spinner.hide();
-          console.log(this.donation, this.campaign);
         }
-      }
-      else {
-        //this.router.navigate(['/page-not-found']);
       }
     });
   }

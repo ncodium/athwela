@@ -68,12 +68,16 @@ router.post('/:campaign_id/:user_id', (req, res) => {
             new_donation.save((err, don) => {
                 if (!err) {
                     // add to campaign
-                    Campaign.findByIdAndUpdate(req.params.campaign_id, { $push: { donations: new_donation } }, { new: true }, (err, cmp) => {
-                        if (!err) {
-                            res.json({ success: true, updated: true, donation: don, campaign: cmp });
-                        } else {
-                            res.json({ success: false, error: err });
-                        }
+                    Campaign.findOne({ _id: req.params.campaign_id }, (err, cmp) => {
+                        cmp.raised += don.amount;
+                        cmp.complete = (cmp.raised + don.amount >= cmp.target);
+                        cmp.donations.push(new_donation);
+                        cmp.save((err, cmp_new) => {
+                            if (err) res.json({ success: false, error: err });
+                            else {
+                                res.json({ success: true, updated: true, donation: don, campaign: cmp });
+                            }
+                        });
                     });
                 }
                 else

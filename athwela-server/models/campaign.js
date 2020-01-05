@@ -11,9 +11,11 @@ const campaignSchema = new Schema(
         owner: { type: ObjectId, ref: 'User', required: true },
         target: { type: Number, required: true },
         raised: { type: Number, default: 0 },
+        status: { type: Number, default: 0 },
         deadline: { type: Date, required: true },
         verified: { type: Boolean, default: false },
         published: { type: Boolean, default: false },
+        complete: { type: Boolean, default: false },
         comments: [{
             owner: { type: ObjectId, ref: 'User', required: true },
             body: { type: String, required: true }
