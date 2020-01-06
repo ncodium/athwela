@@ -16,7 +16,7 @@ export class CampaignPageComponent implements OnInit {
   loading: Boolean;
   loadingComments: Boolean = true;
   campaign: Campaign;
-  campaignId: String;
+  campaignId: string;
 
   alerts: any = [];
 
@@ -56,7 +56,7 @@ export class CampaignPageComponent implements OnInit {
     }
   }
 
-  refreshCampaign(id: String) {
+  refreshCampaign(id: string) {
     this.campaignService.getCampaign(id).subscribe((res) => {
       if (res['success']) {
         this.campaign = res['campaign'] as Campaign;
@@ -98,7 +98,7 @@ export class CampaignPageComponent implements OnInit {
     });
   }
 
-  onCommentSubmit(body: String) {
+  onCommentSubmit(body: string) {
     this.loadingComments = true;
     this.campaignService.createComment(this.campaignId, body).subscribe((res) => {
       this.refreshCampaign(this.campaignId);
@@ -112,7 +112,7 @@ export class CampaignPageComponent implements OnInit {
     })
   }
 
-  onDelete(commentId: String) {
+  onDelete(commentId: string) {
     this.loadingComments = true;
     this.campaignService.deleteComment(this.campaignId, commentId).subscribe((res) => {
       this.refreshCampaign(this.campaignId);

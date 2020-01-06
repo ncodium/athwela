@@ -16,7 +16,7 @@ export class CampaignService {
     private authService: AuthService
   ) { }
 
-  getCampaign(id: String) { return this.http.get(AppConfig.BASE_URL + 'campaigns/' + id) }
+  getCampaign(id: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/' + id) }
   getCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/') }
   getRecentCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/recent') }
   getPublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/published') }
@@ -24,8 +24,9 @@ export class CampaignService {
   getVerifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/verified') }
   getUnverifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified') }
   getCategories() { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories') }
+  getCategoryCampaign(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category) }
 
-  publishCampaign(id: String) {
+  publishCampaign(id: string) {
     this.authService.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -36,7 +37,7 @@ export class CampaignService {
     return this.http.put(AppConfig.BASE_URL + 'campaigns/' + id + '/publish', {}, httpOptions);
   }
 
-  unpublishCampaign(id: String) {
+  unpublishCampaign(id: string) {
     this.authService.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -46,7 +47,7 @@ export class CampaignService {
     return this.http.put(AppConfig.BASE_URL + 'campaigns/' + id + '/unpublish', {}, httpOptions);
   }
 
-  verifyCampaign(id: String) {
+  verifyCampaign(id: string) {
     this.authService.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -57,7 +58,7 @@ export class CampaignService {
     return this.http.put(AppConfig.BASE_URL + 'campaigns/' + id + '/verify', {}, httpOptions);
   }
 
-  unverifyCampaign(id: String) {
+  unverifyCampaign(id: string) {
     this.authService.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -79,7 +80,7 @@ export class CampaignService {
     return this.http.post(AppConfig.BASE_URL + 'campaigns/', campaign, httpOptions).pipe();
   }
 
-  createComment(id: String, body: String) {
+  createComment(id: string, body: string) {
     this.authService.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -90,7 +91,7 @@ export class CampaignService {
     return this.http.post(AppConfig.BASE_URL + 'campaigns/' + id + '/comment', { body: body }, httpOptions).pipe();
   }
 
-  deleteComment(campaignId: String, commentId: String) {
+  deleteComment(campaignId: string, commentId: string) {
     this.authService.loadToken();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -112,7 +113,8 @@ export class CampaignService {
     return this.http.get(AppConfig.BASE_URL + 'campaigns/user', httpOptions).pipe();
   }
 
-  getUserCampaignsById(id: String) {
+  getUserCampaignsById(id: string) {
     return this.http.get(AppConfig.BASE_URL + 'campaigns/user/' + id, {}).pipe();
   }
+
 }
