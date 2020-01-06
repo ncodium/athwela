@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
-import { TabsetComponent } from 'ngx-bootstrap';
+import { TabsetComponent, TabDirective } from 'ngx-bootstrap';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
 import { AppConfig } from 'src/app/config/app-config';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
@@ -16,16 +16,24 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 })
 
 export class NewCampaignComponent implements OnInit {
-  campaignForm: FormGroup;
-  submitted = false;
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
+  campaignForm: FormGroup;
+  uploader: FileUploader;
+  submitted = false;
+  response: any;
 
   id: string;
+  avatar: string;
+
   categories: string[] = ["medical", "education"]
 
-  uploader: FileUploader;
-  response: any;
-  avatar: string;
+  tabs: string[] = [
+    'Tell you story',
+    'How much are you raising?',
+    'Add photos and videos',
+    'Upload documents'
+  ]
+  currentTab: string = this.tabs[0];
 
   constructor(
     private campaignService: CampaignService,
@@ -89,18 +97,17 @@ export class NewCampaignComponent implements OnInit {
     });
   }
 
-  getActiveTab() {
-    const activeTab = this.staticTabs.tabs.filter(tab => tab.active);
-    return(activeTab);
+  onSelect(data: TabDirective): void {
+    this.currentTab = data.heading;
   }
 
-  // previousTab() {
+  nextTab() {
+    const currentTabIndex = this.staticTabs.tabs.findIndex(t => t.heading === this.currentTab);
+    this.staticTabs.tabs[currentTabIndex + 1].active = true;
+  }
 
-  // }
-
-  // nextTab() {
-  //   const acTab = this.getActiveTab();
-  //   this.staticTabs.tabs[].active = true;
-  //   console.log(this.staticTabs[].active);
-  // }
+  previousTab(tabId: number) {
+    const currentTabIndex = this.staticTabs.tabs.findIndex(t => t.heading === this.currentTab);
+    this.staticTabs.tabs[currentTabIndex - 1].active = true;
+  }
 }
