@@ -28,10 +28,10 @@
                     </app-campaign-card>
                 </div>
                 <div class="col-md-12">
-                    <div class="card shadow" style="width: 100%;" *ngIf="noCampaigns">
+                    <div class="card shadow-sm" style="width: 100%;" *ngIf="noCampaigns">
                         <div class="card-body text-center">
                             <p class="card-text my-4">
-                                Nothing here yet..
+                                Nothing here, yet.
                             </p>
                             <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Start a fundraising campaign</a>
                         </div>
@@ -43,7 +43,7 @@
             <h3 *ngIf="visitor" class="mb-3 mt-4">Donations</h3>
             <div class="row mb-2 mt-4">
                 <div class="col-md-12" *ngIf="!noDonations">
-                    <div class="card">
+                    <div class="card shadow-sm">
                         <table class="card-table table">
                             <thead>
                                 <tr>
@@ -67,10 +67,10 @@
                 </div>
 
                 <div class="col-md-12" *ngIf="noDonations">
-                    <div class="card shadow" style="width: 100%;">
+                    <div class="card shadow-sm" style="width: 100%;">
                         <div class="card-body text-center">
                             <p class="card-text my-4">
-                                Nothing here yet..
+                                Nothing here, yet.
                             </p>
                             <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Make a donation</a>
                         </div>
