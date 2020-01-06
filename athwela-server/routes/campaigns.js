@@ -99,9 +99,19 @@ router.get('/categories', (req, res) => {
         });
 });
 
-// router.get('/categories/:category', (req,res) => {
-
-// });
+// sort campaigns by category
+router.get('/categories/:category', (req,res) => {
+    Campaign.find({
+        'category': req.params.category,
+        'verified': true,
+        'published': true
+    }).exec((err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
 
 router.get('/user', passport.authenticate("jwt", { session: false }), (req, res) => {
     Campaign.find({
