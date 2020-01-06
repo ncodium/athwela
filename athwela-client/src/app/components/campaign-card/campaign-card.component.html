@@ -1,12 +1,12 @@
-<div class="card h-100">
+<div class="card h-100 shadow-sm">
     <div class="card-body">
         <h4 class="card-title font-weight-light">
             <span *ngIf="isLinked; else elseBlock">
-                <a [routerLink]="['/campaign', id]">{{ name }}</a>
+                <a [routerLink]="['/campaign', id]">{{ name | trunctuatetext:60 }}</a>
             </span>
-            <ng-template #elseBlock>{{ name }}</ng-template>
+            <ng-template #elseBlock>{{ name | trunctuatetext:60  }}</ng-template>
         </h4>
-        <p class="card-text" [innerHTML]="description | trunctuatetext:150"></p>
+        <p class="card-text" [innerHTML]="description | trunctuatetext:120"></p>
     </div>
     <div class="card-footer">
         <progressbar [value]="55" *ngIf="!hideDonate"></progressbar>

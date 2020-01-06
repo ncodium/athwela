@@ -1,3 +1,5 @@
 export const AppConfig = {
-    BASE_URL: 'http://localhost:3000/'
+    APP_URL: 'http://localhost:4200/',
+    BASE_URL: 'http://localhost:3000/',
+    PAYHERE_MERCHANT: '',
 }

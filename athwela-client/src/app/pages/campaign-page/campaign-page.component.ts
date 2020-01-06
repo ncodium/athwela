@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Campaign } from '../../models/campaign.model';
 import { CampaignService } from 'src/app/services/campaign.service';
 import { AuthService } from './../../services/auth.service';
 import { User } from 'src/app/models/user.model';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { CampaignDonateComponent } from '../../components/campaign-donate/campaign-donate.component';
+import { CampaignDonationConfirmComponent } from '../../components/campaign-donation-confirm/campaign-donation-confirm.component';
 
 @Component({
   selector: 'app-campaign-page',
@@ -12,11 +15,13 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./campaign-page.component.scss']
 })
 export class CampaignPageComponent implements OnInit {
+  bsModalRef: BsModalRef;
   routeSub: Subscription;
   loading: Boolean;
-  loadingComments: Boolean = true;
   campaign: Campaign;
   campaignId: string;
+  percentage: Number;
+  percentageType: string;
 
   alerts: any = [];
 
@@ -26,20 +31,60 @@ export class CampaignPageComponent implements OnInit {
   isUser: Boolean;
   user: User;
 
+  donationId: string;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private campaignService: CampaignService,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
       this.campaignId = params['id']; // acquire campaignId from URL and request campaign content
-      this.refreshCampaign(this.campaignId);
+      this.campaignService.getCampaign(this.campaignId).subscribe((res) => {
+        if (res['success']) {
+          this.campaign = res['campaign'] as Campaign;
+          this.generatePercentage(this.campaign);
+
+          this.route.queryParamMap.subscribe(queryParams => {
+            this.donationId = queryParams.get("order_id");
+            if (this.donationId) {
+              const initialState = {
+                title: "Donate",
+                campaign: this.campaign,
+                user: this.authService.getUser(),
+                donationId: this.donationId
+              };
+
+              this.bsModalRef = this.modalService.show(CampaignDonationConfirmComponent, { initialState });
+              this.bsModalRef.content.closeBtnName = 'Close';
+            }
+          })
+        }
+        else {
+          this.router.navigate(['/page-not-found']);
+        }
+      });
+
     });
 
+
+
     this.authReset()
+  }
+
+  onDonateClick() {
+    const initialState = {
+      title: "Donate",
+      campaign: this.campaign,
+      user: this.authService.getUser()
+    };
+
+    this.bsModalRef = this.modalService.show(CampaignDonateComponent, { initialState });
+    this.bsModalRef.content.closeBtnName = 'Close';
   }
 
   authReset() {
@@ -60,7 +105,7 @@ export class CampaignPageComponent implements OnInit {
     this.campaignService.getCampaign(id).subscribe((res) => {
       if (res['success']) {
         this.campaign = res['campaign'] as Campaign;
-        this.loadingComments = false;
+        this.generatePercentage(this.campaign);
       }
       else {
         this.router.navigate(['/page-not-found']);
@@ -99,7 +144,6 @@ export class CampaignPageComponent implements OnInit {
   }
 
   onCommentSubmit(body: string) {
-    this.loadingComments = true;
     this.campaignService.createComment(this.campaignId, body).subscribe((res) => {
       this.refreshCampaign(this.campaignId);
 
@@ -108,12 +152,10 @@ export class CampaignPageComponent implements OnInit {
         msg: `Your comment has been posted successfully.`
       });
 
-      this.loadingComments = false;
     })
   }
 
   onDelete(commentId: string) {
-    this.loadingComments = true;
     this.campaignService.deleteComment(this.campaignId, commentId).subscribe((res) => {
       this.refreshCampaign(this.campaignId);
 
@@ -122,7 +164,19 @@ export class CampaignPageComponent implements OnInit {
         msg: `Your comment has been deleted successfully.`
       });
 
-      this.loadingComments = false;
     })
+  }
+
+  generatePercentage(campaign: Campaign) {
+    const percentage = campaign.raised / campaign.target * 100;
+    if (percentage > 100) this.percentage = 100;
+    else this.percentage = percentage;
+
+    if (campaign.complete) {
+      this.percentageType = 'success';
+    }
+    else {
+      this.percentageType = 'info';
+    }
   }
 }

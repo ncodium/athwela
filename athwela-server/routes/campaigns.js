@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const ObjectId = require('mongoose').Types.ObjectId;
-var { Campaign } = require('../models/campaign');
+const { Campaign } = require('../models/campaign');
 
 router.get('/', (req, res) => {
     Campaign.find((err, docs) => {
@@ -144,6 +144,7 @@ router.get('/:id', (req, res) => {
         .populate('owner', '-password')
         .populate('verified_by', '-password')
         .populate('comments.owner', '-password')
+        .populate('donations.donor', '-password')
         .exec(function (err, doc) {
             if (!err)
                 res.send({ success: true, campaign: doc });

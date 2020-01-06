@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{ title }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body py-3">
+    <ngx-spinner [fullScreen]="false" bdColor="rgba(255,255,255)" color="darkblue" type="ball-clip-rotate-multiple"
+        size="medium">
+    </ngx-spinner>
+    <h5>Thank you!</h5>
+    <p>We have received your donation.</p>
+    <div class="card bg-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Rs. {{ donation?.amount }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ donation?.status_message }}</h6>
+            <div class="card-text mb-2">
+                {{ campaign?.name }}<br />
+                Donated to <b>{{ campaign?.owner.name }}</b>
+            </div>
+            <span class="card-link">{{ donation?.method }}</span>
+            <span class="card-link">{{ donation?.updated_at | date }}</span>
+        </div>
+    </div>
+
+    <a href="https://www.payhere.lk" target="_blank"><img
+            src="https://www.payhere.lk/downloads/images/payhere_long_banner.png" alt="PayHere" width="100%" /></a>
+</div>
+
+<div class="modal-footer">
+
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{ closeBtnName }}</button>
+</div>

@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { CampaignService } from 'src/app/services/campaign.service';
+import { UserService } from 'src/app/services/user.service';
+import { DonationService } from 'src/app/services/donation.service';
+import { ValidateService } from 'src/app/services/validate.service';
 import { User } from '../../models/user.model';
 import { Campaign } from '../../models/campaign.model';
-import { CampaignService } from '../../services/campaign.service';
+import { Donation } from '../../models/donation.model';
 import { Subscription } from 'rxjs';
-import { UserService } from 'src/app/services/user.service';
 import { TemplateRef } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { ValidateService } from 'src/app/services/validate.service';
-import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
 import { AppConfig } from 'src/app/config/app-config';
 
 @Component({
@@ -31,6 +33,8 @@ export class ProfileComponent implements OnInit {
   currentUser: User;
   visitor: boolean;
   campaigns: Campaign[];
+  donations: Donation[];
+
   noCampaigns: boolean = true;
   noDonations: boolean = true;
 
@@ -51,7 +55,8 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private campaignService: CampaignService,
     private modalService: BsModalService,
-    private validateService: ValidateService
+    private validateService: ValidateService,
+    private donationService: DonationService
 
   ) {
     this.uploader = new FileUploader({
@@ -87,17 +92,13 @@ export class ProfileComponent implements OnInit {
             if (res['success']) this.user = res['user'] as User;
             else this.router.navigate(['/page-not-found']);
 
-            // identify if the user is visitor or not
-            if (this.user._id == this.currentUser._id) {
-              // current user is the owner of the profile
-              this.visitor = false;
-              this.getUserCampaigns();
-            }
-            else {
-              // current user is not the owner of the profile
-              this.visitor = true;
-              this.getUserCampaignsById(this.user._id);
-            }
+            // current user is the owner of the profile
+            if (this.user._id == this.currentUser._id) this.visitor = false
+            // current user is not the owner of the profile
+            else this.visitor = true;
+
+            this.getUserCampaigns(this.user._id);
+            this.getUserDonations(this.user._id);
           })
         }
         else {
@@ -105,7 +106,9 @@ export class ProfileComponent implements OnInit {
           // not a visitor
           this.user = this.currentUser;
           this.visitor = false; // is the owner
-          this.getUserCampaigns();
+
+          this.getUserCampaigns(this.user._id);
+          this.getUserDonations(this.user._id);
         }
       }
       else {
@@ -113,33 +116,34 @@ export class ProfileComponent implements OnInit {
         this.visitor = true;
 
         if (this.userId) {
-          // id included in the url
+          // id should be included in the url
           this.userService.getUser(this.userId).subscribe((res) => {
             if (res['success']) this.user = res['user'] as User;
             else this.router.navigate(['/page-not-found']);
 
-            this.getUserCampaignsById(this.user._id);
+            this.getUserCampaigns(this.userId);
+            this.getUserDonations(this.userId);
           })
         }
         else {
-          // id not included in the url
+          // id is not included in the url
           this.router.navigate(['/page-not-found']);
         }
       }
     });
   }
 
-  getUserCampaigns() {
-    this.campaignService.getUserCampaigns().subscribe((res) => {
+  getUserCampaigns(id: string) {
+    this.campaignService.getUserCampaigns(id).subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
       this.noCampaigns = (this.campaigns.length == 0);
     });
   }
 
-  getUserCampaignsById(id: string) {
-    this.campaignService.getUserCampaignsById(id).subscribe((res) => {
-      this.campaigns = res['campaigns'] as Campaign[];
-      this.noCampaigns = (this.campaigns.length == 0);
+  getUserDonations(id: string) {
+    this.donationService.getUserDonations(id).subscribe((res) => {
+      this.donations = res['donations'] as Donation[];
+      this.noDonations = (this.donations.length == 0);
     });
   }
 

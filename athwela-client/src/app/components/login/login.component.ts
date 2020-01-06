@@ -33,13 +33,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.onClose = new Subject();
-
-    this.alerts = [
-      {
-        type: 'info',
-        msg: 'Please enter your username and password in their respective fields and click on <strong>Sign in</strong> to continue.'
-      }
-    ]
+    this.alerts = []
   }
 
   onCancel() {

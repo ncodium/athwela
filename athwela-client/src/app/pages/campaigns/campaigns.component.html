@@ -1,42 +1,52 @@
-<div class="container my-4">
-    <div class="row">
-        <div class="col-md-3 mt-2 mt-md-0">
-            <div class="list-group">
-                <a class="list-group-item list-group-item-action justify-content-between pointer"
-                    [ngClass]="{'active': activeCategory == defaultCategory}"
-                    (click)="onCategoryChange(defaultCategory)">
-                    {{ defaultCategory | titlecase }}
-                    <span class="mx-2 badge badge-light badge-pill">99+</span>
-                </a>
-                <a *ngFor="let category of categories"
-                    class="list-group-item list-group-item-action justify-content-between pointer"
-                    [ngClass]="{'active': activeCategory == category}" (click)="onCategoryChange(category)">
-                    {{ category | titlecase }}
-                    <span class="mx-2 badge badge-light badge-pill">99+</span>
-                </a>
-                <!--
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-12  mt-2 mt-md-0">
+      <h1 class="mb-5">
+        Donate Campaigns
+      </h1>
+    </div>
+    <div class="col-md-3 mt-2 mt-md-0">
+      <form class="mb-3">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="list-group">
+        <a class="list-group-item list-group-item-action justify-content-between pointer"
+          [ngClass]="{'active': activeCategory == defaultCategory}" (click)="onCategoryChange(defaultCategory)">
+          {{ defaultCategory | titlecase }}
+          <span class="mx-2 badge badge-light badge-pill">99+</span>
+        </a>
+        <a *ngFor="let category of categories"
+          class="list-group-item list-group-item-action justify-content-between pointer"
+          [ngClass]="{'active': activeCategory == category}" (click)="onCategoryChange(category)">
+          {{ category | titlecase }}
+          <span class="mx-2 badge badge-light badge-pill">99+</span>
+        </a>
+        <!--
 				<a href="#" class="list-group-item list-group-item-action justify-content-between">Charity
 					<span class="badge badge-light badge-pill">41</span></a>
 				-->
-            </div>
-        </div>
-        <div class="col-md-9">
-            <h3 class="mb-3">
-                All Campaigns
-            </h3>
-            <div class="row">
-              <div class="col-md-12">
-              <div class="row mt-2">
-                <div *ngFor="let cmp of campaigns" class="col-md-6 my-2">
-                    <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
-                        raised={{cmp.raised}} target={{cmp.target}}>
-                    </app-campaign-card>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="col-md-9 mt-md-0">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row mt-2">
+            <div *ngFor="let cmp of campaigns" class="col-md-6 my-2">
+              <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
+                target={{cmp.target}}>
+              </app-campaign-card>
             </div>
           </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <app-footer></app-footer>

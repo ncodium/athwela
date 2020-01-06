@@ -1,29 +1,47 @@
+<div class="jumbotron jumbotron-fullheight bg-growth bg-dark text-white mb-0 radius-0 shadow-lg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 mb-5">
+                <h3 class="display-1 text-light display-fix">Help those in need</h3>
+                <span class="lead">Fundraising for the people and causes you care about.</span>
+
+                <div class="mt-4">
+                    <a href class="btn btn-secondary btn-lg my-2 mr-2" (click)="openRegisterModal()">
+                        <span>Get Started</span>
+                    </a>
+
+                    <a [routerLink]="['/how-it-works']" class="btn btn-outline-light btn-hover-text-dark btn-lg my-2">
+                        <span>How It Works</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
-    <div class="row align-items-center my-5">
-        <div class="col-lg-8">
-            <img class="img-fluid rounded mb-4 mb-lg-0" src="assets/900x400.png" alt="">
+    <div class="card-group mt-n5 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-4 font-weight-normal">Donate Funds</h2>
+                <p class="card-text mb-3">The top resources for all things related to the Sun.</p>
+                <a href="#" class="card-link btn btn-primary">Browse Campaigns</a>
+            </div>
         </div>
 
-        <div class="col-lg-4">
-            <h1 class="">Fundraising for the people and causes you care about.</h1>
-            <p>This is a small description about the website and what you can do with it.</p>
-            <a class="btn btn-primary mr-3" (click)="openRegisterModal()" href="#">Get Started!</a>
-            <a class="btn" [routerLink]="['/how-it-works']">How it works?</a>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-4 font-weight-normal">Start a Fundraising Campaign</h2>
+                <p class="card-text mb-3">Looks like the Sun has returned.</p>
+                <a href="#" class="card-link btn btn-primary">Start a Campaign</a>
+            </div>
         </div>
-
     </div>
 
-    <!-- Call to Action -->
-    <!--    <div class="card text-white bg-primary mt-5 py-3 text-center">
-        <div class="card-body">
-            <h3 class="text-white m-0">It's your chance to make a difference today!</h3>
-        </div>
-    </div> -->
-
-    <h2 class="mt-4 mb-3">Recent Campaigns</h2>
-
+    <h1 class="mt-5 mb-4 pt-4">Trending Campaigns</h1>
     <div class="row mb-4">
-        <div *ngFor="let cmp of campaignService.campaigns" class="col-lg-4 col-md-6 col-sm-12 my-2 mb-4">
+        <div *ngFor="let cmp of campaignService.campaigns" class="col-lg-6 col-md-6 col-sm-12 my-2 mb-4">
             <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
                 target={{cmp.target}} [hideDonate]="false">
             </app-campaign-card>
@@ -43,4 +61,4 @@
 
 </div>
 
-<app-home-footer></app-home-footer>
+<app-footer></app-footer>

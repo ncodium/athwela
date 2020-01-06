@@ -1,14 +1,14 @@
 <div class="container">
-    <div class="row my-4">
+    <div class="row">
         <div class="col-md-12">
-            <h2 class="mb-4">
-                Start a fundraising campaign
-            </h2>
-            <div class="card">
-                <div class="card-body">
-                    <form role="form" (submit)="onCreateCampaign()" [formGroup]="campaignForm">
-                        <tabset [justified]="true" type="pills">
-                            <tab heading="Tell Your Story">
+            <h1 class="my-5">
+                Start a Fundraising Campaign
+            </h1>
+            <form role="form" (submit)="onCreateCampaign()" [formGroup]="campaignForm">
+                <tabset [justified]="true" type="pills" #staticTabs>
+                    <tab [heading]="tabs[0]" (selectTab)="onSelect($event)">
+                        <div class="card my-4">
+                            <div class="card-body">
                                 <div class="form-group">
                                     <label for="inputTitle">Add your title</label>
                                     <input type="name" required formControlName="name" class="form-control"
@@ -46,25 +46,13 @@
                                         <div>Category is required</div>
                                     </div>
                                 </div>
-                            </tab>
+                            </div>
+                        </div>
+                    </tab>
 
-                            <tab heading="Add your photo">
-                                <p style="text-align: justify;">
-                                    Adding your photo gives donors and supporters confidence
-                                    that a real person has created the campaign.
-                                </p>
-                            </tab>
-
-                            <tab heading="Add images or videos">
-                                <p style="text-align: justify;">
-                                    A crowdfunding campaign can't survive on just words
-                                    alone. Add images and/or videos that are related to the cause you're raising money
-                                    for. This helps donors connect to your cause and see what their donations are going
-                                    toward.
-                                </p>
-                            </tab>
-
-                            <tab heading="How much do you need and by when?">
+                    <tab [heading]="tabs[1]" (selectTab)="onSelect($event)">
+                        <div class="card my-4">
+                            <div class="card-body">
                                 <div class="form-group">
                                     <label for="inputTarget">Target (Rs.)</label>
                                     <input type="number" formControlName="target" class="form-control" id="inputTarget"
@@ -85,25 +73,64 @@
                                         <div>Deadline is required</div>
                                     </div>
                                 </div>
-                            </tab>
+                            </div>
+                        </div>
+                    </tab>
 
-                            <button type="submit" class="btn btn-primary">Create Campaign</button>
-                        </tabset>
-                    </form>
-                </div>
+                    <tab [heading]="tabs[2]" (selectTab)="onSelect($event)">
+                        <div class="card my-4">
+                            <div class="card-body">
+                                <p style="text-align: justify;">
+                                    A crowdfunding campaign can't survive on just words
+                                    alone. Add images and/or videos that are related to the cause you're raising money
+                                    for. This helps donors connect to your cause and see what their donations are going
+                                    toward.
+                                </p>
+                            </div>
+                        </div>
+                    </tab>
+
+                    <tab [heading]="tabs[3]" (selectTab)="onSelect($event)">
+                        <div class="card my-4">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <p style="text-align: justify;">
+                                        Adding your photo gives donors and supporters confidence
+                                        that a real person has created the campaign.
+                                    </p>
+                                    <input type="file" ng2FileSelect [uploader]="uploader" class="mt-2"
+                                        id="inputAvatar" />
+                                    <button type="button" class="btn btn-primary btn-sm" (cilck)="uploader.uploadAll()"
+                                        [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
+                                    <small class="form-text text-muted">
+                                        Select a photo and upload it to add or change your avatar
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </form>
+
+
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn-group float-left" role="group" aria-label="previous_next">
+                <button *ngIf="currentTab != tabs[0]" type="button" class="btn btn-secondary"
+                    (click)="previousTab()">Previous</button>
+                <button *ngIf="currentTab != tabs[tabs.length-1]" type="button" class="btn btn-secondary"
+                    (click)="nextTab()">Next</button>
+            </div>
+            <div class="float-right">
+                <button type="submit" class="btn btn-primary ml-auto">
+                    Create Campaign</button>
             </div>
         </div>
-        <!-- 
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <p>
-                        This is a nice description of the campaign creation process.
-                    </p>
-                </div>
-            </div>
-        </div> 
-        -->
     </div>
 </div>
 

@@ -1,88 +1,87 @@
-<div class="container my-4">
-    <div class="row">
-        <div class="col-md-4">
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12  mt-2 mt-md-0">
+            <h1 class="mb-5">
+                {{ user?.name }}
+            </h1>
+        </div>
+        <div class="col-md-3 mt-2 mt-md-0">
             <div class="card text-center">
                 <div class="card-body">
-                    <img *ngIf="user.avatar" class="image-cover" height="120px" [src]="user.avatar"
-                        data-holder-rendered="true">
-                    <img *ngIf="!user.avatar" class="image-cover" height="120px" src="assets/user.png"
-                        data-holder-rendered="true">
-                    <h5 class="card-title mt-2">{{ user?.name }}</h5>
+                    <img *ngIf="user.avatar" class="image-cover" [src]="user.avatar" data-holder-rendered="true">
+                    <img *ngIf="!user.avatar" class="image-cover" src="assets/user.png" data-holder-rendered="true">
+                    <h5 class="card-title mt-4">{{ user?.username }}</h5>
                     <p class="card-text">{{ user?.email }}</p>
-                </div>
-                <div class="card-footer text-muted">
                     <button class="btn btn-default">Ratings</button>
                     <button (click)="openSettings(settings)" class="btn btn-primary" *ngIf="!visitor">Settings</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-8 mt-2 mt-md-0">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" *ngIf="!visitor">Your contributions</h5>
-                    <h5 class="card-title" *ngIf="visitor">Contributions</h5>
-                    <p class="card-text">Following is a quick summary of contributions to Athwela.</p>
-                    <div class="row">
-                        <div class="col-md-6 my-2 my-md-0">
-                            <div class="card text-white bg-primary">
-                                <div class="card-body">
-                                    <p class="card-text">
-                                        Rs. 15,000.00 donated
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 my-2 my-md-0">
-                            <div class="card text-white bg-success">
-                                <div class="card-body">
-                                    <p class="card-text">
-                                        Rs. 38,000.00 raised
-                                    </p>
-                                </div>
-                            </div>
+
+        <div class="col-md-9 mt-2 mt-md-0">
+            <h3 *ngIf="!visitor" class="mb-3 mt-4 mt-md-0">My Campaigns</h3>
+            <h3 *ngIf="visitor" class="mb-3 mt-4 mt-md-0">Campaigns</h3>
+            <div class="row mt-2">
+                <div *ngFor="let cmp of campaigns" class="col-lg-6 col-sm-12 my-2">
+                    <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
+                        raised={{cmp.raised}} target={{cmp.target}} [hideDonate]="true">
+                    </app-campaign-card>
+                </div>
+                <div class="col-md-12">
+                    <div class="card shadow-sm" style="width: 100%;" *ngIf="noCampaigns">
+                        <div class="card-body text-center">
+                            <p class="card-text my-4">
+                                Nothing here, yet.
+                            </p>
+                            <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Start a fundraising campaign</a>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
-    </div>
 
-    <h3 *ngIf="!visitor" class="mt-4 mb-3">My Campaigns</h3>
-    <h3 *ngIf="visitor" class="mt-4 mb-3">Campaigns</h3>
-    <div class="row mt-2">
-        <div *ngFor="let cmp of campaigns" class="col-md-4 col-sm-6 col-xs-12 my-2">
-            <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
-                target={{cmp.target}} [hideDonate]="true">
-            </app-campaign-card>
-        </div>
-        <div class="col-md-12">
-            <div class="card" style="width: 100%;" *ngIf="noCampaigns">
-                <div class="card-body text-center">
-                    <p class="card-text my-4">
-                        Nothing here yet..
-                    </p>
-                    <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Start a fundraising campaign</a>
+            <h3 *ngIf="!visitor" class="mb-3 mt-4">My Donations</h3>
+            <h3 *ngIf="visitor" class="mb-3 mt-4">Donations</h3>
+            <div class="row mb-2 mt-4">
+                <div class="col-md-12" *ngIf="!noDonations">
+                    <div class="card shadow-sm">
+                        <table class="card-table table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Campaign</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Method</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let don of donations">
+                                    <td>{{ don.campaign.name }}</td>
+                                    <td>{{ don.amount }}</td>
+                                    <td>{{ don.method }}</td>
+                                    <td>{{ don.status_message }} ({{ don.status_code }})</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <h3 *ngIf="!visitor" class="mt-4 mb-3">My Donations</h3>
-    <h3 *ngIf="visitor" class="mt-4 mb-3">Donations</h3>
-    <div class="row mb-2 mt-4">
-        <div class="col-md-12" *ngIf="noDonations">
-            <div class="card" style="width: 100%;">
-                <div class="card-body text-center">
-                    <p class="card-text my-4">
-                        Nothing here yet..
-                    </p>
-                    <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Make a donation</a>
+                <div class="col-md-12" *ngIf="noDonations">
+                    <div class="card shadow-sm" style="width: 100%;">
+                        <div class="card-body text-center">
+                            <p class="card-text my-4">
+                                Nothing here, yet.
+                            </p>
+                            <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Make a donation</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<app-footer></app-footer>
 
 <ng-template #settings>
     <div class="modal-header">
@@ -109,8 +108,8 @@
 
             <div class="form-group">
                 <label for="inputAvatar">Avatar</label><br />
-                <input type="file" ng2FileSelect [uploader]="uploader" class="mt-2" id="inputAvatar" />
-                <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+                <input type="file" ng2FileSelect [uploader]="uploader" class="my-2" id="inputAvatar" />
+                <button type="button" class="btn btn-outline-primary btn-sm my-2" (click)="uploader.uploadAll()"
                     [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
                 <small class="form-text text-muted">
                     Select a photo and upload it to add or change your avatar.
@@ -155,5 +154,3 @@
         </div>
     </form>
 </ng-template>
-
-<app-footer></app-footer>

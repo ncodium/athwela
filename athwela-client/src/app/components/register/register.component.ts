@@ -48,12 +48,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     // initiation state
     this.nameInvalid = this.usernameInvalid = this.emailInvalid = this.passwordInvalid = this.passwordMismatch = false;
-    this.alerts = [
-      {
-        type: 'info',
-        msg: 'Please enter your details in their respective fields and click on <strong>Register</strong> to continue.'
-      }
-    ]
+    this.alerts = []
   }
 
   onRegisterSubmit() {

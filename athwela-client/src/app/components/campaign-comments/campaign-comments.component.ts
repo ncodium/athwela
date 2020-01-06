@@ -4,15 +4,16 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
   selector: 'app-campaign-comments',
   templateUrl: './campaign-comments.component.html',
   styleUrls: ['./campaign-comments.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CampaignCommentsComponent implements OnInit {
   body: String;
   submitted = false;
+
   @Input() comments: any;
-  @Input() loggedIn: boolean = false;
-  @Input() loading: boolean = true;
+  @Input() loggedIn: boolean;
   @Input() user: any;
+
   @Output() comment = new EventEmitter<String>();
   @Output() delete = new EventEmitter<String>();
 

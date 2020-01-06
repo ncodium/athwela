@@ -63,7 +63,7 @@ export class NavigationComponent implements OnInit {
 
   openRegisterModal() {
     const initialState = {
-      title: 'New User Registration'
+      title: 'Register on Athwela'
     };
 
     this.modalRef = this.modalService.show(RegisterComponent, { initialState });

@@ -102,18 +102,7 @@ export class CampaignService {
     return this.http.delete(AppConfig.BASE_URL + 'campaigns/' + campaignId + '/comment/' + commentId, httpOptions).pipe();
   }
 
-  getUserCampaigns() {
-    this.authService.loadToken();
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
-      })
-    };
-
-    return this.http.get(AppConfig.BASE_URL + 'campaigns/user', httpOptions).pipe();
-  }
-
-  getUserCampaignsById(id: string) {
+  getUserCampaigns(id: string) {
     return this.http.get(AppConfig.BASE_URL + 'campaigns/user/' + id, {}).pipe();
   }
 

@@ -2,7 +2,7 @@ const mongooose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 
-const UserSchema = mongooose.Schema({
+const userSchema = mongooose.Schema({
     username: { type: String, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
@@ -11,8 +11,8 @@ const UserSchema = mongooose.Schema({
     avatar: { type: String, required: false }
 });
 
-const User = module.exports = mongooose.model('User', UserSchema);
-//Search Mongo
+const User = module.exports = mongooose.model('User', userSchema);
+
 module.exports.getUserById = function (id, callback) {
     User.findById(id, callback);
 }
