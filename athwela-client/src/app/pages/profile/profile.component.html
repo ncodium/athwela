@@ -108,8 +108,8 @@
 
             <div class="form-group">
                 <label for="inputAvatar">Avatar</label><br />
-                <input type="file" ng2FileSelect [uploader]="uploader" class="form-control-file" id="inputAvatar" />
-                <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+                <input type="file" ng2FileSelect [uploader]="uploader" class="my-2" id="inputAvatar" />
+                <button type="button" class="btn btn-outline-primary btn-sm my-2" (click)="uploader.uploadAll()"
                     [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
                 <small class="form-text text-muted">
                     Select a photo and upload it to add or change your avatar.
