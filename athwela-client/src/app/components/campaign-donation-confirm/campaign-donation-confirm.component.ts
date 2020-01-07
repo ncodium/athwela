@@ -4,6 +4,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Campaign } from 'src/app/models/campaign.model';
 import { User } from 'src/app/models/user.model';
 import { DonationService } from '../../services/donation.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-campaign-donation-confirm',
@@ -11,6 +12,8 @@ import { DonationService } from '../../services/donation.service';
   styleUrls: ['./campaign-donation-confirm.component.scss']
 })
 export class CampaignDonationConfirmComponent implements OnInit {
+  public onClose: Subject<boolean>;
+
   // input
   closeBtnName: string;
   title: string;
@@ -28,12 +31,18 @@ export class CampaignDonationConfirmComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
+    this.onClose = new Subject();
 
     this.interval = setInterval(() => {
       /** refresh every 5 seconds */
       this.refreshData();
     }, 5000);
 
+  }
+
+  onCancel() {
+    this.onClose.next(true);
+    this.bsModalRef.hide();
   }
 
   refreshData() {

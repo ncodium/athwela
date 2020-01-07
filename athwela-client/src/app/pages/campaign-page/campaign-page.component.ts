@@ -61,6 +61,10 @@ export class CampaignPageComponent implements OnInit {
 
               this.bsModalRef = this.modalService.show(CampaignDonationConfirmComponent, { initialState });
               this.bsModalRef.content.closeBtnName = 'Close';
+              this.bsModalRef.content.onClose.subscribe(result => {
+                this.refreshCampaign(this.campaignId);
+                console.log("heh");
+              })
             }
           })
         }
@@ -68,6 +72,7 @@ export class CampaignPageComponent implements OnInit {
           this.router.navigate(['/page-not-found']);
         }
       });
+
 
     });
 
