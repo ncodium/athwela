@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
- 
+
 
 import { AuthService } from '../../services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -21,12 +21,10 @@ export class AdminModeratorsComponent implements OnInit {
   modalRef: BsModalRef;
   Users: User[];
 
-   
-  
-  getmods() {
-    this.userService.getmoderators().subscribe((res) => {
+  getModerators() {
+    this.userService.getModerators().subscribe((res) => {
       this.Users = res['users'] as User[];
-      
+
     });
   }
   name: string;
@@ -42,8 +40,6 @@ export class AdminModeratorsComponent implements OnInit {
   passwordMismatch: boolean;
 
   alerts: any = [];
-
-   
 
   public scatterChartOptions: ChartOptions = {
     responsive: true,
@@ -92,7 +88,7 @@ export class AdminModeratorsComponent implements OnInit {
         msg: 'Please enter your details in their respective fields and click on <strong>Register</strong> to continue.'
       }
     ]
-    this.getmods();
+    this.getModerators();
   }
   onRegisterSubmit() {
     // generate an object from the data provided in fields

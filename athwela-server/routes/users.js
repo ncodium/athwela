@@ -15,9 +15,10 @@ router.get('/', (req, res) => {
             res.json({ success: false, error: err })
     });
 });
+
 //get moderators
 router.get('/mod', (req, res) => {
-    User.find({ role:'mod' })
+    User.find({ role: 'mod' })
         .exec((err, doc) => {
             if (!err)
                 res.send({ success: true, users: doc });
@@ -27,9 +28,7 @@ router.get('/mod', (req, res) => {
         });
 });
 
-
-
-router.post('/register/moderator', (req, res, next) => {
+router.post('/register/mod', (req, res, next) => {
     // create a new moderator
     let newUser = new User({
         name: req.body.name,

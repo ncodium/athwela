@@ -6,7 +6,6 @@ import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { Campaign } from '../../models/campaign.model';
 
-
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -16,60 +15,50 @@ import { Campaign } from '../../models/campaign.model';
 })
 export class AdminDashboardComponent implements OnInit {
   public barChartLabels: Label[] = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july'];
+
   users;
   moderators;
-  campaigns: Campaign[];
   donations;
+  campaigns: Campaign[];
 
-  campaignsCount = 0;
+  campaignsCount;
   donationsCount;
   userCount;
   moderatorCount;
 
-
-
   constructor(
     private campaignService: CampaignService,
-    private userservice: UserService,
-
+    private userService: UserService,
   ) { }
 
   ngOnInit(
-
-
   ) {
-    this.getmods();
-    this.getall();
-    this.getAllCampaigns();
+    this.getModerators();
+    this.getUsers();
+    this.getCampaigns();
   }
-  //
-  getmods() {
-    this.userservice.getmoderators().subscribe((res) => {
+
+  getModerators() {
+    this.userService.getModerators().subscribe((res) => {
       this.moderators = res['users'] as User[];
       this.moderatorCount = this.moderators.length;
 
     });
   }
-  //
-  getall() {
-    this.userservice.getallusers().subscribe((res) => {
+
+  getUsers() {
+    this.userService.getUsers().subscribe((res) => {
       this.users = res['users'] as User[];
       this.userCount = this.users.length;
-
-
     });
   }
 
-  getAllCampaigns() {
+  getCampaigns() {
     this.campaignService.getCampaigns().subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
       this.campaignsCount = this.campaigns.length;
-      
     });
   }
-
-
-
 
   public barChartOptions: ChartOptions = {
     responsive: true,
