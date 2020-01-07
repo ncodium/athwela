@@ -1,49 +1,25 @@
-<div class="container my-4">
-    <div class="row">
-        <div class="col-md-4">
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12  mt-2 mt-md-0">
+            <h1 class="mb-5">
+                {{ user?.name }}
+            </h1>
+        </div>
+        <div class="col-md-3 mt-2 mt-md-0">
             <div class="card text-center">
                 <div class="card-body">
-                    <img height="90px" src="assets/user.png">
-                    <h5 class="card-title">{{ user?.name }}</h5>
+                    <img *ngIf="user.avatar" class="image-cover" [src]="user.avatar" data-holder-rendered="true">
+                    <img *ngIf="!user.avatar" class="image-cover" src="assets/user.png" data-holder-rendered="true">
+                    <h5 class="card-title mt-4">{{ user?.username }}</h5>
                     <p class="card-text">{{ user?.email }}</p>
-                </div>
-                <div class="card-footer text-muted">
-                    <button class="btn btn-default">Ratings</button>
                     <button (click)="openSettings(settings)" class="btn btn-primary">Settings</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-8 mt-2 mt-md-0">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Your contributions</h5>
-                    <p class="card-text">Following is a quick summary of contributions to Athwela.</p>
-                    <div class="row">
-                        <div class="col-md-6 my-2 my-md-0">
-                            <div class="card text-white bg-primary">
-                                <div class="card-body">
-                                    <p class="card-text">
-                                        Campaigns
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 my-2 my-md-0">
-                            <div class="card text-white bg-success">
-                                <div class="card-body">
-                                    <p class="card-text">
-                                        Campaigns
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
 </div>
+
+<app-footer></app-footer>
 
 <ng-template #settings>
     <div class="modal-header">
@@ -69,12 +45,23 @@
             </div>
 
             <div class="form-group">
+                <label for="inputAvatar">Avatar</label><br />
+                <input type="file" ng2FileSelect [uploader]="uploader" class="my-2" id="inputAvatar" />
+                <button type="button" class="btn btn-outline-primary btn-sm my-2" (click)="uploader.uploadAll()"
+                    [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
+                <small class="form-text text-muted">
+                    Select a photo and upload it to add or change your avatar.
+                </small>
+            </div>
+
+            <div class="form-group">
                 <label for="inputEmail">Email address</label>
                 <input type="email" [(ngModel)]="email" name="email" class="form-control" id="inputEmail"
                     [placeholder]="user?.email" [ngClass]="{ 'is-invalid': emailInvalid }">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                     else.</small>
             </div>
+
 
             <div class="form-group">
                 <label for="inputPassword">Password</label>
@@ -105,5 +92,3 @@
         </div>
     </form>
 </ng-template>
-
-<app-footer></app-footer>

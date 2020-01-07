@@ -13,14 +13,25 @@ export class CampaignsComponent implements OnInit {
   defaultCategory: string = "All Categories";
   activeCategory: string = this.defaultCategory;
   campaigns: Campaign[];
+  // defaultSort: string = "Trending";
+  currentSort: string;
+  sortBy = ['Trending', 'Date', 'Comments', 'Donations'];
 
   constructor(
     private campaignService: CampaignService
   ) { }
 
   ngOnInit() {
+    this.sortCampaigns(this.currentSort);
     this.refreshCategories();
     this.onCategoryChange(this.defaultCategory);
+  }
+
+  sortCampaigns(currentSort: string) {
+    this.campaignService.getCampaignsSortBy(currentSort).subscribe((res) => {
+      console.log(currentSort);
+      if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
+    });
   }
 
   onCategoryChange(category: string) {
@@ -28,14 +39,12 @@ export class CampaignsComponent implements OnInit {
     if (this.activeCategory === this.defaultCategory) {
       this.campaignService.getPublishedCampaigns().subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-        console.log(res);
-      })
+      });
     }
     else {
-      this.campaignService.getCategoryCampaign(category).subscribe((res) => {
+      this.campaignService.getCategoryCampaigns(category).subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-        console.log(res);
-      })
+      });
     }
   }
 

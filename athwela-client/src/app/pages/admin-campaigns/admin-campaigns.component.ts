@@ -11,6 +11,7 @@ import { CampaignService } from '../../services/campaign.service';
 export class AdminCampaignsComponent implements OnInit {
   campaigns: Campaign[];
   publishedCampaigns: Campaign[];
+  unpublishedCampaigns: Campaign[];
   verifiedCampaigns: Campaign[];
   unverifiedCampaigns: Campaign[];
 
@@ -40,7 +41,7 @@ export class AdminCampaignsComponent implements OnInit {
 
   getUnpublishedCampaigns() {
     this.campaignService.getUnpublishedCampaigns().subscribe((res) => {
-      this.publishedCampaigns = res['campaigns'] as Campaign[];
+      this.unpublishedCampaigns = res['campaigns'] as Campaign[];
     });
   }
 
