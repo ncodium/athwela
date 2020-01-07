@@ -3,7 +3,6 @@ import { SingleDataSet, Label } from 'ng2-charts';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { CampaignService } from '../../services/campaign.service';
 
-
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',

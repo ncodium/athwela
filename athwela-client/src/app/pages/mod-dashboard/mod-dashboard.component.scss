@@ -1,0 +1,22 @@
+.my-drop-zone {
+    border: dotted 3px lightgray;
+  }
+  .nv-file-over {
+    border: dotted 3px red;
+  } /* Default class applied to drop zones on over */
+  .another-file-over-class {
+    border: dotted 3px green;
+  }
+  
+  .wrapper {
+    padding: 100px;
+  }
+  
+  .image-cover {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+  
+    object-fit: cover;
+    object-position: center right;
+  }
