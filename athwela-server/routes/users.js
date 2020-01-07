@@ -6,6 +6,33 @@ const config = require('../config/database');
 const ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/user');
 
+router.post('/register/moderator', (req, res, next) => {
+    // create a new moderator
+    let newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password,
+        role: "mod"
+    });
+
+    // check if a user with the username already exist
+    User.find({ username: newUser.username }, function (err, user) {
+        if (user.length) {
+            res.json({ success: false, username_exist: true });
+        } else {
+            // register new user account
+            User.addUser(newUser, (err, user) => {
+                if (err) {
+                    res.json({ success: false, msg: 'moderator registration failed.' });
+                } else {
+                    res.json({ success: true, msg: 'moderator registered successfully' });
+                }
+            });
+        }
+    });
+});
+
 router.post('/register', (req, res, next) => {
     // create a new user object
     let newUser = new User({
@@ -27,33 +54,6 @@ router.post('/register', (req, res, next) => {
                     res.json({ success: false, msg: 'User registration failed.' });
                 } else {
                     res.json({ success: true, msg: 'User registered successfully' });
-                }
-            });
-        }
-    });
-});
-
-router.post('/register/mod', (req, res, next) => {
-    // create a new moderator
-    let newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password,
-        role: "mod"
-    });
-
-    // check if a user with the username already exist
-    User.find({ username: newUser.username }, function (err, user) {
-        if (user.length) {
-            res.json({ success: false, username_exist: true });
-        } else {
-            // register new user account
-            User.addUser(newUser, (err, user) => {
-                if (err) {
-                    res.json({ success: false, msg: 'moderator registration failed.' });
-                } else {
-                    res.json({ success: true, msg: 'moderator registered successfully' });
                 }
             });
         }

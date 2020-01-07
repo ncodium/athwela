@@ -25,11 +25,10 @@ export class CampaignsComponent implements OnInit {
     this.sortCampaigns(this.currentSort);
     this.refreshCategories();
     this.onCategoryChange(this.defaultCategory);
-
   }
 
   sortCampaigns(currentSort: string) {
-    this.campaignService.getSortCampaign(currentSort).subscribe((res) => {
+    this.campaignService.getCampaignsSortBy(currentSort).subscribe((res) => {
       console.log(currentSort);
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
     });
@@ -43,7 +42,7 @@ export class CampaignsComponent implements OnInit {
       });
     }
     else {
-      this.campaignService.getCategoryCampaign(category).subscribe((res) => {
+      this.campaignService.getCategoryCampaigns(category).subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
       });
     }
