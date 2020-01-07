@@ -6,6 +6,30 @@ const config = require('../config/database');
 const ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/user');
 
+//get all users
+router.get('/', (req, res) => {
+    User.find((err, docs) => {
+        if (!err)
+            res.json({ users: docs, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
+
+//get moderators
+router.get('/mod', (req, res) => {
+    User.find({ 'role': 'mod' })
+        .exec((err, doc) => {
+            if (!err)
+                res.send({ success: true, users: doc });
+            else
+                res.send({ success: false, error: err });
+        });
+});
+
+ 
+
+
 router.post('/register', (req, res, next) => {
     // create a new user object
     let newUser = new User({

@@ -5,17 +5,34 @@ import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
+
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
-  styleUrls: ['./admin-users.component.scss']
+  styleUrls: ['./admin-users.component.scss'],
+  //providers: [UserService]
 })
 export class AdminUsersComponent implements OnInit {
   modalRef: BsModalRef;
+  users: User[];
 
-  ngOnInit() { }
-  constructor(private modalService: BsModalService) { }
+
+  ngOnInit() {this.getallusers();
+  } 
+
+  getallusers() {
+    this.userservice.getallusers().subscribe((res) => {
+      this.users = res['users'] as User[];
+      
+
+
+    });
+  }
+  
+  constructor(private modalService: BsModalService,private userservice: UserService) { }
 
   public scatterChartOptions: ChartOptions = {
     responsive: true,
