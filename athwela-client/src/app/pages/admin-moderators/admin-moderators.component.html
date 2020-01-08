@@ -30,4 +30,125 @@
     </div>
 </div>
 
+<ng-template #settings>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Settings</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="onClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form (submit)="onRegister()" [formGroup]="registerForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input formControlName="username" type="text" class="form-control" id="inputUsername"
+                    [ngClass]="{'is-invalid': (username.touched || username.dirty) && ( username.invalid || username.errors?.usernameTaken) }">
+                <div class="invalid-feedback"
+                    *ngIf="(username.touched || username.dirty) && username.errors?.usernameTaken">
+                    <strong>{{ username.value }}</strong> is taken. Try another username.
+                </div>
+                <div class="invalid-feedback"
+                    *ngIf="(username.touched || username.dirty) && username.invalid && !username.errors?.usernameTaken">
+                    Username should be longer than 5 characters.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputEmail">E-mail address</label>
+                <input formControlName="email" type="email" class="form-control" id="inputEmail"
+                    [ngClass]="{'is-invalid': (email.touched || email.dirty) && email.invalid }">
+                <div class="invalid-feedback" *ngIf="(email.touched || email.dirty) && email.invalid">
+                    Enter a valid e-mail address.
+                </div>
+                <small id="emailHelp" class="form-text text-muted" *ngIf="!(email.touched || email.dirty)">
+                    We'll never share your email with anyone else.
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input formControlName="password" type="password" class="form-control" id="inputPassword"
+                    aria-describedby="passwordHelp"
+                    [ngClass]="{'is-invalid': (password.touched || password.dirty) && password.invalid }">
+                <div class="invalid-feedback" *ngIf="(password.touched || password.dirty) && password.invalid">
+                    Enter a password for your account.
+                </div>
+                <password-strength-meter id="passwordHelp" [enableFeedback]="true" [password]="password.value"
+                    *ngIf="(password.touched || password.dirty)">
+                </password-strength-meter>
+            </div>
+
+            <div class="form-group">
+                <input formControlName="confirmPassword" type="password" class="form-control" id="inputConfirmPassword"
+                    aria-describedby="confirmPasswordHelp"
+                    [ngClass]="{'is-invalid': (confirmPassword.touched || confirmPassword.dirty) && (confirmPassword.invalid || confirmPassword.errors?.doesNotMatch) }">
+                <div class="invalid-feedback"
+                    *ngIf="(confirmPassword.touched || confirmPassword.dirty) && (confirmPassword.invalid || confirmPassword.errors?.doesNotMatch)">
+                    Your passwords don't match. Please try again.
+                </div>
+                <small id="confirmPasswordHelp" class="form-text text-muted"
+                    *ngIf="!(confirmPassword.touched || confirmPassword.dirty)">
+                    Type in your password again for confirmation.
+                </small>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputName">First name</label>
+                    <input formControlName="firstName" type="text" class="form-control" id="inputName"
+                        [ngClass]="{'is-invalid': (firstName.touched || firstName.dirty) && firstName.invalid }">
+                    <div class="invalid-feedback" *ngIf="(firstName.touched || firstName.dirty) && firstName.invalid">
+                        Enter your first name.
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputName">Last name</label>
+                    <input formControlName="lastName" type="text" class="form-control" id="inputName"
+                        [ngClass]="{'is-invalid': (lastName.touched || lastName.dirty) && lastName.invalid }">
+                    <div class="invalid-feedback" *ngIf="(lastName.touched || lastName.dirty) && lastName.invalid">
+                        Enter your last name.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input formControlName="address" type="text" class="form-control" id="inputAddress"
+                    [ngClass]="{'is-invalid': (address.touched || address.dirty) && address.invalid }">
+                <div class="invalid-feedback" *ngIf="(address.touched || address.dirty) && address.invalid">
+                    Enter your permanent address.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputCity">City</label>
+                <input formControlName="city" type="text" class="form-control" id="inputCity"
+                    [ngClass]="{'is-invalid': (city.touched || city.dirty) && city.invalid }">
+                <div class="invalid-feedback" *ngIf="(city.touched || city.dirty) && city.invalid">
+                    Enter your city.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPhone">Phone number</label>
+                <input formControlName="phone" type="number" class="form-control" id="inputPhone"
+                    [ngClass]="{'is-invalid': (phone.touched || phone.dirty) && phone.invalid }">
+                <div class="invalid-feedback" *ngIf="(phone.touched || phone.dirty) && phone.invalid">
+                    Enter your phone number.
+                </div>
+            </div>
+
+            <div *ngIf="alert">
+                <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{ closeBtnName }}</button>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+
+</ng-template>
+
 <app-footer></app-footer>

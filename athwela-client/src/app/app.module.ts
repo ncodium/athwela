@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
-import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 
 // general
 import { NavigationComponent } from './navigation/navigation.component';
@@ -25,8 +24,6 @@ import { CampaignDonateComponent } from './components/campaign-donate/campaign-d
 import { CampaignDonationConfirmComponent } from './components/campaign-donation-confirm/campaign-donation-confirm.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { HowItWorksComponent } from './pages/how-it-works/how-it-works.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { AdminCampaignsComponent } from './pages/admin-campaigns/admin-campaigns.component';
 import { AdminDonationsComponent } from './pages/admin-donations/admin-donations.component';
@@ -35,9 +32,10 @@ import { AdminModeratorsComponent } from './pages/admin-moderators/admin-moderat
 import { ModDashboardComponent } from './pages/mod-dashboard/mod-dashboard.component';
 import { ModCampaignsComponent } from './pages/mod-campaigns/mod-campaigns.component';
 import { ModUsersComponent } from './pages/mod-users/mod-users.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 // services
-import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 
 // guards
@@ -64,6 +62,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,7 +116,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
   ],
   providers: [
     Title,
-    ValidateService,
     AuthService,
     HttpClientModule,
     AuthGuard
