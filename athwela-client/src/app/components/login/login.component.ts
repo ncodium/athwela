@@ -1,9 +1,9 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { Subject } from 'rxjs';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,28 +12,36 @@ import { Subject } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
   public onClose: Subject<boolean>;
-
-  username: String;
-  password: String;
-  usernameInvalid = false;
-  passwordInvalid = false;
-  alerts: any = [];
+  loginForm: FormGroup;
+  alert: string;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private sanitizer: DomSanitizer,
-    public bsModalRef: BsModalRef
-  ) {
-    this.alerts = this.alerts.map((alert: any) => ({
-      type: alert.type,
-      msg: sanitizer.sanitize(SecurityContext.HTML, alert.msg)
-    }));
-  }
+    public bsModalRef: BsModalRef,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      username: ['', [
+        Validators.required,
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(3)
+      ]]
+    });
+
     this.onClose = new Subject();
-    this.alerts = []
+  }
+
+  get username() {
+    return this.loginForm.get('username');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
   }
 
   onCancel() {
@@ -41,80 +49,29 @@ export class LoginComponent implements OnInit {
     this.bsModalRef.hide();
   }
 
-  onLoginSubmit() {
-    const user = {
-      username: this.username,
-      password: this.password
-    }
+  onLogin() {
+    this.authService.authenticateUser({
+      username: this.username.value,
+      password: this.password.value
+    }).subscribe((res) => {
+      if (res['success']) {
+        this.authService.storeUserData(res['token'], res['user']);
+        this.onClose.next(true); // trigger refresh on navigation-component
 
-    if (!this.username && !this.password) {
-      this.alerts = [
-        {
-          type: 'warning',
-          msg: `You haven't typed in your username and password. Please provide them to continute.`
-        }
-      ];
+        if (this.authService.isAdmin())
+          this.router.navigate(['/admin']);
+        else if (this.authService.isMod())
+          this.router.navigate(['/mod']);
+        else
+          this.router.navigate(['/profile']);
 
-      this.usernameInvalid = this.passwordInvalid = true;
-    }
-    else if (!this.username) {
-      this.alerts = [
-        {
-          type: 'warning',
-          msg: `Please provide your username to continue.`
-        }
-      ];
-
-      this.usernameInvalid = true;
-      this.passwordInvalid = false;
-    }
-    else if (!this.password) {
-      this.alerts = [
-        {
-          type: 'warning',
-          msg: `Your password is missing.`
-        }
-      ];
-
-      this.passwordInvalid = true;
-      this.usernameInvalid = false;
-    }
-    else {
-      this.usernameInvalid = this.passwordInvalid = false;
-
-      this.authService.authenticateUser(user).subscribe(data => {
-        if (data['success']) {
-          this.authService.storeUserData(data['token'], data['user']);
-
-          this.alerts = [
-            {
-              type: 'success',
-              msg: `You are logged in!`
-            }
-          ];
-
-          this.onClose.next(true);
-          this.bsModalRef.hide();
-
-          // navigate to appropriate dashboards
-          if (this.authService.isAdmin())
-            this.router.navigate(['/admin']);
-          else if (this.authService.isMod())
-            this.router.navigate(['/mod']);
-          else
-            this.router.navigate(['/profile']);
-
-        } else {
-          this.alerts = [
-            {
-              type: 'danger',
-              msg: [data['msg']]
-            }
-          ];
-
-          this.usernameInvalid = this.passwordInvalid = true;
-        }
-      });
-    }
+        this.bsModalRef.hide();
+      }
+      else {
+        this.alert = res['msg'];
+        console.warn()
+      }
+    })
   }
+
 }

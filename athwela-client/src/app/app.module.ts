@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
-import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 
 // general
 import { NavigationComponent } from './navigation/navigation.component';
@@ -64,6 +63,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
+
 @NgModule({
   declarations: [
     AppComponent,
