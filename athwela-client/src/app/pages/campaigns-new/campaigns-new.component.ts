@@ -50,15 +50,15 @@ export class NewCampaignComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      this.response = JSON.parse(response);
-      alert('File uploades successfully!');
-      this.avatar = AppConfig.BASE_URL + this.response.path;
-    };
-    this.uploader.onWhenAddingFileFailed = (item: any, response: any, options: any) => {
-      alert('You cannot upload this file!\nPlease choose a picture with PNG of JPEG formats with size less than 5MB');
-    }
+    // this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    // this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+    //   this.response = JSON.parse(response);
+    //   alert('File uploades successfully!');
+    //   this.avatar = AppConfig.BASE_URL + this.response.path;
+    // };
+    // this.uploader.onWhenAddingFileFailed = (item: any, response: any, options: any) => {
+    //   alert('You cannot upload this file!\nPlease choose a picture with PNG of JPEG formats with size less than 5MB');
+    // }
 
     this.campaignForm = this.fb.group({
       name: ['', Validators.required],
