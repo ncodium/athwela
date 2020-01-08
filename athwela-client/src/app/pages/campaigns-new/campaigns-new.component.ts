@@ -8,6 +8,7 @@ import { TabsetComponent, TabDirective } from 'ngx-bootstrap';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
 import { AppConfig } from 'src/app/config/app-config';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { resolve } from 'url';
 
 @Component({
   selector: 'app-campaigns-new',
@@ -18,10 +19,12 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 export class NewCampaignComponent implements OnInit {
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   campaignForm: FormGroup;
-  uploader: FileUploader;
   submitted = false;
-  response: any;
-
+  
+  uploader: FileUploader;
+  dropZone: boolean;
+  response: string;
+  
   id: string;
   avatar: string;
 
@@ -41,12 +44,36 @@ export class NewCampaignComponent implements OnInit {
     private http: HttpClientModule,
     private fb: FormBuilder
   ) {
-    this.uploader = new FileUploader({
+    // this.uploader = new FileUploader({
+    //   url: AppConfig.BASE_URL + 'upload',
+    //   itemAlias: 'photo',
+    //   maxFileSize: 5 * 1024 * 1024,
+    //   allowedMimeType: ['image/png', 'image/jpeg']
+    // });
+    this.uploader  = new FileUploader({
       url: AppConfig.BASE_URL + 'upload',
-      itemAlias: 'photo',
-      maxFileSize: 5 * 1024 * 1024,
-      allowedMimeType: ['image/png', 'image/jpeg']
+      disableMultipart: true,
+      formatDataFunctionIsAsync: true,
+      formatDataFunction: async (item) => {
+        return new Promise( (resolve, reject) => {
+          resolve({
+            name: item._file.name,
+            length: item._file.name,
+            contentType: item._file.type,
+            date: new Date()
+          });
+        });
+      }
     });
+
+    this.dropZone = false;
+    this.response = '';
+
+    this.uploader.response.subscribe(res => this.response = res );
+  }
+
+  public fileOverDropZone(e: any): void {
+    this.dropZone = e;
   }
 
   ngOnInit() {
@@ -59,6 +86,7 @@ export class NewCampaignComponent implements OnInit {
     // this.uploader.onWhenAddingFileFailed = (item: any, response: any, options: any) => {
     //   alert('You cannot upload this file!\nPlease choose a picture with PNG of JPEG formats with size less than 5MB');
     // }
+    
 
     this.campaignForm = this.fb.group({
       name: ['', Validators.required],
