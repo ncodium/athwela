@@ -107,28 +107,32 @@
                                         Select a photo and upload it to add or change your avatar
                                     </small>
                                 </div> -->
-                                <div class="row">
-                                    <div class="form-group">
-                                        <p>Providing documents that can verify your cause gives donors confidence that
-                                            your cause is genuine</p>
+                                
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <p>Providing documents that can verify your cause gives donors confidence
+                                                that your cause is genuine!</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="form-group col-md-3">
                                         <label for="inputDocuments">Select files</label>
 
-                                        <div style=" border: dotted 3px lightgray; width: 30%; " ng2FileDrop
+                                        <div style=" border: dotted 3px lightgray; width: 80%; " ng2FileDrop
                                             [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
                                             (fileOver)="fileOverBase($event)" [uploader]="uploader"
-                                            class="well my-drop-zone my-2 py-3">
+                                            class="well my-drop-zone my-2 py-5">
                                             Drag your files here...
                                         </div>
 
                                         <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br />
                                     </div>
 
-                                    <div class="col-md-6" style="margin-bottom: 40px">
-
-                                        <h3>Upload queue</h3>
+                                    <div class="col-md-9" style="margin-bottom: 40px">
+                                        <label>Upload queue</label>
                                         <p>Queue length: {{ uploader?.queue?.length }}</p>
 
-                                        <table class="table">
+                                        <table class="table" style="table-layout: fixed;">
                                             <thead>
                                                 <tr>
                                                     <th width="50%">Name</th>
@@ -179,21 +183,21 @@
                                         <div>
                                             <div>
                                                 Queue progress:
-                                                <div class="progress" style="">
+                                                <div class="progress">
                                                     <div class="progress-bar" role="progressbar"
                                                         [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-success btn-s"
+                                            <button type="button" class="btn btn-success btn-xs"
                                                 (click)="uploader.uploadAll()"
                                                 [disabled]="!uploader.getNotUploadedItems().length">
                                                 <span class="glyphicon glyphicon-upload"></span> Upload all
                                             </button>
-                                            <button type="button" class="btn btn-warning btn-s"
+                                            <button type="button" class="btn btn-warning btn-xs"
                                                 (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
                                                 <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-s"
+                                            <button type="button" class="btn btn-danger btn-xs"
                                                 (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
                                                 <span class="glyphicon glyphicon-trash"></span> Remove all
                                             </button>
