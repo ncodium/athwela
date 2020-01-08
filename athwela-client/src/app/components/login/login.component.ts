@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    public bsModalRef: BsModalRef,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public bsModalRef: BsModalRef
   ) { }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       password: ['', [
         Validators.required,
         Validators.minLength(3)
-      ]]
+      ]],
     });
 
     this.onClose = new Subject();
