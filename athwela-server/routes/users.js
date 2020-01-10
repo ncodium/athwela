@@ -32,7 +32,7 @@ router.get('/mod', (req, res) => {
     User.find({ role: 'mod' })
         .exec((err, doc) => {
             if (!err)
-                res.send({ success: true, users: doc });
+                res.send({ users: doc,success: true });
             else
                 res.send({ success: false, error: err });
         });
