@@ -25,7 +25,6 @@ export class CampaignsComponent implements OnInit {
     this.sortCampaigns(this.currentSort);
     this.refreshCategories();
     this.onCategoryChange(this.defaultCategory);
-
   }
 
   sortCampaigns(currentSort: string) {

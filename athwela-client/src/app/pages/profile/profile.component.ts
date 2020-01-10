@@ -6,13 +6,14 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CampaignService } from 'src/app/services/campaign.service';
 import { UserService } from 'src/app/services/user.service';
 import { DonationService } from 'src/app/services/donation.service';
-import { ValidateService } from 'src/app/services/validate.service';
 import { User } from '../../models/user.model';
 import { Campaign } from '../../models/campaign.model';
 import { Donation } from '../../models/donation.model';
 import { Subscription } from 'rxjs';
 import { TemplateRef } from '@angular/core';
 import { AppConfig } from 'src/app/config/app-config';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ConfirmPasswordValidator } from './../../components/register/validators/confirm-password.validator';
 
 @Component({
   selector: 'app-profile',
@@ -20,33 +21,21 @@ import { AppConfig } from 'src/app/config/app-config';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  alerts: any = [];
   routeSub: Subscription;
   modalRef: BsModalRef;
   uploader: FileUploader;
-  hasBaseDropZoneOver: boolean;
-  hasAnotherDropZoneOver: boolean;
   response: any;
 
   user: User;
   userId: string;
-  currentUser: User;
+  _user: User;
   visitor: boolean;
+
   campaigns: Campaign[];
   donations: Donation[];
 
-  noCampaigns: boolean = true;
-  noDonations: boolean = true;
-
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  nameInvalid: boolean;
-  emailInvalid: boolean;
-  passwordInvalid: boolean;
-  passwordMismatch: boolean;
-  avatar: string;
+  updateForm: FormGroup;
+  alert: any;
 
   constructor(
     private router: Router,
@@ -55,15 +44,14 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private campaignService: CampaignService,
     private modalService: BsModalService,
-    private validateService: ValidateService,
-    private donationService: DonationService
-
+    private donationService: DonationService,
+    private formBuilder: FormBuilder
   ) {
     this.uploader = new FileUploader({
       url: AppConfig.BASE_URL + 'upload',
       itemAlias: 'photo',
       maxFileSize: 5 * 1024 * 1024, // 5MB
-      allowedMimeType: ['image/png', 'image/jpeg'] //will be loaded only PNG and JPG files
+      allowedMimeType: ['image/png', 'image/jpeg'] // will be loaded only PNG and JPG files
     });
   }
 
@@ -72,7 +60,7 @@ export class ProfileComponent implements OnInit {
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.response = JSON.parse(response);
       alert('File uploaded successfully!');
-      this.avatar = AppConfig.BASE_URL + this.response.path;
+      this.avatar.setValue(AppConfig.BASE_URL + this.response.path);
     };
     this.uploader.onWhenAddingFileFailed = (item: any, response: any, options: any) => {
       alert('You cannot upload this file!\nPlease choose a picture with PNG or JPEG formats with size less than 5MB.');
@@ -83,8 +71,7 @@ export class ProfileComponent implements OnInit {
 
       if (this.authService.loggedIn()) {
         // user is logged in
-        this.nameInvalid = this.emailInvalid = this.passwordInvalid = this.passwordMismatch = false;
-        this.currentUser = this.authService.getUser(); // get logged in user
+        this._user = this.authService.getUser(); // get logged in user
 
         if (this.userId) {
           // id included in the url
@@ -93,7 +80,7 @@ export class ProfileComponent implements OnInit {
             else this.router.navigate(['/page-not-found']);
 
             // current user is the owner of the profile
-            if (this.user._id == this.currentUser._id) this.visitor = false
+            if (this.user._id == this._user._id) this.visitor = false
             // current user is not the owner of the profile
             else this.visitor = true;
 
@@ -104,7 +91,7 @@ export class ProfileComponent implements OnInit {
         else {
           // id not included in the url
           // not a visitor
-          this.user = this.currentUser;
+          this.user = this._user;
           this.visitor = false; // is the owner
 
           this.getUserCampaigns(this.user._id);
@@ -131,101 +118,119 @@ export class ProfileComponent implements OnInit {
         }
       }
     });
+
+    this.updateForm = this.formBuilder.group({
+      avatar: [],
+      phone: [this._user.phone],
+      email: [this._user.email, [
+        Validators.required,
+        Validators.email
+      ]],
+      password: [''],
+      confirmPassword: [''],
+      firstName: [this._user.firstName, [
+        Validators.required
+      ]],
+      lastName: [this._user.lastName, [
+        Validators.required
+      ]],
+      address: [this._user.address, [
+        Validators.required
+      ]],
+      city: [this._user.city, [
+        Validators.required
+      ]],
+    },
+      { validator: ConfirmPasswordValidator.matchPassword }
+    );
   }
 
   getUserCampaigns(id: string) {
     this.campaignService.getUserCampaigns(id).subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
-      this.noCampaigns = (this.campaigns.length == 0);
     });
   }
 
   getUserDonations(id: string) {
     this.donationService.getUserDonations(id).subscribe((res) => {
       this.donations = res['donations'] as Donation[];
-      this.noDonations = (this.donations.length == 0);
     });
   }
 
   openSettings(template: TemplateRef<any>) {
-    this.alerts = [];
     this.modalRef = this.modalService.show(template);
   }
 
-  onUpdateSubmit() {
-    this.nameInvalid = this.emailInvalid = this.passwordInvalid = this.passwordMismatch = false;
+  onClose() {
+    this.modalService.hide(1);
+  }
 
-    if (!this.name && !this.email && !this.password && !this.passwordConfirm) {
-      this.modalRef.hide();
+  onUpdate() {
+    const user: User = {
+      _id: this.user._id,
+      avatar: this.avatar.value,
+      password: this.password.value,
+      email: this.email.value,
+      firstName: this.firstName.value,
+      lastName: this.lastName.value,
+      address: this.address.value,
+      city: this.city.value,
+      phone: this.phone.value
     }
 
-    if (this.password) {
-      if (this.password != this.passwordConfirm) {
-        this.passwordInvalid = this.passwordMismatch = true;
-        this.alerts = [
-          {
-            type: 'warning',
-            msg: `Your passwords don't match. Please try again!`
-          }
-        ];
+    this.authService.updateUser(user).subscribe((res) => {
+      if (res['success']) {
+        this.user = res['user'] as User;
+        this.authService.storeUserProfile(this.user);
 
-        return;
+        // feedback
+        this.alert = {
+          type: 'success',
+          msg: 'Your details has been updated successfully.'
+        }
       }
       else {
-        // update password
-        this.user.password = this.password;
-        this.password = this.passwordConfirm = '';
-      }
-    }
-
-    if (this.name) {
-      // update name
-      this.user.name = this.name;
-    }
-
-    if (this.avatar) {
-      // update avatar
-      this.user.avatar = this.avatar;
-    }
-
-    if (this.email) {
-      if (!this.validateService.validateEmail(this.email)) {
-        this.emailInvalid = true;
-        this.alerts = [
-          {
-            type: 'warning',
-            msg: 'Please enter a valid e-mail address'
-          }
-        ];
-        return;
-      }
-      else {
-        // update email
-        this.user.email = this.email;
-      }
-    }
-
-    this.authService.updateUser(this.user).subscribe(data => {
-      if (data['success']) {
-        this.alerts = [
-          {
-            type: 'success',
-            msg: `Your details were updated successfully.`
-          }
-        ];
-        this.userService.getUser(this.user._id).subscribe((res) => {
-          if (res['success']) this.user = res['user'] as User;
-          this.authService.storeUserProfile(this.user);
-        });
-      }
-      else {
-        this.alerts = [
-          {
-            type: 'danger',
-            msg: data
-          }
-        ];
+        this.alert = {
+          type: 'danger',
+          msg: res['msg']
+        }
       }
     })
+  }
+
+  get avatar() {
+    return this.updateForm.get('avatar');
+  }
+
+  get password() {
+    return this.updateForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.updateForm.get('confirmPassword');
+  }
+
+  get email() {
+    return this.updateForm.get('email');
+  }
+
+  get phone() {
+    return this.updateForm.get('phone');
+  }
+
+  get firstName() {
+    return this.updateForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.updateForm.get('lastName');
+  }
+
+  get address() {
+    return this.updateForm.get('address');
+  }
+
+  get city() {
+    return this.updateForm.get('city');
   }
 }

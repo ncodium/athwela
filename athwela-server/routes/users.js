@@ -2,31 +2,67 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const config = require('../config/database');
 const ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/user');
+const config = require('../config/database');
+
+// async username checking
+router.get('/username/:username', (req, res) => {
+    User.find({ username: req.params.username }, (err, doc) => {
+        if (!err)
+            res.json({ exists: !!doc.length });
+        else
+            res.json({ exists: false, error: err })
+    });
+});
+
+// all users
+router.get('/', (req, res) => {
+    User.find((err, docs) => {
+        if (!err)
+            res.json({ users: docs, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
+
+
+// all moderators
+router.get('/mod', (req, res) => {
+    User.find({ role: 'mod' })
+        .exec((err, doc) => {
+            if (!err)
+                res.send({ success: true, users: doc });
+            else
+                res.send({ success: false, error: err });
+        });
+});
 
 router.post('/register', (req, res, next) => {
     // create a new user object
-    let newUser = new User({
-        name: req.body.name,
+    let _user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        city: req.body.city,
+        address: req.body.city,
         email: req.body.email,
+        phone: req.body.phone,
         username: req.body.username,
         password: req.body.password,
         role: req.body.role
     });
 
     // check if a user with the username already exist
-    User.find({ username: newUser.username }, function (err, user) {
+    User.find({ username: _user.username }, function (err, user) {
         if (user.length) {
             res.json({ success: false, username_exist: true });
         } else {
             // register new user account
-            User.addUser(newUser, (err, user) => {
+            User.addUser(_user, (err, user) => {
                 if (err) {
-                    res.json({ success: false, msg: 'User registration failed.' });
+                    res.json({ success: false, msg: 'Registration failed.' });
                 } else {
-                    res.json({ success: true, msg: 'User registered successfully' });
+                    res.json({ success: true, msg: 'Registered successfully' });
                 }
             });
         }
@@ -35,25 +71,29 @@ router.post('/register', (req, res, next) => {
 
 router.post('/register/mod', (req, res, next) => {
     // create a new moderator
-    let newUser = new User({
-        name: req.body.name,
+    let _user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        city: req.body.city,
+        address: req.body.city,
         email: req.body.email,
+        phone: req.body.phone,
         username: req.body.username,
         password: req.body.password,
         role: "mod"
     });
 
     // check if a user with the username already exist
-    User.find({ username: newUser.username }, function (err, user) {
+    User.find({ username: _user.username }, function (err, user) {
         if (user.length) {
             res.json({ success: false, username_exist: true });
         } else {
             // register new user account
-            User.addUser(newUser, (err, user) => {
+            User.addUser(_user, (err, user) => {
                 if (err) {
-                    res.json({ success: false, msg: 'moderator registration failed.' });
+                    res.json({ success: false, msg: 'Registration failed.' });
                 } else {
-                    res.json({ success: true, msg: 'moderator registered successfully' });
+                    res.json({ success: true, msg: 'Registered successfully.' });
                 }
             });
         }
@@ -84,10 +124,15 @@ router.post('/authenticate', (req, res, next) => {
                     token: 'JWT ' + token,
                     user: {
                         _id: user._id,
-                        name: user.name,
-                        username: user.username,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        city: user.city,
+                        address: user.city,
                         email: user.email,
+                        username: user.username,
+                        password: user.password,
                         role: user.role,
+                        phone: user.phone,
                         avatar: user.avatar
                     }
                 });
@@ -109,8 +154,12 @@ router.post('/update/:_id', (req, res, next) => {
         if (!user) {
             res.json({ success: false });
         } else {
-            if (req.body.name) { user.name = req.body.name; }
+            if (req.body.firstName) { user.firstName = req.body.firstName; }
+            if (req.body.lastName) { user.lastName = req.body.lastName; }
             if (req.body.email) { user.email = req.body.email; }
+            if (req.body.address) { user.address = req.body.address; }
+            if (req.body.city) { user.city = req.body.city; }
+            if (req.body.phone) { user.phone = req.body.phone; }
             if (req.body.avatar) { user.avatar = req.body.avatar; }
             if (req.body.password) {
                 rehash = true;
@@ -119,9 +168,9 @@ router.post('/update/:_id', (req, res, next) => {
 
             User.updateUser(user, rehash, (err, user) => {
                 if (err) {
-                    res.json({ success: false, msg: 'User update failed.' });
+                    res.json({ success: false, error: err });
                 } else {
-                    res.json({ success: true, msg: 'User updated successfully' });
+                    res.json({ success: true, msg: 'Your details has been updated successfully.', user: user });
                 }
             });
         }
@@ -141,10 +190,15 @@ router.get('/profile/:id', (req, res) => {
                     success: true,
                     user: {
                         _id: user._id,
-                        name: user.name,
-                        username: user.username,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        city: user.city,
+                        address: user.city,
                         email: user.email,
+                        username: user.username,
+                        password: user.password,
                         role: user.role,
+                        phone: user.phone,
                         avatar: user.avatar
                     }
                 })
@@ -161,10 +215,15 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
     res.json({
         user: {
             _id: req.user._id,
-            name: req.user.name,
-            username: req.user.username,
+            firstName: req.user.firstName,
+            lastName: req.user.lastName,
+            city: req.user.city,
+            address: req.user.city,
             email: req.user.email,
+            username: req.user.username,
+            password: req.user.password,
             role: req.user.role,
+            phone: req.user.phone,
             avatar: req.user.avatar
         }
     })

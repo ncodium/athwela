@@ -1,109 +1,140 @@
-<div class="container my-4">
-    <div class="row">
-        <div class="col-md-4">
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12  mt-2 mt-md-0">
+            <h1 class="mb-5">
+                {{ user?.firstName }} {{ user?.lastName }}
+            </h1>
+        </div>
+        <div class="col-md-3 mt-2 mt-md-0">
             <div class="card text-center">
                 <div class="card-body">
-                    <img height="90px" src="assets/user.png">
-                    <h5 class="card-title">{{ user?.name }}</h5>
+                    <img *ngIf="user.avatar" class="image-cover" [src]="user.avatar" data-holder-rendered="true">
+                    <img *ngIf="!user.avatar" class="image-cover" src="assets/user.png" data-holder-rendered="true">
+                    <h5 class="card-title mt-4">{{ user?.username }}</h5>
                     <p class="card-text">{{ user?.email }}</p>
-                </div>
-                <div class="card-footer text-muted">
-                    <button class="btn btn-default">Ratings</button>
                     <button (click)="openSettings(settings)" class="btn btn-primary">Settings</button>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-8 mt-2 mt-md-0">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Your contributions</h5>
-                    <p class="card-text">Following is a quick summary of contributions to Athwela.</p>
-                    <div class="row">
-                        <div class="col-md-6 my-2 my-md-0">
-                            <div class="card text-white bg-primary">
-                                <div class="card-body">
-                                    <p class="card-text">
-                                        Campaigns
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 my-2 my-md-0">
-                            <div class="card text-white bg-success">
-                                <div class="card-body">
-                                    <p class="card-text">
-                                        Campaigns
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
 </div>
 
+<app-footer></app-footer>
+
 <ng-template #settings>
     <div class="modal-header">
-        <h4 class="modal-titile pull-left">Settings</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <h4 class="modal-title pull-left">Settings</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="onClose()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
-    <form (submit)="onUpdateSubmit()">
+    <form (submit)="onUpdate()" [formGroup]="updateForm">
         <div class="modal-body">
             <div class="form-group">
-                <label for="inputUsername">Username</label>
-                <input type="text" disabled name="username" class="form-control" id="inputUsername"
-                    aria-describedby="usernameHelp" [placeholder]="user?.username">
-                <small id="usernameHelp" class="form-text text-muted">You can't change your username.</small>
+                <label for="inputAvatar">Avatar</label><br />
+                <input type="file" ng2FileSelect [uploader]="uploader" class="my-2" id="inputAvatar" />
+                <button type="button" class="btn btn-outline-primary btn-sm my-2" (click)="uploader.uploadAll()"
+                    [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
+                <small class="form-text text-muted">
+                    Select a photo and upload it to add or change your avatar.
+                </small>
             </div>
 
             <div class="form-group">
-                <label for="inputName">Name</label>
-                <input type="text" [(ngModel)]="name" name="name" class="form-control" id="inputName"
-                    aria-describedby="nameHelp" [placeholder]="user?.name" [ngClass]="{ 'is-invalid': nameInvalid }">
-            </div>
-
-            <div class="form-group">
-                <label for="inputEmail">Email address</label>
-                <input type="email" [(ngModel)]="email" name="email" class="form-control" id="inputEmail"
-                    [placeholder]="user?.email" [ngClass]="{ 'is-invalid': emailInvalid }">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                    else.</small>
+                <label for="inputEmail">E-mail address</label>
+                <input formControlName="email" type="email" class="form-control" id="inputEmail"
+                    [ngClass]="{'is-invalid': (email.touched || email.dirty) && email.invalid }">
+                <div class="invalid-feedback" *ngIf="(email.touched || email.dirty) && email.invalid">
+                    Enter a valid e-mail address.
+                </div>
+                <small id="emailHelp" class="form-text text-muted" *ngIf="!(email.touched || email.dirty)">
+                    We'll never share your email with anyone else.
+                </small>
             </div>
 
             <div class="form-group">
                 <label for="inputPassword">Password</label>
-                <input type="password" [(ngModel)]="password" name="password" class="form-control" id="inputPassword"
-                    placeholder="Enter a new password" [ngClass]="{ 'is-invalid': passwordInvalid }"
-                    aria-describedby="passwordHelp">
-                <password-strength-meter id="passwordHelp" [enableFeedback]="true" [password]="password">
+                <input formControlName="password" type="password" class="form-control" id="inputPassword"
+                    aria-describedby="passwordHelp"
+                    [ngClass]="{'is-invalid': (password.touched || password.dirty) && password.invalid }">
+                <div class="invalid-feedback" *ngIf="(password.touched || password.dirty) && password.invalid">
+                    Enter a password for your account.
+                </div>
+                <password-strength-meter id="passwordHelp" [enableFeedback]="true" [password]="password.value"
+                    *ngIf="(password.touched || password.dirty)">
                 </password-strength-meter>
             </div>
+
             <div class="form-group">
-                <input type="password" [(ngModel)]="passwordConfirm" name="password-confirm" class="form-control"
-                    id="inputPasswordConfirm" placeholder="Enter your new password again for confirmation"
-                    [ngClass]="{ 'is-invalid': passwordMismatch || passwordInvalid }" aria-describedby="passwordHelp">
-                <small id="passwordHelp" class="form-text text-muted">
-                    If you don't want to change your password, keep
-                    these fields empty.
+                <input formControlName="confirmPassword" type="password" class="form-control" id="inputConfirmPassword"
+                    aria-describedby="confirmPasswordHelp"
+                    [ngClass]="{'is-invalid': (confirmPassword.touched || confirmPassword.dirty) && (confirmPassword.invalid || confirmPassword.errors?.doesNotMatch) }">
+                <div class="invalid-feedback"
+                    *ngIf="(confirmPassword.touched || confirmPassword.dirty) && (confirmPassword.invalid || confirmPassword.errors?.doesNotMatch)">
+                    Your passwords don't match. Please try again.
+                </div>
+                <small id="confirmPasswordHelp" class="form-text text-muted"
+                    *ngIf="!(confirmPassword.touched || confirmPassword.dirty)">
+                    Type in your password again for confirmation.
                 </small>
             </div>
 
-            <div *ngFor="let alert of alerts">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputName">First name</label>
+                    <input formControlName="firstName" type="text" class="form-control" id="inputName"
+                        [ngClass]="{'is-invalid': (firstName.touched || firstName.dirty) && firstName.invalid }">
+                    <div class="invalid-feedback" *ngIf="(firstName.touched || firstName.dirty) && firstName.invalid">
+                        Enter your first name.
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputName">Last name</label>
+                    <input formControlName="lastName" type="text" class="form-control" id="inputName"
+                        [ngClass]="{'is-invalid': (lastName.touched || lastName.dirty) && lastName.invalid }">
+                    <div class="invalid-feedback" *ngIf="(lastName.touched || lastName.dirty) && lastName.invalid">
+                        Enter your last name.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input formControlName="address" type="text" class="form-control" id="inputAddress"
+                    [ngClass]="{'is-invalid': (address.touched || address.dirty) && address.invalid }">
+                <div class="invalid-feedback" *ngIf="(address.touched || address.dirty) && address.invalid">
+                    Enter your permanent address.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputCity">City</label>
+                <input formControlName="city" type="text" class="form-control" id="inputCity"
+                    [ngClass]="{'is-invalid': (city.touched || city.dirty) && city.invalid }">
+                <div class="invalid-feedback" *ngIf="(city.touched || city.dirty) && city.invalid">
+                    Enter your city.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPhone">Phone number</label>
+                <input formControlName="phone" type="number" class="form-control" id="inputPhone"
+                    [ngClass]="{'is-invalid': (phone.touched || phone.dirty) && phone.invalid }">
+                <div class="invalid-feedback" *ngIf="(phone.touched || phone.dirty) && phone.invalid">
+                    Enter your phone number.
+                </div>
+            </div>
+
+            <div *ngIf="alert">
                 <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
             </div>
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+            <button type="button" class="btn btn-default" (click)="onClose()">Close</button>
             <button type="submit" class="btn btn-primary">Update</button>
         </div>
     </form>
-</ng-template>
 
-<app-footer></app-footer>
+</ng-template>

@@ -1,17 +1,17 @@
 <script src="node_modules/chart.js/src/chart.js"></script>
 
-<div class="container">
-    <div class="row mt-4">
+<div class="container mt-5">
+    <div class="row mb-4">
         <div class="col-md-3">
-            <div class="card text-white bg-secondary mb-2" style="max-width: 18rem;">
+            <div class="card text-white bg-primary">
                 <div class="card-header">Campaigns</div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-light btn-lg btn-block">300</button>
+                    <button type="button" class="btn btn-light btn-lg btn-block">{{campaignsCount}}</button>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card text-white bg-secondary mb-2" style="max-width: 18rem;">
+            <div class="card text-white bg-primary">
                 <div class="card-header">Donations</div>
                 <div class="card-body">
                     <button type="button" class="btn btn-light btn-lg btn-block">150</button>
@@ -19,18 +19,18 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card text-white bg-secondary mb-2" style="max-width: 18rem;">
+            <div class="card text-white bg-primary">
                 <div class="card-header">Users</div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-light btn-lg btn-block">10000</button>
+                    <button type="button" class="btn btn-light btn-lg btn-block">{{userCount}}</button>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card text-white bg-secondary mb-2" style="max-width: 18rem;">
+            <div class="card text-white bg-primary">
                 <div class="card-header">Moderators</div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-light btn-lg btn-block">2000</button>
+                    <button type="button" class="btn btn-light btn-lg btn-block">{{moderatorCount}}</button>
                 </div>
             </div>
         </div>

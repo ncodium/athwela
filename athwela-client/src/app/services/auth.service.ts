@@ -18,7 +18,7 @@ export class AuthService {
     private router: Router
   ) { }
 
-  registerUser(user) {
+  registerUser(user: User) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post(AppConfig.BASE_URL + 'users/register', user, { headers: headers }).pipe();
@@ -38,6 +38,7 @@ export class AuthService {
         'Authorization': this.authToken
       })
     };
+
     return this.http.post(AppConfig.BASE_URL + 'users/update/' + this.user._id, user, httpOptions).pipe();
   }
 
@@ -49,6 +50,7 @@ export class AuthService {
         'Authorization': this.authToken
       })
     };
+
     return this.http.get(AppConfig.BASE_URL + 'users/profile', httpOptions).pipe();
   }
 
@@ -57,7 +59,7 @@ export class AuthService {
     return this.user;
   }
 
-  storeUserData(token, user) {
+  storeUserData(token: string, user: User) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('role', user.role);
@@ -66,7 +68,7 @@ export class AuthService {
     this.role = user.role;
   }
 
-  storeUserProfile(user) {
+  storeUserProfile(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('role', user.role);
     this.user = user;
@@ -88,6 +90,10 @@ export class AuthService {
     localStorage.clear();
     this.authToken = this.user = this.role = null;
     this.router.navigate(['/']);
+  }
+
+  checkUsernameNotTaken(username: String) {
+    return this.http.get(AppConfig.BASE_URL + 'users/username/' + username, {}).pipe();
   }
 
   // helpers

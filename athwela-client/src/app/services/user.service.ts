@@ -13,6 +13,10 @@ export class UserService {
     private authService: AuthService
   ) { }
 
+  getUsers() { return this.http.get(AppConfig.BASE_URL + 'users/') }
+
+  getModerators() { return this.http.get(AppConfig.BASE_URL + 'users/mod') }
+
   getUser(id: String) {
     return this.http.get(AppConfig.BASE_URL + 'users/profile/' + id)
   }

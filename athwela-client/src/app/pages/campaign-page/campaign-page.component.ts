@@ -63,7 +63,6 @@ export class CampaignPageComponent implements OnInit {
               this.bsModalRef.content.closeBtnName = 'Close';
               this.bsModalRef.content.onClose.subscribe(result => {
                 this.refreshCampaign(this.campaignId);
-                console.log("heh");
               })
             }
           })

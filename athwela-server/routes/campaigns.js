@@ -99,8 +99,8 @@ router.get('/categories', (req, res) => {
         });
 });
 
-// Filter campaigns by category
-router.get('/categories/:category', (req,res) => {
+// filter campaigns by category
+router.get('/categories/:category', (req, res) => {
     Campaign.find({
         'category': req.params.category,
         'verified': true,

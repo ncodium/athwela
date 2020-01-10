@@ -1,57 +1,114 @@
 <div class="modal-header">
-    <h4 class="modal-titile pull-left">{{title}}</h4>
+    <h4 class="modal-title pull-left">{{ title }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
-<form (submit)="onRegisterSubmit()">
+<form (submit)="onRegister()" [formGroup]="registerForm">
     <div class="modal-body">
         <div class="form-group">
             <label for="inputUsername">Username</label>
-            <input type="text" [(ngModel)]="username" name="username" class="form-control" id="exampleInputUsername"
-                aria-describedby="usernameHelp" placeholder="Enter your username"
-                [ngClass]="{ 'is-invalid': usernameInvalid }">
+            <input formControlName="username" type="text" class="form-control" id="inputUsername"
+                [ngClass]="{'is-invalid': (username.touched || username.dirty) && ( username.invalid || username.errors?.usernameTaken) }">
+            <div class="invalid-feedback"
+                *ngIf="(username.touched || username.dirty) && username.errors?.usernameTaken">
+                <strong>{{ username.value }}</strong> is taken. Try another username.
+            </div>
+            <div class="invalid-feedback"
+                *ngIf="(username.touched || username.dirty) && username.invalid && !username.errors?.usernameTaken">
+                Username should be longer than 5 characters.
+            </div>
         </div>
+
+        <div class="form-group">
+            <label for="inputEmail">E-mail address</label>
+            <input formControlName="email" type="email" class="form-control" id="inputEmail"
+                [ngClass]="{'is-invalid': (email.touched || email.dirty) && email.invalid }">
+            <div class="invalid-feedback" *ngIf="(email.touched || email.dirty) && email.invalid">
+                Enter a valid e-mail address.
+            </div>
+            <small id="emailHelp" class="form-text text-muted" *ngIf="!(email.touched || email.dirty)">
+                We'll never share your email with anyone else.
+            </small>
+        </div>
+
         <div class="form-group">
             <label for="inputPassword">Password</label>
-            <input type="password" [(ngModel)]="password" name="password" class="form-control" id="inputPassword"
-                placeholder="Enter your password" [ngClass]="{ 'is-invalid': passwordInvalid }"
-                aria-describedby="passwordHelp">
-            <password-strength-meter id="passwordHelp" [enableFeedback]="true" [password]="password">
+            <input formControlName="password" type="password" class="form-control" id="inputPassword"
+                aria-describedby="passwordHelp"
+                [ngClass]="{'is-invalid': (password.touched || password.dirty) && password.invalid }">
+            <div class="invalid-feedback" *ngIf="(password.touched || password.dirty) && password.invalid">
+                Enter a password for your account.
+            </div>
+            <password-strength-meter id="passwordHelp" [enableFeedback]="true" [password]="password.value"
+                *ngIf="(password.touched || password.dirty)">
             </password-strength-meter>
         </div>
+
         <div class="form-group">
-            <input type="password" [(ngModel)]="passwordConfirm" name="password-confirm" class="form-control"
-                id="inputPasswordConfirm" placeholder="Enter your password again for confirmation"
-                [ngClass]="{ 'is-invalid': passwordMismatch || passwordInvalid }" aria-describedby="passwordHelp">
-        </div>
-        <div class="form-group">
-            <label for="inputName">Name</label>
-            <input type="text" [(ngModel)]="name" name="name" class="form-control" id="inputName"
-                aria-describedby="nameHelp" placeholder="Enter your name" [ngClass]="{ 'is-invalid': nameInvalid }">
-        </div>
-        <div class="form-group">
-            <label for="inputEmail">Email address</label>
-            <input type="email" [(ngModel)]="email" name="email" class="form-control" id="inputEmail"
-                placeholder="Enter your email address" [ngClass]="{ 'is-invalid': emailInvalid }">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <input formControlName="confirmPassword" type="password" class="form-control" id="inputConfirmPassword"
+                aria-describedby="confirmPasswordHelp"
+                [ngClass]="{'is-invalid': (confirmPassword.touched || confirmPassword.dirty) && (confirmPassword.invalid || confirmPassword.errors?.doesNotMatch) }">
+            <div class="invalid-feedback"
+                *ngIf="(confirmPassword.touched || confirmPassword.dirty) && (confirmPassword.invalid || confirmPassword.errors?.doesNotMatch)">
+                Your passwords don't match. Please try again.
+            </div>
+            <small id="confirmPasswordHelp" class="form-text text-muted"
+                *ngIf="!(confirmPassword.touched || confirmPassword.dirty)">
+                Type in your password again for confirmation.
+            </small>
         </div>
 
-        <div *ngFor="let alert of alerts">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputName">First name</label>
+                <input formControlName="firstName" type="text" class="form-control" id="inputName"
+                    [ngClass]="{'is-invalid': (firstName.touched || firstName.dirty) && firstName.invalid }">
+                <div class="invalid-feedback" *ngIf="(firstName.touched || firstName.dirty) && firstName.invalid">
+                    Enter your first name.
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputName">Last name</label>
+                <input formControlName="lastName" type="text" class="form-control" id="inputName"
+                    [ngClass]="{'is-invalid': (lastName.touched || lastName.dirty) && lastName.invalid }">
+                <div class="invalid-feedback" *ngIf="(lastName.touched || lastName.dirty) && lastName.invalid">
+                    Enter your last name.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input formControlName="address" type="text" class="form-control" id="inputAddress"
+                [ngClass]="{'is-invalid': (address.touched || address.dirty) && address.invalid }">
+            <div class="invalid-feedback" *ngIf="(address.touched || address.dirty) && address.invalid">
+                Enter your permanent address.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputCity">City</label>
+            <input formControlName="city" type="text" class="form-control" id="inputCity"
+                [ngClass]="{'is-invalid': (city.touched || city.dirty) && city.invalid }">
+            <div class="invalid-feedback" *ngIf="(city.touched || city.dirty) && city.invalid">
+                Enter your city.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPhone">Phone number</label>
+            <input formControlName="phone" type="number" class="form-control" id="inputPhone"
+                [ngClass]="{'is-invalid': (phone.touched || phone.dirty) && phone.invalid }">
+            <div class="invalid-feedback" *ngIf="(phone.touched || phone.dirty) && phone.invalid">
+                Enter your phone number.
+            </div>
+        </div>
+
+        <div *ngIf="alert">
             <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
         </div>
-
-        <!-- temporary -->
-        <div class="form-group">
-            <label for="inputRole">Role</label>
-            <input type="text" [(ngModel)]="role" name="role" class="form-control" id="inputRole"
-                placeholder="admin, mod, user" aria-describedby="roleHelp">
-            <small id="roleHelp" class="form-text text-muted">This field is temporary until proper Moderator and
-                Administrator registration is implemented.</small>
-        </div>
-        <!---->
-
     </div>
 
     <div class="modal-footer">

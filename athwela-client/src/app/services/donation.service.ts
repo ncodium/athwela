@@ -10,12 +10,12 @@ export class DonationService {
     private http: HttpClient,
   ) { }
 
-  getDonation(id: String) {
-    return this.http.get(AppConfig.BASE_URL + 'donations/' + id)
-  }
-
   getDonations() {
     return this.http.get(AppConfig.BASE_URL + 'donations');
+  }
+
+  getDonation(id: String) {
+    return this.http.get(AppConfig.BASE_URL + 'donations/' + id)
   }
 
   getUserDonations(id: String) {
