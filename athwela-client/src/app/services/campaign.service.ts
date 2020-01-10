@@ -24,8 +24,8 @@ export class CampaignService {
   getVerifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/verified') }
   getUnverifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified') }
   getCategories() { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories') }
-  getCategoryCampaigns(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category) }
-  getCampaignsSortBy(sortBy: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort' + sortBy) }
+  getCategoryCampaign(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category) }
+  getSortCampaign(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/' + currentSort) }
 
   publishCampaign(id: string) {
     this.authService.loadToken();

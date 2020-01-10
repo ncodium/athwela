@@ -28,7 +28,8 @@ export class CampaignsComponent implements OnInit {
   }
 
   sortCampaigns(currentSort: string) {
-    this.campaignService.getCampaignsSortBy(currentSort).subscribe((res) => {
+    console.log(currentSort);
+    this.campaignService.getSortCampaign(currentSort).subscribe((res) => {
       console.log(currentSort);
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
     });
@@ -42,7 +43,7 @@ export class CampaignsComponent implements OnInit {
       });
     }
     else {
-      this.campaignService.getCategoryCampaigns(category).subscribe((res) => {
+      this.campaignService.getCategoryCampaign(category).subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
       });
     }

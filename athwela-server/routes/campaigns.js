@@ -136,19 +136,19 @@ router.get('/categories/:category', (req, res) => {
     });
 });
 
-// sort campaigns
-// router.get('/:sort', (req,res) => {
-//     Campaign.find({
-//         'sort': req.params.sort,
-//         'verified': true,
-//         'published': true
-//     }).exec((err, doc) => {
-//         if (!err)
-//             res.send({ success: true, campaigns: doc });
-//         else
-//             res.send({ success: false, error: err });
-//     });
-// });
+// Sort campaigns
+router.get('/:sort', (req,res) => {
+    Campaign.find({
+        'currentSort': req.params.currentSort,
+        'verified': true,
+        'published': true
+    }).exec((err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
 
 router.get('/user', passport.authenticate("jwt", { session: false }), (req, res) => {
     Campaign.find({
