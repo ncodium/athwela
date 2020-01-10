@@ -15,8 +15,8 @@ export class UserService {
     private authService: AuthService
   ) { }
 
-  getallusers(){ return this.http.get(AppConfig.BASE_URL + 'users/') }
-  getmoderators(){ return this.http.get(AppConfig.BASE_URL + 'users/mod') }
+  getUsers(){ return this.http.get(AppConfig.BASE_URL + 'users/') }
+  getModerators(){ return this.http.get(AppConfig.BASE_URL + 'users/mod') }
   gettotalcount(){return this.http.get(AppConfig.BASE_URL + 'campaigns/count') }
    
   getUser(id: String) {

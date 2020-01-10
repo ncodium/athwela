@@ -8,7 +8,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 
-
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
@@ -19,20 +18,17 @@ export class AdminUsersComponent implements OnInit {
   modalRef: BsModalRef;
   users: User[];
 
+  ngOnInit() {
+    this.getUsers();
+  }
 
-  ngOnInit() {this.getallusers();
-  } 
-
-  getallusers() {
-    this.userservice.getallusers().subscribe((res) => {
+  getUsers() {
+    this.userService.getUsers().subscribe((res) => {
       this.users = res['users'] as User[];
-      
-
-
     });
   }
-  
-  constructor(private modalService: BsModalService,private userservice: UserService) { }
+
+  constructor(private modalService: BsModalService, private userService: UserService) { }
 
   public scatterChartOptions: ChartOptions = {
     responsive: true,

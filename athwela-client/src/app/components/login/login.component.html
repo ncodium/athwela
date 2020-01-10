@@ -5,28 +5,32 @@
     </button>
 </div>
 
-<form (submit)="onLoginSubmit()">
+<form (ngSubmit)="onLogin()" [formGroup]="loginForm">
     <div class="modal-body">
         <div class="form-group">
             <label for="inputUsername">Username</label>
-            <input type="text" class="form-control" [ngClass]="{ 'is-invalid': usernameInvalid }" [(ngModel)]="username"
-                name="username" id="inputUsername" maxlength="32" required aria-describedby="usernameHelp"
-                placeholder="Enter your username">
+            <input type="text" formControlName="username" class="form-control" id="inputUsername"
+                [ngClass]="{'is-invalid': (username.touched || username.dirty) && username.invalid }">
+            <div class="invalid-feedback" *ngIf="(username.touched || username.dirty) && !username.valid">
+                Please type in your username.
+            </div>
         </div>
 
         <div class="form-group">
             <label for="inputPassword">Password</label>
-            <input type="password" class="form-control" [ngClass]="{ 'is-invalid': passwordInvalid }"
-                [(ngModel)]="password" name="password" id="inputPassword" placeholder="Enter your password">
+            <input type="password" formControlName="password" class="form-control" id="inputPassword"
+                [ngClass]="{ 'is-invalid': (password.touched || password.dirty) && password.invalid }">
+            <div class="invalid-feedback" *ngIf="(password.touched || password.dirty) && !password.valid">
+                Please provide your password.
+            </div>
         </div>
 
-        <div *ngFor="let alert of alerts">
-            <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
+        <div class="alert alert-danger" *ngIf="alert">
+            {{ alert }}
         </div>
     </div>
-
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="onCancel()">{{ closeBtnName }}</button>
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary">Sign in</button>
     </div>
 </form>
