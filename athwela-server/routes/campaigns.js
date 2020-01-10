@@ -4,6 +4,12 @@ const passport = require('passport');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { Campaign } = require('../models/campaign');
 
+//defining chart
+
+var approvedrequests;
+var declinedrequests;
+var pendingrequest;
+
 router.get('/', (req, res) => {
     Campaign.find((err, docs) => {
         if (!err)
@@ -11,7 +17,24 @@ router.get('/', (req, res) => {
         else
             res.json({ success: false, error: err })
     });
+
 });
+ 
+router.get('/count', (req, res) => {
+    Campaign.countDocuments({},(err,count)=>{
+        res.json({count:count})
+    })
+
+});
+
+// router.get('/count',async(req,res)=>{
+//     try{
+//         const c=await Campaign.find().countDocuments();
+//         res.json(c);
+//     }catch{
+//         res.json({message:error});
+//     }
+// });
 
 router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
     const cmp = new Campaign({

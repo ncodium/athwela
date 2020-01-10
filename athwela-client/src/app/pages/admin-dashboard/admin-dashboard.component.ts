@@ -25,6 +25,7 @@ export class AdminDashboardComponent implements OnInit {
   donationsCount;
   userCount;
   moderatorCount;
+  totalreq = 0;
 
 
 
@@ -32,7 +33,7 @@ export class AdminDashboardComponent implements OnInit {
     private campaignService: CampaignService,
     private userservice: UserService,
 
-  ) { }
+  ) {}
 
   ngOnInit(
 
@@ -41,6 +42,7 @@ export class AdminDashboardComponent implements OnInit {
     this.getmods();
     this.getall();
     this.getAllCampaigns();
+    this.gettotalreq();
   }
   //
   getmods() {
@@ -59,6 +61,13 @@ export class AdminDashboardComponent implements OnInit {
 
     });
   }
+  //get total count
+  gettotalreq() {
+    this.userservice.gettotalcount().subscribe((res) => {
+      this.totalreq = res['count'];
+    });
+  }
+
 
   getAllCampaigns() {
     this.campaignService.getCampaigns().subscribe((res) => {
@@ -76,7 +85,7 @@ export class AdminDashboardComponent implements OnInit {
   };
 
   public polarAreaChartLabels: Label[] = ['Total requests', 'Approved requests', 'Declined requests', 'Pending requests'];
-  public polarAreaChartData: SingleDataSet = [700, 500, 100, 40];
+  public polarAreaChartData: SingleDataSet = [this.totalreq, 5, 1, 4];
   public polarAreaLegend = true;
 
   public polarAreaChartType: ChartType = 'polarArea';
