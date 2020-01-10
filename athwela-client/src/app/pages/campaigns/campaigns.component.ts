@@ -29,6 +29,7 @@ export class CampaignsComponent implements OnInit {
   }
 
   sortCampaigns(currentSort: string) {
+    console.log(currentSort);
     this.campaignService.getSortCampaign(currentSort).subscribe((res) => {
       console.log(currentSort);
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
