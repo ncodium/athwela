@@ -19,9 +19,17 @@ router.get('/', (req, res) => {
     });
 
 });
- 
+//get total requests
 router.get('/count', (req, res) => {
     Campaign.countDocuments({},(err,count)=>{
+        res.json({count:count})
+    })
+
+});
+
+//get approved requests
+router.get('/approvedcount', (req, res) => {
+    Campaign.find({published: 'true'}).countDocuments({},(err,count)=>{
         res.json({count:count})
     })
 

@@ -39,6 +39,7 @@ export class AdminDashboardComponent implements OnInit {
     this.getUsers();
     this.getCampaigns();
     this.gettotalreq();
+    this.getapprovedreq();
     
   }
 
@@ -60,8 +61,20 @@ export class AdminDashboardComponent implements OnInit {
   gettotalreq() {
     this.userservice.gettotalcount().subscribe((res) => {
       this.totalreq = res['count'];
+      this.polarAreaChartData.unshift(res['count']);
     });
   }
+  
+//get approved request count
+getapprovedreq(){
+  this.userservice.getaprovedcount().subscribe((res) => {
+    this.totalreq = res['count'];
+    console.log(this.totalreq)
+    this.polarAreaChartData.splice(1,0,res['count']);
+  });
+}
+
+
 
 
   getCampaigns() {
@@ -71,10 +84,8 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-   
-
   public polarAreaChartLabels: Label[] = ['Total requests', 'Approved requests', 'Declined requests', 'Pending requests'];
-  public polarAreaChartData: SingleDataSet = [this.totalreq, 5, 1, 4];
+  public polarAreaChartData: SingleDataSet = [ 1, 4];
   public polarAreaLegend = true;
 
   public polarAreaChartType: ChartType = 'polarArea';

@@ -39,7 +39,11 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    
+                    <div style="display: block;">
+                        <canvas baseChart [data]="polarAreaChartData" [labels]="polarAreaChartLabels"
+                            [legend]="polarAreaLegend" [chartType]="polarAreaChartType">
+                        </canvas>
+                    </div>
                 </div>
             </div>
         </div>
