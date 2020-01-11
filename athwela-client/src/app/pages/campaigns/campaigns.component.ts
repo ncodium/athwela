@@ -15,7 +15,7 @@ export class CampaignsComponent implements OnInit {
   campaigns: Campaign[];
   // defaultSort: string = "Trending";
   currentSort: string;
-  sortBy = ['Trending', 'Date', 'Comments', 'Donations'];
+  sortBy = ['Trending', 'Date', 'Comments', 'Donations' , 'Name'];
 
   constructor(
     private campaignService: CampaignService
