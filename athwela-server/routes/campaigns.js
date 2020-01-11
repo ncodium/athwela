@@ -180,7 +180,18 @@ router.get('/sort/:sort', (req,res) => {
             res.send({ success: false, error: err });
         }
       });
-
+    }
+    
+    else if (sortTo=="donations") {
+      Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
+        if (!err){
+            res.send({ success: true, campaigns: doc });
+            console.log('ffffffffffffffff');
+            console.log(doc);
+        } else {
+            res.send({ success: false, error: err });
+        }
+      });
     } 
 
     else {
