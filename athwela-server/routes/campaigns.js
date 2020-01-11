@@ -145,17 +145,31 @@ router.get('/categories/:category', (req, res) => {
 });
 
 // Sort campaigns
-router.get('/:sort', (req,res) => {
-    Campaign.find({
-        'currentSort': req.params.currentSort,
-        'verified': true,
-        'published': true
-    }).exec((err, doc) => {
-        if (!err)
+router.get('/sort/:sort', (req,res) => {
+   
+
+    //if (err) throw err;
+   // var dbo = db.db("mydb");
+    var sortby = req.params.sort;
+    var s = sortby.toLowerCase();
+    //var mysort = { sortby: -1 };
+    console.log(sortby);
+    console.log('3333333333333333');
+    Campaign.find().sort({ [s]: -1 }).exec((err,doc) => {
+        // if (err) throw err;
+        // console.log('*************111111111**************************');
+        // console.log(sortby);
+        // //console.log(typeof sortby);
+        // console.log(doc);
+        // //db.close();
+        if (!err){
             res.send({ success: true, campaigns: doc });
-        else
+            console.log(doc);
+        } else {
             res.send({ success: false, error: err });
+        }
     });
+
 });
 
 router.get('/user', passport.authenticate("jwt", { session: false }), (req, res) => {
