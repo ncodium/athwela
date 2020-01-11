@@ -3,6 +3,8 @@ import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { AppConfig } from '../config/app-config';
+import { Campaign } from '../models/campaign.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +15,10 @@ export class UserService {
     private authService: AuthService
   ) { }
 
-  getUsers() { return this.http.get(AppConfig.BASE_URL + 'users/') }
-
-  getModerators() { return this.http.get(AppConfig.BASE_URL + 'users/mod') }
-
+  getUsers(){ return this.http.get(AppConfig.BASE_URL + 'users/') }
+  getModerators(){ return this.http.get(AppConfig.BASE_URL + 'users/mod') }
+  gettotalcount(){return this.http.get(AppConfig.BASE_URL + 'campaigns/count') }
+   
   getUser(id: String) {
     return this.http.get(AppConfig.BASE_URL + 'users/profile/' + id)
   }

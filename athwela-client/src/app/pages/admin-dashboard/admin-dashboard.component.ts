@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SingleDataSet, Label } from 'ng2-charts';
+import { SingleDataSet, Label,ChartsModule, } from 'ng2-charts';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { CampaignService } from '../../services/campaign.service';
 import { User } from '../../models/user.model';
@@ -14,7 +14,7 @@ import { Campaign } from '../../models/campaign.model';
 
 })
 export class AdminDashboardComponent implements OnInit {
-  public barChartLabels: Label[] = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july'];
+   
 
   users;
   moderators;
@@ -25,21 +25,25 @@ export class AdminDashboardComponent implements OnInit {
   donationsCount;
   userCount;
   moderatorCount;
+  totalreq = 0;
 
   constructor(
     private campaignService: CampaignService,
-    private userService: UserService,
-  ) { }
+    private userservice: UserService,
+
+  ) {}
 
   ngOnInit(
   ) {
     this.getModerators();
     this.getUsers();
     this.getCampaigns();
+    this.gettotalreq();
+    
   }
 
   getModerators() {
-    this.userService.getModerators().subscribe((res) => {
+    this.userservice.getModerators().subscribe((res) => {
       this.moderators = res['users'] as User[];
       this.moderatorCount = this.moderators.length;
 
@@ -47,11 +51,18 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getUsers().subscribe((res) => {
+    this.userservice.getUsers().subscribe((res) => {
       this.users = res['users'] as User[];
       this.userCount = this.users.length;
     });
   }
+  //get total count
+  gettotalreq() {
+    this.userservice.gettotalcount().subscribe((res) => {
+      this.totalreq = res['count'];
+    });
+  }
+
 
   getCampaigns() {
     this.campaignService.getCampaigns().subscribe((res) => {
@@ -60,23 +71,14 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-  };
+   
 
   public polarAreaChartLabels: Label[] = ['Total requests', 'Approved requests', 'Declined requests', 'Pending requests'];
-  public polarAreaChartData: SingleDataSet = [700, 500, 100, 40];
+  public polarAreaChartData: SingleDataSet = [this.totalreq, 5, 1, 4];
   public polarAreaLegend = true;
 
   public polarAreaChartType: ChartType = 'polarArea';
 
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
-
-  public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Donations' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Campaingns' }
-  ];
+   
 }
 
