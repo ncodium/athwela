@@ -142,25 +142,56 @@ router.get('/sort/:sort', (req,res) => {
 
     //if (err) throw err;
    // var dbo = db.db("mydb");
-    var sortby = req.params.sort;
-    var s = sortby.toLowerCase();
+    var sortby = req.params.sort; // front click sort get to sortby variable
+    var sortTo = sortby.toLowerCase();  // convert to lowercase
     //var mysort = { sortby: -1 };
     console.log(sortby);
-    console.log('3333333333333333');
-    Campaign.find().sort({ [s]: -1 }).exec((err,doc) => {
-        // if (err) throw err;
-        // console.log('*************111111111**************************');
-        // console.log(sortby);
-        // //console.log(typeof sortby);
-        // console.log(doc);
-        // //db.close();
+    console.log(sortTo);
+
+    if(sortTo=="date") {
+
+        Campaign.find().sort({ deadline: -1 }).exec((err,doc) => {
+          if (!err){
+              res.send({ success: true, campaigns: doc });
+              console.log('ffffffffffffffff');
+              console.log(doc);
+          } else {
+              res.send({ success: false, error: err });
+          }
+        });
+
+    } 
+
+    else if (sortTo=="name") {
+      Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
         if (!err){
             res.send({ success: true, campaigns: doc });
+            console.log('ffffffffffffffff');
             console.log(doc);
         } else {
             res.send({ success: false, error: err });
         }
-    });
+      });
+
+    } 
+
+    else {
+      console.log('Else');
+    }
+    // Campaign.find().sort({ [sortTO]: -1 }).exec((err,doc) => {
+    //     // if (err) throw err;
+    //     // console.log('*************111111111**************************');
+    //     // console.log(sortby);
+    //     // //console.log(typeof sortby);
+    //     // console.log(doc);
+    //     // //db.close();
+    //     if (!err){
+    //         res.send({ success: true, campaigns: doc });
+    //         console.log(doc);
+    //     } else {
+    //         res.send({ success: false, error: err });
+    //     }
+    // });
 
 });
 
