@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
   { path: 'how-it-works', component: HowItWorksComponent },
-  
+
   // administrator
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },
   { path: 'admin/campaigns', component: AdminCampaignsComponent, canActivate: [AuthGuard] },
@@ -48,7 +48,7 @@ const routes: Routes = [
   { path: 'mod', component: ModDashboardComponent, canActivate: [AuthGuard] },
   { path: 'mod/campaigns', component: ModCampaignsComponent, canActivate: [AuthGuard] },
   { path: 'mod/users', component: ModUsersComponent, canActivate: [AuthGuard] },
-  
+
   // other
   { path: 'chart', component: MychartComponent },
   { path: 'page-not-found', component: PageNotFoundComponent },

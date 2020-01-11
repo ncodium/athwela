@@ -41,8 +41,7 @@ export class CampaignsComponent implements OnInit {
       this.campaignService.getPublishedCampaigns().subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
       });
-    }
-    else {
+    } else {
       this.campaignService.getCategoryCampaign(category).subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
       });
