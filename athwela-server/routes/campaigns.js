@@ -147,7 +147,6 @@ router.get('/categories/:category', (req, res) => {
 // Sort campaigns
 router.get('/sort/:sort', (req,res) => {
    
-
     //if (err) throw err;
    // var dbo = db.db("mydb");
     var sortby = req.params.sort; // front click sort get to sortby variable
@@ -155,10 +154,11 @@ router.get('/sort/:sort', (req,res) => {
     //var mysort = { sortby: -1 };
     console.log(sortby);
     console.log(sortTo);
+    
+    // sort by date
+    if(sortTo=="date") {   
 
-    if(sortTo=="date") {
-
-        Campaign.find().sort({ deadline: -1 }).exec((err,doc) => {
+        Campaign.find().sort({ "deadline": -1 }).exec((err,doc) => {
           if (!err){
               res.send({ success: true, campaigns: doc });
               console.log('ffffffffffffffff');
@@ -169,7 +169,8 @@ router.get('/sort/:sort', (req,res) => {
         });
 
     } 
-
+    
+    //sort by name
     else if (sortTo=="name") {
       Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
         if (!err){
@@ -182,6 +183,7 @@ router.get('/sort/:sort', (req,res) => {
       });
     }
     
+    // sort by donations
     else if (sortTo=="donations") {
       Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
         if (!err){
@@ -194,6 +196,7 @@ router.get('/sort/:sort', (req,res) => {
       });
     }
     
+    // sort by comments
     else if (sortTo=="comments") {
       Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
         if (!err) {
@@ -201,6 +204,19 @@ router.get('/sort/:sort', (req,res) => {
           console.log(doc);
         } else {
              res.send({ success: false, error: err });
+        }
+      });
+    }
+
+    //sort by trending
+    else if (sortTo=="trending") {
+      Campaign.find().sort({ "deadline": -1 , "comments": -1 }).exec((err,doc) => {
+        if (!err){
+            res.send({ success: true, campaigns: doc });
+            console.log('ffffffffffffffff');
+            console.log(doc);
+        } else {
+            res.send({ success: false, error: err });
         }
       });
     }
