@@ -1,8 +1,11 @@
 <div class="container mt-5">
     <div class="page-header mb-5">
-        <h1 class="mb-2">
+        <h1 class="mb-2 float-left">
             Moderators
         </h1>
+        <div class="float-right">
+            <button class="btn btn-secondary">+ Add Moderator</button>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -16,14 +19,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let user of moderators" >
+                    <tr *ngFor="let user of moderators">
                         <th scope="row">1</th>
                         <td>{{user.name}} </td>
                         <td>{{user.email}} </td>
                         <td>{{user.username}}</td>
                     </tr>
-
-
                 </tbody>
             </table>
         </div>
