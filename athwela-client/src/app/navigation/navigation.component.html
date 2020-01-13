@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand font-weight-bold" routerLink="/">Athwela</a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <!-- 
+            <!--
             <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                 <a class="nav-link" alt="search" href="#" [routerLink]="['/']">
                     <fa-icon [icon]="['fas', 'search']"></fa-icon>
@@ -43,9 +43,9 @@
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/admin/users']">Users</a>
                         </li>
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                        <!-- <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/admin/moderators']">Moderators</a>
-                        </li>
+                        </li> -->
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/admin']">Dashboard</a>
                         </li>
@@ -98,6 +98,12 @@
                             Sign out
                         </a>
                     </li>
+
+                    <!-- Search form -->
+                    <li class="nav-item ml-3">
+                      <app-search></app-search>
+                    </li>
+
                 </ng-template>
 
                 <ng-template [ngIf]="!loggedIn">
@@ -110,6 +116,10 @@
                         <a class="btn btn-secondary nav-link text-white ml-md-2 ml-xs-0" (click)="openRegisterModal()">
                             Register
                         </a>
+                    </li>
+                    <!-- Search form -->
+                    <li class="nav-item ml-3">
+                      <app-search></app-search>
                     </li>
                 </ng-template>
             </ul>

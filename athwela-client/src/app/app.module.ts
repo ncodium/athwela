@@ -62,6 +62,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FooterComponent,
     CampaignDonateComponent,
     CampaignDonationConfirmComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

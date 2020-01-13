@@ -402,6 +402,7 @@ router.delete('/:id/comment/:commentId', passport.authenticate("jwt", { session:
     });
 });
 
+
 router.delete('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.send({ success: false, msg: `No campaign exist with given Id: ${req.params.id}` });
