@@ -1,116 +1,236 @@
 <div class="container mt-5">
     <div class="page-header mb-5">
-        <h1 class="mb-2">
-            Users
-        </h1>
+        <div class="row">
+            <div class="col-md-10">
+                <h1 class="mb-2">
+                    Users
+                </h1>
+            </div>
+            <div class="col-md-2 text-right">
+                <button class="btn btn-secondary" (click)="openModal(add)">+ Add User</button>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <tabset>
-                <tab heading="All Users" id="tab1">
+            <tabset type="pills">
+                <tab heading="Users" id="tab1">
                     <div class="row mt-4">
                         <div class="col-md-12">
-                            <table class="table table-dark">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Username</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let user of users">
-                                        <th scope="row">1</th>
-                                        <td>{{user.name}} </td>
-                                        <td>{{user.email}} </td>
-                                        <td>{{user.username}}</td>
-                                    </tr>
+                            <div class="card">
+                                <table class="table card-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">E-mail address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let user of users">
+                                            <th scope="row">1</th>
+                                            <td>{{user.username}}</td>
+                                            <td>{{user.firstName}} {{user.lastName}}</td>
+                                            <td>{{user.email}} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </tab>
 
-                <tab heading="Active Users">
+                <tab heading="Moderators">
                     <div class="row mt-4">
                         <div class="col-md-12">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="card">
+                                <table class="table card-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">E-mail address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let user of moderators">
+                                            <th scope="row">1</th>
+                                            <td>{{user.username}}</td>
+                                            <td>{{user.firstName}} {{user.lastName}}</td>
+                                            <td>{{user.email}} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </tab>
-                
-                <tab heading="Blocked Users">
+
+                <tab heading="Administrators">
                     <div class="row mt-4">
                         <div class="col-md-12">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="card">
+                                <table class="table card-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Larry</td>
+                                            <td>the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </tab>
             </tabset>
-
         </div>
     </div>
 </div>
 
 <app-footer></app-footer>
+
+<ng-template #add>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Add User</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="onClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form (submit)="onRegister()" [formGroup]="registerForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input formControlName="username" type="text" class="form-control" id="inputUsername"
+                    [ngClass]="{'is-invalid': (username.touched || username.dirty) && ( username.invalid || username.errors?.usernameTaken) }">
+                <div class="invalid-feedback"
+                    *ngIf="(username.touched || username.dirty) && username.errors?.usernameTaken">
+                    <strong>{{ username.value }}</strong> is taken. Try another username.
+                </div>
+                <div class="invalid-feedback"
+                    *ngIf="(username.touched || username.dirty) && username.invalid && !username.errors?.usernameTaken">
+                    Username should be longer than 5 characters.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputEmail">E-mail address</label>
+                <input formControlName="email" type="email" class="form-control" id="inputEmail"
+                    [ngClass]="{'is-invalid': (email.touched || email.dirty) && email.invalid }">
+                <div class="invalid-feedback" *ngIf="(email.touched || email.dirty) && email.invalid">
+                    Enter a valid e-mail address.
+                </div>
+                <small id="emailHelp" class="form-text text-muted" *ngIf="!(email.touched || email.dirty)">
+                    We'll never share your email with anyone else.
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input formControlName="password" type="password" class="form-control" id="inputPassword"
+                    aria-describedby="passwordHelp"
+                    [ngClass]="{'is-invalid': (password.touched || password.dirty) && password.invalid }">
+                <div class="invalid-feedback" *ngIf="(password.touched || password.dirty) && password.invalid">
+                    Enter a password for your account.
+                </div>
+                <password-strength-meter id="passwordHelp" [enableFeedback]="true" [password]="password.value"
+                    *ngIf="(password.touched || password.dirty)">
+                </password-strength-meter>
+            </div>
+
+            <div class="form-group">
+                <input formControlName="confirmPassword" type="password" class="form-control" id="inputConfirmPassword"
+                    aria-describedby="confirmPasswordHelp"
+                    [ngClass]="{'is-invalid': (confirmPassword.touched || confirmPassword.dirty) && (confirmPassword.invalid || confirmPassword.errors?.doesNotMatch) }">
+                <div class="invalid-feedback"
+                    *ngIf="(confirmPassword.touched || confirmPassword.dirty) && (confirmPassword.invalid || confirmPassword.errors?.doesNotMatch)">
+                    Your passwords don't match. Please try again.
+                </div>
+                <small id="confirmPasswordHelp" class="form-text text-muted"
+                    *ngIf="!(confirmPassword.touched || confirmPassword.dirty)">
+                    Type in your password again for confirmation.
+                </small>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputName">First name</label>
+                    <input formControlName="firstName" type="text" class="form-control" id="inputName"
+                        [ngClass]="{'is-invalid': (firstName.touched || firstName.dirty) && firstName.invalid }">
+                    <div class="invalid-feedback" *ngIf="(firstName.touched || firstName.dirty) && firstName.invalid">
+                        Enter your first name.
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputName">Last name</label>
+                    <input formControlName="lastName" type="text" class="form-control" id="inputName"
+                        [ngClass]="{'is-invalid': (lastName.touched || lastName.dirty) && lastName.invalid }">
+                    <div class="invalid-feedback" *ngIf="(lastName.touched || lastName.dirty) && lastName.invalid">
+                        Enter your last name.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input formControlName="address" type="text" class="form-control" id="inputAddress"
+                    [ngClass]="{'is-invalid': (address.touched || address.dirty) && address.invalid }">
+                <div class="invalid-feedback" *ngIf="(address.touched || address.dirty) && address.invalid">
+                    Enter your permanent address.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputCity">City</label>
+                <input formControlName="city" type="text" class="form-control" id="inputCity"
+                    [ngClass]="{'is-invalid': (city.touched || city.dirty) && city.invalid }">
+                <div class="invalid-feedback" *ngIf="(city.touched || city.dirty) && city.invalid">
+                    Enter your city.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPhone">Phone number</label>
+                <input formControlName="phone" type="number" class="form-control" id="inputPhone"
+                    [ngClass]="{'is-invalid': (phone.touched || phone.dirty) && phone.invalid }">
+                <div class="invalid-feedback" *ngIf="(phone.touched || phone.dirty) && phone.invalid">
+                    Enter your phone number.
+                </div>
+            </div>
+
+            <div *ngIf="alert">
+                <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{ closeBtnName }}</button>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+
+</ng-template>

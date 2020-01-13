@@ -20,7 +20,7 @@
             </small>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" [hidden]="true">
             <input type="hidden" name="merchant_id" [value]="merchantId">
             <input type="hidden" name="return_url" [value]="returnUrl">
             <input type="hidden" name="cancel_url" [value]="cancelUrl">
@@ -30,12 +30,12 @@
             <input type="hidden" name="items" [value]="campaign.name"><br>
             <input type="hidden" name="currency" value="LKR">
 
-            <input type="text" name="first_name" [value]="user.firstName">
-            <input type="text" name="last_name" [value]="user.lastName"><br>
-            <input type="text" name="email" [value]="user.email">
-            <input type="text" name="phone" value="0771234567"><br>
-            <input type="text" name="address" [value]="user.address">
-            <input type="text" name="city" [value]="user.city">
+            <input type="hidden" name="first_name" [value]="user.firstName">
+            <input type="hidden" name="last_name" [value]="user.lastName"><br>
+            <input type="hidden" name="email" [value]="user.email">
+            <input type="hidden" name="phone" [value]="user.phone"><br>
+            <input type="hidden" name="address" [value]="user.address">
+            <input type="hidden" name="city" [value]="user.city">
 
             <input type="hidden" name="country" value="Sri Lanka"><br><br>
         </div>
@@ -46,6 +46,6 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{ closeBtnName }}</button>
-        <button type="submit" class="ml-2 btn btn-primary">Donate Now</button>
+        <button type="submit" class="ml-2 btn btn-primary">Donate</button>
     </div>
 </form>
