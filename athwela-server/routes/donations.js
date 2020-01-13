@@ -1,12 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-var async = require('async');
 const ObjectId = require('mongoose').Types.ObjectId;
-const appconfig = require('../config/appconfig');
 const { Campaign } = require('../models/campaign');
 const { Donation, currency } = require('../models/donation');
 const { Withdrawal } = require('../models/withdrawal');
+const appconfig = require('../config/appconfig');
 
 router.get('/', (req, res) => {
     // return all documents
@@ -54,37 +53,58 @@ router.get('/user/:id', (req, res) => {
         });
 });
 
-router.get('/to_user/:id', (req, res) => {
+router.get('/user/:id/sum', (req, res) => {
+    // needs to be optimized
+    Donation.aggregate([{
+        $match: {
+            donor: new ObjectId(req.params.id)
+        }
+    },
+    {
+        $group: {
+            _id: null,
+            amount: {
+                $sum: "$amount"
+            }
+        }
+    }], (err, doc) => {
+        if (err) throw err;
+        res.json({ amount: doc[0].amount })
+    });
+});
+
+router.get('/received/:id', (req, res) => {
     // locate user campaigns
-    Campaign.find({ owner: new ObjectId(req.params.id) }, (err, campaigns) => {
+    Campaign.find({ owner: new ObjectId(req.params.id) }).exec((err, campaigns) => {
         if (err) throw err;
         const campaigns_id = campaigns.map((campaign) => {
             return mongoose.Types.ObjectId(campaign._id)
         });
 
-        Donation.find({ campaign: campaigns_id }, (err, donations) => {
-            if (err) throw err;
-            // calculate total amount
-            donations_id = donations.map((d) => { return mongoose.Types.ObjectId(d._id) });
-            Donation.aggregate([{
-                $match: {
-                    _id: { "$in": donations_id }
-                }
-            },
-            {
-                $group: {
-                    _id: null,
-                    amount: {
-                        $sum: "$amount"
-                    }
-                }
-            }], (err, doc) => {
+        Donation.find({ campaign: campaigns_id })
+            .populate('campaign', '-comments -donations')
+            .exec((err, donations) => {
                 if (err) throw err;
-                res.json({ donations: donations, amount: doc[0].amount })
+                // calculate total amount
+                donations_id = donations.map((d) => { return mongoose.Types.ObjectId(d._id) });
+                Donation.aggregate([{
+                    $match: {
+                        _id: { "$in": donations_id }
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        amount: {
+                            $sum: "$amount"
+                        }
+                    }
+                }], (err, doc) => {
+                    if (err) throw err;
+                    res.json({ donations: donations, amount: doc[0].amount })
+                });
             });
-        });
-    })
-
+    });
 });
 
 router.post('/:campaign_id/:user_id', (req, res) => {

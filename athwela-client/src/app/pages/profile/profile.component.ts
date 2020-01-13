@@ -33,8 +33,14 @@ export class ProfileComponent implements OnInit {
 
   campaigns: Campaign[];
   donations: Donation[];
+  donationsSum: number = 0;
+  receivedDonations: Donation[];
+  receivedDonationsSum: number = 0;
+  receivedDonationsNotWithdrawen: Donation[];
+  receivedDonationsNotWithdrawenSum: number = 0;
 
   updateForm: FormGroup;
+  withdrawForm: FormGroup;
   alert: any;
 
   constructor(
@@ -86,6 +92,8 @@ export class ProfileComponent implements OnInit {
 
             this.getUserCampaigns(this.user._id);
             this.getUserDonations(this.user._id);
+            this.getUserDonationsSum(this.user._id);
+            this.getUserReceivedDonations(this.user._id);
           })
         }
         else {
@@ -96,6 +104,8 @@ export class ProfileComponent implements OnInit {
 
           this.getUserCampaigns(this.user._id);
           this.getUserDonations(this.user._id);
+          this.getUserDonationsSum(this.user._id);
+          this.getUserReceivedDonations(this.user._id);
         }
       }
       else {
@@ -143,6 +153,19 @@ export class ProfileComponent implements OnInit {
     },
       { validator: ConfirmPasswordValidator.matchPassword }
     );
+
+    this.withdrawForm = this.formBuilder.group({
+      payee: ['', [
+        Validators.required
+      ]],
+      bankName: ['', [
+        Validators.required
+      ]],
+      bankAccount: ['', [
+        Validators.required
+      ]],
+      donations: [this.receivedDonationsNotWithdrawen]
+    });
   }
 
   getUserCampaigns(id: string) {
@@ -157,7 +180,23 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  openSettings(template: TemplateRef<any>) {
+  getUserReceivedDonations(id: string) {
+    this.donationService.getUserReceivedDonations(id).subscribe((res) => {
+      this.receivedDonations = res['donations'] as Donation[];
+      this.receivedDonationsSum = res['amount'] as number;
+
+      console.log(this.receivedDonationsSum);
+      console.log(this.receivedDonations);
+    });
+  }
+
+  getUserDonationsSum(id: string) {
+    this.donationService.getUserDonationsSum(id).subscribe((res) => {
+      this.donationsSum = res['amount'] as number;
+    });
+  }
+
+  openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
 
