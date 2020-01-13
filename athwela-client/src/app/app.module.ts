@@ -34,6 +34,7 @@ import { ModCampaignsComponent } from './pages/mod-campaigns/mod-campaigns.compo
 import { ModUsersComponent } from './pages/mod-users/mod-users.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { SearchComponent } from './search/search.component';
 
 // services
 import { AuthService } from './services/auth.service';
@@ -62,6 +63,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
+
 
 @NgModule({
   declarations: [
@@ -94,6 +96,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FooterComponent,
     CampaignDonateComponent,
     CampaignDonationConfirmComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
