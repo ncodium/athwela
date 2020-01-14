@@ -16,16 +16,16 @@ export class CampaignService {
     private authService: AuthService
   ) { }
 
-  getCampaign(id: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/' + id) }
-  getCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/') }
-  getRecentCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/recent') }
-  getPublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/published') }
-  getUnpublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unpublished') }
-  getVerifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/verified') }
-  getUnverifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified') }
-  getCategories() { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories') }
-  getCategoryCampaign(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category) }
-  getSortCampaign(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns//sort/' + currentSort) }
+  getCampaign(id: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/' + id); }
+  getCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/'); }
+  getRecentCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/recent'); }
+  getPublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/published'); }
+  getUnpublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unpublished'); }
+  getVerifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/verified'); }
+  getUnverifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified'); }
+  getCategories() { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories'); }
+  getCategoryCampaign(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category); }
+  getSortCampaign(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort); }
 
   publishCampaign(id: string) {
     this.authService.loadToken();
