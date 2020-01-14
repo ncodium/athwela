@@ -4,12 +4,6 @@ const passport = require('passport');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { Campaign } = require('../models/campaign');
 
-//defining chart
-
-var approvedrequests;
-var declinedrequests;
-var pendingrequest;
-
 router.get('/', (req, res) => {
     Campaign.find((err, docs) => {
         if (!err)
@@ -17,32 +11,22 @@ router.get('/', (req, res) => {
         else
             res.json({ success: false, error: err })
     });
-
 });
-//get total requests
+
+// total count
 router.get('/count', (req, res) => {
-    Campaign.countDocuments({},(err,count)=>{
-        res.json({count:count})
+    Campaign.countDocuments({}, (err, count) => {
+        res.json({ count: count })
     })
-
 });
 
-//get approved requests
+// approved count
 router.get('/approvedcount', (req, res) => {
-    Campaign.find({published: 'true'}).countDocuments({},(err,count)=>{
-        res.json({count:count})
+    Campaign.find({ published: 'true' }).countDocuments({}, (err, count) => {
+        res.json({ count: count })
     })
 
 });
-
-// router.get('/count',async(req,res)=>{
-//     try{
-//         const c=await Campaign.find().countDocuments();
-//         res.json(c);
-//     }catch{
-//         res.json({message:error});
-//     }
-// });
 
 router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
     const cmp = new Campaign({
@@ -144,85 +128,80 @@ router.get('/categories/:category', (req, res) => {
     });
 });
 
-// Sort campaigns
-router.get('/sort/:sort', (req,res) => {
-   
-    //if (err) throw err;
-   // var dbo = db.db("mydb");
+// sort campaigns
+router.get('/sort/:sort', (req, res) => {
+    // var dbo = db.db("mydb");
     var sortby = req.params.sort; // front click sort get to sortby variable
     var sortTo = sortby.toLowerCase();  // convert to lowercase
     //var mysort = { sortby: -1 };
     console.log(sortby);
     console.log(sortTo);
-    
+
     // sort by date
-    if(sortTo=="date") {   
-
-        Campaign.find().sort({ "deadline": -1 }).exec((err,doc) => {
-          if (!err){
-              res.send({ success: true, campaigns: doc });
-              console.log('ffffffffffffffff');
-              console.log(doc);
-          } else {
-              res.send({ success: false, error: err });
-          }
+    if (sortTo == "date") {
+        Campaign.find().sort({ "deadline": -1 }).exec((err, doc) => {
+            if (!err) {
+                res.send({ success: true, campaigns: doc });
+                console.log(doc);
+            } else {
+                res.send({ success: false, error: err });
+            }
         });
-
-    } 
-    
-    //sort by name
-    else if (sortTo=="name") {
-      Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
-        if (!err){
-            res.send({ success: true, campaigns: doc });
-            console.log('ffffffffffffffff');
-            console.log(doc);
-        } else {
-            res.send({ success: false, error: err });
-        }
-      });
     }
-    
+
+    // sort by name
+    else if (sortTo == "name") {
+        Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
+            if (!err) {
+                res.send({ success: true, campaigns: doc });
+                console.log('ffffffffffffffff');
+                console.log(doc);
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
+    }
+
     // sort by donations
-    else if (sortTo=="donations") {
-      Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
-        if (!err){
-            res.send({ success: true, campaigns: doc });
-            console.log('ffffffffffffffff');
-            console.log(doc);
-        } else {
-            res.send({ success: false, error: err });
-        }
-      });
-    }
-    
-    // sort by comments
-    else if (sortTo=="comments") {
-      Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
-        if (!err) {
-          res.send({ success: true, campaigns: doc });
-          console.log(doc);
-        } else {
-             res.send({ success: false, error: err });
-        }
-      });
+    else if (sortTo == "donations") {
+        Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
+            if (!err) {
+                res.send({ success: true, campaigns: doc });
+                console.log('ffffffffffffffff');
+                console.log(doc);
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
     }
 
-    //sort by trending
-    else if (sortTo=="trending") {
-      Campaign.find().sort({ "deadline": -1 , "comments": -1 }).exec((err,doc) => {
-        if (!err){
-            res.send({ success: true, campaigns: doc });
-            console.log('ffffffffffffffff');
-            console.log(doc);
-        } else {
-            res.send({ success: false, error: err });
-        }
-      });
+    // sort by comments
+    else if (sortTo == "comments") {
+        Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
+            if (!err) {
+                res.send({ success: true, campaigns: doc });
+                console.log(doc);
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
+    }
+
+    // sort by trending
+    else if (sortTo == "trending") {
+        Campaign.find().sort({ "deadline": -1, "comments": -1 }).exec((err, doc) => {
+            if (!err) {
+                res.send({ success: true, campaigns: doc });
+                console.log('ffffffffffffffff');
+                console.log(doc);
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
     }
 
     else {
-      console.log('Else');
+        console.log('Else');
     }
     // Campaign.find().sort({ [sortTO]: -1 }).exec((err,doc) => {
     //     // if (err) throw err;
@@ -238,7 +217,6 @@ router.get('/sort/:sort', (req,res) => {
     //         res.send({ success: false, error: err });
     //     }
     // });
-
 });
 
 router.get('/user', passport.authenticate("jwt", { session: false }), (req, res) => {

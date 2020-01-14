@@ -1,9 +1,11 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
-const appconfig = require('../config/appconfig');
 const { Campaign } = require('../models/campaign');
-const { Donation, donationSchema } = require('../models/donation');
+const { Donation, currency } = require('../models/donation');
+const { Withdrawal } = require('../models/withdrawal');
+const appconfig = require('../config/appconfig');
 
 router.get('/', (req, res) => {
     // return all documents
@@ -30,11 +32,79 @@ router.get('/user/:id', (req, res) => {
     Donation.find({ donor: req.params.id })
         .populate('campaign', '-donations')
         .exec(function (err, docs) {
-            if (!err)
-                res.send({ success: true, donations: docs });
-            else
-                res.send({ success: false, error: err });
+            if (err) throw err;
+            donations_id = docs.map((d) => { return mongoose.Types.ObjectId(d._id) });
+            Donation.aggregate([{
+                $match: {
+                    _id: { "$in": donations_id }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    amount: {
+                        $sum: "$amount"
+                    }
+                }
+            }], (err, doc) => {
+                if (err) throw err;
+                res.json({ donations: docs, amount: doc[0].amount })
+            });
         });
+});
+
+router.get('/user/:id/sum', (req, res) => {
+    // needs to be optimized
+    Donation.aggregate([{
+        $match: {
+            donor: new ObjectId(req.params.id)
+        }
+    },
+    {
+        $group: {
+            _id: null,
+            amount: {
+                $sum: "$amount"
+            }
+        }
+    }], (err, doc) => {
+        if (err) throw err;
+        res.json({ amount: doc[0].amount })
+    });
+});
+
+router.get('/received/:id', (req, res) => {
+    // locate user campaigns
+    Campaign.find({ owner: new ObjectId(req.params.id) }).exec((err, campaigns) => {
+        if (err) throw err;
+        const campaigns_id = campaigns.map((campaign) => {
+            return mongoose.Types.ObjectId(campaign._id)
+        });
+
+        Donation.find({ campaign: campaigns_id })
+            .populate('campaign', '-comments -donations')
+            .exec((err, donations) => {
+                if (err) throw err;
+                // calculate total amount
+                donations_id = donations.map((d) => { return mongoose.Types.ObjectId(d._id) });
+                Donation.aggregate([{
+                    $match: {
+                        _id: { "$in": donations_id }
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        amount: {
+                            $sum: "$amount"
+                        }
+                    }
+                }], (err, doc) => {
+                    if (err) throw err;
+                    res.json({ donations: donations, amount: doc[0].amount })
+                });
+            });
+    });
 });
 
 router.post('/:campaign_id/:user_id', (req, res) => {
@@ -110,6 +180,49 @@ router.post('/:campaign_id/:user_id', (req, res) => {
 
         }
     });
+})
+
+router.post('/withdraw', (req, res) => {
+    // acquire donation ids
+    const donations = req.body.donations;
+    // other details
+    const bank_account = req.body.bank_account;
+    const bank_name = req.body.bank_name;
+    const payee_name = req.body.payee_name;
+
+    Donation.updateMany({ _id: donations }, { $set: { withdrew: true } },
+        (err, doc) => {
+            if (err) throw err;
+            donations_id = donations.map((id) => { return mongoose.Types.ObjectId(id) });
+            Donation.aggregate([{
+                $match: {
+                    _id: { "$in": donations_id }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    amount: {
+                        $sum: "$amount"
+                    }
+                }
+            }], (err, doc) => {
+                if (err) throw err;
+                const withdrawal = new Withdrawal({
+                    amount: doc[0].amount,
+                    currency: currency,
+                    donations: donations_id,
+                    bank_name: bank_name,
+                    bank_account: bank_account,
+                    payee_name: payee_name
+                });
+
+                withdrawal.save((err, doc) => {
+                    if (err) throw err;
+                    res.json(doc);
+                })
+            });
+        });
 })
 
 module.exports = router;

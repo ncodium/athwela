@@ -15,10 +15,18 @@ export class DonationService {
   }
 
   getDonation(id: String) {
-    return this.http.get(AppConfig.BASE_URL + 'donations/' + id)
+    return this.http.get(AppConfig.BASE_URL + 'donations/' + id);
   }
 
   getUserDonations(id: String) {
-    return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id)
+    return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id);
+  }
+
+  getUserDonationsSum(id: String) {
+    return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id + '/sum');
+  }
+
+  getUserReceivedDonations(id: String) {
+    return this.http.get(AppConfig.BASE_URL + 'donations/received/' + id);
   }
 }
