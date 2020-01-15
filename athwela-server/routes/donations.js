@@ -48,7 +48,7 @@ router.get('/user/:id', (req, res) => {
                 }
             }], (err, doc) => {
                 if (err) throw err;
-                res.json({ donations: docs, amount: doc[0].amount })
+                res.json({ donations: docs, amount: 5 })
             });
         });
 });
@@ -69,7 +69,7 @@ router.get('/user/:id/sum', (req, res) => {
         }
     }], (err, doc) => {
         if (err) throw err;
-        res.json({ amount: doc[0].amount })
+        res.json({ amount:0 })
     });
 });
 

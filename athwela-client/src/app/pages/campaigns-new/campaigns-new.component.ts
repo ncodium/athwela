@@ -20,11 +20,11 @@ export class NewCampaignComponent implements OnInit {
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   campaignForm: FormGroup;
   submitted = false;
-  
+
   uploader: FileUploader;
   dropZone: boolean;
   response: string;
-  
+
   id: string;
   avatar: string;
 
@@ -44,12 +44,12 @@ export class NewCampaignComponent implements OnInit {
     private http: HttpClientModule,
     private fb: FormBuilder
   ) {
-    this.uploader  = new FileUploader({
+    this.uploader = new FileUploader({
       url: AppConfig.BASE_URL + 'upload/all',
       disableMultipart: true,
       formatDataFunctionIsAsync: true,
       formatDataFunction: async (item) => {
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
           resolve({
             name: item._file.name,
             length: item._file.name,
@@ -60,10 +60,17 @@ export class NewCampaignComponent implements OnInit {
       }
     });
 
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = false;
+    }
+
     this.dropZone = false;
     this.response = '';
 
-    this.uploader.response.subscribe(res => this.response = res );
+    this.uploader.response.subscribe(res => {
+      this.response = res;
+      console.log(res);
+    });
   }
 
   public fileOverDropZone(e: any): void {

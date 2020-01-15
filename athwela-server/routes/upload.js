@@ -35,10 +35,8 @@ router.post('/', upload.single('photo'), (req, res) => {
     }
 })
 
-router.post('/all/', upload.array('photos'),(req, res) => {
-
+router.post('/all/', upload.array('photos'), (req, res) => {
     console.log(req.files);
-
     if (!req.files) {
         return res.send({
             success: false
