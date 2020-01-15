@@ -19,6 +19,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// `${appconfig.public}/documents`
+
 router.post('/', upload.single('photo'), (req, res) => {
     if (!req.file) {
         return res.send({
@@ -29,6 +31,21 @@ router.post('/', upload.single('photo'), (req, res) => {
         return res.send({
             success: true,
             path: req.file.path
+        })
+    }
+})
+
+router.post('/all/', upload.array('photos'), (req, res) => {
+    console.log(req.files);
+    if (!req.files) {
+        return res.send({
+            success: false
+        });
+    } else {
+        console.log("File uploaded at: " + req.files.path);
+        return res.send({
+            success: true,
+            path: req.files.path
         })
     }
 })
