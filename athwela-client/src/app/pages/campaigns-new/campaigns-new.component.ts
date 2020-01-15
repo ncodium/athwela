@@ -20,11 +20,11 @@ export class NewCampaignComponent implements OnInit {
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   campaignForm: FormGroup;
   submitted = false;
-  
+
   uploader: FileUploader;
   dropZone: boolean;
   response: string;
-  
+
   id: string;
   avatar: string;
 
@@ -44,18 +44,12 @@ export class NewCampaignComponent implements OnInit {
     private http: HttpClientModule,
     private fb: FormBuilder
   ) {
-    // this.uploader = new FileUploader({
-    //   url: AppConfig.BASE_URL + 'upload',
-    //   itemAlias: 'photo',
-    //   maxFileSize: 5 * 1024 * 1024,
-    //   allowedMimeType: ['image/png', 'image/jpeg']
-    // });
-    this.uploader  = new FileUploader({
-      url: AppConfig.BASE_URL + 'upload',
+    this.uploader = new FileUploader({
+      url: AppConfig.BASE_URL + 'upload/all',
       disableMultipart: true,
       formatDataFunctionIsAsync: true,
       formatDataFunction: async (item) => {
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
           resolve({
             name: item._file.name,
             length: item._file.name,
@@ -66,10 +60,17 @@ export class NewCampaignComponent implements OnInit {
       }
     });
 
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = false;
+    }
+
     this.dropZone = false;
     this.response = '';
 
-    this.uploader.response.subscribe(res => this.response = res );
+    this.uploader.response.subscribe(res => {
+      this.response = res;
+      console.log(res);
+    });
   }
 
   public fileOverDropZone(e: any): void {
@@ -77,17 +78,6 @@ export class NewCampaignComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    // this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-    //   this.response = JSON.parse(response);
-    //   alert('File uploades successfully!');
-    //   this.avatar = AppConfig.BASE_URL + this.response.path;
-    // };
-    // this.uploader.onWhenAddingFileFailed = (item: any, response: any, options: any) => {
-    //   alert('You cannot upload this file!\nPlease choose a picture with PNG of JPEG formats with size less than 5MB');
-    // }
-    
-
     this.campaignForm = this.fb.group({
       name: ['', Validators.required],
       target: ['', Validators.required],

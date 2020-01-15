@@ -48,7 +48,11 @@ router.get('/user/:id/donated', (req, res) => {
                 }
             }], (err, doc) => {
                 if (err) throw err;
+<<<<<<< HEAD
                 res.json({ donations: docs, amount: doc[0] ? doc[0].amount : 0 })
+=======
+                res.json({ donations: docs, amount: 5 })
+>>>>>>> e7d562630d6229ce2fce904c989391990255e807
             });
         });
 });
@@ -69,7 +73,11 @@ router.get('/user/:id/donated/sum', (req, res) => {
         }
     }], (err, doc) => {
         if (err) throw err;
+<<<<<<< HEAD
         res.json({ amount: doc[0] ? doc[0].amount : 0 })
+=======
+        res.json({ amount:0 })
+>>>>>>> e7d562630d6229ce2fce904c989391990255e807
     });
 });
 
