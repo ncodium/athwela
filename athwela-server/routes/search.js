@@ -9,7 +9,10 @@ router.get('/search/:search', (req, res) => {
     var searchTo = searchby.toLowerCase();  // convert to lowercase
     console.log(searchby);
     console.log(searchTo);
-    res.send("Fuck");
+    res.send("search**");
+    // if(searchTo=="donation") {
+    //     res.send(http://localhost:4200/campaigns);
+    // }
 
 });
 
