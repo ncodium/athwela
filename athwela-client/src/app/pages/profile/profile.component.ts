@@ -42,6 +42,7 @@ export class ProfileComponent implements OnInit {
   updateForm: FormGroup;
   withdrawForm: FormGroup;
   alert: any;
+  withdrawAlert: any;
 
   constructor(
     private router: Router,
@@ -164,7 +165,8 @@ export class ProfileComponent implements OnInit {
       ]],
       bankAccount: ['', [
         Validators.required
-      ]]
+      ]],
+      donationIds: ['']
     });
   }
 
@@ -197,7 +199,20 @@ export class ProfileComponent implements OnInit {
     this.donationService.getUserReceivedDonationsNotWithdrawen(id).subscribe((res) => {
       this.notWithdrawenDonations = res['donations'] as Donation[];
       this.notWithdrawenDonationsSum = res['amount'] as number;
-      console.log(res);
+
+      this.donationIds.setValue(
+        this.notWithdrawenDonations.map((d) => { return d._id })
+      );
+
+      if (this.notWithdrawenDonationsSum < AppConfig.MINIMUM_WITHDRAW) {
+        this.withdrawForm.disable();
+        this.withdrawAlert = {
+          msg: "You can't withdraw because your remaining balance is less than minimum allowed amount.",
+          type: 'danger'
+        }
+      }
+
+      console.log(this.donationIds.value);
     });
   }
 
@@ -235,6 +250,35 @@ export class ProfileComponent implements OnInit {
       }
       else {
         this.alert = {
+          type: 'danger',
+          msg: res['msg']
+        }
+      }
+    })
+  }
+
+  onWithdraw() {
+    const withdrawal = {
+      donations: this.donationIds.value,
+      bank_account: this.bankAccount.value,
+      bank_name: this.bankName.value,
+      payee_name: this.payee.value,
+      owner: this._user._id
+    }
+
+    this.donationService.withdraw(withdrawal).subscribe((res) => {
+      if (res['success']) {
+        console.log(res);
+        this.getUserReceivedDonationsNotWithdrawen(this.user._id);
+
+        // feedback
+        this.withdrawAlert = {
+          type: 'success',
+          msg: 'Your request has been sent. Once it is verified funds will be transferred to your account.'
+        }
+      }
+      else {
+        this.withdrawAlert = {
           type: 'danger',
           msg: res['msg']
         }
@@ -289,4 +333,9 @@ export class ProfileComponent implements OnInit {
   get bankAccount() {
     return this.withdrawForm.get('bankAccount');
   }
+
+  get donationIds() {
+    return this.withdrawForm.get('donationIds');
+  }
+
 }

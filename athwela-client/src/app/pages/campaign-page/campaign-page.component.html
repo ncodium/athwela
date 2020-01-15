@@ -38,7 +38,7 @@
                         </progressbar>
                         <div class="mt-2 mb-4 text-muted"
                             *ngIf="campaign?.verified || campaign?.published; else not_verified">
-                            Rs. {{ campaign?.raised }} raised of Rs. {{ campaign?.target }}
+                            {{ campaign?.raised | currency:'Rs. ' }} raised of {{ campaign?.target | currency:'Rs. ' }}
                         </div>
                         <ng-template #not_verified>
                             <h5>Pending</h5>
@@ -66,7 +66,7 @@
                         <h3 class="mt-1 mb-2">
                             Success!
                         </h3>
-                        <p>Raised Rs. {{ campaign?.raised }}</p>
+                        <p>Raised {{ campaign?.raised | currency:'Rs. ' }}</p>
 
                     </div>
                 </ng-template>
@@ -81,7 +81,7 @@
                         </progressbar>
                         <div class="mt-2 mb-4 text-muted"
                             *ngIf="campaign?.verified || campaign?.published; else not_verified">
-                            Rs. {{ campaign?.raised }} raised of Rs. {{ campaign?.target }}
+                            {{ campaign?.raised | currency:'Rs. ' }} raised of {{ campaign?.target | currency:'Rs. ' }}
                         </div>
                         <ng-template #not_verified>
                             <h5>Pending</h5>
@@ -109,7 +109,7 @@
                         <h3 class="mt-1 mb-2">
                             Success!
                         </h3>
-                        <p>Raised Rs. {{ campaign?.raised }}</p>
+                        <p>Raised {{ campaign?.raised | currency:'Rs. ' }}</p>
 
                     </div>
                 </ng-template>
@@ -118,7 +118,7 @@
             <!-- Moderator -->
             <div class="card shadow" *ngIf="isMod">
                 <div class="card-body">
-                    <h4 class="card-title">Rs. {{ campaign?.target }}</h4>
+                    <h4 class="card-title">{{ campaign?.target | currency:'Rs. ' }}</h4>
                     <div *ngIf="!campaign?.verified">
                         <div class="card-text mt-2 text-muted">
                             This campaign is pending verification from a moderator.
@@ -139,7 +139,7 @@
             <!--Admin-->
             <div class="card shadow" *ngIf="isAdmin">
                 <div class="card-body">
-                    <h4 class="card-title">Rs. {{ campaign?.target }}</h4>
+                    <h4 class="card-title">{{ campaign?.target | currency:'Rs. ' }}</h4>
                     <div class="card-text mt-2 text-muted">
                         <div *ngIf="!campaign?.verified">
                             This campaign is pending verification from a moderator.
@@ -176,11 +176,11 @@
                             <h6 class="my-0">{{ donation.donor.name }}</h6>
                             <small class="text-muted">{{ donation.donor.username }}</small>
                         </div>
-                        <span class="text-muted">Rs. {{ donation.amount }}</span>
+                        <span class="text-muted">{{ donation.amount | currency:'Rs. ' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total (LKR)</span>
-                        <strong>RS. {{ campaign?.raised }}</strong>
+                        <strong>{{ campaign?.raised | currency:'Rs. ' }}</strong>
                     </li>
                 </ul>
                 <ng-template #noDonations>

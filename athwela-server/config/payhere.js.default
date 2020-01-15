@@ -1,3 +1,4 @@
 module.exports = {
-    payhere_secret: ''
+    payhere_secret: '0',
+    minimum_withdraw: 10000 // LKR
 }

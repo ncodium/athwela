@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './auth.service';
 import { AppConfig } from '../config/app-config';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { AppConfig } from '../config/app-config';
 export class DonationService {
   constructor(
     private http: HttpClient,
+    private authService: AuthService
   ) { }
 
   getDonations() {
@@ -32,5 +34,16 @@ export class DonationService {
 
   getUserReceivedDonationsNotWithdrawen(id: String) {
     return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id + '/not_withdrawen');
+  }
+
+  withdraw(withdrawal) {
+    this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
+      })
+    };
+
+    return this.http.post(AppConfig.BASE_URL + 'donations/withdraw', withdrawal, httpOptions);
   }
 }

@@ -21,10 +21,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <h3 class="mb-3 mt-4 mt-md-0">Campaigns</h3>
-                    <h6 class="mb-3 mt-2 mt-md-0">Rs. {{ receivedDonationsSum }}</h6>
+                    <h6 class="mb-3 mt-2 mt-md-0">{{ receivedDonationsSum | currency:'Rs. ' }}
+                        ({{ notWithdrawenDonationsSum | currency:'Rs. ' }} available)</h6>
                 </div>
                 <div class="col-md-6 text-right">
-                    <button class="btn btn-outline-secondary" (click)="openModal(withdraw)">
+                    <button class="btn btn-outline-primary" (click)="openModal(withdraw)">
                         Previous Withdrawals
                     </button>
                     <button class="ml-2 btn btn-secondary" (click)="openModal(withdraw)">Withdraw</button>
@@ -50,7 +51,7 @@
             </div>
 
             <h3 class="mb-3 mt-4">Donations</h3>
-            <h6 class="mb-3 mt-2">Rs. {{ donationsSum }}</h6>
+            <h6 class="mb-3 mt-2">{{ donationsSum | currency:'Rs. ' }}</h6>
             <div class="row mb-2 mt-4">
                 <div class="col-md-12" *ngIf="donations?.length">
                     <div class="card shadow-sm">
@@ -253,22 +254,24 @@
                 </div>
             </div>
 
-            <div *ngIf="alert">
-                <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
-            </div>
 
             <div class="card card-outline-dark text-dark shadow-sm mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Rs. {{ notWithdrawenDonationsSum }}</h5>
+                    <h5 class="card-title">{{ notWithdrawenDonationsSum | currency:'Rs. ' }}</h5>
                     Withdrawable Amount
                 </div>
+            </div>
+
+            <div *ngIf="withdrawAlert">
+                <alert [type]="withdrawAlert.type"><span [innerHtml]="withdrawAlert.msg"></span></alert>
             </div>
         </form>
     </div>
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="onClose()">Close</button>
-        <button type="submit" class="btn btn-secondary">Request</button>
+        <button type="submit" class="btn btn-secondary" (click)="onWithdraw()"
+            [disabled]="withdrawForm.disabled">Request</button>
     </div>
 
 </ng-template>
