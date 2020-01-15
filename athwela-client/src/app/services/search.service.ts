@@ -17,6 +17,6 @@ export class SearchService {
     private authService: AuthService
   ) { }
 
-  getSearch(search: string) { console.log(`fuck ${search}`); return this.http.get(AppConfig.BASE_URL + 'search/search/' + search); }
+  getSearch(search: string) { return this.http.get(AppConfig.BASE_URL + 'search/search/' + search); }
 
 }
