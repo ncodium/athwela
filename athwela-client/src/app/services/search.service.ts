@@ -9,11 +9,14 @@ import { AppConfig } from '../config/app-config';
 })
 export class SearchService {
 
+  selectedCampaign: Campaign;
+  campaigns: Campaign[];
+
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) { }
 
-  getSearch(search: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns//sort/' + search); }
+  getSearch(search: string) { return this.http.get(AppConfig.BASE_URL + 'search/' + search); }
 
 }
