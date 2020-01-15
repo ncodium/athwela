@@ -257,7 +257,7 @@
                 <alert [type]="withdrawAlert.type"><span [innerHtml]="withdrawAlert.msg"></span></alert>
             </div>
 
-            <div class="card card-outline-dark text-dark shadow-sm mb-3">
+            <div class="card card-outline-dark text-dark shadow-sm mb-3" *ngIf="!withdrawForm.disabled">
                 <div class="card-body">
                     <h5 class="card-title">Rs. {{ notWithdrawenDonationsSum }}</h5>
                     Withdrawable Amount
@@ -268,7 +268,8 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="onClose()">Close</button>
-        <button type="submit" class="btn btn-secondary" (click)="onWithdraw()">Request</button>
+        <button type="submit" class="btn btn-secondary" (click)="onWithdraw()"
+            [disabled]="withdrawForm.disabled">Request</button>
     </div>
 
 </ng-template>
