@@ -44,14 +44,8 @@ export class NewCampaignComponent implements OnInit {
     private http: HttpClientModule,
     private fb: FormBuilder
   ) {
-    // this.uploader = new FileUploader({
-    //   url: AppConfig.BASE_URL + 'upload',
-    //   itemAlias: 'photo',
-    //   maxFileSize: 5 * 1024 * 1024,
-    //   allowedMimeType: ['image/png', 'image/jpeg']
-    // });
     this.uploader  = new FileUploader({
-      url: AppConfig.BASE_URL + 'upload',
+      url: AppConfig.BASE_URL + 'upload/all',
       disableMultipart: true,
       formatDataFunctionIsAsync: true,
       formatDataFunction: async (item) => {
@@ -77,17 +71,6 @@ export class NewCampaignComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    // this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-    //   this.response = JSON.parse(response);
-    //   alert('File uploades successfully!');
-    //   this.avatar = AppConfig.BASE_URL + this.response.path;
-    // };
-    // this.uploader.onWhenAddingFileFailed = (item: any, response: any, options: any) => {
-    //   alert('You cannot upload this file!\nPlease choose a picture with PNG of JPEG formats with size less than 5MB');
-    // }
-    
-
     this.campaignForm = this.fb.group({
       name: ['', Validators.required],
       target: ['', Validators.required],
