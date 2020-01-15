@@ -18,6 +18,10 @@
 
         <div class="collapse navbar-collapse" id="navbarResponsive" [collapse]="isCollapsed" [isAnimated]="true">
             <ul class="navbar-nav ml-auto">
+                <!-- Search form -->
+                <li class="nav-item text-center mr-2">
+                  <app-search></app-search>
+                </li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link btn btn-default" href [routerLink]="['']">Home</a>
                 </li>
@@ -98,12 +102,6 @@
                             Sign out
                         </a>
                     </li>
-
-                    <!-- Search form -->
-                    <li class="nav-item ml-3">
-                      <app-search></app-search>
-                    </li>
-
                 </ng-template>
 
                 <ng-template [ngIf]="!loggedIn">
@@ -116,10 +114,6 @@
                         <a class="btn btn-secondary nav-link text-white ml-md-2 ml-xs-0" (click)="openRegisterModal()">
                             Register
                         </a>
-                    </li>
-                    <!-- Search form -->
-                    <li class="nav-item ml-3">
-                      <app-search></app-search>
                     </li>
                 </ng-template>
             </ul>
