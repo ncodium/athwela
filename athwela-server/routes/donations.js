@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
         if (!err)
             res.json({ donations: docs, success: true });
         else
-            res.json({ success: false, error: err })
+            res.json({ success: false, error: err });
     });
 });
 
@@ -48,7 +48,7 @@ router.get('/user/:id/donated', (req, res) => {
                 }
             }], (err, doc) => {
                 if (err) throw err;
-                res.json({ donations: docs, amount: doc[0] ? doc[0].amount : 0 })
+                res.json({ donations: docs, amount: doc[0] ? doc[0].amount : 0 });
             });
         });
 });
@@ -69,7 +69,7 @@ router.get('/user/:id/donated/sum', (req, res) => {
         }
     }], (err, doc) => {
         if (err) throw err;
-        res.json({ amount: doc[0] ? doc[0].amount : 0 })
+        res.json({ amount: doc[0] ? doc[0].amount : 0 });
     });
 });
 
@@ -78,7 +78,7 @@ router.get('/user/:id/received', (req, res) => {
     Campaign.find({ owner: new ObjectId(req.params.id) }).exec((err, campaigns) => {
         if (err) throw err;
         const campaigns_id = campaigns.map((campaign) => {
-            return mongoose.Types.ObjectId(campaign._id)
+            return mongoose.Types.ObjectId(campaign._id);
         });
 
         Donation.find({ campaign: campaigns_id })
@@ -101,7 +101,7 @@ router.get('/user/:id/received', (req, res) => {
                     }
                 }], (err, doc) => {
                     if (err) throw err;
-                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 })
+                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 });
                 });
             });
     });
@@ -112,7 +112,7 @@ router.get('/user/:id/not_withdrawen', (req, res) => {
     Campaign.find({ owner: new ObjectId(req.params.id) }).exec((err, campaigns) => {
         if (err) throw err;
         const campaigns_id = campaigns.map((campaign) => {
-            return mongoose.Types.ObjectId(campaign._id)
+            return mongoose.Types.ObjectId(campaign._id);
         });
 
 
@@ -136,7 +136,7 @@ router.get('/user/:id/not_withdrawen', (req, res) => {
                     }
                 }], (err, doc) => {
                     if (err) throw err;
-                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 })
+                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 });
                 });
             });
     });
@@ -210,9 +210,8 @@ router.post('/:campaign_id/:user_id', (req, res) => {
                     });
                 }
                 else
-                    res.json({ success: false, error: err })
+                    res.json({ success: false, error: err });
             });
-
         }
     });
 })
