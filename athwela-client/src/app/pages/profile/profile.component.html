@@ -253,8 +253,8 @@
                 </div>
             </div>
 
-            <div *ngIf="alert">
-                <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
+            <div *ngIf="withdrawAlert">
+                <alert [type]="withdrawAlert.type"><span [innerHtml]="withdrawAlert.msg"></span></alert>
             </div>
 
             <div class="card card-outline-dark text-dark shadow-sm mb-3">
@@ -268,7 +268,7 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="onClose()">Close</button>
-        <button type="submit" class="btn btn-secondary">Request</button>
+        <button type="submit" class="btn btn-secondary" (click)="onWithdraw()">Request</button>
     </div>
 
 </ng-template>

@@ -1,11 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
+const passport = require('passport');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { Campaign } = require('../models/campaign');
 const { Donation, currency } = require('../models/donation');
 const { Withdrawal } = require('../models/withdrawal');
 const appconfig = require('../config/appconfig');
+const payhere = require('../config/payhere');
 
 router.get('/', (req, res) => {
     // return all documents
@@ -13,7 +15,7 @@ router.get('/', (req, res) => {
         if (!err)
             res.json({ donations: docs, success: true });
         else
-            res.json({ success: false, error: err })
+            res.json({ success: false, error: err });
     });
 });
 
@@ -32,7 +34,7 @@ router.get('/user/:id/donated', (req, res) => {
     Donation.find({ donor: req.params.id })
         .populate('campaign', '-donations')
         .exec(function (err, docs) {
-            if (err) throw err;
+            if (err) res.json({ error: err, success: false });
             donations_id = docs.map((d) => { return mongoose.Types.ObjectId(d._id) });
             Donation.aggregate([{
                 $match: {
@@ -47,8 +49,8 @@ router.get('/user/:id/donated', (req, res) => {
                     }
                 }
             }], (err, doc) => {
-                if (err) throw err;
-                res.json({ donations: docs, amount: doc[0] ? doc[0].amount : 0 })
+                if (err) res.json({ error: err, success: false });
+                res.json({ donations: docs, amount: doc[0] ? doc[0].amount : 0 });
             });
         });
 });
@@ -68,23 +70,23 @@ router.get('/user/:id/donated/sum', (req, res) => {
             }
         }
     }], (err, doc) => {
-        if (err) throw err;
-        res.json({ amount: doc[0] ? doc[0].amount : 0 })
+        if (err) res.json({ error: err, success: false });
+        res.json({ amount: doc[0] ? doc[0].amount : 0 });
     });
 });
 
 router.get('/user/:id/received', (req, res) => {
     // locate user campaigns
     Campaign.find({ owner: new ObjectId(req.params.id) }).exec((err, campaigns) => {
-        if (err) throw err;
+        if (err) res.json({ error: err, success: false });
         const campaigns_id = campaigns.map((campaign) => {
-            return mongoose.Types.ObjectId(campaign._id)
+            return mongoose.Types.ObjectId(campaign._id);
         });
 
         Donation.find({ campaign: campaigns_id })
             .populate('campaign', '-comments -donations')
             .exec((err, donations) => {
-                if (err) throw err;
+                if (err) res.json({ error: err, success: false });
                 // calculate total amount
                 donations_id = donations.map((d) => { return mongoose.Types.ObjectId(d._id) });
                 Donation.aggregate([{
@@ -100,8 +102,8 @@ router.get('/user/:id/received', (req, res) => {
                         }
                     }
                 }], (err, doc) => {
-                    if (err) throw err;
-                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 })
+                    if (err) res.json({ error: err, success: false });
+                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 });
                 });
             });
     });
@@ -110,16 +112,16 @@ router.get('/user/:id/received', (req, res) => {
 router.get('/user/:id/not_withdrawen', (req, res) => {
     // locate user campaigns
     Campaign.find({ owner: new ObjectId(req.params.id) }).exec((err, campaigns) => {
-        if (err) throw err;
+        if (err) res.json({ error: err, success: false });
         const campaigns_id = campaigns.map((campaign) => {
-            return mongoose.Types.ObjectId(campaign._id)
+            return mongoose.Types.ObjectId(campaign._id);
         });
 
 
         Donation.find({ campaign: campaigns_id, withdrew: false })
             .populate('campaign', '-comments -donations')
             .exec((err, donations) => {
-                if (err) throw err;
+                if (err) res.json({ error: err, success: false });
                 // calculate total amount
                 donations_id = donations.map((d) => { return mongoose.Types.ObjectId(d._id) });
                 Donation.aggregate([{
@@ -135,12 +137,60 @@ router.get('/user/:id/not_withdrawen', (req, res) => {
                         }
                     }
                 }], (err, doc) => {
-                    if (err) throw err;
-                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 })
+                    if (err) res.json({ error: err, success: false });
+                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 });
                 });
             });
     });
 });
+
+router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req, res) => {
+    const donations = req.body.donations;
+    const bank_account = req.body.bank_account;
+    const bank_name = req.body.bank_name;
+    const payee_name = req.body.payee_name;
+    const user = req.user._id;
+
+    Donation.updateMany({ _id: donations }, { $set: { withdrew: true } },
+        (err, doc) => {
+            if (err) throw err;
+            donations_id = donations.map((id) => { return mongoose.Types.ObjectId(id) });
+            Donation.aggregate([{
+                $match: {
+                    _id: { "$in": donations_id }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    amount: {
+                        $sum: "$amount"
+                    }
+                }
+            }], (err, doc) => {
+                if (err) throw err;
+                const withdrawal = new Withdrawal({
+                    amount: doc[0].amount,
+                    currency: currency,
+                    donations: donations_id,
+                    bank_name: bank_name,
+                    bank_account: bank_account,
+                    payee_name: payee_name,
+                    user: user
+                });
+
+                console.log("comparing");
+                if (withdrawal.amount < payhere.minimum_withdraw) {
+                    res.json({ success: false, err: "Your balance does not exceed minimum withdrawal amount." });
+                }
+
+                withdrawal.save((err, doc) => {
+                    if (err) throw err;
+                    res.json({ withdrawal: doc, success: true });
+                })
+            });
+        });
+})
 
 router.post('/:campaign_id/:user_id', (req, res) => {
     const new_donation = new Donation({
@@ -210,54 +260,10 @@ router.post('/:campaign_id/:user_id', (req, res) => {
                     });
                 }
                 else
-                    res.json({ success: false, error: err })
+                    res.json({ success: false, error: err });
             });
-
         }
     });
-})
-
-router.post('/withdraw', (req, res) => {
-    // acquire donation ids
-    const donations = req.body.donations;
-    // other details
-    const bank_account = req.body.bank_account;
-    const bank_name = req.body.bank_name;
-    const payee_name = req.body.payee_name;
-
-    Donation.updateMany({ _id: donations }, { $set: { withdrew: true } },
-        (err, doc) => {
-            if (err) throw err;
-            donations_id = donations.map((id) => { return mongoose.Types.ObjectId(id) });
-            Donation.aggregate([{
-                $match: {
-                    _id: { "$in": donations_id }
-                }
-            },
-            {
-                $group: {
-                    _id: null,
-                    amount: {
-                        $sum: "$amount"
-                    }
-                }
-            }], (err, doc) => {
-                if (err) throw err;
-                const withdrawal = new Withdrawal({
-                    amount: doc[0].amount,
-                    currency: currency,
-                    donations: donations_id,
-                    bank_name: bank_name,
-                    bank_account: bank_account,
-                    payee_name: payee_name
-                });
-
-                withdrawal.save((err, doc) => {
-                    if (err) throw err;
-                    res.json(doc);
-                })
-            });
-        });
 })
 
 module.exports = router;

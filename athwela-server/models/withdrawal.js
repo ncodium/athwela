@@ -14,7 +14,8 @@ const withdrawalSchema = new Schema(
         status_message: { type: String, required: false },
         bank_name: { type: String, required: true },
         bank_account: { type: String, required: true },
-        payee_name: { type: String, required: true }
+        payee_name: { type: String, required: true },
+        user: { type: ObjectId, ref: 'User', required: true }
     },
     {
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
