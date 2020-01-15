@@ -12,8 +12,8 @@
         <progressbar [value]="55" *ngIf="!hideDonate"></progressbar>
         <div class="row">
             <div class="col-8 col-sm-10 my-auto">
-                <small *ngIf="!hideDonate">{{ raised | currency:'Rs.' }} raised of {{ target | currency:'Rs.' }}</small>
-                <small *ngIf="hideDonate">{{ target | currency:'Rs.' }}</small>
+                <small *ngIf="!hideDonate">{{ raised | currency:'Rs. ' }} raised of {{ target | currency:'Rs. ' }}</small>
+                <small *ngIf="hideDonate">{{ target | currency:'Rs. ' }}</small>
             </div>
             <div class="col-4 col-sm-2 mt-2">
 

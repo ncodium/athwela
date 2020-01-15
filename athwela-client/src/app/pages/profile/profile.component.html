@@ -21,11 +21,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <h3 class="mb-3 mt-4 mt-md-0">Campaigns</h3>
-                    <h6 class="mb-3 mt-2 mt-md-0">{{ receivedDonationsSum | currency:'Rs.' }}
-                        ({{ receivedDonationsSum | currency:'Rs.' }} withdrawable)</h6>
+                    <h6 class="mb-3 mt-2 mt-md-0">{{ receivedDonationsSum | currency:'Rs. ' }}
+                        ({{ receivedDonationsSum | currency:'Rs. ' }} withdrawable)</h6>
                 </div>
                 <div class="col-md-6 text-right">
-                    <button class="btn btn-outline-secondary" (click)="openModal(withdraw)">
+                    <button class="btn btn-outline-primary" (click)="openModal(withdraw)">
                         Previous Withdrawals
                     </button>
                     <button class="ml-2 btn btn-secondary" (click)="openModal(withdraw)">Withdraw</button>
@@ -257,7 +257,7 @@
 
             <div class="card card-outline-dark text-dark shadow-sm mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">{{ notWithdrawenDonationsSum | currency:'Rs.' }}</h5>
+                    <h5 class="card-title">{{ notWithdrawenDonationsSum | currency:'Rs. ' }}</h5>
                     Withdrawable Amount
                 </div>
             </div>
