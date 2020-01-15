@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
         if (!err)
             res.json({ donations: docs, success: true });
         else
-            res.json({ success: false, error: err })
+            res.json({ success: false, error: err });
     });
 });
 
@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.get('/user/:id', (req, res) => {
+router.get('/user/:id/donated', (req, res) => {
     // locate donations with given donor id
     Donation.find({ donor: req.params.id })
         .populate('campaign', '-donations')
@@ -48,12 +48,12 @@ router.get('/user/:id', (req, res) => {
                 }
             }], (err, doc) => {
                 if (err) throw err;
-                res.json({ donations: docs, amount: 5 })
+                res.json({ donations: docs, amount: doc[0] ? doc[0].amount : 0 });
             });
         });
 });
 
-router.get('/user/:id/sum', (req, res) => {
+router.get('/user/:id/donated/sum', (req, res) => {
     // needs to be optimized
     Donation.aggregate([{
         $match: {
@@ -69,16 +69,16 @@ router.get('/user/:id/sum', (req, res) => {
         }
     }], (err, doc) => {
         if (err) throw err;
-        res.json({ amount:0 })
+        res.json({ amount: doc[0] ? doc[0].amount : 0 });
     });
 });
 
-router.get('/received/:id', (req, res) => {
+router.get('/user/:id/received', (req, res) => {
     // locate user campaigns
     Campaign.find({ owner: new ObjectId(req.params.id) }).exec((err, campaigns) => {
         if (err) throw err;
         const campaigns_id = campaigns.map((campaign) => {
-            return mongoose.Types.ObjectId(campaign._id)
+            return mongoose.Types.ObjectId(campaign._id);
         });
 
         Donation.find({ campaign: campaigns_id })
@@ -101,7 +101,42 @@ router.get('/received/:id', (req, res) => {
                     }
                 }], (err, doc) => {
                     if (err) throw err;
-                    res.json({ donations: donations, amount: doc[0].amount })
+                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 });
+                });
+            });
+    });
+});
+
+router.get('/user/:id/not_withdrawen', (req, res) => {
+    // locate user campaigns
+    Campaign.find({ owner: new ObjectId(req.params.id) }).exec((err, campaigns) => {
+        if (err) throw err;
+        const campaigns_id = campaigns.map((campaign) => {
+            return mongoose.Types.ObjectId(campaign._id);
+        });
+
+
+        Donation.find({ campaign: campaigns_id, withdrew: false })
+            .populate('campaign', '-comments -donations')
+            .exec((err, donations) => {
+                if (err) throw err;
+                // calculate total amount
+                donations_id = donations.map((d) => { return mongoose.Types.ObjectId(d._id) });
+                Donation.aggregate([{
+                    $match: {
+                        _id: { "$in": donations_id }
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        amount: {
+                            $sum: "$amount"
+                        }
+                    }
+                }], (err, doc) => {
+                    if (err) throw err;
+                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 });
                 });
             });
     });
@@ -175,9 +210,8 @@ router.post('/:campaign_id/:user_id', (req, res) => {
                     });
                 }
                 else
-                    res.json({ success: false, error: err })
+                    res.json({ success: false, error: err });
             });
-
         }
     });
 })

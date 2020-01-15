@@ -133,16 +133,13 @@ router.get('/sort/:sort', (req, res) => {
     // var dbo = db.db("mydb");
     var sortby = req.params.sort; // front click sort get to sortby variable
     var sortTo = sortby.toLowerCase();  // convert to lowercase
-    //var mysort = { sortby: -1 };
-    console.log(sortby);
-    console.log(sortTo);
+    // var mysort = { sortby: -1 };
 
     // sort by date
     if (sortTo == "date") {
         Campaign.find().sort({ "deadline": -1 }).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
-                console.log(doc);
             } else {
                 res.send({ success: false, error: err });
             }
@@ -154,8 +151,6 @@ router.get('/sort/:sort', (req, res) => {
         Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
-                console.log('ffffffffffffffff');
-                console.log(doc);
             } else {
                 res.send({ success: false, error: err });
             }
@@ -167,8 +162,6 @@ router.get('/sort/:sort', (req, res) => {
         Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
-                console.log('ffffffffffffffff');
-                console.log(doc);
             } else {
                 res.send({ success: false, error: err });
             }
@@ -180,7 +173,6 @@ router.get('/sort/:sort', (req, res) => {
         Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
-                console.log(doc);
             } else {
                 res.send({ success: false, error: err });
             }
@@ -192,31 +184,11 @@ router.get('/sort/:sort', (req, res) => {
         Campaign.find().sort({ "deadline": -1, "comments": -1 }).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
-                console.log('ffffffffffffffff');
-                console.log(doc);
             } else {
                 res.send({ success: false, error: err });
             }
         });
     }
-
-    else {
-        console.log('Else');
-    }
-    // Campaign.find().sort({ [sortTO]: -1 }).exec((err,doc) => {
-    //     // if (err) throw err;
-    //     // console.log('*************111111111**************************');
-    //     // console.log(sortby);
-    //     // //console.log(typeof sortby);
-    //     // console.log(doc);
-    //     // //db.close();
-    //     if (!err){
-    //         res.send({ success: true, campaigns: doc });
-    //         console.log(doc);
-    //     } else {
-    //         res.send({ success: false, error: err });
-    //     }
-    // });
 });
 
 router.get('/user', passport.authenticate("jwt", { session: false }), (req, res) => {

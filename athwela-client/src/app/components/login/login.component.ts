@@ -69,7 +69,6 @@ export class LoginComponent implements OnInit {
       }
       else {
         this.alert = res['msg'];
-        console.warn()
       }
     })
   }

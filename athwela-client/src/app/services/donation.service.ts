@@ -19,14 +19,18 @@ export class DonationService {
   }
 
   getUserDonations(id: String) {
-    return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id);
+    return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id + '/donated');
   }
 
   getUserDonationsSum(id: String) {
-    return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id + '/sum');
+    return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id + '/donated/sum');
   }
 
   getUserReceivedDonations(id: String) {
-    return this.http.get(AppConfig.BASE_URL + 'donations/received/' + id);
+    return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id + '/received');
+  }
+
+  getUserReceivedDonationsNotWithdrawen(id: String) {
+    return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id + '/not_withdrawen');
   }
 }

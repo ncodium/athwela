@@ -2,7 +2,7 @@
     <div class="row mt-5">
         <div class="col-md-12 mt-2 mt-md-0">
             <h1 class="mb-5">
-                {{ user?.bankAccount }} {{ user?.bankName }}
+                {{ user?.firstName }} {{ user?.lastName }}
             </h1>
         </div>
         <div class="col-md-3 mt-2 mt-md-0">
@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <img *ngIf="user.avatar" class="image-cover" [src]="user.avatar" data-holder-rendered="true">
                     <img *ngIf="!user.avatar" class="image-cover" src="assets/user.png" data-holder-rendered="true">
-                    <h5 class="card-title mt-4">{{ user?.payee }}</h5>
+                    <h5 class="card-title mt-4">{{ user?.username }}</h5>
                     <p class="card-text">{{ user?.email }}</p>
                     <!-- <button class="btn btn-default">Ratings</button> -->
                     <button (click)="openModal(settings)" class="btn btn-primary" *ngIf="!visitor">Settings</button>
@@ -154,19 +154,18 @@
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputBankAccountNumber">First name</label>
-                    <input formControlName="bankAccount" type="text" class="form-control" id="inputBankAccountNumber"
-                        [ngClass]="{'is-invalid': (bankAccount.touched || bankAccount.dirty) && bankAccount.invalid }">
-                    <div class="invalid-feedback"
-                        *ngIf="(bankAccount.touched || bankAccount.dirty) && bankAccount.invalid">
+                    <label for="inputFirstName">First name</label>
+                    <input formControlName="firstName" type="text" class="form-control" id="inputFirstName"
+                        [ngClass]="{'is-invalid': (firstName.touched || firstName.dirty) && firstName.invalid }">
+                    <div class="invalid-feedback" *ngIf="(firstName.touched || firstName.dirty) && firstName.invalid">
                         Enter your first name.
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputBankAccountNumber">Last name</label>
-                    <input formControlName="bankName" type="text" class="form-control" id="inputBankAccountNumber"
-                        [ngClass]="{'is-invalid': (bankName.touched || bankName.dirty) && bankName.invalid }">
-                    <div class="invalid-feedback" *ngIf="(bankName.touched || bankName.dirty) && bankName.invalid">
+                    <label for="inputLastName">Last name</label>
+                    <input formControlName="lastName" type="text" class="form-control" id="inputLastName"
+                        [ngClass]="{'is-invalid': (lastName.touched || lastName.dirty) && lastName.invalid }">
+                    <div class="invalid-feedback" *ngIf="(lastName.touched || lastName.dirty) && lastName.invalid">
                         Enter your last name.
                     </div>
                 </div>
@@ -258,9 +257,9 @@
                 <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
             </div>
 
-            <div class="card bg-dark text-white shadow-sm mb-3">
+            <div class="card card-outline-dark text-dark shadow-sm mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Rs. 15000</h5>
+                    <h5 class="card-title">Rs. {{ notWithdrawenDonationsSum }}</h5>
                     Withdrawable Amount
                 </div>
             </div>
