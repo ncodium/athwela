@@ -253,15 +253,16 @@
                 </div>
             </div>
 
-            <div *ngIf="withdrawAlert">
-                <alert [type]="withdrawAlert.type"><span [innerHtml]="withdrawAlert.msg"></span></alert>
-            </div>
 
-            <div class="card card-outline-dark text-dark shadow-sm mb-3" *ngIf="!withdrawForm.disabled">
+            <div class="card card-outline-dark text-dark shadow-sm mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Rs. {{ notWithdrawenDonationsSum }}</h5>
                     Withdrawable Amount
                 </div>
+            </div>
+
+            <div *ngIf="withdrawAlert">
+                <alert [type]="withdrawAlert.type"><span [innerHtml]="withdrawAlert.msg"></span></alert>
             </div>
         </form>
     </div>
