@@ -33,8 +33,8 @@ export class NewCampaignComponent implements OnInit {
   tabs: string[] = [
     'Tell you story',
     'How much are you raising?',
-    'Add photos and videos',
-    'Upload documents'
+    'Upload documents',
+    'Add photos and videos'
   ]
   currentTab: string = this.tabs[0];
 
