@@ -21,8 +21,7 @@ const campaignSchema = new Schema(
             body: { type: String, required: true }
         }],
         verified_by: { type: ObjectId, ref: 'User', required: false },
-        donations: [donationSchema],
-        photos: { type: String, default: null }
+        donations: [donationSchema]
     },
     {
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

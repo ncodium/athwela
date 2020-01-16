@@ -204,13 +204,13 @@ export class ProfileComponent implements OnInit {
         this.notWithdrawenDonations.map((d) => { return d._id })
       );
 
-      if (this.notWithdrawenDonationsSum < AppConfig.MINIMUM_WITHDRAW) {
-        this.withdrawForm.disable();
-        this.withdrawAlert = {
-          msg: "You can't withdraw because your remaining balance is less than minimum allowed amount.",
-          type: 'danger'
-        }
-      }
+      // if (this.notWithdrawenDonationsSum < AppConfig.MINIMUM_WITHDRAW) {
+      //   this.withdrawForm.disable();
+      //   this.withdrawAlert = {
+      //     msg: "You can't withdraw because your remaining balance is less than minimum allowed amount.",
+      //     type: 'danger'
+      //   }
+      // }
 
       console.log(this.donationIds.value);
     });

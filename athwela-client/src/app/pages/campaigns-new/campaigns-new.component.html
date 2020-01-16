@@ -107,14 +107,14 @@
                                         Select a photo and upload it to add or change your avatar
                                     </small>
                                 </div> -->
-                                
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <p>Providing documents that can verify your cause gives donors confidence
-                                                that your cause is genuine!</p>
-                                        </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <p>Providing documents that can verify your cause gives donors confidence
+                                            that your cause is genuine!</p>
                                     </div>
-                                    <div class="row">
+                                </div>
+                                <div class="row">
                                     <div class="form-group col-md-3">
                                         <label for="inputDocuments">Select files</label>
 
@@ -132,14 +132,14 @@
                                         <label>Upload queue</label>
                                         <p>Queue length: {{ uploader?.queue?.length }}</p>
 
-                                        <table class="table" style="table-layout: fixed;">
+                                        <table class="table" style="table-layout: fixed;" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th width="50%">Name</th>
                                                     <th>Size</th>
                                                     <th>Progress</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
+                                                    <!-- <th>Status</th>
+                                                    <th>Actions</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -153,15 +153,15 @@
                                                                 [ngStyle]="{ 'width': item.progress + '%' }"></div>
                                                         </div>
                                                     </td>
-                                                    <td class="text-center">
+                                                    <!-- <td class="text-center">
                                                         <span *ngIf="item.isSuccess"><i
                                                                 class="glyphicon glyphicon-ok"></i></span>
                                                         <span *ngIf="item.isCancel"><i
                                                                 class="glyphicon glyphicon-ban-circle"></i></span>
                                                         <span *ngIf="item.isError"><i
                                                                 class="glyphicon glyphicon-remove"></i></span>
-                                                    </td>
-                                                    <td nowrap>
+                                                    </td> -->
+                                                    <!-- <td nowrap>
                                                         <button type="button" class="btn btn-success btn-xs"
                                                             (click)="item.upload()"
                                                             [disabled]="item.isReady || item.isUploading || item.isSuccess">
@@ -175,7 +175,7 @@
                                                             (click)="item.remove()">
                                                             <span class="glyphicon glyphicon-trash"></span> Remove
                                                         </button>
-                                                    </td>
+                                                    </td> -->
                                                 </tr>
                                             </tbody>
                                         </table>

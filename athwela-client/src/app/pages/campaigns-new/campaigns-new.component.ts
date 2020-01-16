@@ -46,21 +46,11 @@ export class NewCampaignComponent implements OnInit {
   ) {
     this.uploader = new FileUploader({
       url: AppConfig.BASE_URL + 'upload/all',
-      disableMultipart: true,
-      formatDataFunctionIsAsync: true,
-      formatDataFunction: async (item) => {
-        return new Promise((resolve, reject) => {
-          resolve({
-            name: item._file.name,
-            length: item._file.name,
-            contentType: item._file.type,
-            date: new Date()
-          });
-        });
-      }
+      itemAlias: 'photos'
     });
 
     this.uploader.onBeforeUploadItem = (item) => {
+      console.log("Uploading....")
       item.withCredentials = false;
     }
 
