@@ -1,26 +1,26 @@
 <div class="card h-100 shadow-sm">
     <div class="card-body">
-        <h4 class="card-title font-weight-light">
+        <h5 class="card-title font-weight-light">
             <span *ngIf="isLinked; else elseBlock">
                 <a [routerLink]="['/campaign', id]">{{ name | trunctuatetext:60 }}</a>
             </span>
             <ng-template #elseBlock>{{ name | trunctuatetext:60  }}</ng-template>
-        </h4>
+        </h5>
         <p class="card-text" [innerHTML]="description | trunctuatetext:120"></p>
     </div>
     <div class="card-footer">
-        <progressbar [value]="55" *ngIf="!hideDonate"></progressbar>
+        <progressbar [value]="percentage" *ngIf="!hideDonate" style="height:8px;"></progressbar>
         <div class="row">
             <div class="col-8 col-sm-10 my-auto">
-                <small *ngIf="!hideDonate">{{ raised | currency:'Rs. ' }} raised of {{ target | currency:'Rs. ' }}</small>
+                <small *ngIf="!hideDonate">{{ raised | currency:'Rs. ' }} raised of
+                    {{ target | currency:'Rs. ' }}</small>
                 <small *ngIf="hideDonate">{{ target | currency:'Rs. ' }}</small>
             </div>
             <div class="col-4 col-sm-2 mt-2">
-
-                <a *ngIf="!hideDonate" [routerLink]="['/campaign',id]"
-                    class="btn btn-primary btn-sm donate-button-margin float-right">Donate</a>
-                <a *ngIf="hideDonate" [routerLink]="['/campaign',id]"
-                    class="btn btn-primary btn-sm donate-button-margin float-right">Details</a>
+                <!-- <a *ngIf="!hideDonate" [routerLink]="['/campaign',id]"
+                    class="btn btn-primary btn-sm donate-button-margin float-right">Donate</a> -->
+                <!-- <a *ngIf="hideDonate" [routerLink]="['/campaign',id]"
+                    class="btn btn-primary btn-sm donate-button-margin float-right">Details</a> -->
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive" [collapse]="isCollapsed" [isAnimated]="true">
             <ul class="navbar-nav ml-auto">
                 <!-- Search form -->
-                <li class="nav-item text-center mr-2">
+                <li class="nav-item text-center mr-2 text-light">
                     <form class="form-inline">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     </form>
@@ -63,9 +63,9 @@
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/mod/campaigns']">Campaigns</a>
                         </li>
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                        <!-- <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/mod/users']">Users</a>
-                        </li>
+                        </li> -->
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/mod']">Dashboard</a>
                         </li>

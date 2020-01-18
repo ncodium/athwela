@@ -9,7 +9,7 @@
             <tabset type="pills">
                 <tab heading="All Campaigns">
                     <div class="row mt-2">
-                        <div *ngFor="let cmp of campaigns" class="col-md-6 my-2">
+                        <div *ngFor="let cmp of campaigns" class="col-md-4 my-2">
                             <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
                                 raised={{cmp.raised}} target={{cmp.target}}>
                             </app-campaign-card>
@@ -18,7 +18,7 @@
                 </tab>
                 <tab heading="Verified Campaigns">
                     <div class="row mt-2">
-                        <div *ngFor="let cmp of verifiedCampaigns" class="col-md-6 my-2">
+                        <div *ngFor="let cmp of verifiedCampaigns" class="col-md-4 my-2">
                             <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
                                 raised={{cmp.raised}} target={{cmp.target}}>
                             </app-campaign-card>
@@ -27,7 +27,7 @@
                 </tab>
                 <tab heading="Unverified Campaigns">
                     <div class="row mt-2">
-                        <div *ngFor="let cmp of unverifiedCampaigns" class="col-md-6 my-2">
+                        <div *ngFor="let cmp of unverifiedCampaigns" class="col-md-4 my-2">
                             <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
                                 raised={{cmp.raised}} target={{cmp.target}}>
                             </app-campaign-card>

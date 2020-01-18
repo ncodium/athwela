@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
   userId: string;
   _user: User;
   visitor: boolean;
+  avatarUrl: string = 'assets/user.png';
 
   campaigns: Campaign[];
   donations: Donation[];
@@ -87,7 +88,7 @@ export class ProfileComponent implements OnInit {
             else this.router.navigate(['/page-not-found']);
 
             // current user is the owner of the profile
-            if (this.user._id == this._user._id) this.visitor = false
+            if (this.user._id == this._user._id) this.visitor = false;
             // current user is not the owner of the profile
             else this.visitor = true;
 
@@ -102,7 +103,7 @@ export class ProfileComponent implements OnInit {
           // not a visitor
           this.user = this._user;
           this.visitor = false; // is the owner
-
+          this.initForms();
           this.getUserCampaigns(this.user._id);
           this.getUserDonations(this.user._id);
           this.getUserDonationsSum(this.user._id);
@@ -113,6 +114,7 @@ export class ProfileComponent implements OnInit {
       else {
         // user is anonymous
         this.visitor = true;
+        console.log(this.visitor);
 
         if (this.userId) {
           // id should be included in the url
@@ -131,6 +133,10 @@ export class ProfileComponent implements OnInit {
       }
     });
 
+
+  }
+
+  initForms() {
     this.updateForm = this.formBuilder.group({
       avatar: [],
       phone: [this._user.phone],
