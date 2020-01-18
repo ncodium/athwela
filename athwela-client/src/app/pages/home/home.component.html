@@ -2,11 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-6 mb-5">
-                <h3 class="display-1 text-light display-fix">Help those in need</h3>
+                <h4 class="display-1 text-light display-fix">Help those in need</h4>
                 <span class="lead">Fundraising for the people and causes you care about.</span>
 
                 <div class="mt-4">
-                    <a href class="btn btn-secondary btn-lg my-2 mr-2" (click)="openRegisterModal()">
+                    <a href class="btn btn-light btn-lg my-2 mr-2" (click)="openRegisterModal()">
                         <span>Get Started</span>
                     </a>
 
@@ -24,7 +24,7 @@
     <div class="card-group mt-n5 mb-5">
         <div class="card">
             <div class="card-body">
-                <h2 class="mb-4 font-weight-normal">Donate Funds</h2>
+                <h4 class="mb-4 font-weight-normal">Donate Funds</h4>
                 <p class="card-text mb-3">The top resources for all things related to the Sun.</p>
                 <a href="#" class="card-link btn btn-primary">Browse Campaigns</a>
             </div>
@@ -32,14 +32,14 @@
 
         <div class="card">
             <div class="card-body">
-                <h2 class="mb-4 font-weight-normal">Start a Fundraising Campaign</h2>
+                <h4 class="mb-4 font-weight-normal">Start a Fundraising Campaign</h4>
                 <p class="card-text mb-3">Looks like the Sun has returned.</p>
                 <a href="#" class="card-link btn btn-primary">Start a Campaign</a>
             </div>
         </div>
     </div>
 
-    <h1 class="mt-5 mb-4 pt-4">Trending Campaigns</h1>
+    <h2 class="mt-5 mb-4 pt-4">Recent Campaigns</h2>
     <div class="row mb-4">
         <div *ngFor="let cmp of campaignService.campaigns" class="col-md-4 col-sm-12 my-2 mb-4">
             <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
