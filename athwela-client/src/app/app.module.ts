@@ -134,7 +134,8 @@ import { AdminDonationsRejectWithdrawalComponent } from './components/admin-dona
     RegisterComponent,
     CampaignDonateComponent,
     CampaignDonationConfirmComponent,
-    ProfilePreviousWithdrawalsComponent
+    ProfilePreviousWithdrawalsComponent,
+    AdminDonationsRejectWithdrawalComponent
   ]
 })
 export class AppModule {

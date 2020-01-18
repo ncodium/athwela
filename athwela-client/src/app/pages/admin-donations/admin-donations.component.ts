@@ -5,9 +5,11 @@ import { Label } from 'ng2-charts';
 import { SingleDataSet } from 'ng2-charts';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { DonationService } from 'src/app/services/donation.service';
 import { Donation } from '../../models/donation.model';
 import { Withdrawal } from '../../models/withdrawal';
+import { AdminDonationsRejectWithdrawalComponent } from 'src/app/components/admin-donations-reject-withdrawal/admin-donations-reject-withdrawal.component';
 
 @Component({
   selector: 'app-admin-donations',
@@ -15,7 +17,8 @@ import { Withdrawal } from '../../models/withdrawal';
   styleUrls: ['./admin-donations.component.scss']
 })
 export class AdminDonationsComponent implements OnInit {
-  @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
+  modalRef: BsModalRef;
+
   donations: Donation[];
   withdrawals: Withdrawal[];
   alert: any;
@@ -38,8 +41,10 @@ export class AdminDonationsComponent implements OnInit {
   }
 
   getWithdrawals() {
+    this.spinner.show();
     this.donationService.getWithdrawals().subscribe((res) => {
       this.withdrawals = res['withdrawals'] as Withdrawal[];
+      this.spinner.hide();
     });
   }
 
@@ -52,20 +57,17 @@ export class AdminDonationsComponent implements OnInit {
   }
 
   onReject(id: string) {
-    this.showModal();
+    const initialState = {
+      title: 'Reject Withdrawal'
+    };
+
+    this.modalRef = this.modalService.show(AdminDonationsRejectWithdrawalComponent, { initialState });
+    this.modalRef.content.closeBtnName = 'Close';
+
+    this.modalRef.content.onClose.subscribe(result => {
+      this.getWithdrawals();
+    })
   }
 
-  showModal() {
-    this.messages = [];
-    this.modal.show();
-    console.log('showing');
-  }
 
-  handler(type: string, $event: ModalDirective) {
-    this.messages.push(
-      `event ${type} is fired${$event.dismissReason
-        ? ', dismissed by ' + $event.dismissReason
-        : ''}`
-    );
-  }
 }
