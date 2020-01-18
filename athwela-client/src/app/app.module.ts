@@ -35,6 +35,7 @@ import { ModUsersComponent } from './pages/mod-users/mod-users.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SearchComponent } from './search/search.component';
+import { ProfilePreviousWithdrawalsComponent } from './components/profile-previous-withdrawals/profile-previous-withdrawals.component';
 
 // services
 import { AuthService } from './services/auth.service';
@@ -63,8 +64,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { ProfilePreviousWithdrawalsComponent } from './components/profile-previous-withdrawals/profile-previous-withdrawals.component';
-
+import { AdminDonationsRejectWithdrawalComponent } from './components/admin-donations-reject-withdrawal/admin-donations-reject-withdrawal.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +99,7 @@ import { ProfilePreviousWithdrawalsComponent } from './components/profile-previo
     CampaignDonationConfirmComponent,
     SearchComponent,
     ProfilePreviousWithdrawalsComponent,
+    AdminDonationsRejectWithdrawalComponent
   ],
   imports: [
     BrowserModule,

@@ -59,4 +59,14 @@ export class DonationService {
 
     return this.http.post(AppConfig.BASE_URL + 'donations/withdraw', withdrawal, httpOptions);
   }
+
+  approveWithdrawal(id: string) {
+    return this.http.put(AppConfig.BASE_URL + 'donations/withdrawals/' + id + '/approve', {});
+  }
+
+  rejectWithdrawal(id: string, status_message: string) {
+    return this.http.put(AppConfig.BASE_URL + 'donations/withdrawals/' + id + '/reject', {
+      status_message: status_message
+    });
+  }
 }

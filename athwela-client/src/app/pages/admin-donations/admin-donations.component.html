@@ -37,6 +37,7 @@
                     <div class="row mt-4">
                         <div class="col-md-12">
                             <div class="card">
+                                <ngx-spinner [fullScreen]="false"></ngx-spinner>
                                 <table class="table card-table table-hover">
                                     <thead>
                                         <tr>
@@ -76,9 +77,12 @@
                                             <td>{{ w.created_at | date }}</td>
                                             <td>
                                                 {{ w.status_message | titlecase }} <br />
-                                                <div class="mt-1 btn-group btn-group-sm" role="group" aria-label="Action">
-                                                    <button type="button" class="btn btn-primary">Approve</button>
-                                                    <button type="button" class="btn btn-danger">Reject</button>
+                                                <div class="mt-1 btn-group btn-group-sm" role="group"
+                                                    aria-label="Action">
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="onApprove(w._id)">Approve</button>
+                                                    <button type="button" class="btn btn-danger"
+                                                        (click)="onReject(w._id)">Reject</button>
                                                 </div>
                                             </td>
 
