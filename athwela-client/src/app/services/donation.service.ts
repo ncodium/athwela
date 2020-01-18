@@ -24,6 +24,19 @@ export class DonationService {
     return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id + '/donated');
   }
 
+
+  getWithdrawals() {
+    return this.http.get(AppConfig.BASE_URL + 'donations/withdrawals');
+  }
+
+  getWithdrawal(id: String) {
+    return this.http.get(AppConfig.BASE_URL + 'donations/withdrawals/' + id);
+  }
+
+  getUserWithdrawals(id: String) {
+    return this.http.get(AppConfig.BASE_URL + 'donations/withdrawals/user/' + id);
+  }
+
   getUserDonationsSum(id: String) {
     return this.http.get(AppConfig.BASE_URL + 'donations/user/' + id + '/donated/sum');
   }
