@@ -11,7 +11,7 @@
                     <div class="row mt-4">
                         <div class="col-md-12" *ngIf="donations?.length">
                             <div class="card shadow-sm">
-                                <table class="card-table table">
+                                <table class="card-table table table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">Campaign</th>
@@ -44,7 +44,7 @@
                                             <th scope="col">Payee</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Date</th>
-                                            <th scope="col" colspan="2">Status</th>
+                                            <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -74,13 +74,14 @@
                                                 </div>
                                             </td>
                                             <td>{{ w.created_at | date }}</td>
-                                            <td>{{ w.status_message | titlecase }}</td>
                                             <td>
-                                                <div class="btn-group button-group-sm" role="group" aria-label="Action">
+                                                {{ w.status_message | titlecase }} <br />
+                                                <div class="mt-1 btn-group btn-group-sm" role="group" aria-label="Action">
                                                     <button type="button" class="btn btn-primary">Approve</button>
                                                     <button type="button" class="btn btn-danger">Reject</button>
                                                 </div>
                                             </td>
+
                                         </tr>
 
                                     </tbody>

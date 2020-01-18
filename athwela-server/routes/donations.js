@@ -34,16 +34,6 @@ router.get('/withdrawals', (req, res) => {
         });
 });
 
-router.get('/:id', (req, res) => {
-    // locate donation with given id
-    Donation.findOne({ donation_id: req.params.id }, (err, doc) => {
-        if (!err)
-            res.send({ success: true, donation: doc });
-        else
-            res.send({ success: false, error: err });
-    });
-});
-
 router.get('/withdrawals/user/:userId', (req, res) => {
     // return all documents
     Withdrawal.find({ user: req.params.userId })
@@ -58,6 +48,62 @@ router.get('/withdrawals/user/:userId', (req, res) => {
                 res.json({ success: false, error: err });
         });
 });
+
+
+router.get('/withdrawals/:id', (req, res) => {
+    // locate donation with given id
+    Withdrawal.findOne({ _id: req.params.id }, (err, doc) => {
+        if (!err)
+            res.send({ success: true, withdrawal: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
+router.put('/withdrawals/:id/approve', (req, res) => {
+    // update withdrawal 
+    Withdrawal.findByIdAndUpdate(req.params.id,
+        {
+            $set: {
+                status_code: 1,
+                status_message: 'approved'
+            }
+        },
+        { new: true }, (err, doc) => {
+            if (!err)
+                res.send({ success: true, withdrawal: doc });
+            else
+                res.send({ success: false, error: err });
+        });
+});
+
+router.put('/withdrawals/:id/decline', (req, res) => {
+    // update withdrawal 
+    Withdrawal.findByIdAndUpdate(req.params.id,
+        {
+            $set: {
+                status_code: 2,
+                status_message: req.body.status_message ? req.body.status_message : 'declined'
+            }
+        },
+        { new: true }, (err, doc) => {
+            if (!err)
+                res.send({ success: true, withdrawal: doc });
+            else
+                res.send({ success: false, error: err });
+        });
+});
+
+router.get('/:id', (req, res) => {
+    // locate donation with given id
+    Donation.findOne({ donation_id: req.params.id }, (err, doc) => {
+        if (!err)
+            res.send({ success: true, donation: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
 
 router.get('/user/:id/donated', (req, res) => {
     // locate donations with given donor id
