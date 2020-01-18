@@ -24,7 +24,7 @@
                     <h6 class="mb-3 mt-2 mt-md-0">{{ receivedDonationsSum | currency:'Rs. ' }}</h6>
                 </div>
                 <div class="col-md-6 text-right" *ngIf="!visitor">
-                    <button class="btn btn-outline-secondary my-2" (click)="openModal(withdraw)">
+                    <button class="btn btn-outline-secondary my-2" (click)="openPreviousWithdrawalsModal()">
                         Previous Withdrawals
                     </button>
                     <button class="ml-2 btn btn-secondary my-2" (click)="openModal(withdraw)">Withdraw

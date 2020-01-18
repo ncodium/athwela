@@ -190,7 +190,7 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
             }], (err, doc) => {
                 if (err) throw err;
                 const withdrawal = new Withdrawal({
-                    amount: doc[0].amount,
+                    amount: doc[0] ? don[0].amount : 0,
                     currency: currency,
                     donations: donations_id,
                     bank_name: bank_name,

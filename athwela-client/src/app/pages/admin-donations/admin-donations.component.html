@@ -44,7 +44,7 @@
                                             <th scope="col">Payee</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Date</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col" colspan="2">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -72,6 +72,12 @@
                                             </td>
                                             <td>{{ w.created_at | date }}</td>
                                             <td>{{ w.status_message | titlecase }}</td>
+                                            <td>
+                                                <div class="btn-group button-group-sm" role="group" aria-label="Action">
+                                                    <button type="button" class="btn btn-primary">Approve</button>
+                                                    <button type="button" class="btn btn-danger">Reject</button>
+                                                </div>
+                                            </td>
                                         </tr>
 
                                     </tbody>

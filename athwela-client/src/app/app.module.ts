@@ -63,6 +63,7 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { ProfilePreviousWithdrawalsComponent } from './components/profile-previous-withdrawals/profile-previous-withdrawals.component';
 
 
 @NgModule({
@@ -97,6 +98,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     CampaignDonateComponent,
     CampaignDonationConfirmComponent,
     SearchComponent,
+    ProfilePreviousWithdrawalsComponent,
   ],
   imports: [
     BrowserModule,
@@ -130,7 +132,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     LoginComponent,
     RegisterComponent,
     CampaignDonateComponent,
-    CampaignDonationConfirmComponent
+    CampaignDonationConfirmComponent,
+    ProfilePreviousWithdrawalsComponent
   ]
 })
 export class AppModule {

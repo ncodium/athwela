@@ -14,6 +14,7 @@ import { TemplateRef } from '@angular/core';
 import { AppConfig } from 'src/app/config/app-config';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmPasswordValidator } from './../../components/register/validators/confirm-password.validator';
+import { ProfilePreviousWithdrawalsComponent } from 'src/app/components/profile-previous-withdrawals/profile-previous-withdrawals.component';
 
 @Component({
   selector: 'app-profile',
@@ -210,13 +211,13 @@ export class ProfileComponent implements OnInit {
         this.notWithdrawenDonations.map((d) => { return d._id })
       );
 
-      // if (this.notWithdrawenDonationsSum < AppConfig.MINIMUM_WITHDRAW) {
-      //   this.withdrawForm.disable();
-      //   this.withdrawAlert = {
-      //     msg: "You can't withdraw because your remaining balance is less than minimum allowed amount.",
-      //     type: 'danger'
-      //   }
-      // }
+      if (this.notWithdrawenDonationsSum < AppConfig.MINIMUM_WITHDRAW) {
+        this.withdrawForm.disable();
+        this.withdrawAlert = {
+          msg: "You can't withdraw because your remaining balance is less than minimum allowed amount.",
+          type: 'danger'
+        }
+      }
 
       console.log(this.donationIds.value);
     });
@@ -342,6 +343,15 @@ export class ProfileComponent implements OnInit {
 
   get donationIds() {
     return this.withdrawForm.get('donationIds');
+  }
+
+  openPreviousWithdrawalsModal() {
+    const initialState = {
+      title: 'Previous Withdrawals'
+    };
+
+    this.modalRef = this.modalService.show(ProfilePreviousWithdrawalsComponent, { initialState, class: 'modal-lg' });
+    this.modalRef.content.closeBtnName = 'Close';
   }
 
 }
