@@ -4,9 +4,42 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
+<table class="table table-hover modal-body">
+    <thead>
+        <tr>
+            <th scope="col">Amount</th>
+            <th scope="col">Payee</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let w of withdrawals; let collapsed=true;">
+            <td>
+                <span class="mb-1">{{ w.amount  | currency:'Rs. '}}</span>
+                <div *ngFor="let d of w.donations" [collapse]="!collapsed">
+                    {{ d.amount | currency:'Rs. ' }} for {{ d.campaign }}<br />
+                </div><br />
+                <button class="btn btn-sm btn-outline-info mt-2" (click)="collapsed = !collapsed">
+                    {{ !collapsed ? 'Show' : 'Hide' }} donations
+                </button>
+                <div>
+                </div>
+            </td>
+            <td>
+                {{ w.payee_name }}<br />
+                {{ w.bank_account }}<br />
+                {{ w.bank_name }}<br />
+            </td>
+            <td>{{ w.created_at | date }}</td>
+            <td>{{ w.status_message | titlecase }}</td>
+        </tr>
 
+    </tbody>
+</table>
 <div class="modal-body">
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{ closeBtnName }}</button>
-    </div>
+    Pagination
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{ closeBtnName }}</button>
 </div>

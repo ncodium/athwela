@@ -347,7 +347,8 @@ export class ProfileComponent implements OnInit {
 
   openPreviousWithdrawalsModal() {
     const initialState = {
-      title: 'Previous Withdrawals'
+      title: 'Previous Withdrawals',
+      userId: this.authService.getUser()._id
     };
 
     this.modalRef = this.modalService.show(ProfilePreviousWithdrawalsComponent, { initialState, class: 'modal-lg' });

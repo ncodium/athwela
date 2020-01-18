@@ -35,8 +35,6 @@ export class AdminDonationsComponent implements OnInit {
   getWithdrawals() {
     this.donationService.getWithdrawals().subscribe((res) => {
       this.withdrawals = res['withdrawals'] as Withdrawal[];
-      console.log(this.withdrawals);
     });
   }
-
 }
