@@ -16,11 +16,14 @@
     <tbody>
         <tr *ngFor="let w of withdrawals; let collapsed=true;">
             <td>
-                <span class="mb-1">{{ w.amount  | currency:'Rs. '}}</span>
                 <div *ngFor="let d of w.donations" [collapse]="!collapsed">
-                    {{ d.amount | currency:'Rs. ' }} for {{ d.campaign }}<br />
-                </div><br />
-                <button class="btn btn-sm btn-outline-info mt-2" (click)="collapsed = !collapsed">
+                    {{ d.amount | currency:'Rs. ' }} to
+                    <a target="_blank" [routerLink]="['/campaign/', d.campaign._id]">
+                        {{ d.campaign.name }}</a>
+                </div>
+                <br />
+                <span class="mb-1">{{ w.amount | currency:'Rs. '}}</span>
+                <button class="btn btn-sm btn-outline-info ml-2" (click)="collapsed = !collapsed">
                     {{ !collapsed ? 'Show' : 'Hide' }} donations
                 </button>
                 <div>

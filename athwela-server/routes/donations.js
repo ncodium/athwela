@@ -21,12 +21,17 @@ router.get('/', (req, res) => {
 
 router.get('/withdrawals', (req, res) => {
     // return all withdrawals
-    Withdrawal.find().populate('donations').populate('user', '-password').exec((err, docs) => {
-        if (!err)
-            res.json({ withdrawals: docs, success: true });
-        else
-            res.json({ success: false, error: err });
-    });
+    Withdrawal.find()
+        .populate({
+            path: 'donations',
+            populate: { path: 'campaign', select: '_id name' }
+        })
+        .populate('user', '-password').exec((err, docs) => {
+            if (!err)
+                res.json({ withdrawals: docs, success: true });
+            else
+                res.json({ success: false, error: err });
+        });
 });
 
 router.get('/:id', (req, res) => {
@@ -41,12 +46,17 @@ router.get('/:id', (req, res) => {
 
 router.get('/withdrawals/user/:userId', (req, res) => {
     // return all documents
-    Withdrawal.find({ user: req.params.userId }).populate('donations').exec((err, docs) => {
-        if (!err)
-            res.json({ withdrawals: docs, success: true });
-        else
-            res.json({ success: false, error: err });
-    });
+    Withdrawal.find({ user: req.params.userId })
+        .populate({
+            path: 'donations',
+            populate: { path: 'campaign', select: '_id name' }
+        })
+        .exec((err, docs) => {
+            if (!err)
+                res.json({ withdrawals: docs, success: true });
+            else
+                res.json({ success: false, error: err });
+        });
 });
 
 router.get('/user/:id/donated', (req, res) => {
