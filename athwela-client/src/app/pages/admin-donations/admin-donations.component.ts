@@ -1,11 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
-import { SingleDataSet } from 'ng2-charts';
 import { NgxSpinnerService } from "ngx-spinner";
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { DonationService } from 'src/app/services/donation.service';
 import { Donation } from '../../models/donation.model';
 import { Withdrawal } from '../../models/withdrawal';
@@ -58,7 +53,8 @@ export class AdminDonationsComponent implements OnInit {
 
   onReject(id: string) {
     const initialState = {
-      title: 'Reject Withdrawal'
+      title: 'Reject Withdrawal',
+      withdrawalId: id
     };
 
     this.modalRef = this.modalService.show(AdminDonationsRejectWithdrawalComponent, { initialState });

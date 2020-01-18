@@ -77,13 +77,13 @@ router.put('/withdrawals/:id/approve', (req, res) => {
         });
 });
 
-router.put('/withdrawals/:id/decline', (req, res) => {
+router.put('/withdrawals/:id/reject', (req, res) => {
     // update withdrawal 
     Withdrawal.findByIdAndUpdate(req.params.id,
         {
             $set: {
                 status_code: 2,
-                status_message: req.body.status_message ? req.body.status_message : 'declined'
+                status_message: req.body.status_message ? req.body.status_message : 'rejected'
             }
         },
         { new: true }, (err, doc) => {
