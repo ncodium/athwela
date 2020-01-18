@@ -59,7 +59,7 @@
                                                 {{ w.bank_name }}<br />
                                             </td>
                                             <td>
-                                                {{ w.amount  | currency:'Rs. '}}
+                                                <span class="mb-1">{{ w.amount  | currency:'Rs. '}}</span>
                                                 <div *ngFor="let d of w.donations" [collapse]="!collapsed">
                                                     {{ d.amount | currency:'Rs. ' }} for {{ d.campaign }}<br />
                                                 </div><br />
