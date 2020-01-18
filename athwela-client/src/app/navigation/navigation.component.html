@@ -20,7 +20,9 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Search form -->
                 <li class="nav-item text-center mr-2">
-                  <app-search></app-search>
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    </form>
                 </li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link btn btn-default" href [routerLink]="['']">Home</a>
