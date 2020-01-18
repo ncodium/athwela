@@ -1,5 +1,7 @@
 import { Donation } from './donation.model';
 import { User } from './user.model';
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
+import { Time } from '@angular/common';
 
 export class Withdrawal {
     amount: number;

@@ -11,7 +11,7 @@ const withdrawalSchema = new Schema(
         currency: { type: String, required: true },
         donations: [{ type: ObjectId, ref: 'Donation', required: true }],
         status_code: { type: Number, required: true, default: 0 },
-        status_message: { type: String, required: false },
+        status_message: { type: String, required: false, default: 'pending', enum: ['pending', 'rejected', 'approved'] },
         bank_name: { type: String, required: true },
         bank_account: { type: String, required: true },
         payee_name: { type: String, required: true },

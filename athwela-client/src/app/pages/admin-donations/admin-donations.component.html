@@ -23,10 +23,9 @@
                                     <tbody>
                                         <tr *ngFor="let don of donations">
                                             <td>{{ don.campaign.name }}</td>
-                                            <td>{{ don.amount }}</td>
-                                            <td>{{ don.method }}</td>
-                                            <td>{{ don.status_message }}</td>
-
+                                            <td>{{ don.amount | currency:'Rs. ' }}</td>
+                                            <td>{{ don.method | uppercase }}</td>
+                                            <td>{{ don.status_message | titlecase }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -41,31 +40,40 @@
                                 <table class="table card-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
+                                            <th scope="col">Recipient</th>
+                                            <th scope="col">Payee</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                        <tr *ngFor="let w of withdrawals;  let collapsed=true;">
+                                            <td>
+                                                {{ w.user.firstName }} {{ w.user.lastName }}<br />
+                                                {{ w.user.email }}
+                                            </td>
+                                            <td>
+                                                {{ w.payee_name }}<br />
+                                                {{ w.bank_account }}<br />
+                                                {{ w.bank_name }}<br />
+                                            </td>
+                                            <td>
+                                                {{ w.amount  | currency:'Rs. '}}
+                                                <div *ngFor="let d of w.donations" [collapse]="!collapsed">
+                                                    {{ d.amount | currency:'Rs. ' }} for {{ d.campaign }}<br />
+                                                </div><br />
+                                                <button class="btn btn-sm btn-outline-info"
+                                                    (click)="collapsed = !collapsed">
+                                                    {{ !collapsed ? 'Show' : 'Hide' }} donations
+                                                </button>
+                                                <div>
+                                                </div>
+                                            </td>
+                                            <td>{{ w.created_at | date }}</td>
+                                            <td>{{ w.status_message | titlecase }}</td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
