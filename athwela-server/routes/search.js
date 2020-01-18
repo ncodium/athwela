@@ -10,10 +10,6 @@ router.get('/search/:search', (req, res) => {
     console.log(searchby);
     console.log(searchTo);
     res.send("search**");
-    // if(searchTo=="donation") {
-    //     res.send(http://localhost:4200/campaigns);
-    // }
-
 });
 
 module.exports = router;

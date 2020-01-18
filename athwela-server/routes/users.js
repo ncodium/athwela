@@ -6,13 +6,11 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/user');
 const config = require('../config/database');
 
-// async username checking
+// async username availability check during registration
 router.get('/username/:username', (req, res) => {
     User.find({ username: req.params.username }, (err, doc) => {
-        if (!err)
-            res.json({ exists: !!doc.length });
-        else
-            res.json({ exists: false, error: err })
+        if (err) next(err);
+        else res.json({ exists: !!doc.length });
     });
 });
 
@@ -29,16 +27,25 @@ router.get('/', (req, res) => {
 
 // all moderators
 router.get('/mod', (req, res) => {
-    User.find({ role: 'mod' })
-        .exec((err, doc) => {
-            if (!err)
-                res.send({ users: doc, success: true });
-            else
-                res.send({ success: false, error: err });
-        });
+    User.find({ role: 'mod' }, (err, doc) => {
+        if (!err)
+            res.send({ users: doc, success: true });
+        else
+            res.send({ success: false, error: err });
+    });
 });
 
-router.post('/register', (req, res, next) => {
+// all administrators
+router.get('/mod', (req, res) => {
+    User.find({ role: 'mod' }, (err, doc) => {
+        if (!err)
+            res.send({ users: doc, success: true });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
+router.post('/register', (req, res) => {
     // create a new user object
     let _user = new User({
         firstName: req.body.firstName,
@@ -60,7 +67,7 @@ router.post('/register', (req, res, next) => {
             // register new user account
             User.addUser(_user, (err, user) => {
                 if (err) {
-                    res.json({ success: false, msg: 'Registration failed.' });
+                    res.json({ success: false, msg: 'Registration failed' });
                 } else {
                     res.json({ success: true, msg: 'Registered successfully' });
                 }
@@ -69,7 +76,7 @@ router.post('/register', (req, res, next) => {
     });
 });
 
-router.post('/register/mod', (req, res, next) => {
+router.post('/register/mod', (req, res) => {
     // create a new moderator
     let _user = new User({
         firstName: req.body.firstName,
@@ -107,7 +114,10 @@ router.post('/authenticate', (req, res, next) => {
     User.getUserByUsername(username, (err, user) => {
         if (err) throw err;
         if (!user) {
-            return res.json({ success: false, msg: "Username and password doesn't match. Please try again." });
+            return res.json({
+                success: false, msg:
+                    "Username and password doesn't match. Please try again."
+            });
         }
 
         // validate password

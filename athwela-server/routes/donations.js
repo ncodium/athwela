@@ -10,7 +10,7 @@ const appconfig = require('../config/appconfig');
 const payhere = require('../config/payhere');
 
 router.get('/', (req, res) => {
-    // return all documents
+    // return all donations
     Donation.find((err, docs) => {
         if (!err)
             res.json({ donations: docs, success: true });
@@ -26,6 +26,26 @@ router.get('/:id', (req, res) => {
             res.send({ success: true, donation: doc });
         else
             res.send({ success: false, error: err });
+    });
+});
+
+router.get('/withdrawals', (req, res) => {
+    // return all withdrawals
+    Withdrawal.find().populate('donations').populate('user').exec((err, docs) => {
+        if (!err)
+            res.json({ donations: docs, success: true });
+        else
+            res.json({ success: false, error: err });
+    });
+});
+
+router.get('/withdrawals/user/:userId', (req, res) => {
+    // return all documents
+    Withdrawal.find({ user: req.params.userId }).populate('donations').exec((err, docs) => {
+        if (!err)
+            res.json({ donations: docs, success: true });
+        else
+            res.json({ success: false, error: err });
     });
 });
 

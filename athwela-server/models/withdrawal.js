@@ -9,7 +9,7 @@ const withdrawalSchema = new Schema(
     {
         amount: { type: Number, required: true },
         currency: { type: String, required: true },
-        donations: [{ type: String, required: true }],
+        donations: [{ type: ObjectId, ref: 'Donation', required: true }],
         status_code: { type: Number, required: true, default: 0 },
         status_message: { type: String, required: false },
         bank_name: { type: String, required: true },
