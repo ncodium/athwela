@@ -19,6 +19,7 @@ export class UserService {
   getModerators(){ return this.http.get(AppConfig.BASE_URL + 'users/mod') }
   gettotalcount(){return this.http.get(AppConfig.BASE_URL + 'campaigns/count') }
   getaprovedcount(){return this.http.get(AppConfig.BASE_URL + 'campaigns/approvedcount') }
+  deleteusers(id:String){return this.http.delete(AppConfig.BASE_URL + '/'+id)}
    
   getUser(id: String) {
     return this.http.get(AppConfig.BASE_URL + 'users/profile/' + id)

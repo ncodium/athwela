@@ -30,6 +30,7 @@ export class AdminUsersComponent implements OnInit {
   ngOnInit() {
     this.getUsers();
     this.getModerators();
+    
 
     this.registerForm = this.formBuilder.group({
       username: ['', [
@@ -104,6 +105,11 @@ export class AdminUsersComponent implements OnInit {
     this.userService.getModerators().subscribe((res) => {
       this.moderators = res['users'] as User[];
     });
+  }
+
+  deleteusers(id:String){
+    this.userService.deleteusers(id);
+
   }
 
   constructor(

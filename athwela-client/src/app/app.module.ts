@@ -63,6 +63,7 @@ import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SearchComponent } from './search/search.component';
+import { AdminReportsComponent } from './pages/admin-reports/admin-reports.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { SearchComponent } from './search/search.component';
     CampaignDonateComponent,
     CampaignDonationConfirmComponent,
     SearchComponent,
+    AdminReportsComponent,
   ],
   imports: [
     BrowserModule,
