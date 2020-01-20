@@ -16,6 +16,7 @@ import { AdminCampaignsComponent } from './pages/admin-campaigns/admin-campaigns
 import { AdminDonationsComponent } from './pages/admin-donations/admin-donations.component';
 import { AdminUsersComponent } from './pages/admin-users/admin-users.component';
 import { AdminModeratorsComponent } from './pages/admin-moderators/admin-moderators.component';
+import { AdminReportsComponent } from './pages/admin-reports/admin-reports.component';
 import { ModDashboardComponent } from './pages/mod-dashboard/mod-dashboard.component';
 import { ModCampaignsComponent } from './pages/mod-campaigns/mod-campaigns.component';
 import { ModUsersComponent } from './pages/mod-users/mod-users.component';
@@ -43,6 +44,9 @@ const routes: Routes = [
   { path: 'admin/donations', component: AdminDonationsComponent, canActivate: [AuthGuard] },
   { path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard] },
   { path: 'admin/moderators', component: AdminModeratorsComponent, canActivate: [AuthGuard] },
+  { path: 'admin/reports', component: AdminReportsComponent, canActivate: [AuthGuard] },
+  
+  
 
   // moderator
   { path: 'mod', component: ModDashboardComponent, canActivate: [AuthGuard] },
