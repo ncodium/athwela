@@ -68,6 +68,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 //
 import { AdminReportsComponent } from './pages/admin-reports/admin-reports.component';
 import { AdminDonationsRejectWithdrawalComponent } from './components/admin-donations-reject-withdrawal/admin-donations-reject-withdrawal.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { AdminDonationsRejectWithdrawalComponent } from './components/admin-dona
     SearchComponent,
     AdminReportsComponent,
     ProfilePreviousWithdrawalsComponent,
-    AdminDonationsRejectWithdrawalComponent
+    AdminDonationsRejectWithdrawalComponent,
+    SearchPageComponent
   ],
   imports: [
     BrowserModule,

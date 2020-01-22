@@ -21,6 +21,7 @@ import { ModDashboardComponent } from './pages/mod-dashboard/mod-dashboard.compo
 import { ModCampaignsComponent } from './pages/mod-campaigns/mod-campaigns.component';
 import { ModUsersComponent } from './pages/mod-users/mod-users.component';
 import { MychartComponent } from './components/mychart/mychart.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 // route guard
 import { AuthGuard } from './guards/auth.guard';
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
   { path: 'how-it-works', component: HowItWorksComponent },
+  { path: 'search-page', component: SearchPageComponent },
 
   // administrator
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },

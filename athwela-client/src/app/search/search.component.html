@@ -4,12 +4,12 @@
     <button type="submit" (click)='searchText(search.value)'><fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;</button>
 </form> -->
 
-<form class="mb-3 mt-1">
+<form class="mb-3 mt-1" (ngSubmit)="search(f)" #f="ngForm" novalidate>
   <div class="input-group">
-    <input type="text" class="form-control" placeholder="Search" id="search" name="search" #search aria-label="Search">
+    <input type="text" class="form-control" placeholder="Search" id="search" name="search" ngModel required #query="ngModel" aria-label="Search" >
     <!-- <div class="input-group-append">
       <button class="btn btn-primary" type="submit" style="display: none;" (click)='searchText(search.value)'><fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;</button>
     </div> -->
   </div>
-  <button id="button" type="submit" style="visibility: hidden;" (click)='searchText(search)'></button>
+  <!-- <button id="button" type="submit" [routerLink]="['/search-page',search.value]" style="visibility: hidden;"></button> -->
 </form>
