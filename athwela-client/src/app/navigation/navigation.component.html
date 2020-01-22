@@ -24,7 +24,10 @@
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     </form>
                 </li> -->
-                <app-search></app-search>
+                <li class="nav-item text-center mr-2 text-light ml-2">
+                  <app-search></app-search>
+                </li>
+
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                     <a class="nav-link btn btn-default" href [routerLink]="['']">Home</a>
                 </li>
