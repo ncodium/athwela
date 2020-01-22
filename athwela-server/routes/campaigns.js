@@ -4,12 +4,6 @@ const passport = require('passport');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { Campaign } = require('../models/campaign');
 
-//defining chart
-
-var approvedrequests;
-var declinedrequests;
-var pendingrequest;
-
 router.get('/', (req, res) => {
     Campaign.find((err, docs) => {
         if (!err)
@@ -17,32 +11,8 @@ router.get('/', (req, res) => {
         else
             res.json({ success: false, error: err })
     });
-
-});
-//get total requests
-router.get('/count', (req, res) => {
-    Campaign.countDocuments({},(err,count)=>{
-        res.json({count:count})
-    })
-
 });
 
-//get approved requests
-router.get('/approvedcount', (req, res) => {
-    Campaign.find({published: 'true'}).countDocuments({},(err,count)=>{
-        res.json({count:count})
-    })
-
-});
-
-// router.get('/count',async(req,res)=>{
-//     try{
-//         const c=await Campaign.find().countDocuments();
-//         res.json(c);
-//     }catch{
-//         res.json({message:error});
-//     }
-// });
 
 router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
     const cmp = new Campaign({
@@ -78,56 +48,51 @@ router.get('/recent', (req, res) => {
 });
 
 router.get('/unpublished', (req, res) => {
-    Campaign.find({ published: 'false' })
-        .exec((err, doc) => {
-            if (!err)
-                res.send({ success: true, campaigns: doc });
-            else
-                res.send({ success: false, error: err });
+    Campaign.find({ published: 'false' }, (err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
 
-        });
+    });
 });
 
 router.get('/published', (req, res) => {
-    Campaign.find({ published: 'true' })
-        .exec((err, doc) => {
-            if (!err)
-                res.send({ success: true, campaigns: doc });
-            else
-                res.send({ success: false, error: err });
-        });
+    Campaign.find({ published: 'true' }, (err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
 });
 
 router.get('/verified', (req, res) => {
-    Campaign.find({ verified: 'true' })
-        .exec((err, doc) => {
-            if (!err)
-                res.send({ success: true, campaigns: doc });
-            else
-                res.send({ success: false, error: err });
-        });
+    Campaign.find({ verified: 'true' }, (err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
 });
 
 
 router.get('/unverified', (req, res) => {
-    Campaign.find({ 'verified': false })
-        .exec((err, doc) => {
-            if (!err)
-                res.send({ success: true, campaigns: doc });
-            else
-                res.send({ success: false, error: err });
-        });
+    Campaign.find({ 'verified': false }, (err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
 });
 
 
 router.get('/categories', (req, res) => {
-    Campaign.distinct('category')
-        .exec((err, doc) => {
-            if (!err)
-                res.send({ success: true, categories: doc });
-            else
-                res.send({ success: false, error: err });
-        });
+    Campaign.distinct('category').exec((err, doc) => {
+        if (!err)
+            res.send({ success: true, categories: doc });
+        else
+            res.send({ success: false, error: err });
+    });
 });
 
 // filter campaigns by category
@@ -136,7 +101,7 @@ router.get('/categories/:category', (req, res) => {
         'category': req.params.category,
         'verified': true,
         'published': true
-    }).exec((err, doc) => {
+    }, (err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
         else
@@ -144,107 +109,70 @@ router.get('/categories/:category', (req, res) => {
     });
 });
 
-// Sort campaigns
-router.get('/sort/:sort', (req,res) => {
-   
-    //if (err) throw err;
-   // var dbo = db.db("mydb");
+// sort campaigns
+router.get('/sort/:sort', (req, res) => {
     var sortby = req.params.sort; // front click sort get to sortby variable
     var sortTo = sortby.toLowerCase();  // convert to lowercase
-    //var mysort = { sortby: -1 };
-    console.log(sortby);
-    console.log(sortTo);
-    
+    // var mysort = { sortby: -1 };
+
     // sort by date
-    if(sortTo=="date") {   
-
-        Campaign.find().sort({ "deadline": -1 }).exec((err,doc) => {
-          if (!err){
-              res.send({ success: true, campaigns: doc });
-              console.log('ffffffffffffffff');
-              console.log(doc);
-          } else {
-              res.send({ success: false, error: err });
-          }
+    if (sortTo == "date") {
+        Campaign.find().sort({ "deadline": -1 }).exec((err, doc) => {
+            if (!err) {
+                res.send({ success: true, campaigns: doc });
+            } else {
+                res.send({ success: false, error: err });
+            }
         });
-
-    } 
-    
-    //sort by name
-    else if (sortTo=="name") {
-      Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
-        if (!err){
-            res.send({ success: true, campaigns: doc });
-            console.log('ffffffffffffffff');
-            console.log(doc);
-        } else {
-            res.send({ success: false, error: err });
-        }
-      });
     }
-    
+
+    // sort by name
+    else if (sortTo == "name") {
+        Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
+            if (!err) {
+                res.send({ success: true, campaigns: doc });
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
+    }
+
     // sort by donations
-    else if (sortTo=="donations") {
-      Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
-        if (!err){
-            res.send({ success: true, campaigns: doc });
-            console.log('ffffffffffffffff');
-            console.log(doc);
-        } else {
-            res.send({ success: false, error: err });
-        }
-      });
+    else if (sortTo == "donations") {
+        Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
+            if (!err) {
+                res.send({ success: true, campaigns: doc });
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
     }
-    
+
     // sort by comments
-    else if (sortTo=="comments") {
-      Campaign.find().sort({ [sortTo]: -1 }).exec((err,doc) => {
-        if (!err) {
-          res.send({ success: true, campaigns: doc });
-          console.log(doc);
-        } else {
-             res.send({ success: false, error: err });
-        }
-      });
+    else if (sortTo == "comments") {
+        Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
+            if (!err) {
+                res.send({ success: true, campaigns: doc });
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
     }
 
-    //sort by trending
-    else if (sortTo=="trending") {
-      Campaign.find().sort({ "deadline": -1 , "comments": -1 }).exec((err,doc) => {
-        if (!err){
-            res.send({ success: true, campaigns: doc });
-            console.log('ffffffffffffffff');
-            console.log(doc);
-        } else {
-            res.send({ success: false, error: err });
-        }
-      });
+    // sort by trending
+    else if (sortTo == "trending") {
+        Campaign.find().sort({ "deadline": -1, "comments": -1 }).exec((err, doc) => {
+            if (!err) {
+                res.send({ success: true, campaigns: doc });
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
     }
-
-    else {
-      console.log('Else');
-    }
-    // Campaign.find().sort({ [sortTO]: -1 }).exec((err,doc) => {
-    //     // if (err) throw err;
-    //     // console.log('*************111111111**************************');
-    //     // console.log(sortby);
-    //     // //console.log(typeof sortby);
-    //     // console.log(doc);
-    //     // //db.close();
-    //     if (!err){
-    //         res.send({ success: true, campaigns: doc });
-    //         console.log(doc);
-    //     } else {
-    //         res.send({ success: false, error: err });
-    //     }
-    // });
-
 });
 
 router.get('/user', passport.authenticate("jwt", { session: false }), (req, res) => {
-    Campaign.find({
-        'owner': new ObjectId(req.user._id)
-    }).exec((err, doc) => {
+    Campaign.find({ 'owner': new ObjectId(req.user._id) }, (err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
         else
@@ -253,9 +181,7 @@ router.get('/user', passport.authenticate("jwt", { session: false }), (req, res)
 });
 
 router.get('/user/:id', (req, res) => {
-    Campaign.find({
-        'owner': new ObjectId(req.params.id)
-    }).exec((err, doc) => {
+    Campaign.find({ 'owner': new ObjectId(req.params.id) }, (err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
         else
@@ -264,7 +190,7 @@ router.get('/user/:id', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    // locate user with given id
+    // validate if user exists
     if (!ObjectId.isValid(req.params.id))
         return res.json({ success: false });
 
@@ -414,6 +340,20 @@ router.delete('/:id', (req, res) => {
             res.send({ success: false, error: err });
         }
     });
+});
+
+// total count
+router.get('/count', (req, res) => {
+    Campaign.countDocuments({}, (err, count) => {
+        res.json({ count: count })
+    })
+});
+
+// approved count
+router.get('/approvedcount', (req, res) => {
+    Campaign.find({ published: 'true' }).countDocuments({}, (err, count) => {
+        res.json({ count: count })
+    })
 });
 
 module.exports = router;

@@ -5,43 +5,103 @@
         </h1>
     </div>
     <div class="row">
-        
-            <div class="row mb-2 mt-4">
-                <div class="col-md-12" *ngIf="donations?.length">
-                    <div class="card shadow-sm">
-                        <table class="card-table table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Campaign</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Method</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let don of donations">
-                                    <td>{{ don.campaign.name }}</td>
-                                    <td>{{ don.amount }}</td>
-                                    <td>{{ don.method }}</td>
-                                    <td>{{ don.status_message }}</td>
+        <div class="col-md-12">
+            <tabset type="pills">
 
-                                </tr>
-                            </tbody>
-                        </table>
+                <tab heading="Donations" id="tab1">
+                    <div class="row mt-4">
+
+                        <div class="col-md-12" *ngIf="donations?.length">
+                            <div class="card shadow-sm">
+                                <table class="card-table table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Campaign</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Method</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let don of donations">
+                                            <td>{{ don.campaign.name }}</td>
+                                            <td>{{ don.amount | currency:'Rs. ' }}</td>
+                                            <td>{{ don.method | uppercase }}</td>
+                                            <td>{{ don.status_message | titlecase }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
+                </tab>
 
-                <div class="col-md-12" *ngIf="!donations?.length">
-                    <div class="card shadow-sm" style="width: 100%;">
-                        <div class="card-body text-center">
-                            <p class="card-text my-4">
-                                Nothing here, yet.
-                            </p>
-                             
+                <tab heading="Withdraw Requests">
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <ngx-spinner [fullScreen]="false"></ngx-spinner>
+                                <table class="table card-table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Recipient</th>
+                                            <th scope="col">Payee</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let w of withdrawals;  let collapsed=true;">
+                                            <td>
+                                                {{ w.user.firstName }} {{ w.user.lastName }}<br />
+                                                {{ w.user.email }}
+                                            </td>
+                                            <td>
+                                                {{ w.payee_name }}<br />
+                                                {{ w.bank_account }}<br />
+                                                {{ w.bank_name }}<br />
+                                            </td>
+                                            <td>
+                                                <div *ngFor="let d of w.donations" [collapse]="!collapsed">
+                                                    {{ d.amount | currency:'Rs. ' }} to
+                                                    <a target="_blank" [routerLink]="['/campaign/', d.campaign._id]">
+                                                        {{ d.campaign.name }}</a>
+                                                </div>
+                                                <br />
+                                                <span class="mb-1">{{ w.amount | currency:'Rs. '}}</span>
+                                                <button class="btn btn-sm btn-outline-info ml-2"
+                                                    (click)="collapsed = !collapsed">
+                                                    {{ !collapsed ? 'Show' : 'Hide' }} donations
+                                                </button>
+                                                <div>
+                                                </div>
+                                            </td>
+                                            <td>{{ w.created_at | date }}</td>
+                                            <td>
+                                                {{ w.status_message | titlecase }} <br />
+                                                <div class="mt-1 btn-group btn-group-sm" role="group"
+                                                    aria-label="Action">
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="onApprove(w._id)">Approve</button>
+                                                    <button type="button" class="btn btn-danger"
+                                                        (click)="onReject(w._id)">Reject</button>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </tab>
+            </tabset>
+
+               
+        </div>
 
         
     </div>

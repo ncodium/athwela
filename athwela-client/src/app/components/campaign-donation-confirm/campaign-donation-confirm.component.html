@@ -12,7 +12,7 @@
     <p>We have received your donation.</p>
     <div class="card bg-light mb-3">
         <div class="card-body">
-            <h5 class="card-title">Rs. {{ donation?.amount }}</h5>
+            <h5 class="card-title">{{ donation?.amount | currency:'Rs. ' }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ donation?.status_message }}</h6>
             <div class="card-text mb-2">
                 {{ campaign?.name }}<br />

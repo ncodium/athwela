@@ -11,15 +11,25 @@ export class CampaignCardComponent implements OnInit {
   @Input() public id: string;
   @Input() public name: string;
   @Input() public description: string;
-  @Input() public raised: string;
-  @Input() public target: string;
+  @Input() public raised: number;
+  @Input() public target: number;
   @Input() public isLinked: boolean = true;
   @Input() public hideDonate: boolean = true;
   @Input() public published: boolean = false;
+  percentage: number;
 
   constructor(
     private router: Router,
   ) { }
 
-  ngOnInit() { }
+  generatePercentage() {
+    const percentage = this.raised / this.target * 100;
+    if (percentage > 100) this.percentage = 100;
+    else this.percentage = percentage;
+    console.log(this.percentage);
+  }
+
+  ngOnInit() {
+    this.generatePercentage();
+   }
 }

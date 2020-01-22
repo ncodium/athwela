@@ -36,16 +36,7 @@
         </div>
     </div>
     <div class="row mt-4">
-        <div class="col-md-3">
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-success">Dapibus ac facilisis in</li>
-                <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
-                <li class="list-group-item list-group-item-warning">Porta ac consectetur ac</li>
-                <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
-              </ul>
-             
-        </div>
-        <div class="col-md-6">
+        <div class="card-columns">
             <div class="card">
                 <div class="card-body">
                     <div style="display: block;">
@@ -55,42 +46,20 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <table mdbTable>
-                <caption>List of users</caption>
-                <thead>
-                  <tr>
-                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr mdbTableCol *ngFor="let el of elements">
-                    <th scope="row">{{el.id}}</th>
-                    <td>{{el.first}}</td>
-                    <td>{{el.last}}</td>
-                    <td>{{el.handle}}</td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-md-6"> 
-            <canvas baseChart
-                  
-                    [datasets]="labelMFL"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
-                    [chartType]="ChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
+
+            <div class="card">
+                <div class="card-body">
+                    <div style="display: block;">
+                        <canvas baseChart [datasets]="labelMFL" [labels]="lineChartLabels" [options]="lineChartOptions"
+                            [chartType]="ChartType" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas>
                     </div>
-        <div class="col-md-6">
-            
+                </div>
+            </div>
+
         </div>
-          
     </div>
+
 </div>
 
 <app-footer></app-footer>

@@ -14,6 +14,7 @@ import { TemplateRef } from '@angular/core';
 import { AppConfig } from 'src/app/config/app-config';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmPasswordValidator } from './../../components/register/validators/confirm-password.validator';
+import { ProfilePreviousWithdrawalsComponent } from 'src/app/components/profile-previous-withdrawals/profile-previous-withdrawals.component';
 
 @Component({
   selector: 'app-profile',
@@ -30,12 +31,20 @@ export class ProfileComponent implements OnInit {
   userId: string;
   _user: User;
   visitor: boolean;
+  avatarUrl: string = 'assets/user.png';
 
   campaigns: Campaign[];
   donations: Donation[];
+  donationsSum: number = 0;
+  receivedDonations: Donation[];
+  notWithdrawenDonations: Donation[];
+  receivedDonationsSum: number = 0;
+  notWithdrawenDonationsSum: number = 0;
 
   updateForm: FormGroup;
+  withdrawForm: FormGroup;
   alert: any;
+  withdrawAlert: any;
 
   constructor(
     private router: Router,
@@ -80,12 +89,14 @@ export class ProfileComponent implements OnInit {
             else this.router.navigate(['/page-not-found']);
 
             // current user is the owner of the profile
-            if (this.user._id == this._user._id) this.visitor = false
+            if (this.user._id == this._user._id) this.visitor = false;
             // current user is not the owner of the profile
             else this.visitor = true;
 
             this.getUserCampaigns(this.user._id);
             this.getUserDonations(this.user._id);
+            this.getUserDonationsSum(this.user._id);
+            this.getUserReceivedDonations(this.user._id);
           })
         }
         else {
@@ -93,14 +104,18 @@ export class ProfileComponent implements OnInit {
           // not a visitor
           this.user = this._user;
           this.visitor = false; // is the owner
-
+          this.initForms();
           this.getUserCampaigns(this.user._id);
           this.getUserDonations(this.user._id);
+          this.getUserDonationsSum(this.user._id);
+          this.getUserReceivedDonations(this.user._id);
+          this.getUserReceivedDonationsNotWithdrawen(this.user._id);
         }
       }
       else {
         // user is anonymous
         this.visitor = true;
+        console.log(this.visitor);
 
         if (this.userId) {
           // id should be included in the url
@@ -119,6 +134,10 @@ export class ProfileComponent implements OnInit {
       }
     });
 
+
+  }
+
+  initForms() {
     this.updateForm = this.formBuilder.group({
       avatar: [],
       phone: [this._user.phone],
@@ -143,6 +162,19 @@ export class ProfileComponent implements OnInit {
     },
       { validator: ConfirmPasswordValidator.matchPassword }
     );
+
+    this.withdrawForm = this.formBuilder.group({
+      payee: ['', [
+        Validators.required
+      ]],
+      bankName: ['', [
+        Validators.required
+      ]],
+      bankAccount: ['', [
+        Validators.required
+      ]],
+      donationIds: ['']
+    });
   }
 
   getUserCampaigns(id: string) {
@@ -157,7 +189,41 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  openSettings(template: TemplateRef<any>) {
+  getUserDonationsSum(id: string) {
+    this.donationService.getUserDonationsSum(id).subscribe((res) => {
+      this.donationsSum = res['amount'] as number;
+    });
+  }
+
+  getUserReceivedDonations(id: string) {
+    this.donationService.getUserReceivedDonations(id).subscribe((res) => {
+      this.receivedDonations = res['donations'] as Donation[];
+      this.receivedDonationsSum = res['amount'] as number;
+    });
+  }
+
+  getUserReceivedDonationsNotWithdrawen(id: string) {
+    this.donationService.getUserReceivedDonationsNotWithdrawen(id).subscribe((res) => {
+      this.notWithdrawenDonations = res['donations'] as Donation[];
+      this.notWithdrawenDonationsSum = res['amount'] as number;
+
+      this.donationIds.setValue(
+        this.notWithdrawenDonations.map((d) => { return d._id })
+      );
+
+      if (this.notWithdrawenDonationsSum < AppConfig.MINIMUM_WITHDRAW) {
+        this.withdrawForm.disable();
+        this.withdrawAlert = {
+          msg: "You can't withdraw because your remaining balance is less than minimum allowed amount.",
+          type: 'danger'
+        }
+      }
+
+      console.log(this.donationIds.value);
+    });
+  }
+
+  openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
 
@@ -191,6 +257,35 @@ export class ProfileComponent implements OnInit {
       }
       else {
         this.alert = {
+          type: 'danger',
+          msg: res['msg']
+        }
+      }
+    })
+  }
+
+  onWithdraw() {
+    const withdrawal = {
+      donations: this.donationIds.value,
+      bank_account: this.bankAccount.value,
+      bank_name: this.bankName.value,
+      payee_name: this.payee.value,
+      owner: this._user._id
+    }
+
+    this.donationService.withdraw(withdrawal).subscribe((res) => {
+      if (res['success']) {
+        console.log(res);
+        this.getUserReceivedDonationsNotWithdrawen(this.user._id);
+
+        // feedback
+        this.withdrawAlert = {
+          type: 'success',
+          msg: 'Your request has been sent. Once it is verified funds will be transferred to your account.'
+        }
+      }
+      else {
+        this.withdrawAlert = {
           type: 'danger',
           msg: res['msg']
         }
@@ -233,4 +328,31 @@ export class ProfileComponent implements OnInit {
   get city() {
     return this.updateForm.get('city');
   }
+
+  get payee() {
+    return this.withdrawForm.get('payee');
+  }
+
+  get bankName() {
+    return this.withdrawForm.get('bankName');
+  }
+
+  get bankAccount() {
+    return this.withdrawForm.get('bankAccount');
+  }
+
+  get donationIds() {
+    return this.withdrawForm.get('donationIds');
+  }
+
+  openPreviousWithdrawalsModal() {
+    const initialState = {
+      title: 'Previous Withdrawals',
+      userId: this.authService.getUser()._id
+    };
+
+    this.modalRef = this.modalService.show(ProfilePreviousWithdrawalsComponent, { initialState, class: 'modal-lg' });
+    this.modalRef.content.closeBtnName = 'Close';
+  }
+
 }

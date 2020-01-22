@@ -34,6 +34,9 @@ import { ModCampaignsComponent } from './pages/mod-campaigns/mod-campaigns.compo
 import { ModUsersComponent } from './pages/mod-users/mod-users.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { SearchComponent } from './search/search.component';
+import { ProfilePreviousWithdrawalsComponent } from './components/profile-previous-withdrawals/profile-previous-withdrawals.component';
+
 
 // services
 import { AuthService } from './services/auth.service';
@@ -62,8 +65,9 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { SearchComponent } from './search/search.component';
+//
 import { AdminReportsComponent } from './pages/admin-reports/admin-reports.component';
+import { AdminDonationsRejectWithdrawalComponent } from './components/admin-donations-reject-withdrawal/admin-donations-reject-withdrawal.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +102,8 @@ import { AdminReportsComponent } from './pages/admin-reports/admin-reports.compo
     CampaignDonationConfirmComponent,
     SearchComponent,
     AdminReportsComponent,
+    ProfilePreviousWithdrawalsComponent,
+    AdminDonationsRejectWithdrawalComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +137,9 @@ import { AdminReportsComponent } from './pages/admin-reports/admin-reports.compo
     LoginComponent,
     RegisterComponent,
     CampaignDonateComponent,
-    CampaignDonationConfirmComponent
+    CampaignDonationConfirmComponent,
+    ProfilePreviousWithdrawalsComponent,
+    AdminDonationsRejectWithdrawalComponent
   ]
 })
 export class AppModule {

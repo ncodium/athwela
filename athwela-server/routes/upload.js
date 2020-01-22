@@ -25,10 +25,22 @@ router.post('/', upload.single('photo'), (req, res) => {
             success: false
         });
     } else {
-        console.log("File uploaded at: " + req.file.path);
         return res.send({
             success: true,
             path: req.file.path
+        })
+    }
+})
+
+router.post('/all/', upload.array('photos'), (req, res) => {
+    if (!req.files) {
+        return res.send({
+            success: false
+        });
+    } else {
+        return res.send({
+            success: true,
+            path: req.files.path
         })
     }
 })

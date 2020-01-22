@@ -12,6 +12,7 @@ const users = require('./routes/users');
 const campaigns = require('./routes/campaigns');
 const donations = require('./routes/donations');
 const upload = require('./routes/upload');
+const search = require('./routes/search');
 
 // establish database connection
 mongoose.connect(config.database, {
@@ -45,6 +46,7 @@ app.use('/users', users);
 app.use('/campaigns', campaigns);
 app.use('/donations', donations);
 app.use('/upload', upload);
+app.use('/search', search);
 app.get('/', (req, res) => {
     res.send('Athwela API v1');
 });

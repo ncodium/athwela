@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{ title }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form (ngSubmit)="onReject(reason.value)" [formGroup]="rejectForm">
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="form-control-reason">Reason</label>
+            <div class="input-group mb-2">
+                <input type="text" class="form-control" id="form-control-reason" aria-describedby="reasonHelp"
+                    name="amount" formControlName="reason">
+            </div>
+            <small id="reasonHelp" class="form-text text-muted">
+                Why does this withdrawal cannot be approved?
+            </small>
+        </div>
+    </div>
+</form>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="onCancel()">{{ closeBtnName }}</button>
+    <button type="submit" class="btn btn-primary" (click)="onReject(reason.value)">Reject</button>
+</div>
