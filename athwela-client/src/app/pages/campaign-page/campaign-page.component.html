@@ -55,7 +55,7 @@
                     </div>
                     <div class="card-footer" *ngIf="campaign?.verified">
                         Verified by &nbsp;
-                        <button class="btn-link" (click)="onVerifierClick(campaign.verified_by._id)">
+                        <button class="btn btn-link" (click)="onVerifierClick(campaign.verified_by._id)">
                             <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                             {{ campaign?.verified_by.name }}
                         </button>
@@ -98,10 +98,10 @@
                     </div>
                     <div class="card-footer" *ngIf="campaign?.verified">
                         Verified by &nbsp;
-                        <a [routerLink]="['/profile', campaign.verified_by._id]">
+                        <button class="btn btn-link" (click)="onVerifierClick(campaign.verified_by._id)">
                             <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                             {{ campaign?.verified_by.name }}
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <ng-template #complete>
@@ -129,10 +129,10 @@
                 </div>
                 <div class="card-footer" *ngIf="campaign?.verified || campaign?.published">
                     Verified by &nbsp;
-                    <a [routerLink]="['/profile', campaign.verified_by._id]">
+                    <button class="btn btn-link" (click)="onVerifierClick(campaign.verified_by._id)">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                         {{ campaign?.verified_by.name }}
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -157,10 +157,10 @@
                 </div>
                 <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
                     Verified by &nbsp;
-                    <a [routerLink]="['/profile', campaign.verified_by._id]">
+                    <button class="btn btn-link" (click)="onVerifierClick(campaign.verified_by._id)">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
                         {{ campaign?.verified_by.name }}
-                    </a>
+                    </button>
                 </div>
             </div>
 
