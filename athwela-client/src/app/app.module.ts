@@ -106,11 +106,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
     AdminReportsComponent,
     ProfilePreviousWithdrawalsComponent,
     AdminDonationsRejectWithdrawalComponent,
-<<<<<<< HEAD
-    CampaignPageVerifierComponent
-=======
+    CampaignPageVerifierComponent,
     SearchPageComponent
->>>>>>> eb866f5ba71f6583713b97c84447acdf1d0c29de
   ],
   imports: [
     BrowserModule,
