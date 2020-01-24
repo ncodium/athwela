@@ -65,6 +65,7 @@ import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { AdminDonationsRejectWithdrawalComponent } from './components/admin-donations-reject-withdrawal/admin-donations-reject-withdrawal.component';
+import { CampaignPageVerifierComponent } from './components/campaign-page-verifier/campaign-page-verifier.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { AdminDonationsRejectWithdrawalComponent } from './components/admin-dona
     CampaignDonationConfirmComponent,
     SearchComponent,
     ProfilePreviousWithdrawalsComponent,
-    AdminDonationsRejectWithdrawalComponent
+    AdminDonationsRejectWithdrawalComponent,
+    CampaignPageVerifierComponent
   ],
   imports: [
     BrowserModule,
@@ -135,7 +137,8 @@ import { AdminDonationsRejectWithdrawalComponent } from './components/admin-dona
     CampaignDonateComponent,
     CampaignDonationConfirmComponent,
     ProfilePreviousWithdrawalsComponent,
-    AdminDonationsRejectWithdrawalComponent
+    AdminDonationsRejectWithdrawalComponent,
+    CampaignPageVerifierComponent
   ]
 })
 export class AppModule {

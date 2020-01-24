@@ -8,6 +8,8 @@ import { User } from 'src/app/models/user.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CampaignDonateComponent } from '../../components/campaign-donate/campaign-donate.component';
 import { CampaignDonationConfirmComponent } from '../../components/campaign-donation-confirm/campaign-donation-confirm.component';
+import { UserService } from 'src/app/services/user.service';
+import { CampaignPageVerifierComponent } from 'src/app/components/campaign-page-verifier/campaign-page-verifier.component';
 
 @Component({
   selector: 'app-campaign-page',
@@ -38,7 +40,8 @@ export class CampaignPageComponent implements OnInit {
     private route: ActivatedRoute,
     private campaignService: CampaignService,
     private authService: AuthService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -90,6 +93,17 @@ export class CampaignPageComponent implements OnInit {
     this.bsModalRef = this.modalService.show(CampaignDonateComponent, { initialState });
     this.bsModalRef.content.closeBtnName = 'Close';
   }
+
+  onVerifierClick(id: string) {
+    const initialState = {
+      title: "Verifier",
+      user: this.userService.getUser(id)
+    };
+
+    this.bsModalRef = this.modalService.show(CampaignPageVerifierComponent, { initialState });
+    this.bsModalRef.content.closeBtnName = 'Close';
+  }
+
 
   authReset() {
     this.loggedIn = this.authService.loggedIn();
