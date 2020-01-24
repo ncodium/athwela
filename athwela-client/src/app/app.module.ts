@@ -37,6 +37,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SearchComponent } from './search/search.component';
 import { ProfilePreviousWithdrawalsComponent } from './components/profile-previous-withdrawals/profile-previous-withdrawals.component';
 
+
 // services
 import { AuthService } from './services/auth.service';
 
@@ -64,8 +65,11 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
+//
+import { AdminReportsComponent } from './pages/admin-reports/admin-reports.component';
 import { AdminDonationsRejectWithdrawalComponent } from './components/admin-donations-reject-withdrawal/admin-donations-reject-withdrawal.component';
 import { CampaignPageVerifierComponent } from './components/campaign-page-verifier/campaign-page-verifier.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 @NgModule({
   declarations: [
@@ -99,9 +103,14 @@ import { CampaignPageVerifierComponent } from './components/campaign-page-verifi
     CampaignDonateComponent,
     CampaignDonationConfirmComponent,
     SearchComponent,
+    AdminReportsComponent,
     ProfilePreviousWithdrawalsComponent,
     AdminDonationsRejectWithdrawalComponent,
+<<<<<<< HEAD
     CampaignPageVerifierComponent
+=======
+    SearchPageComponent
+>>>>>>> eb866f5ba71f6583713b97c84447acdf1d0c29de
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NgForm }   from '@angular/forms';
 
 import { SearchService } from '../services/search.service';
 // import { Campaign } from '../models/campaign.model';
@@ -11,10 +13,12 @@ import { SearchService } from '../services/search.service';
 })
 export class SearchComponent implements OnInit {
 
-  search: string;
+  //search: string;
 
   constructor(
-    private searchService: SearchService
+    private searchService: SearchService,
+    private route: ActivatedRoute,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -26,6 +30,15 @@ export class SearchComponent implements OnInit {
     this.searchService.getSearch(search).subscribe((res) => {
       console.log(search);
     });
+    // this.route.params.subscribe(params => {
+    //   this.search = params.search;
+    //   console.log(search);
+    // });
+  }
+
+  search(f: NgForm) {
+    console.log(f.value.search );
+    this.router.navigate(['/search-page', f.value.search])
   }
 
 }

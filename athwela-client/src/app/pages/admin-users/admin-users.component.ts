@@ -30,6 +30,7 @@ export class AdminUsersComponent implements OnInit {
   ngOnInit() {
     this.getUsers();
     this.getModerators();
+    
 
     this.registerForm = this.formBuilder.group({
       username: ['', [
@@ -104,6 +105,31 @@ export class AdminUsersComponent implements OnInit {
     this.userService.getModerators().subscribe((res) => {
       this.moderators = res['users'] as User[];
     });
+  }
+
+  refreshCampaign() {
+    this.userService.getUsers().subscribe((res) => {
+      if (res['success']) {
+        this.users = res['users'] as User[];
+      }
+      else {
+        this.router.navigate(['/page-not-found']);
+      }
+    });
+  }
+
+  deleteusers(id:String){
+    this.userService.deleteusers(id).subscribe((res)=>{
+        if(res['success']===true)
+        {
+          this.refreshCampaign();
+         // console.log(res['msg'])
+        }
+        else{
+
+        }
+    });
+
   }
 
   constructor(

@@ -15,11 +15,12 @@ export class UserService {
     private authService: AuthService
   ) { }
 
-  getUsers() { return this.http.get(AppConfig.BASE_URL + 'users/') }
-  getModerators() { return this.http.get(AppConfig.BASE_URL + 'users/mod') }
-  gettotalcount() { return this.http.get(AppConfig.BASE_URL + 'campaigns/count') }
-  getaprovedcount() { return this.http.get(AppConfig.BASE_URL + 'campaigns/approvedcount') }
-
+  getUsers(){ return this.http.get(AppConfig.BASE_URL + 'users/') }
+  getModerators(){ return this.http.get(AppConfig.BASE_URL + 'users/mod') }
+  gettotalcount(){return this.http.get(AppConfig.BASE_URL + 'campaigns/count') }
+  getaprovedcount(){return this.http.get(AppConfig.BASE_URL + 'campaigns/approvedcount') }
+  deleteusers(id:String){return this.http.delete(AppConfig.BASE_URL + 'users/'+id)}
+   
   getUser(id: String) {
     return this.http.get(AppConfig.BASE_URL + 'users/profile/' + id)
   }
