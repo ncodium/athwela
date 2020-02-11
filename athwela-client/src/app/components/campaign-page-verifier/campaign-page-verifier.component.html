@@ -7,8 +7,23 @@
 
 <div class="modal-body">
     <ngx-spinner [fullScreen]="false"></ngx-spinner>
-    {{profile?.userName}}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img *ngIf="profile?.avatar" class="image-cover" [src]="profile.avatar" data-holder-rendered="true">
+                <img *ngIf="!profile?.avatar" class="image-cover" src="assets/user.png" data-holder-rendered="true">
+            </div>
+            <div class="col">
+                <h3>{{ profile?.firstName }} {{ profile?.lastName }}</h3>
+                <p>{{ profile?.username }}</p>
+                <p class="card-text">{{ profile?.email }}</p>
+            </div>
+        </div>
+    </div>
+
+
 </div>
+
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="onClose()">{{ closeBtnName }}</button>
 </div>
