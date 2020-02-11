@@ -22,6 +22,8 @@ import { ModCampaignsComponent } from './pages/mod-campaigns/mod-campaigns.compo
 import { ModUsersComponent } from './pages/mod-users/mod-users.component';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { ThereportComponent } from './pages/thereport/thereport.component';
+
 
 // route guard
 import { AuthGuard } from './guards/auth.guard';
@@ -47,6 +49,8 @@ const routes: Routes = [
   { path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard] },
   { path: 'admin/moderators', component: AdminModeratorsComponent, canActivate: [AuthGuard] },
   { path: 'admin/reports', component: AdminReportsComponent, canActivate: [AuthGuard] },
+  { path: 'admin/thereport', component:ThereportComponent  , canActivate: [AuthGuard] },
+  
   
   
 
