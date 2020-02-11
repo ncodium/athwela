@@ -37,7 +37,6 @@ export class CampaignDonationConfirmComponent implements OnInit {
       /** refresh every 5 seconds */
       this.refreshData();
     }, 5000);
-
   }
 
   onCancel() {

@@ -6,7 +6,8 @@
 </div>
 
 <div class="modal-body">
-    {{user.firstName}}
+    <ngx-spinner [fullScreen]="false"></ngx-spinner>
+    {{profile?.userName}}
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="onClose()">{{ closeBtnName }}</button>

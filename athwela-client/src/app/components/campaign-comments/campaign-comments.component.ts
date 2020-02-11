@@ -4,7 +4,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
   selector: 'app-campaign-comments',
   templateUrl: './campaign-comments.component.html',
   styleUrls: ['./campaign-comments.component.scss'],
-  //changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CampaignCommentsComponent implements OnInit {
   body: String;

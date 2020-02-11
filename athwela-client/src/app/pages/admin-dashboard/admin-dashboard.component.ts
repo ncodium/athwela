@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SingleDataSet, Label,ChartsModule, } from 'ng2-charts';
+import { SingleDataSet, Label, ChartsModule, } from 'ng2-charts';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { CampaignService } from '../../services/campaign.service';
 import { User } from '../../models/user.model';
@@ -14,8 +14,6 @@ import { Campaign } from '../../models/campaign.model';
 
 })
 export class AdminDashboardComponent implements OnInit {
-   
-
   users;
   moderators;
   donations;
@@ -31,7 +29,7 @@ export class AdminDashboardComponent implements OnInit {
     private campaignService: CampaignService,
     private userservice: UserService,
 
-  ) {}
+  ) { }
 
   ngOnInit(
   ) {
@@ -40,7 +38,7 @@ export class AdminDashboardComponent implements OnInit {
     this.getCampaigns();
     this.gettotalreq();
     this.getapprovedreq();
-    
+
   }
 
   getModerators() {
@@ -64,18 +62,14 @@ export class AdminDashboardComponent implements OnInit {
       this.polarAreaChartData.unshift(res['count']);
     });
   }
-  
-//get approved request count
-getapprovedreq(){
-  this.userservice.getaprovedcount().subscribe((res) => {
-    this.totalreq = res['count'];
-    console.log(this.totalreq)
-    this.polarAreaChartData.splice(1,0,res['count']);
-  });
-}
 
-
-
+  //get approved request count
+  getapprovedreq() {
+    this.userservice.getaprovedcount().subscribe((res) => {
+      this.totalreq = res['count'];
+      this.polarAreaChartData.splice(1, 0, res['count']);
+    });
+  }
 
   getCampaigns() {
     this.campaignService.getCampaigns().subscribe((res) => {
@@ -85,15 +79,15 @@ getapprovedreq(){
   }
 
   public polarAreaChartLabels: Label[] = ['Total requests', 'Approved requests', 'Declined requests', 'Pending requests'];
-  public polarAreaChartData: SingleDataSet = [ 1, 4];
+  public polarAreaChartData: SingleDataSet = [1, 4];
   public polarAreaLegend = true;
 
   public polarAreaChartType: ChartType = 'polarArea';
-//for table
+  //for table
   elements: any = [
-    {id: 1, first: 'Mark', last: 'Otto', handle: '@mdo'},
-    {id: 2, first: 'Jacob', last: 'Thornton', handle: '@fat'},
-    {id: 3, first: 'Larry', last: 'the Bird', handle: '@twitter'},
+    { id: 1, first: 'Mark', last: 'Otto', handle: '@mdo' },
+    { id: 2, first: 'Jacob', last: 'Thornton', handle: '@fat' },
+    { id: 3, first: 'Larry', last: 'the Bird', handle: '@twitter' },
   ];
 
   headElements = ['ID', 'First', 'Last', 'Handle'];
@@ -103,33 +97,31 @@ getapprovedreq(){
   firstCopy = false;
 
   // data
-  public lineChartData: Array<number> = [ 1,8,49];
- 
+  public lineChartData: Array<number> = [1, 8, 49];
+
   public labelMFL: Array<any> = [
-      { data: this.lineChartData,
-        label: this.SystemName
-      }
+    {
+      data: this.lineChartData,
+      label: this.SystemName
+    }
   ];
   // labels
   public lineChartLabels: Array<any> = ["2018-01-29 10:00:00", "2018-01-29 10:27:00", "2018-01-29 10:28:00"];
-  
-   
 
   public lineChartOptions: any = {
     responsive: true,
-    scales : {
+    scales: {
       yAxes: [{
         ticks: {
-          max : 60,
-          min : 0,
+          max: 60,
+          min: 0,
         }
       }],
       xAxes: [{
-  
- 
-        }],
+
+      }],
     },
-      plugins: {
+    plugins: {
       datalabels: {
         display: true,
         align: 'top',
@@ -141,7 +133,7 @@ getapprovedreq(){
           family: 'FontAwesome',
           size: 14
         },
-      
+
       },
       deferred: false
 
@@ -149,14 +141,14 @@ getapprovedreq(){
 
   };
 
-   _lineChartColors:Array<any> = [{
-       backgroundColor: 'red',
-        borderColor: 'red',
-        pointBackgroundColor: 'red',
-        pointBorderColor: 'red',
-        pointHoverBackgroundColor: 'red',
-        pointHoverBorderColor: 'red' 
-      }];
+  _lineChartColors: Array<any> = [{
+    backgroundColor: 'red',
+    borderColor: 'red',
+    pointBackgroundColor: 'red',
+    pointBorderColor: 'red',
+    pointHoverBackgroundColor: 'red',
+    pointHoverBorderColor: 'red'
+  }];
 
 
 
@@ -168,6 +160,6 @@ getapprovedreq(){
   public chartHovered(e: any): void {
     console.log(e);
   }
-   
+
 }
 

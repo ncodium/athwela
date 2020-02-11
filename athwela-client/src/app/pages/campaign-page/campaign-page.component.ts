@@ -97,13 +97,12 @@ export class CampaignPageComponent implements OnInit {
   onVerifierClick(id: string) {
     const initialState = {
       title: "Verifier",
-      user: this.userService.getUser(id)
+      user: id
     };
 
     this.bsModalRef = this.modalService.show(CampaignPageVerifierComponent, { initialState });
     this.bsModalRef.content.closeBtnName = 'Close';
   }
-
 
   authReset() {
     this.loggedIn = this.authService.loggedIn();

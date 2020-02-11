@@ -57,7 +57,7 @@
                         Verified by &nbsp;
                         <button class="btn btn-link" (click)="onVerifierClick(campaign.verified_by._id)">
                             <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
-                            {{ campaign?.verified_by.name }}
+                            {{ campaign?.verified_by.firstName }} {{ campaign?.verified_by.lastName }}
                         </button>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                         Verified by &nbsp;
                         <button class="btn btn-link" (click)="onVerifierClick(campaign.verified_by._id)">
                             <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
-                            {{ campaign?.verified_by.name }}
+                            {{ campaign?.verified_by.firstName }} {{ campaign?.verified_by.lastName }}
                         </button>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                     Verified by &nbsp;
                     <button class="btn btn-link" (click)="onVerifierClick(campaign.verified_by._id)">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
-                        {{ campaign?.verified_by.name }}
+                        {{ campaign?.verified_by.firstName }} {{ campaign?.verified_by.lastName }}
                     </button>
                 </div>
             </div>
@@ -159,7 +159,7 @@
                     Verified by &nbsp;
                     <button class="btn btn-link" (click)="onVerifierClick(campaign.verified_by._id)">
                         <fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;
-                        {{ campaign?.verified_by.name }}
+                        {{ campaign?.verified_by.firstName }} {{ campaign?.verified_by.lastName }}
                     </button>
                 </div>
             </div>
