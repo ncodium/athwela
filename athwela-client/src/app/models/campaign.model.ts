@@ -10,4 +10,6 @@ export class Campaign {
     verified_by?: any;
     comments?: any;
     complete?: boolean;
+    rejected?: boolean;
+    reject_reason?: string;
 }

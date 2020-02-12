@@ -1,5 +1,5 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Campaign } from '../../models/campaign.model';
 import { CampaignService } from 'src/app/services/campaign.service';
@@ -34,6 +34,8 @@ export class CampaignPageComponent implements OnInit {
   user: User;
 
   donationId: string;
+
+  rejectReason: string;
 
   constructor(
     private router: Router,
@@ -74,11 +76,7 @@ export class CampaignPageComponent implements OnInit {
           this.router.navigate(['/page-not-found']);
         }
       });
-
-
     });
-
-
 
     this.authReset()
   }
@@ -123,6 +121,7 @@ export class CampaignPageComponent implements OnInit {
       if (res['success']) {
         this.campaign = res['campaign'] as Campaign;
         this.generatePercentage(this.campaign);
+        console.log(this.campaign);
       }
       else {
         this.router.navigate(['/page-not-found']);
@@ -195,5 +194,16 @@ export class CampaignPageComponent implements OnInit {
     else {
       this.percentageType = 'info';
     }
+  }
+
+  rejectCampaign(template: TemplateRef<any>) {
+    this.bsModalRef = this.modalService.show(template);
+  }
+
+  onReject() {
+    this.campaignService.rejectCampaign(this.campaignId, this.rejectReason).subscribe((res) => {
+      this.refreshCampaign(this.campaignId);
+      this.bsModalRef.hide();
+    });
   }
 }
