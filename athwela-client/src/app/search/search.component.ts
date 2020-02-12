@@ -38,7 +38,11 @@ export class SearchComponent implements OnInit {
 
   search(f: NgForm) {
     console.log(f.value.search );
-    this.router.navigate(['/search-page', f.value.search])
+    this.router.navigate(['/search-page', f.value.search]);
+    this.searchService.getSearch(f.value.search).subscribe((res) => {
+      console.log('******');
+      console.log(f.value.search);
+    });
   }
 
 }
