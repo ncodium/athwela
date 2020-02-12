@@ -21,7 +21,8 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
         owner: req.user._id,
         target: req.body.target,
         deadline: req.body.deadline,
-        category: req.body.category
+        category: req.body.category,
+        images: req.body.images
     });
 
     cmp.save((err, doc) => {
