@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
-import { Label } from 'ng2-charts';
 import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ConfirmPasswordValidator } from './../../components/register/validators/confirm-password.validator';
 import { UsernameValidator } from './../../components/register/validators/username.validator';
 
@@ -16,7 +14,6 @@ import { UsernameValidator } from './../../components/register/validators/userna
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.scss'],
-  //providers: [UserService]
 })
 export class AdminUsersComponent implements OnInit {
   modalRef: BsModalRef;
@@ -30,7 +27,7 @@ export class AdminUsersComponent implements OnInit {
   ngOnInit() {
     this.getUsers();
     this.getModerators();
-    
+
 
     this.registerForm = this.formBuilder.group({
       username: ['', [
@@ -118,18 +115,12 @@ export class AdminUsersComponent implements OnInit {
     });
   }
 
-  deleteusers(id:String){
-    this.userService.deleteusers(id).subscribe((res)=>{
-        if(res['success']===true)
-        {
-          this.refreshCampaign();
-         // console.log(res['msg'])
-        }
-        else{
-
-        }
+  deleteusers(id: String) {
+    this.userService.deleteusers(id).subscribe((res) => {
+      if (res['success'] === true) {
+        this.refreshCampaign();
+      }
     });
-
   }
 
   constructor(

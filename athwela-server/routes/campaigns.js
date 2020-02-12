@@ -230,6 +230,45 @@ router.put('/:id', (req, res) => {
         });
 });
 
+router.put('/:id/reject', passport.authenticate("jwt", { session: false }), (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given Id: ${req.params.id}`);
+
+    Campaign.findByIdAndUpdate(req.params.id, {
+        $set: {
+            rejected: 'true',
+            reject_message: req.body.reject_message
+        }
+    },
+        { new: true }, (err, doc) => {
+            if (!err) {
+                res.send(doc);
+            } else {
+                console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2));
+            }
+        }
+    );
+});
+
+router.put('/:id/unreject', passport.authenticate("jwt", { session: false }), (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given Id: ${req.params.id}`);
+
+    Campaign.findByIdAndUpdate(req.params.id, {
+        $set: {
+            rejected: 'false',
+            reject_message: ''
+        }
+    },
+        { new: true }, (err, doc) => {
+            if (!err) {
+                res.send(doc);
+            } else {
+                console.log('Error in updating campaign: ' + JSON.stringify(err, undefined, 2));
+            }
+        });
+});
+
 router.put('/:id/verify', passport.authenticate("jwt", { session: false }), (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given Id: ${req.params.id}`);

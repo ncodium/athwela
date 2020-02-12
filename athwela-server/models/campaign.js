@@ -14,6 +14,8 @@ const campaignSchema = new Schema(
         status: { type: Number, default: 0 },
         deadline: { type: Date, required: true },
         verified: { type: Boolean, default: false },
+        rejected: { type: Boolean, default: false },
+        reject_message: { type: String, required: false },
         published: { type: Boolean, default: false },
         complete: { type: Boolean, default: false },
         comments: [{

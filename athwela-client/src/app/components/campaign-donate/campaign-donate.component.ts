@@ -38,7 +38,4 @@ export class CampaignDonateComponent implements OnInit {
     console.log("notify_url: ", this.notifyUrl);
   }
 
-  onDonateClick() {
-
-  }
 }

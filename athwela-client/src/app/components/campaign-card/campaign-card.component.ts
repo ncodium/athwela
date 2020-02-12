@@ -26,10 +26,9 @@ export class CampaignCardComponent implements OnInit {
     const percentage = this.raised / this.target * 100;
     if (percentage > 100) this.percentage = 100;
     else this.percentage = percentage;
-    console.log(this.percentage);
   }
 
   ngOnInit() {
     this.generatePercentage();
-   }
+  }
 }

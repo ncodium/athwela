@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { DonationService } from '../../services/donation.service';
 
 @Component({
@@ -25,7 +25,6 @@ export class AdminDonationsRejectWithdrawalComponent implements OnInit {
     this.rejectForm = this.formBuilder.group({
       reason: ['']
     });
-
   }
 
   onCancel() {
@@ -35,7 +34,7 @@ export class AdminDonationsRejectWithdrawalComponent implements OnInit {
 
   onReject(reason: string) {
     this.donationService.rejectWithdrawal(this.withdrawalId, reason).subscribe((res) => {
-      this.onClose.next(true); // trigger refresh on admin-donations
+      this.onClose.next(true); // trigger a refresh on admin-donations
       this.bsModalRef.hide();
     })
   }

@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{ title }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onClose()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <ngx-spinner [fullScreen]="false"></ngx-spinner>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img *ngIf="profile?.avatar" class="image-cover" [src]="profile.avatar" data-holder-rendered="true">
+                <img *ngIf="!profile?.avatar" class="image-cover" src="assets/user.png" data-holder-rendered="true">
+            </div>
+            <div class="col">
+                <h3>{{ profile?.firstName }} {{ profile?.lastName }}</h3>
+                <p>{{ profile?.username }}</p>
+                <p class="card-text">{{ profile?.email }}</p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="onClose()">{{ closeBtnName }}</button>
+</div>

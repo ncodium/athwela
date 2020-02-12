@@ -17,8 +17,7 @@ export class ProfilePreviousWithdrawalsComponent implements OnInit {
     public donationService: DonationService
   ) { }
 
-  ngOnInit(
-  ) {
+  ngOnInit() {
     this.getUserWithdrawals();
   }
 

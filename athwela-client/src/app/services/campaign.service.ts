@@ -27,6 +27,30 @@ export class CampaignService {
   getCategoryCampaign(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category); }
   getSortCampaign(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort); }
 
+  rejectCampaign(id: string, reject_message: string) {
+    this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
+      })
+    };
+
+    return this.http.put(AppConfig.BASE_URL + 'campaigns/' + id + '/reject', {
+      reject_message: reject_message
+    }, httpOptions);
+  }
+
+  unrejectCampaign(id: string) {
+    this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': this.authService.authToken
+      })
+    };
+
+    return this.http.put(AppConfig.BASE_URL + 'campaigns/' + id + '/unreject', {}, httpOptions);
+  }
+
   publishCampaign(id: string) {
     this.authService.loadToken();
     const httpOptions = {

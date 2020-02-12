@@ -5,7 +5,9 @@
       <button class="btn btn-primary" type="submit" style="display: none;" (click)='searchText(search.value)'><fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;</button>
     </div>
   </div>
-  <button class="btn btn-primary" type="submit" style="display: none;"><fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;</button>
+  <button class="btn btn-primary" type="submit" style="display: none;">
+    <fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;
+  </button>
 
   <button id="button" type="submit" routerLink="['/search-page'/{{ search }}]" style="visibility: hidden;" (click)='searchText(search.value)'></button>
 </form> -->

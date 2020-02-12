@@ -12,8 +12,8 @@
           Sort By <span class="caret"></span>
         </button>
         <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-animated">
-          <li role="menuitem"  *ngFor="let sort of sortBy"><a class="dropdown-item"  (click)="sortCampaigns(sort)">
-            {{ sort }}</a></li>
+          <li role="menuitem" *ngFor="let sort of sortBy"><a class="dropdown-item" (click)="sortCampaigns(sort)">
+              {{ sort }}</a></li>
         </ul>
       </div>
     </div>

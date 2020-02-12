@@ -68,7 +68,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
 //
 import { AdminReportsComponent } from './pages/admin-reports/admin-reports.component';
 import { AdminDonationsRejectWithdrawalComponent } from './components/admin-donations-reject-withdrawal/admin-donations-reject-withdrawal.component';
+import { CampaignPageVerifierComponent } from './components/campaign-page-verifier/campaign-page-verifier.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { ThereportComponent } from './pages/thereport/thereport.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +107,9 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
     AdminReportsComponent,
     ProfilePreviousWithdrawalsComponent,
     AdminDonationsRejectWithdrawalComponent,
-    SearchPageComponent
+    CampaignPageVerifierComponent,
+    SearchPageComponent,
+    ThereportComponent
   ],
   imports: [
     BrowserModule,
@@ -141,7 +145,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
     CampaignDonateComponent,
     CampaignDonationConfirmComponent,
     ProfilePreviousWithdrawalsComponent,
-    AdminDonationsRejectWithdrawalComponent
+    AdminDonationsRejectWithdrawalComponent,
+    CampaignPageVerifierComponent
   ]
 })
 export class AppModule {

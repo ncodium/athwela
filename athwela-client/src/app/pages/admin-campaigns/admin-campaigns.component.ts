@@ -14,7 +14,6 @@ export class AdminCampaignsComponent implements OnInit {
   unpublishedCampaigns: Campaign[];
   verifiedCampaigns: Campaign[];
   unverifiedCampaigns: Campaign[];
-  
 
   constructor(
     private campaignService: CampaignService
