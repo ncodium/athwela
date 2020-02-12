@@ -68,9 +68,9 @@ export class CampaignPageComponent implements OnInit {
               this.bsModalRef.content.closeBtnName = 'Close';
               this.bsModalRef.content.onClose.subscribe(result => {
                 this.refreshCampaign(this.campaignId);
-              })
+              });
             }
-          })
+          });
         }
         else {
           this.router.navigate(['/page-not-found']);
@@ -168,7 +168,7 @@ export class CampaignPageComponent implements OnInit {
         msg: `Your comment has been posted successfully.`
       });
 
-    })
+    });
   }
 
   onDelete(commentId: string) {
