@@ -144,7 +144,7 @@
                         <button class="btn btn-danger card-link" *ngIf="!campaign?.rejected && !campaign?.verified"
                             (click)="rejectCampaign(reject)">Reject</button>
                     </div>
-                    <div *ngIf="campaign?.rejected && !campaign?.rejected">
+                    <div *ngIf="campaign?.rejected && !campaign?.verified">
                         <div class="card-text mt-2 text-muted">
                             This campaign was rejected.
                             <p><i>{{ campaign?.reject_message }}</i></p>
