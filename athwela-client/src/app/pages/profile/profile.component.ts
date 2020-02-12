@@ -275,9 +275,6 @@ export class ProfileComponent implements OnInit {
 
     this.donationService.withdraw(withdrawal).subscribe((res) => {
       if (res['success']) {
-        console.log(res);
-        this.getUserReceivedDonationsNotWithdrawen(this.user._id);
-
         // feedback
         this.withdrawAlert = {
           type: 'success',
@@ -291,6 +288,11 @@ export class ProfileComponent implements OnInit {
         }
       }
     })
+  }
+
+  onWithdrawClose() {
+    this.getUserReceivedDonationsNotWithdrawen(this.user._id);
+    this.modalRef.hide();
   }
 
   get avatar() {

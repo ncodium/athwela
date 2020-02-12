@@ -1,3 +1,5 @@
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
+
 export class Donation {
     _id?: string;
     donation_id: string;
@@ -8,4 +10,5 @@ export class Donation {
     method: string;
     donor?: any;
     campaign?: any;
+    created_at?: string;
 }

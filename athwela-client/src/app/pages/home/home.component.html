@@ -57,6 +57,12 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12 text-center" *ngIf="!noCampaigns">
+            <a [routerLink]="['/campaigns']" class="btn btn-primary my-3">
+                <span>See more</span>
+            </a>
+        </div>
     </div>
 
 </div>
