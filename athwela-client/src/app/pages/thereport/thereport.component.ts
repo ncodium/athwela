@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import * as jsPDF from 'jspdf';
+// import * as jsPDF from 'jspdf';
 @Component({
   selector: 'app-thereport',
   templateUrl: './thereport.component.html',
@@ -11,7 +11,7 @@ export class ThereportComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
   // @ViewChild('content') content:ElementRef;
   // public downloadPDF(){
   //   let doc=new jsPDF();
