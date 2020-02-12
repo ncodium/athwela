@@ -213,7 +213,9 @@
                         *ngFor="let donation of campaign?.donations">
                         <div>
                             <h6 class="my-0">{{ donation.donor.name }}</h6>
-                            <small class="text-muted">{{ donation.donor.username }}</small>
+                            <small class="text-muted">
+                                {{ donation.created_at | date:short }}
+                            </small>
                         </div>
                         <span class="text-muted">{{ donation.amount | currency:'Rs. ' }}</span>
                     </li>
