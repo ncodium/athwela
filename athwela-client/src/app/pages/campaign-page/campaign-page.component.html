@@ -64,10 +64,11 @@
                             </ng-template>
                         </ng-template>
 
-                        <div class="text-center" *ngIf="campaign?.verified || campaign?.published">
-                            <button class="btn btn-primary" *ngIf="!hideDonate" [disabled]="!campaign?.published"
-                                (click)="onDonateClick()">Donate</button>
-                            <button class="btn btn-outline-dark ml-4" [disabled]="!campaign?.published">Share</button>
+                        <div *ngIf="campaign?.verified || campaign?.published">
+                            <button class="btn btn-primary card-link" *ngIf="!hideDonate"
+                                [disabled]="!campaign?.published" (click)="onDonateClick()">Donate</button>
+                            <button class="btn btn-outline-dark ml-4 card-link"
+                                [disabled]="!campaign?.published">Share</button>
                         </div>
                     </div>
                     <div class="card-footer" *ngIf="campaign?.verified">
