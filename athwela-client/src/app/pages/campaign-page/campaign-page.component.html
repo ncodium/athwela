@@ -17,8 +17,16 @@
             <div *ngFor="let alert of alerts" class="mb-2 mb-lg-0">
                 <alert [type]="alert.type" [dismissible]="true">{{ alert.msg }}</alert>
             </div>
-            <img src="assets/720x320.png" class="img-fluid rounded mb-2 mb-lg-0">
-            <p class="my-5" style="white-space:pre-wrap;">{{ campaign?.description }}</p>
+            <!-- <img src="assets/720x320.png" class="img-fluid rounded mb-2 mb-lg-0"> -->
+            <carousel>
+                <slide *ngFor="let image of campaign?.images">
+                    <div class="card">
+                        <img class="card-img" alt="image" [src]="AppConfig_BASE_URL + image">
+                    </div>
+                </slide>
+            </carousel>
+            <p [ngClass]="{ 'my-5': campaign.images.length }" style="white-space: pre-wrap">{{ campaign?.description }}
+            </p>
 
             <!-- On small screens donations section should be shown here -->
 
