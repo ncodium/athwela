@@ -16,7 +16,7 @@ export class SearchPageComponent implements OnInit {
   campaigns: Campaign[];
   routeSub: Subscription;
   searchText: string;
-  searchCount: number;
+  searchCount: number = 60;
 
   currentPage: number;
   page: number;
@@ -29,8 +29,12 @@ export class SearchPageComponent implements OnInit {
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
-      this.searchText = params['search']; // acquire campaignId from URL and request campaign content
+      this.searchText = params['search']; // require campaignId from URL and request campaign content
       this.searchQuery(this.searchText);
+    });
+
+    this.searchService.getsearchCount(this.searchText).subscribe((res) => {
+      if (res['success']) this.searchCount = res['campaignsCount'];
     });
   }
 
@@ -42,7 +46,10 @@ export class SearchPageComponent implements OnInit {
       console.log(f.value.search);
       console.log(this.searchCount);
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-      this.searchCount = this.campaigns.length;
+      // this.searchCount = this.campaigns.length;
+    });
+    this.searchService.getsearchCount(this.searchText).subscribe((res) => {
+      if (res['success']) this.searchCount = res['campaignsCount'];
     });
   }
 
@@ -51,7 +58,10 @@ export class SearchPageComponent implements OnInit {
     this.searchService.getSearch(query, 1).subscribe((res) => {
       console.log(query);
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-      this.searchCount = this.campaigns.length;
+      // this.searchCount = this.campaigns.length;
+    });
+    this.searchService.getsearchCount(this.searchText).subscribe((res) => {
+      if (res['success']) this.searchCount = res['campaignsCount'];
     });
 
 

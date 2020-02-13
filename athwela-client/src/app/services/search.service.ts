@@ -19,4 +19,6 @@ export class SearchService {
 
  getSearch(search: string , page: number) { return this.http.get(AppConfig.BASE_URL + 'search/campaigns/' + search + '?pagination=9&page=' + page.toString()); }
 
+ getsearchCount(search: string) { return this.http.get(AppConfig.BASE_URL + 'search/campaigns/' + search + '/count' ); }
+
 }
