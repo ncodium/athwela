@@ -18,6 +18,9 @@ export class SearchPageComponent implements OnInit {
   searchText: string;
   searchCount: number;
 
+  currentPage: number;
+  page: number;
+
   constructor(
     private searchService: SearchService,
     private route: ActivatedRoute,
@@ -35,7 +38,7 @@ export class SearchPageComponent implements OnInit {
   search(f: NgForm) {
     console.log(f.value.search);
     this.router.navigate(['/search', f.value.search]);
-    this.searchService.getSearch(f.value.search).subscribe((res) => {
+    this.searchService.getSearch(f.value.search, 1).subscribe((res) => {
       console.log(f.value.search);
       console.log(this.searchCount);
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
@@ -45,11 +48,13 @@ export class SearchPageComponent implements OnInit {
 
   searchQuery(query: string) {
     this.router.navigate(['/search', query]);
-    this.searchService.getSearch(query).subscribe((res) => {
+    this.searchService.getSearch(query, 1).subscribe((res) => {
       console.log(query);
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
       this.searchCount = this.campaigns.length;
     });
+
+
   }
 
   // searchCampaigns(Search: string) {
@@ -57,5 +62,14 @@ export class SearchPageComponent implements OnInit {
   //     if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
   //   });
   // }
+
+
+
+  pageChanged(event: any): void {
+    this.page = event.page;
+    this.searchService.getSearch(this.searchText, this.page).subscribe((res) => {
+      if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
+    });
+  }
 
 }

@@ -72,6 +72,7 @@ import { AdminDonationsRejectWithdrawalComponent } from './components/admin-dona
 import { CampaignPageVerifierComponent } from './components/campaign-page-verifier/campaign-page-verifier.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ThereportComponent } from './pages/thereport/thereport.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -131,6 +132,7 @@ import { ThereportComponent } from './pages/thereport/thereport.component';
     FileUploadModule,
     NgxSpinnerModule,
     CarouselModule.forRoot(),
+    PaginationModule.forRoot(),
   ],
   providers: [
     Title,

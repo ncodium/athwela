@@ -17,6 +17,6 @@ export class SearchService {
     private authService: AuthService
   ) { }
 
-  getSearch(search: string) { return this.http.get(AppConfig.BASE_URL + 'search/campaigns/' + search); }
+ getSearch(search: string , page: number) { return this.http.get(AppConfig.BASE_URL + 'search/campaigns/' + search + '?pagination=9&page=' + page.toString()); }
 
 }

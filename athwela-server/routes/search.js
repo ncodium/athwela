@@ -8,9 +8,12 @@ router.get('/campaigns/:search', (req, res) => {
     var searchby = req.params.search; // front click search get to searchby variable
     var searchTo = searchby.toLowerCase();  // convert to lowercase
 
-    Campaign.find({name: { $regex: '.*' + searchTo + '.*' } }).exec((err, doc) => {       //   Like comand in mongoose { $regex: '.*' + searchTo + '.*' }
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
+    Campaign.find({name: { $regex: '.*' + searchTo + '.*' } }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {       //   Like comand in mongoose { $regex: '.*' + searchTo + '.*' }
             if (!err) {
-                res.send({ success: true, campaigns: doc });
+                res.send({ success: true, campaigns: doc});
             } else {
                 res.send({ success: false, error: err });
             }
