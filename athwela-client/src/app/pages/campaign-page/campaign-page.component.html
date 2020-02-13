@@ -17,8 +17,37 @@
             <div *ngFor="let alert of alerts" class="mb-2 mb-lg-0">
                 <alert [type]="alert.type" [dismissible]="true">{{ alert.msg }}</alert>
             </div>
-            <img src="assets/720x320.png" class="img-fluid rounded mb-2 mb-lg-0">
-            <p class="my-5" style="white-space:pre-wrap;">{{ campaign?.description }}</p>
+            <!-- <img src="assets/720x320.png" class="img-fluid rounded mb-2 mb-lg-0"> -->
+            <carousel>
+                <slide *ngFor="let image of campaign?.images">
+                    <div class="card">
+                        <img class="card-img" alt="image" [src]="AppConfig_BASE_URL + image">
+                    </div>
+                </slide>
+            </carousel>
+            <p [ngClass]="{ 'my-4': campaign?.images.length }" style="white-space: pre-wrap">{{ campaign?.description }}
+            </p>
+
+            <div class="my-4">
+                <div class="card-columns">
+                    <div class="card" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-4 align-self-center text-center">
+                                <img src="assets/document.svg">
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <div class="card-text">Medical document.pdf
+                                        <br />
+                                        <small class="text-muted">156KB</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-sm stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- On small screens donations section should be shown here -->
 
@@ -56,10 +85,11 @@
                             </ng-template>
                         </ng-template>
 
-                        <div class="text-center" *ngIf="campaign?.verified || campaign?.published">
-                            <button class="btn btn-primary" *ngIf="!hideDonate" [disabled]="!campaign?.published"
-                                (click)="onDonateClick()">Donate</button>
-                            <button class="btn btn-outline-dark ml-4" [disabled]="!campaign?.published">Share</button>
+                        <div *ngIf="campaign?.verified || campaign?.published">
+                            <button class="btn btn-primary card-link" *ngIf="!hideDonate"
+                                [disabled]="!campaign?.published" (click)="onDonateClick()">Donate</button>
+                            <button class="btn btn-outline-dark ml-4 card-link"
+                                [disabled]="!campaign?.published">Share</button>
                         </div>
                     </div>
                     <div class="card-footer" *ngIf="campaign?.verified">

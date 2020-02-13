@@ -45,16 +45,17 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 
 // ngx-bootstrap
-import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 // icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faFile } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
@@ -129,6 +130,7 @@ import { ThereportComponent } from './pages/thereport/thereport.component';
     TabsModule.forRoot(),
     FileUploadModule,
     NgxSpinnerModule,
+    CarouselModule.forRoot(),
   ],
   providers: [
     Title,
@@ -154,5 +156,6 @@ export class AppModule {
     library.addIcons(faSearch);
     library.addIcons(faInbox);
     library.addIcons(faUser);
+    library.addIcons(faFile);
   }
 }

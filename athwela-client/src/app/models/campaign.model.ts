@@ -2,8 +2,8 @@ export class Campaign {
     _id?: string;
     name: string;
     description: string;
-    target: number = 0;
-    raised: number = 0;
+    target: number;
+    raised?: number;
     deadline: Date;
     category?: string;
     owner?: any;
@@ -12,4 +12,5 @@ export class Campaign {
     complete?: boolean;
     rejected?: boolean;
     reject_reason?: string;
+    images?: string[];
 }
