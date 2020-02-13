@@ -35,9 +35,11 @@
         <form (ngSubmit)="search(f)" #f="ngForm" novalidate>
           <div class="input-group">
             <input type="text" class="form-control text-center" placeholder="Search" id="search" name="search" ngModel required #query="ngModel" aria-label="Search">
-              <button class="btn btn-primary" type="submit" style="width: auto; height:auto;">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit" style="width: 100px; height:auto;">
                 <fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;
               </button>
+            </div>
           </div>
 
         </form>
