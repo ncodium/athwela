@@ -16,6 +16,7 @@ export class SearchPageComponent implements OnInit {
   campaigns: Campaign[];
   routeSub: Subscription;
   searchText: string;
+  searchCount: number;
 
   constructor(
     private searchService: SearchService,
@@ -25,18 +26,20 @@ export class SearchPageComponent implements OnInit {
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
-    this.searchText = params['search']; // acquire campaignId from URL and request campaign content
-    this.searchQuery(this.searchText);
-  });
-}
+      this.searchText = params['search']; // acquire campaignId from URL and request campaign content
+      this.searchQuery(this.searchText);
+    });
+  }
+
 
   search(f: NgForm) {
-    console.log(f.value.search );
+    console.log(f.value.search);
     this.router.navigate(['/search', f.value.search]);
     this.searchService.getSearch(f.value.search).subscribe((res) => {
       console.log(f.value.search);
-      console.log(this.campaigns.length);
-     if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
+      console.log(this.searchCount);
+      if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
+      this.searchCount = this.campaigns.length;
     });
   }
 
@@ -44,7 +47,8 @@ export class SearchPageComponent implements OnInit {
     this.router.navigate(['/search', query]);
     this.searchService.getSearch(query).subscribe((res) => {
       console.log(query);
-     if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
+      if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
+      this.searchCount = this.campaigns.length;
     });
   }
 
