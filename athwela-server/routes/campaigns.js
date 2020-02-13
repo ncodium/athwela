@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
 
 
 router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
+    console.log(req);
     const cmp = new Campaign({
         name: req.body.name,
         description: req.body.description.trim(),
@@ -22,7 +23,8 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
         target: req.body.target,
         deadline: req.body.deadline,
         category: req.body.category,
-        images: req.body.images
+        images: req.body.images,
+        documents: req.body.documents
     });
 
     cmp.save((err, doc) => {

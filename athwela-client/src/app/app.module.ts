@@ -63,6 +63,7 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { ChartsModule } from 'ng2-charts';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
+import { FileSizePipe } from './pipes/file-size.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -101,6 +102,7 @@ import { ThereportComponent } from './pages/thereport/thereport.component';
     ModCampaignsComponent,
     ModUsersComponent,
     TruncateTextPipe,
+    FileSizePipe,
     FooterComponent,
     CampaignDonateComponent,
     CampaignDonationConfirmComponent,
@@ -110,7 +112,7 @@ import { ThereportComponent } from './pages/thereport/thereport.component';
     AdminDonationsRejectWithdrawalComponent,
     CampaignPageVerifierComponent,
     SearchPageComponent,
-    ThereportComponent
+    ThereportComponent,
   ],
   imports: [
     BrowserModule,

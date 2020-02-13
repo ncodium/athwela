@@ -13,4 +13,5 @@ export class Campaign {
     rejected?: boolean;
     reject_reason?: string;
     images?: string[];
+    documents?: any[];
 }

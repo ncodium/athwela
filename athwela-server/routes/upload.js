@@ -37,4 +37,15 @@ router.post("/images", upload.array("images", 6), (req, res) => {
     res.send(req.files.map(file => file.path));
 });
 
+router.post("/documents", upload.array("documents", 6), (req, res) => {
+    //console.log('files', req.files);  
+    res.send(req.files.map(file => {
+        return {
+            path: file.path,
+            originalname: file.originalname,
+            size: file.size
+        }
+    }));
+});
+
 module.exports = router;

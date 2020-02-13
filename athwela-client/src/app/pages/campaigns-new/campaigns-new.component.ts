@@ -18,10 +18,11 @@ export class NewCampaignComponent implements OnInit {
   campaignForm: FormGroup;
   submitted: boolean = false;
   previewImages: boolean = false;
-  id: string;
-  filesToUpload: Array<File> = [];
+  previewDocuments: boolean = false;
+  imagesToUpload: Array<File> = [];
+  documentsToUpload: Array<File> = [];
 
-  categories: string[] = ["medical", "education"]
+  id: string;
 
   tabs: string[] = [
     'Tell you story',
@@ -31,6 +32,8 @@ export class NewCampaignComponent implements OnInit {
   ]
 
   currentTab: string = this.tabs[0];
+
+  categories: string[] = ["medical", "education"];
 
   constructor(
     private campaignService: CampaignService,
@@ -47,13 +50,15 @@ export class NewCampaignComponent implements OnInit {
       deadline: ['', Validators.required],
       category: ['', Validators.required],
       raised: [''],
-      images: ['']
+      images: [''],
+      documents: ['']
     });
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.campaignForm.controls; }
   get images() { return this.campaignForm.get('images'); }
+  get documents() { return this.campaignForm.get('documents'); }
 
   onCreateCampaign(): void {
     this.submitted = true;
@@ -65,7 +70,8 @@ export class NewCampaignComponent implements OnInit {
       target: this.campaignForm.controls.target.value,
       deadline: this.campaignForm.controls.deadline.value,
       category: this.campaignForm.controls.category.value,
-      images: this.campaignForm.controls.images.value
+      images: this.campaignForm.controls.images.value,
+      documents: this.campaignForm.controls.documents.value
     }
 
     this.campaignService.createCampaign(campaign).subscribe(data => {
@@ -92,9 +98,9 @@ export class NewCampaignComponent implements OnInit {
     this.staticTabs.tabs[currentTabIndex - 1].active = true;
   }
 
-  upload() {
+  uploadImages() {
     const formData: any = new FormData();
-    const files: Array<File> = this.filesToUpload;
+    const files: Array<File> = this.imagesToUpload;
     // console.log(files);
 
     for (let i = 0; i < files.length; i++) {
@@ -107,15 +113,42 @@ export class NewCampaignComponent implements OnInit {
       files => {
         // console.log('files', files)
         // this.images.setValue(fileInput.target.files);
-        console.log(this.images.value);
+        // console.log(this.images.value);
         this.images.setValue(files);
         this.previewImages = true;
       }
     );
   }
 
-  fileChangeEvent(fileInput: any) {
-    this.filesToUpload = <Array<File>>fileInput.target.files;
+  uploadDocuments() {
+    const formData: any = new FormData();
+    const files: Array<File> = this.documentsToUpload;
+    // console.log(files);
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append("documents", files[i], files[i]['name']);
+    }
+
+    // console.log('form data variable : ' + formData.toString());
+
+    this.http.post(AppConfig.BASE_URL + 'upload/documents', formData).subscribe(
+      files => {
+        console.warn(files)
+        // this.images.setValue(fileInput.target.files);
+        // console.log(this.images.value);
+        this.documents.setValue(files);
+        this.previewDocuments = true;
+      }
+    );
+  }
+
+  imageChangeEvent(fileInput: any) {
+    this.imagesToUpload = <Array<File>>fileInput.target.files;
+    // this.images.setValue(fileInput.target.files);
+  }
+
+  documentChangeEvent(fileInput: any) {
+    this.documentsToUpload = <Array<File>>fileInput.target.files;
     // this.images.setValue(fileInput.target.files);
   }
 }
