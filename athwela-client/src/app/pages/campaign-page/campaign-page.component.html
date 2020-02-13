@@ -25,8 +25,29 @@
                     </div>
                 </slide>
             </carousel>
-            <p [ngClass]="{ 'my-5': campaign.images.length }" style="white-space: pre-wrap">{{ campaign?.description }}
+            <p [ngClass]="{ 'my-4': campaign.images.length }" style="white-space: pre-wrap">{{ campaign?.description }}
             </p>
+
+            <div class="my-4">
+                <div class="card-columns">
+                    <div class="card" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-4 align-self-center text-center">
+                                <img src="assets/document.svg">
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <div class="card-text">Medical document.pdf
+                                        <br />
+                                        <small class="text-muted">156KB</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-sm stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- On small screens donations section should be shown here -->
 

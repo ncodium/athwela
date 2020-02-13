@@ -55,7 +55,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 // icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faFile } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
@@ -156,5 +156,6 @@ export class AppModule {
     library.addIcons(faSearch);
     library.addIcons(faInbox);
     library.addIcons(faUser);
+    library.addIcons(faFile);
   }
 }
