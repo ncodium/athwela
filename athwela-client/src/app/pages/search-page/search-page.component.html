@@ -16,9 +16,16 @@
 
   <div class="row mt-5">
     <div class="col-md-8  mt-2 mt-md-0">
-      <h1 class="mb-5">
-        Search page
+      <h1 class="mb-2">
+        Search
       </h1>
+      <h6>
+        <a>
+            <fa-icon [icon]="['fas', 'num']"></fa-icon>&nbsp;
+            {{searchCount}}
+        </a>
+        results found
+    </h6>
     </div>
   </div>
 
@@ -27,9 +34,12 @@
       <div class="text-center">
         <form (ngSubmit)="search(f)" #f="ngForm" novalidate>
           <div class="input-group">
-            <input type="text" class="form-control text-center" placeholder="Search" id="search" name="search" ngModel required
-              #query="ngModel" aria-label="Search">
+            <input type="text" class="form-control text-center" placeholder="Search" id="search" name="search" ngModel required #query="ngModel" aria-label="Search">
+              <button class="btn btn-primary" type="submit" style="width: auto; height:auto;">
+                <fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;
+              </button>
           </div>
+
         </form>
       </div>
     </div>
