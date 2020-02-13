@@ -81,18 +81,18 @@
                         <div class="card my-4">
                             <div class="card-body">
                                 <p style="text-align: justify;">
-                                    A crowdfunding campaign can't survive on just words
-                                    alone. Add images and/or videos that are related to the cause you're raising
-                                    money for. This helps donors connect to your cause and see what their donations
-                                    are going towards.
+                                    A crowdfunding campaign can't survive on just words alone. Add images that are
+                                    related to the cause you're raising money for. This helps
+                                    donors connect to your cause and see what their donations are going towards.
                                 </p>
-                                <input id="cin" name="cin" type="file" (change)="fileChangeEvent($event)"
-                                    placeholder="Upload a file..." multiple />
-                                <button type="button" class="btn btn-success btn-s" (click)="upload()">
-                                    <i class="glyphicon glyphicon-open-file"></i>&nbsp;Upload
+                                <input id="cin" name="cin" type="file" (change)="imageChangeEvent($event)"
+                                    placeholder="Upload a file..." multiple accept="image/*" />
+                                &nbsp;
+                                <button type="button" class="btn btn-primary btn-sm" (click)="uploadImages()">
+                                    Upload
                                 </button>
 
-                                <div class="card-columns mt-2" *ngIf="previewImages">
+                                <div class="card-columns mt-4" *ngIf="previewImages">
                                     <div class="card" *ngFor="let image of images.value">
                                         <img class="card-img" [src]="AppConfig_BASE_URL + image" alt="Card image">
                                     </div>
@@ -104,6 +104,43 @@
                     <tab [heading]="tabs[3]" (selectTab)="onSelect($event)">
                         <div class="card my-4">
                             <div class="card-body">
+                                <p style="text-align: justify;">
+                                    Upload documents such as letters, medical reports.
+                                </p>
+                                <input id="cin" name="cin" type="file" (change)="documentChangeEvent($event)"
+                                    placeholder="Upload a file..." multiple accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                                    text/plain, application/pdf, image/*" />
+                                &nbsp;
+                                <button type="button" class="btn btn-primary btn-sm" (click)="uploadDocuments()">
+                                    Upload
+                                </button>
+
+                                <div class="card-columns mt-4" *ngIf="previewDocuments">
+                                    <div class="card" *ngFor="let document of documents.value"
+                                        style="max-width: 540px;">
+                                        <div class="row no-gutters">
+                                            <div class="col-4 align-self-center text-center">
+                                                <img src="assets/document.svg">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="card-body">
+                                                    <div class="card-text">{{ document.originalname }}
+                                                        <br />
+                                                        <small class="text-muted">{{ document.size | fileSize }}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a [href]="AppConfig_BASE_URL + document.path" target="_blank"
+                                                rel="noopener noreferrer" class="btn btn-sm stretched-link"></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="my-4">
+                                    <div class="card-columns">
+
+                                    </div>
+                                </div>
 
                             </div>
                         </div>

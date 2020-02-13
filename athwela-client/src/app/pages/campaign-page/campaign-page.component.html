@@ -28,22 +28,22 @@
             <p [ngClass]="{ 'my-4': campaign?.images.length }" style="white-space: pre-wrap">{{ campaign?.description }}
             </p>
 
-            <div class="my-4">
+            <div [ngClass]="{ 'my-4': campaign?.documents.length }">
                 <div class="card-columns">
-                    <div class="card" style="max-width: 540px;">
+                    <div class="card" style="max-width: 540px;" *ngFor="let document of campaign?.documents">
                         <div class="row no-gutters">
                             <div class="col-4 align-self-center text-center">
                                 <img src="assets/document.svg">
                             </div>
                             <div class="col-8">
                                 <div class="card-body">
-                                    <div class="card-text">Medical document.pdf
+                                    <div class="card-text">{{ document.originalname }}
                                         <br />
-                                        <small class="text-muted">156KB</small>
+                                        <small class="text-muted">{{ document.size | fileSize }}</small>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" class="btn btn-sm stretched-link"></a>
+                            <a [href]="AppConfig_BASE_URL + document.path" class="btn btn-sm stretched-link"></a>
                         </div>
                     </div>
                 </div>

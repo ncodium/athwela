@@ -123,7 +123,7 @@ export class CampaignPageComponent implements OnInit {
       if (res['success']) {
         this.campaign = res['campaign'] as Campaign;
         this.generatePercentage(this.campaign);
-        console.log(this.campaign);
+        // console.log(this.campaign);
       }
       else {
         this.router.navigate(['/page-not-found']);
