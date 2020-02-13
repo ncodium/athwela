@@ -7,9 +7,9 @@
     </div>
     <div class="col-md-4 mt-md-0">
       <div class="btn-group float-right" dropdown>
-        <button id="button-animated" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+        <button id="button-animated" dropdownToggle type="button" class="btn btn-primary btn-sm dropdown-toggle"
           aria-controls="dropdown-animated">
-          Sort By <span class="caret"></span>
+          Sort by <span class="caret"></span>
         </button>
         <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-animated">
           <li role="menuitem" *ngFor="let sort of sortBy"><a class="dropdown-item" (click)="sortCampaigns(sort)">
