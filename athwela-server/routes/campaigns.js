@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 
 router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
-    console.log(req);
+    // console.log(req);
     const cmp = new Campaign({
         name: req.body.name,
         description: req.body.description.trim(),
