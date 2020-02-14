@@ -6,12 +6,7 @@ node_js:
   - "10"
 
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-      - chromium-chromedriver
+  chrome: stable
 
 cache:
   directories:
@@ -23,12 +18,6 @@ install:
   - npm install
   - cd ../athwela-client
   - npm install
-  - cd node_modules/protractor/
-  - npm install webdriver-manager@latest
-  - cd ../..
-  - cd node_modules/protractor/node_modules/webdriver-manager/bin/
-  - ./webdriver-manager clean && ./webdriver-manager update
-  - cd ../../../../..
 
 script:
   - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
