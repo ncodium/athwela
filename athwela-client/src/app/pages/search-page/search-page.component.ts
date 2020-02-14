@@ -16,7 +16,7 @@ export class SearchPageComponent implements OnInit {
   campaigns: Campaign[];
   routeSub: Subscription;
   searchText: string;
-  searchCount: number = 60;
+  searchCount: number;
 
   currentPage: number;
   page: number;
