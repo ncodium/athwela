@@ -49,10 +49,10 @@ const routes: Routes = [
   { path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard] },
   { path: 'admin/moderators', component: AdminModeratorsComponent, canActivate: [AuthGuard] },
   { path: 'admin/reports', component: AdminReportsComponent, canActivate: [AuthGuard] },
-  { path: 'admin/thereport', component:ThereportComponent  , canActivate: [AuthGuard] },
-
-
-
+  //{ path: 'admin/thereport', component:ThereportComponent  , canActivate: [AuthGuard] },
+  
+  
+  
 
   // moderator
   { path: 'mod', component: ModDashboardComponent, canActivate: [AuthGuard] },

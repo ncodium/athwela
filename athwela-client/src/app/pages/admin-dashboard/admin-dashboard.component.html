@@ -35,29 +35,17 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4">
-        <div class="card-columns">
-            <div class="card">
-                <div class="card-body">
-                    <div style="display: block;">
-                        <canvas baseChart [data]="polarAreaChartData" [labels]="polarAreaChartLabels"
-                            [legend]="polarAreaLegend" [chartType]="polarAreaChartType">
-                        </canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <div style="display: block;">
-                        <canvas baseChart [datasets]="labelMFL" [labels]="lineChartLabels" [options]="lineChartOptions"
-                            [chartType]="ChartType" (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)"></canvas>
-                    </div>
-                </div>
+    
+</div>
+<div  class="container mt-5">
+    <div class="row mb-4">
+        <div class="card-body">
+            <div style="text-align: center">
+                <canvas id="barchart" height="108px"></canvas>
             </div>
         </div>
     </div>
+
 </div>
 
 <app-footer></app-footer>

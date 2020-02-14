@@ -13,7 +13,11 @@ import { Subscription } from 'rxjs';
 import { TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmPasswordValidator } from './../../components/register/validators/confirm-password.validator';
+import { StatsService } from '../../services/stats.service';
+import { ChartType, ChartOptions } from 'chart.js';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 import { AppConfig } from 'src/app/config/app-config';
+
 
 @Component({
   selector: 'app-mod-dashboard',
@@ -27,10 +31,11 @@ export class ModDashboardComponent implements OnInit {
   uploader: FileUploader;
   response: any;
   alert: any;
+  user: User;
+  count: Object;
+  categoryCount: any;
 
   updateForm: FormGroup;
-
-  user: User;
 
   constructor(
     private router: Router,
@@ -40,7 +45,8 @@ export class ModDashboardComponent implements OnInit {
     private campaignService: CampaignService,
     private modalService: BsModalService,
     private donationService: DonationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private statsService: StatsService
   ) {
     this.uploader = new FileUploader({
       url: AppConfig.BASE_URL + 'upload',
@@ -48,6 +54,9 @@ export class ModDashboardComponent implements OnInit {
       maxFileSize: 5 * 1024 * 1024, // 5MB
       allowedMimeType: ['image/png', 'image/jpeg'] //will be loaded only PNG and JPG files
     });
+
+    monkeyPatchChartJsTooltip();
+    monkeyPatchChartJsLegend();
   }
 
   ngOnInit() {
@@ -87,6 +96,19 @@ export class ModDashboardComponent implements OnInit {
     },
       { validator: ConfirmPasswordValidator.matchPassword }
     );
+
+    this.statsService.getCount().subscribe((res) => {
+      this.count = res as Object;
+    });
+
+    this.statsService.getCategoryCount().subscribe((res) => {
+      this.categoryCount = res as Object;
+      console.log(this.categoryCount);
+      this.categoryPieChartLabels = this.categoryCount.map(i => i._id);
+      this.categoryPieChartData = this.categoryCount.map(i => i.count);
+    });
+
+
   }
 
   onClose() {
@@ -165,4 +187,14 @@ export class ModDashboardComponent implements OnInit {
   get city() {
     return this.updateForm.get('city');
   }
+
+  // Pie
+  public categoryPieChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public categoryPieChartLabels: Label[] = []; // ['Download', 'Store', 'Sales'];
+  public categoryPieChartData: SingleDataSet = []; // [300, 500, 100];
+  public categoryPieChartType: ChartType = 'pie';
+  public categoryPieChartLegend = true;
+  public categoryPieChartPlugins = [];
 }

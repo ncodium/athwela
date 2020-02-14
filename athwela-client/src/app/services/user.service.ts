@@ -15,19 +15,32 @@ export class UserService {
     private authService: AuthService
   ) { }
 
-  getUsers(){ return this.http.get(AppConfig.BASE_URL + 'users/') }
+  getUsers(){ return this.http.get(AppConfig.BASE_URL + 'users/user') }
   getModerators(){ return this.http.get(AppConfig.BASE_URL + 'users/mod') }
+  getAdministrators(){ return this.http.get(AppConfig.BASE_URL + 'users/admin') }
   gettotalcount(){return this.http.get(AppConfig.BASE_URL + 'campaigns/count') }
   getaprovedcount(){return this.http.get(AppConfig.BASE_URL + 'campaigns/approvedcount') }
+  getcharts(){return this.http.get(AppConfig.BASE_URL + 'users/barchart')}
   deleteusers(id:String){return this.http.delete(AppConfig.BASE_URL + 'users/'+id)}
+  
    
   getUser(id: String) {
     return this.http.get(AppConfig.BASE_URL + 'users/profile/' + id)
+  }
+  registerUser(user: User) {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(AppConfig.BASE_URL + 'users/register', user, { headers: headers }).pipe();
   }
 
   registerMod(user: User) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post(AppConfig.BASE_URL + 'users/register/mod', user, { headers: headers }).pipe();
+  }
+  registerAdmin(user: User) {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(AppConfig.BASE_URL + 'users/register/admin', user, { headers: headers }).pipe();
   }
 }
