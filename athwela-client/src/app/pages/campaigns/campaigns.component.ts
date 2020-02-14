@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CampaignService } from '../../services/campaign.service';
-
+import { Router, ActivatedRoute } from '@angular/router';
 import { Campaign } from '../../models/campaign.model';
 
 @Component({
@@ -9,6 +9,7 @@ import { Campaign } from '../../models/campaign.model';
   styleUrls: ['./campaigns.component.scss']
 })
 export class CampaignsComponent implements OnInit {
+
   categories: string[];
   defaultCategory: string = "All Categories";
   activeCategory: string = this.defaultCategory;
@@ -16,9 +17,16 @@ export class CampaignsComponent implements OnInit {
   // defaultSort: string = "Trending";
   currentSort: string;
   sortBy = ['Trending', 'Date', 'Comments', 'Donations' , 'Name'];
+  word: string;  // Get currentSort to word variable
+
+  currentPage: number;                // use for pagination
+  page: number;                       // use for pagination
+  resCount: number;
 
   constructor(
-    private campaignService: CampaignService
+    private campaignService: CampaignService,
+    private route: ActivatedRoute,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -27,10 +35,23 @@ export class CampaignsComponent implements OnInit {
     this.onCategoryChange(this.defaultCategory);
   }
 
-  sortCampaigns(currentSort: string) {
-    this.campaignService.getSortCampaign(currentSort).subscribe((res) => {
+  pageChanged(event: any): void {
+    this.page = event.page;
+    this.campaignService.getSortCampaign(this.word , this.page).subscribe((res) => {
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
     });
+  }
+
+  sortCampaigns(currentSort: string) {
+    this.word = currentSort;
+    this.campaignService.getSortCampaign(currentSort , 1).subscribe((res) => {
+      if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
+    });
+
+    this.campaignService.getSortCount(currentSort).subscribe((res) => {
+      if (res['success']) this.resCount = res['sortCount'];
+    });
+
   }
 
   onCategoryChange(category: string) {

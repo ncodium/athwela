@@ -112,15 +112,83 @@ router.get('/categories/:category', (req, res) => {
     });
 });
 
+// count sort data
+router.get('/sort/:sort/count', (req, res) => {
+    var sortby = req.params.sort; // front click sort get to sortby variable
+    var sortTo = sortby.toLowerCase();  // convert to lowercase
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 6 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
+    // sort by date
+    if (sortTo == "date") {
+        Campaign.find().sort({ "deadline": -1 }).count((err, count) => {
+            if (!err) {
+                res.send({ success: true, sortCount: count });
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
+    }
+
+    // sort by name
+    else if (sortTo == "name") {
+        Campaign.find().sort({ [sortTo]: -1 }).count((err, count) => {
+            if (!err) {
+                res.send({ success: true, sortCount: count });
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
+    }
+
+    // sort by donations
+    else if (sortTo == "donations") {
+        Campaign.find().sort({ [sortTo]: -1 }).count((err, count) => {
+            if (!err) {
+                res.send({ success: true, sortCount: count });
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
+    }
+
+    // sort by comments
+    else if (sortTo == "comments") {
+        Campaign.find().sort({ [sortTo]: -1 }).count((err, count) => {
+            if (!err) {
+                res.send({ success: true, sortCount: count });
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
+    }
+
+    // sort by trending
+    else if (sortTo == "trending") {
+        Campaign.find().sort({ "deadline": -1, "comments": -1 }).count((err, count) => {
+            if (!err) {
+                res.send({ success: true, sortCount: count });
+            } else {
+                res.send({ success: false, error: err });
+            }
+        });
+    }
+
+});
+
 // sort campaigns
 router.get('/sort/:sort', (req, res) => {
     var sortby = req.params.sort; // front click sort get to sortby variable
     var sortTo = sortby.toLowerCase();  // convert to lowercase
     // var mysort = { sortby: -1 };
 
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 6 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
     // sort by date
     if (sortTo == "date") {
-        Campaign.find().sort({ "deadline": -1 }).exec((err, doc) => {
+        Campaign.find().sort({ "deadline": -1 }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -131,7 +199,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by name
     else if (sortTo == "name") {
-        Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
+        Campaign.find().sort({ [sortTo]: -1 }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -142,7 +210,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by donations
     else if (sortTo == "donations") {
-        Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
+        Campaign.find().sort({ [sortTo]: -1 }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -153,7 +221,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by comments
     else if (sortTo == "comments") {
-        Campaign.find().sort({ [sortTo]: -1 }).exec((err, doc) => {
+        Campaign.find().sort({ [sortTo]: -1 }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -164,7 +232,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by trending
     else if (sortTo == "trending") {
-        Campaign.find().sort({ "deadline": -1, "comments": -1 }).exec((err, doc) => {
+        Campaign.find().sort({ "deadline": -1, "comments": -1 }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -172,6 +240,7 @@ router.get('/sort/:sort', (req, res) => {
             }
         });
     }
+
 });
 
 router.get('/user', passport.authenticate("jwt", { session: false }), (req, res) => {

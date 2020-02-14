@@ -24,8 +24,13 @@ export class CampaignService {
   getVerifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/verified'); }
   getUnverifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified'); }
   getCategories() { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories'); }
-  getCategoryCampaign(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category); }
-  getSortCampaign(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort); }
+   getCategoryCampaign(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category ); }
+  // getSortCampaign(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort ); }
+
+  // tslint:disable-next-line: max-line-length
+  // getCategoryCampaign(category: string , page:number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category + '?pagination=4&page=' + page.toString()); }
+  getSortCampaign(currentSort: string , page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort +  '?pagination=6&page=' + page.toString()); }
+  getSortCount(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort + '/count' ); }
 
   rejectCampaign(id: string, reject_message: string) {
     this.authService.loadToken();
