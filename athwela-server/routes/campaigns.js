@@ -69,6 +69,15 @@ router.get('/published', (req, res) => {
     });
 });
 
+router.get('/published/count', (req, res) => {
+    Campaign.find({ published: 'true' }).count((err, count) => {
+        if (!err)
+            res.send({ success: true, categoriesCount: count });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
 router.get('/verified', (req, res) => {
     Campaign.find({ verified: 'true' }, (err, doc) => {
         if (!err)
@@ -100,11 +109,15 @@ router.get('/categories', (req, res) => {
 
 // filter campaigns by category
 router.get('/categories/:category', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+    
     Campaign.find({
         'category': req.params.category,
         'verified': true,
         'published': true
-    }, (err, doc) => {
+    }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
         else
@@ -112,12 +125,31 @@ router.get('/categories/:category', (req, res) => {
     });
 });
 
+router.get('/categories/:category/count', (req, res) => {
+    
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
+    Campaign.find({
+        'category': req.params.category,
+        'verified': true,
+        'published': true
+    }).count((err, count) => {
+        if (!err)
+            res.send({ success: true, categoriesCount: count });
+        else
+            res.send({ success: false, error: err });
+    });
+
+});
+
+
 // count sort data
 router.get('/sort/:sort/count', (req, res) => {
     var sortby = req.params.sort; // front click sort get to sortby variable
     var sortTo = sortby.toLowerCase();  // convert to lowercase
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 6 ;    // use to pagination, skip & limit queries use for it
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
     const page = req.query.page ? parseInt(req.query.page) : 1 ;
 
     // sort by date
@@ -183,7 +215,7 @@ router.get('/sort/:sort', (req, res) => {
     var sortTo = sortby.toLowerCase();  // convert to lowercase
     // var mysort = { sortby: -1 };
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 6 ;    // use to pagination, skip & limit queries use for it
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
     const page = req.query.page ? parseInt(req.query.page) : 1 ;
 
     // sort by date

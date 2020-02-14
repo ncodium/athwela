@@ -47,6 +47,7 @@ export class CampaignsComponent implements OnInit {
     this.campaignService.getSortCampaign(currentSort , 1).subscribe((res) => {
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
     });
+    console.log('***sort***' + this.resCount);
 
     this.campaignService.getSortCount(currentSort).subscribe((res) => {
       if (res['success']) this.resCount = res['sortCount'];
@@ -60,10 +61,22 @@ export class CampaignsComponent implements OnInit {
       this.campaignService.getPublishedCampaigns().subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
       });
+
+      this.campaignService.getPublishedCategoryCount(1).subscribe((res) => {
+        if (res['success']) this.resCount = res['categoriesCount'];
+        console.log('***##***' + this.resCount);
+      });
+
     } else {
-      this.campaignService.getCategoryCampaign(category).subscribe((res) => {
+      this.campaignService.getCategoryCampaign(category , 1).subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
       });
+
+      this.campaignService.getCategoryCount(this.activeCategory).subscribe((res) => {
+        if (res['success']) this.resCount = res['categoriesCount'];
+        // console.log('#######' + this.resCount);
+      });
+
     }
   }
 
