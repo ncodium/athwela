@@ -56,8 +56,21 @@ router.get('/count', (req, res) => {
             moderators: results[3]
         });
     });
+});
 
-
+router.get('/category-count', (req, res) => {
+    Campaign.aggregate([
+        {
+            $group: {
+                _id: "$category",
+                count: { $sum: 1 }
+            }
+        }
+    ]).exec((err, doc) => {
+        if (err) throw err;
+        console.log(doc);
+        res.send(doc);
+    });
 });
 
 module.exports = router;

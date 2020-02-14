@@ -16,6 +16,50 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-9 mt-2 mt-md-0">
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card-counter danger">
+                            <span class="count-numbers">{{ count?.campaigns }}</span>
+                            <span class="count-name">Campaigns</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card-counter success">
+                            <span class="count-numbers">{{ count?.donations }}</span>
+                            <span class="count-name">Donations</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card-counter info">
+                            <span class="count-numbers">{{ count?.users }}</span>
+                            <span class="count-name">Users</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-column">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div style="display: block;">
+                                        <canvas baseChart [data]="categoryPieChartData"
+                                            [labels]="categoryPieChartLabels" [chartType]="categoryPieChartType"
+                                            [options]="categoryPieChartOptions" [plugins]="categoryPieChartPlugins"
+                                            [legend]="categoryPieChartLegend">
+                                        </canvas>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

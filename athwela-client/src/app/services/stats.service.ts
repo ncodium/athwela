@@ -15,4 +15,8 @@ export class StatsService {
     return this.http.get(AppConfig.BASE_URL + 'stats/count/', {});
   }
 
+  getCategoryCount() {
+    return this.http.get(AppConfig.BASE_URL + 'stats/category-count/', {});
+  }
+
 }
