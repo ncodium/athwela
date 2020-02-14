@@ -8,13 +8,13 @@
     "start": "node app"
   },
   "dependencies": {
-    "async": "^3.1.0",
+    "async": "^3.1.1",
     "bcryptjs": "*",
     "body-parser": "*",
     "cors": "*",
     "express": "*",
     "jsonwebtoken": "*",
-    "mongoose": "^5.8.3",
+    "mongoose": "^5.9.0",
     "multer": "^1.4.2",
     "passport": "^0.4.1",
     "passport-jwt": "*"

@@ -24,7 +24,7 @@ export class CampaignPageVerifierComponent implements OnInit {
     this.userService.getUser(this.user).subscribe((res) => {
       this.profile = res['user'] as User;
       this.spinner.hide();
-      console.log(this.profile.firstName);
+      // console.log(this.profile.firstName);
     })
   }
 

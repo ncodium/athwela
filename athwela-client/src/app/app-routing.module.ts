@@ -40,7 +40,7 @@ const routes: Routes = [
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
   { path: 'how-it-works', component: HowItWorksComponent },
-  { path: 'search-page', component: SearchPageComponent },
+  { path: 'search/:search', component: SearchPageComponent },
 
   // administrator
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },

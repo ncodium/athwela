@@ -1,13 +1,73 @@
-<form class="mb-3 mt-1">
+<!-- <form class="mb-3 mt-1">
   <div class="input-group">
     <input type="text" class="form-control" placeholder="Search" id="search" name="search" #search aria-label="Search">
-    <!-- <div class="input-group-append">
+    <div class="input-group-append">
       <button class="btn btn-primary" type="submit" style="display: none;" (click)='searchText(search.value)'><fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;</button>
-    </div> -->
+    </div>
   </div>
   <button class="btn btn-primary" type="submit" style="display: none;">
     <fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;
   </button>
 
-  <!-- <button id="button" type="submit" routerLink="['/search-page'/{{ search }}]" style="visibility: hidden;" (click)='searchText(search.value)'></button> -->
-</form>
+  <button id="button" type="submit" routerLink="['/search-page'/{{ search }}]" style="visibility: hidden;" (click)='searchText(search.value)'></button>
+</form> -->
+
+<div class="container">
+
+  <div class="row mt-5">
+    <div class="col-md-8  mt-2 mt-md-0">
+      <h1 class="mb-2">
+        Search
+      </h1>
+      <h6>
+        <a>
+            <fa-icon [icon]="['fas', 'num']"></fa-icon>&nbsp;
+            {{searchCount}}
+        </a>
+        results found
+    </h6>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="text-center">
+        <form (ngSubmit)="search(f)" #f="ngForm" novalidate>
+          <div class="input-group">
+            <input type="text" class="form-control text-center" placeholder="Search" id="search" name="search" ngModel required #query="ngModel" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit" style="width: 100px; height:auto;">
+                <fa-icon [icon]="['fas', 'search']"></fa-icon>&nbsp;
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="row mt-2">
+        <div *ngFor="let cmp of campaigns" class="col-md-4 my-2">
+          <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}} raised={{cmp.raised}}
+            target={{cmp.target}}>
+          </app-campaign-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-4">
+      <div>
+        <pagination [totalItems]="searchCount" [itemsPerPage]="9" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+      </div>
+    <!-- <pre class="card card-block card-header mb-3">
+      Page changed to: {{page}}
+    </pre> -->
+  </div>
+
+</div>
+
+<app-footer></app-footer>

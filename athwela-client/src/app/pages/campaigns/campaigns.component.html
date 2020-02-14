@@ -2,14 +2,14 @@
   <div class="row mt-5">
     <div class="col-md-8  mt-2 mt-md-0">
       <h1 class="mb-5">
-        Donate Campaigns
+        Fundraising Campaigns
       </h1>
     </div>
     <div class="col-md-4 mt-md-0">
       <div class="btn-group float-right" dropdown>
-        <button id="button-animated" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+        <button id="button-animated" dropdownToggle type="button" class="btn btn-primary btn-sm dropdown-toggle"
           aria-controls="dropdown-animated">
-          Sort By <span class="caret"></span>
+          Sort by <span class="caret"></span>
         </button>
         <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-animated">
           <li role="menuitem" *ngFor="let sort of sortBy"><a class="dropdown-item" (click)="sortCampaigns(sort)">
@@ -57,6 +57,16 @@
           </div>
         </div>
       </div>
+
+      <div class="row justify-content-center mt-4">
+        <div>
+          <pagination [totalItems]="resCount" [itemsPerPage]="6" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+      <!-- <pre class="card card-block card-header mb-3">
+        Page changed to: {{page}}
+      </pre> -->
+      </div>
+
     </div>
   </div>
 </div>

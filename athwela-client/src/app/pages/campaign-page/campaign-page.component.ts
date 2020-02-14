@@ -10,6 +10,7 @@ import { CampaignDonateComponent } from '../../components/campaign-donate/campai
 import { CampaignDonationConfirmComponent } from '../../components/campaign-donation-confirm/campaign-donation-confirm.component';
 import { UserService } from 'src/app/services/user.service';
 import { CampaignPageVerifierComponent } from 'src/app/components/campaign-page-verifier/campaign-page-verifier.component';
+import { AppConfig } from '../../config/app-config';
 
 @Component({
   selector: 'app-campaign-page',
@@ -17,6 +18,7 @@ import { CampaignPageVerifierComponent } from 'src/app/components/campaign-page-
   styleUrls: ['./campaign-page.component.scss']
 })
 export class CampaignPageComponent implements OnInit {
+  AppConfig_BASE_URL: string = AppConfig.BASE_URL;
   bsModalRef: BsModalRef;
   routeSub: Subscription;
   loading: Boolean;
@@ -68,9 +70,9 @@ export class CampaignPageComponent implements OnInit {
               this.bsModalRef.content.closeBtnName = 'Close';
               this.bsModalRef.content.onClose.subscribe(result => {
                 this.refreshCampaign(this.campaignId);
-              })
+              });
             }
-          })
+          });
         }
         else {
           this.router.navigate(['/page-not-found']);
@@ -121,7 +123,7 @@ export class CampaignPageComponent implements OnInit {
       if (res['success']) {
         this.campaign = res['campaign'] as Campaign;
         this.generatePercentage(this.campaign);
-        console.log(this.campaign);
+        // console.log(this.campaign);
       }
       else {
         this.router.navigate(['/page-not-found']);
@@ -168,7 +170,7 @@ export class CampaignPageComponent implements OnInit {
         msg: `Your comment has been posted successfully.`
       });
 
-    })
+    });
   }
 
   onDelete(commentId: string) {

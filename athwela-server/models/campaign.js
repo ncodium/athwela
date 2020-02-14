@@ -8,6 +8,12 @@ const campaignSchema = new Schema(
         name: { type: String, required: true },
         description: { type: String, required: true },
         category: { type: String, required: true },
+        images: [{ type: String }],
+        documents: [{
+            path: { type: String, required: true },
+            originalname: { type: String, required: true },
+            size: { type: Number, required: true },
+        }],
         owner: { type: ObjectId, ref: 'User', required: true },
         target: { type: Number, required: true },
         raised: { type: Number, default: 0 },

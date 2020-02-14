@@ -63,17 +63,19 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Campaign</th>
+                                    <th scope="col">Date</th>
                                     <th scope="col">Amount</th>
-                                    <th scope="col">Method</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col" *ngIf="!visitor">Method</th>
+                                    <th scope="col" *ngIf="!visitor">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let don of donations">
                                     <td>{{ don.campaign.name }}</td>
-                                    <td>{{ don.amount }}</td>
-                                    <td>{{ don.method }}</td>
-                                    <td>{{ don.status_message }}</td>
+                                    <td>{{ don.created_at | date:short }}</td>
+                                    <td>{{ don.amount | currency:'Rs. ' }}</td>
+                                    <td *ngIf="!visitor">{{ don.method }}</td>
+                                    <td *ngIf="!visitor">{{ don.status_message }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -219,7 +221,7 @@
 <ng-template #withdraw>
     <div class="modal-header">
         <h4 class="modal-title pull-left">Request Withdrawal</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="onClose()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="onWithdrawClose()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -273,7 +275,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="onClose()">Close</button>
+        <button type="button" class="btn btn-default" (click)="onWithdrawClose()">Close</button>
         <button type="submit" class="btn btn-secondary" (click)="onWithdraw()"
             [disabled]="withdrawForm.disabled">Request</button>
     </div>

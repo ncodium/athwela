@@ -45,16 +45,17 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 
 // ngx-bootstrap
-import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 // icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faFile } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
@@ -62,6 +63,7 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { ChartsModule } from 'ng2-charts';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
+import { FileSizePipe } from './pipes/file-size.pipe';
 import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -71,6 +73,7 @@ import { AdminDonationsRejectWithdrawalComponent } from './components/admin-dona
 import { CampaignPageVerifierComponent } from './components/campaign-page-verifier/campaign-page-verifier.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ThereportComponent } from './pages/thereport/thereport.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -100,6 +103,7 @@ import { ThereportComponent } from './pages/thereport/thereport.component';
     ModCampaignsComponent,
     ModUsersComponent,
     TruncateTextPipe,
+    FileSizePipe,
     FooterComponent,
     CampaignDonateComponent,
     CampaignDonationConfirmComponent,
@@ -109,7 +113,7 @@ import { ThereportComponent } from './pages/thereport/thereport.component';
     AdminDonationsRejectWithdrawalComponent,
     CampaignPageVerifierComponent,
     SearchPageComponent,
-    ThereportComponent
+    ThereportComponent,
   ],
   imports: [
     BrowserModule,
@@ -128,7 +132,9 @@ import { ThereportComponent } from './pages/thereport/thereport.component';
     ReactiveFormsModule,
     TabsModule.forRoot(),
     FileUploadModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    CarouselModule.forRoot(),
+    PaginationModule.forRoot(),
   ],
   providers: [
     Title,
@@ -154,5 +160,6 @@ export class AppModule {
     library.addIcons(faSearch);
     library.addIcons(faInbox);
     library.addIcons(faUser);
+    library.addIcons(faFile);
   }
 }

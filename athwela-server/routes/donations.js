@@ -92,6 +92,14 @@ router.put('/withdrawals/:id/reject', (req, res) => {
             else
                 res.send({ success: false, error: err });
         });
+
+    Withdrawal.findOne({ _id: req.params.id }, (err, doc) => {
+        if (err) throw err;
+        // console.log(doc.donations);
+        Donation.updateMany({ _id: { $in: doc.donations } }, { withdrew: false }, { multi: true }, (err, docs) => {
+            // console.log(docs);
+        });
+    })
 });
 
 router.get('/:id', (req, res) => {
@@ -246,7 +254,7 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
             }], (err, doc) => {
                 if (err) throw err;
                 const withdrawal = new Withdrawal({
-                    amount: doc[0] ? don[0].amount : 0,
+                    amount: doc[0] ? doc[0].amount : 0,
                     currency: currency,
                     donations: donations_id,
                     bank_name: bank_name,
@@ -255,7 +263,7 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
                     user: user
                 });
 
-                console.log("comparing");
+                // console.log("comparing");
                 if (withdrawal.amount < payhere.minimum_withdraw) {
                     res.json({ success: false, err: "Your balance does not exceed minimum withdrawal amount." });
                 }

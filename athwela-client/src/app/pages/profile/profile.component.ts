@@ -81,6 +81,7 @@ export class ProfileComponent implements OnInit {
       if (this.authService.loggedIn()) {
         // user is logged in
         this._user = this.authService.getUser(); // get logged in user
+        this.initForms();
 
         if (this.userId) {
           // id included in the url
@@ -97,6 +98,7 @@ export class ProfileComponent implements OnInit {
             this.getUserDonations(this.user._id);
             this.getUserDonationsSum(this.user._id);
             this.getUserReceivedDonations(this.user._id);
+            this.getUserReceivedDonationsNotWithdrawen(this.user._id);
           })
         }
         else {
@@ -104,7 +106,7 @@ export class ProfileComponent implements OnInit {
           // not a visitor
           this.user = this._user;
           this.visitor = false; // is the owner
-          this.initForms();
+
           this.getUserCampaigns(this.user._id);
           this.getUserDonations(this.user._id);
           this.getUserDonationsSum(this.user._id);
@@ -115,7 +117,6 @@ export class ProfileComponent implements OnInit {
       else {
         // user is anonymous
         this.visitor = true;
-        console.log(this.visitor);
 
         if (this.userId) {
           // id should be included in the url
@@ -219,7 +220,7 @@ export class ProfileComponent implements OnInit {
         }
       }
 
-      console.log(this.donationIds.value);
+      // console.log(this.donationIds.value);
     });
   }
 
@@ -275,9 +276,6 @@ export class ProfileComponent implements OnInit {
 
     this.donationService.withdraw(withdrawal).subscribe((res) => {
       if (res['success']) {
-        console.log(res);
-        this.getUserReceivedDonationsNotWithdrawen(this.user._id);
-
         // feedback
         this.withdrawAlert = {
           type: 'success',
@@ -291,6 +289,11 @@ export class ProfileComponent implements OnInit {
         }
       }
     })
+  }
+
+  onWithdrawClose() {
+    this.getUserReceivedDonationsNotWithdrawen(this.user._id);
+    this.modalRef.hide();
   }
 
   get avatar() {

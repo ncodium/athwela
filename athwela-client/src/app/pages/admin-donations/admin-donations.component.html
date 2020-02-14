@@ -16,6 +16,7 @@
                                         <tr>
                                             <th scope="col">Campaign</th>
                                             <th scope="col">Amount</th>
+                                            <th scope="col">Date</th>
                                             <th scope="col">Method</th>
                                             <th scope="col">Status</th>
                                         </tr>
@@ -24,6 +25,7 @@
                                         <tr *ngFor="let don of donations">
                                             <td>{{ don.campaign.name }}</td>
                                             <td>{{ don.amount | currency:'Rs. ' }}</td>
+                                            <td>{{ don.created_at | date:long }}</td>
                                             <td>{{ don.method | uppercase }}</td>
                                             <td>{{ don.status_message | titlecase }}</td>
                                         </tr>
@@ -79,7 +81,7 @@
                                             <td>
                                                 {{ w.status_message | titlecase }} <br />
                                                 <div class="mt-1 btn-group btn-group-sm" role="group"
-                                                    aria-label="Action">
+                                                    aria-label="Action" *ngIf="!w.status_code">
                                                     <button type="button" class="btn btn-primary"
                                                         (click)="onApprove(w._id)">Approve</button>
                                                     <button type="button" class="btn btn-danger"

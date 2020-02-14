@@ -32,17 +32,20 @@ router.post('/', upload.single('photo'), (req, res) => {
     }
 })
 
-router.post('/all/', upload.array('photos'), (req, res) => {
-    if (!req.files) {
-        return res.send({
-            success: false
-        });
-    } else {
-        return res.send({
-            success: true,
-            path: req.files.path
-        })
-    }
-})
+router.post("/images", upload.array("images", 6), (req, res) => {
+    //console.log('files', req.files);
+    res.send(req.files.map(file => file.path));
+});
+
+router.post("/documents", upload.array("documents", 6), (req, res) => {
+    //console.log('files', req.files);  
+    res.send(req.files.map(file => {
+        return {
+            path: file.path,
+            originalname: file.originalname,
+            size: file.size
+        }
+    }));
+});
 
 module.exports = router;
