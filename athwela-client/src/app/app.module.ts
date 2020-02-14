@@ -128,7 +128,7 @@ import { ThereportComponent } from './pages/thereport/thereport.component';
     ReactiveFormsModule,
     TabsModule.forRoot(),
     FileUploadModule,
-    NgxSpinnerModule,
+    NgxSpinnerModule
   ],
   providers: [
     Title,
