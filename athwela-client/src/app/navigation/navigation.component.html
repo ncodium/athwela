@@ -2,13 +2,6 @@
     <div class="container">
         <a class="navbar-brand font-weight-bold" routerLink="/">Athwela</a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <!--
-            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                <a class="nav-link" alt="search" href="#" [routerLink]="['/']">
-                    <fa-icon [icon]="['fas', 'search']"></fa-icon>
-                </a>
-            </li>
-            -->
         </div>
 
         <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation"
@@ -18,14 +11,8 @@
 
         <div class="collapse navbar-collapse" id="navbarResponsive" [collapse]="isCollapsed" [isAnimated]="true">
             <ul class="navbar-nav ml-auto">
-                <!-- Search form -->
-                <!-- <li class="nav-item text-center mr-2 text-light">
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    </form>
-                </li> -->
                 <li class="nav-item text-center mr-2 text-light ml-2">
-                  <app-search></app-search>
+                    <app-search></app-search>
                 </li>
 
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
@@ -53,35 +40,23 @@
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/admin/users']">Users</a>
                         </li>
-                        <!-- <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                            <a class="nav-link btn btn-default" href [routerLink]="['/admin/moderators']">Moderators</a>
-                        </li> -->
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/admin']">Dashboard</a>
                         </li>
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/admin/reports']">Reports</a>
                         </li>
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                            <a class="nav-link btn btn-default" href [routerLink]="['/admin/thereport']">Thereport</a>
-                        </li>
                     </ng-template>
-
 
                     <!-- Moderator -->
                     <ng-template [ngIf]="isMod">
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/mod/campaigns']">Campaigns</a>
                         </li>
-                        <!-- <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                            <a class="nav-link btn btn-default" href [routerLink]="['/mod/users']">Users</a>
-                        </li> -->
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/mod']">Dashboard</a>
                         </li>
                     </ng-template>
-
-
 
                     <!-- User -->
                     <ng-template [ngIf]="isUser">
@@ -107,7 +82,6 @@
                             </a>
                         </li>
                     </ng-template>
-
 
                     <li class="nav-item">
                         <a class="btn btn-info nav-link text-white ml-md-2 ml-xs-0" (click)="onLogoutClick()">

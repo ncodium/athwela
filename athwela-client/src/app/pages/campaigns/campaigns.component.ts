@@ -70,9 +70,6 @@ export class CampaignsComponent implements OnInit {
   refreshCategories() {
     this.campaignService.getCategories().subscribe((res) => {
       if (res['success']) this.categories = res['categories'] as string[];
-      else {
-        // error
-      }
     });
   }
 }

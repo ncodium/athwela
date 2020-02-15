@@ -60,11 +60,9 @@
 
       <div class="row justify-content-center mt-4">
         <div>
-          <pagination [totalItems]="resCount" [itemsPerPage]="6" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+          <pagination [totalItems]="resCount" [itemsPerPage]="6" [(ngModel)]="currentPage"
+            (pageChanged)="pageChanged($event)"></pagination>
         </div>
-      <!-- <pre class="card card-block card-header mb-3">
-        Page changed to: {{page}}
-      </pre> -->
       </div>
 
     </div>

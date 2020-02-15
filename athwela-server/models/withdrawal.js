@@ -23,5 +23,4 @@ const withdrawalSchema = new Schema(
 );
 
 const Withdrawal = mongoose.model('Withdrawal', withdrawalSchema);
-
 module.exports = { Withdrawal, withdrawalSchema };

@@ -64,7 +64,7 @@ export class AdminModeratorsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getModerators(); 
+    this.getModerators();
 
     this.registerForm = this.formBuilder.group({
       username: ['', [
@@ -107,7 +107,7 @@ export class AdminModeratorsComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-   
+
 
   get username() {
     return this.registerForm.get('username');
@@ -145,7 +145,7 @@ export class AdminModeratorsComponent implements OnInit {
     return this.registerForm.get('city');
   }
 
-   
+
 }
 
 
