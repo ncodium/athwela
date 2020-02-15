@@ -44,10 +44,8 @@ router.get('/count', (req, res) => {
 
     // parallely calculate counts and send response 
     async.parallel([countCampaigns, countDonations, countUsers, countModerators], function (err, results) {
-        //err contains the array of error of all the functions
-        //results contains an array of all the results
-        //results[0] will contain value of doc.length from countQuery function
-        //results[1] will contain doc of retrieveQuery function
+        // err contains the array of error of all the functions
+        // results contains an array of all the results
 
         res.send({
             campaigns: results[0],
@@ -68,7 +66,59 @@ router.get('/category-count', (req, res) => {
         }
     ]).exec((err, doc) => {
         if (err) throw err;
-        console.log(doc);
+        res.send(doc);
+    });
+});
+
+router.get('/status-count', (req, res) => {
+    Campaign.aggregate([
+        {
+            $group: {
+                _id: {
+                    verified: "$verified",
+                    published: "$published"
+                },
+                count: { $sum: 1 }
+            }
+        }
+    ]).exec((err, doc) => {
+        if (err) throw err;
+        res.send(doc);
+    });
+});
+
+router.get('/monthly-count', (req, res) => {
+    Campaign.aggregate([
+        {
+            $group: {
+                _id: {
+                    month: { $month: "$created_at" },
+                    year: { $year: "$created_at" }
+                },
+                count: { $sum: 1 }
+            }
+        }
+    ]).exec((err, doc) => {
+        if (err) throw err;
+        // console.log(doc);
+        res.send(doc);
+    });
+});
+
+router.get('/monthly-donations', (req, res) => {
+    Donation.aggregate([
+        {
+            $group: {
+                _id: {
+                    month: { $month: "$created_at" },
+                    year: { $year: "$created_at" },
+
+                },
+                total: { $sum: "$amount" }
+            },
+        }
+    ]).exec((err, doc) => {
+        if (err) throw err;
         res.send(doc);
     });
 });

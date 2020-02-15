@@ -141,22 +141,24 @@ router.get('/user/:id/donated', (req, res) => {
 
 router.get('/user/:id/donated/sum', (req, res) => {
     // needs to be optimized
-    Donation.aggregate([{
-        $match: {
-            donor: new ObjectId(req.params.id)
-        }
-    },
-    {
-        $group: {
-            _id: null,
-            amount: {
-                $sum: "$amount"
+    Donation.aggregate([
+        {
+            $match: {
+                donor: new ObjectId(req.params.id)
             }
+        },
+        {
+            $group: {
+                _id: null,
+                amount: {
+                    $sum: "$amount"
+                }
+            }
+        }], (err, doc) => {
+            if (err) res.json({ error: err, success: false });
+            res.json({ amount: doc[0] ? doc[0].amount : 0 });
         }
-    }], (err, doc) => {
-        if (err) res.json({ error: err, success: false });
-        res.json({ amount: doc[0] ? doc[0].amount : 0 });
-    });
+    );
 });
 
 router.get('/user/:id/received', (req, res) => {
@@ -200,7 +202,6 @@ router.get('/user/:id/not_withdrawen', (req, res) => {
         const campaigns_id = campaigns.map((campaign) => {
             return mongoose.Types.ObjectId(campaign._id);
         });
-
 
         Donation.find({ campaign: campaigns_id, withdrew: false })
             .populate('campaign', '-comments -donations')
@@ -263,7 +264,6 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
                     user: user
                 });
 
-                // console.log("comparing");
                 if (withdrawal.amount < payhere.minimum_withdraw) {
                     res.json({ success: false, err: "Your balance does not exceed minimum withdrawal amount." });
                 }

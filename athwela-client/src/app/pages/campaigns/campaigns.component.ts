@@ -14,15 +14,16 @@ export class CampaignsComponent implements OnInit {
   defaultCategory: string = "All Categories";
   activeCategory: string = this.defaultCategory;
   campaigns: Campaign[];
+
   // defaultSort: string = "Trending";
+  sortBy = ['Trending', 'Date', 'Comments', 'Donations', 'Name'];
   currentSort: string;
-  sortBy = ['Trending', 'Date', 'Comments', 'Donations' , 'Name'];
   word: string;  // Get currentSort to word variable
   sortWord: string;
   elseCatogory: string;
 
-  currentPage: number;                // use for pagination
-  page: number;                       // use for pagination
+  currentPage: number; // use for pagination
+  page: number; // use for pagination
   resCount: number;
 
   constructor(
@@ -111,9 +112,6 @@ export class CampaignsComponent implements OnInit {
   refreshCategories() {
     this.campaignService.getCategories().subscribe((res) => {
       if (res['success']) this.categories = res['categories'] as string[];
-      else {
-        // error
-      }
     });
   }
 }

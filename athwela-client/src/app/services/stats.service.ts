@@ -19,4 +19,17 @@ export class StatsService {
     return this.http.get(AppConfig.BASE_URL + 'stats/category-count/', {});
   }
 
+  getStatusCount() {
+    return this.http.get(AppConfig.BASE_URL + 'stats/status-count/', {});
+  }
+
+  getMonthlyCount() {
+    return this.http.get(AppConfig.BASE_URL + 'stats/monthly-count/', {});
+  }
+
+
+  getMonthlyDonations() {
+    return this.http.get(AppConfig.BASE_URL + 'stats/monthly-donations/', {});
+  }
+
 }

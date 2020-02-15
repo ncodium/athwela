@@ -6,7 +6,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/user');
 const config = require('../config/database');
 
-// async username availability check during registration
+// asynchronous username availability check during registration
 router.get('/username/:username', (req, res) => {
     User.find({ username: req.params.username }, (err, doc) => {
         if (err) next(err);
@@ -294,7 +294,7 @@ router.delete('/:id', (req, res) => {
         return res.status(404).send({ success: false, msg: `No user exist with given Id: ${req.params.id}` });
     User.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
-            res.status(202).send({success: true,msg:'User successfully deleted!'});
+            res.status(202).send({ success: true, msg: 'User successfully deleted!' });
         } else {
             res.status(406).send({ success: false, error: err });
         }

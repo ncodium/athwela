@@ -9,7 +9,7 @@
       <div class="btn-group float-right" dropdown>
         <button id="button-animated" dropdownToggle type="button" class="btn btn-primary btn-sm dropdown-toggle"
           aria-controls="dropdown-animated">
-          Sort by <span class="caret"></span>
+          Sort by<span class="caret"></span>
         </button>
         <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-animated">
           <li role="menuitem" *ngFor="let sort of sortBy"><a class="dropdown-item" (click)="sortCampaigns(sort)">
@@ -22,27 +22,25 @@
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search">
           <div class="input-group-append">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">
+              <fa-icon [icon]="['fas', 'search']"></fa-icon>
+            </button>
           </div>
         </div>
       </form>
 
       <div class="list-group">
-        <a class="list-group-item list-group-item-action justify-content-between pointer"
+        <button class="list-group-item list-group-item-action justify-content-between pointer"
           [ngClass]="{'active': activeCategory == defaultCategory}" (click)="onCategoryChange(defaultCategory)">
           {{ defaultCategory | titlecase }}
-          <span class="mx-2 badge badge-light badge-pill">99+</span>
-        </a>
-        <a *ngFor="let category of categories"
+          <!-- <span class="mx-2 badge badge-light badge-pill">99+</span> -->
+        </button>
+        <button *ngFor="let category of categories"
           class="list-group-item list-group-item-action justify-content-between pointer"
           [ngClass]="{'active': activeCategory == category}" (click)="onCategoryChange(category)">
           {{ category | titlecase }}
-          <span class="mx-2 badge badge-light badge-pill">99+</span>
-        </a>
-        <!--
-				<a href="#" class="list-group-item list-group-item-action justify-content-between">Charity
-					<span class="badge badge-light badge-pill">41</span></a>
-				-->
+          <!-- <span class="mx-2 badge badge-light badge-pill">99+</span> -->
+        </button>
       </div>
     </div>
     <div class="col-md-9 mt-md-0">
@@ -60,11 +58,12 @@
 
       <div class="row justify-content-center mt-4">
         <div>
-          <pagination [totalItems]="resCount" [itemsPerPage]="4" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+          <pagination [totalItems]="resCount" [itemsPerPage]="4" [(ngModel)]="currentPage"
+            (pageChanged)="pageChanged($event)"></pagination>
         </div>
-        <pre class="card card-block card-header mb-3">
+        <!-- <pre class="card card-block card-header mb-3">
           Page changed to: {{page}} {{resCount}}
-        </pre>
+        </pre> -->
       </div>
 
     </div>

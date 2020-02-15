@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId
+const ObjectId = mongoose.Schema.Types.ObjectId
 const { Campaign } = require('./campaign');
 const { User } = require('./user');
 
