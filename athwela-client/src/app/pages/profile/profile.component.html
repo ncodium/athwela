@@ -12,7 +12,6 @@
                     <img *ngIf="!user" class="image-cover" src="assets/user.png" data-holder-rendered="true">
                     <h5 class="card-title mt-4">{{ user?.username }}</h5>
                     <p class="card-text">{{ user?.email }}</p>
-                    <!-- <button class="btn btn-default">Ratings</button> -->
                     <button (click)="openModal(settings)" class="btn btn-primary btn-sm"
                         *ngIf="!visitor">Update</button>
                 </div>

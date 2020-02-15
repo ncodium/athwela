@@ -26,8 +26,8 @@ const donationSchema = new Schema(
 
 donationSchema.plugin(aggregatePaginate);
 donationSchema.plugin(mongoosePaginate);
-const Donation = mongoose.model('Donation', donationSchema);
 
+const Donation = mongoose.model('Donation', donationSchema);
 const currency = 'LKR';
 
 module.exports = { Donation, donationSchema, currency };

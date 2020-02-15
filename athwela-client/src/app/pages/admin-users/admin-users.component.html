@@ -23,16 +23,16 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Username</th>
-                                            <th scope="col">Name</th> 
-                                            <th scope="col">E-mail address</th>
-                                            <th scope="col">Delete</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">E-mail</th>
+                                            <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let user of users">
-                                            <th scope="row">1</th>
+                                        <tr *ngFor="let user of users; let i = index;">
+                                            <th scope="row">{{ i+1 }}</th>
                                             <td>{{user.username}}</td>
-                                             <td>{{user.firstName}} {{user.lastName}}</td> 
+                                            <td>{{user.firstName}} {{user.lastName}}</td>
                                             <td>{{user.email}} </td>
                                             <td><button class="btn btn-danger"
                                                     (click)="deleteusers(user._id)">Delete</button></td>
@@ -46,7 +46,8 @@
                     </div>
                     <div class="row justify-content-center mt-4">
                         <div>
-                            <pagination [totalItems]="resCount" [itemsPerPage]="8" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>  
+                            <pagination [totalItems]="resCount" [itemsPerPage]="8" [(ngModel)]="currentPage"
+                                (pageChanged)="pageChanged($event)"></pagination>
                         </div>
 
                     </div>
@@ -62,17 +63,18 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Username</th>
                                             <th scope="col">Name</th>
-                                            <th scope="col">E-mail address</th>
+                                            <th scope="col">E-mail</th>
+                                            <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let user of moderators">
-                                            <th scope="row">1</th>
+                                        <tr *ngFor="let user of moderators; let i = index;">
+                                            <th scope="row">{{ i+1 }}</th>
                                             <td>{{user.username}}</td>
                                             <td>{{user.firstName}} {{user.lastName}}</td>
                                             <td>{{user.email}} </td>
                                             <td><button class="btn btn-danger"
-                                                (click)="deleteusers(user._id)">Delete</button></td>
+                                                    (click)="deleteusers(user._id)">Delete</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -91,16 +93,17 @@
                                             <th scope="col">Username</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">E-mail address</th>
+                                            <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let user of administrators">
-                                            <th scope="row">1</th>
+                                        <tr *ngFor="let user of administrators; let i = index;">
+                                            <th scope="row">{{ i+1 }}</th>
                                             <td>{{user.username}}</td>
                                             <td>{{user.firstName}} {{user.lastName}}</td>
                                             <td>{{user.email}} </td>
                                             <td><button class="btn btn-danger"
-                                                (click)="deleteusers(user._id)">Delete</button></td>
+                                                    (click)="deleteusers(user._id)">Delete</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -109,7 +112,7 @@
                     </div>
                 </tab>
 
-                 
+
             </tabset>
         </div>
     </div>
@@ -227,12 +230,12 @@
             <div class="form-group">
                 <label for="inputRole">Role</label>
                 <!-- <input formControlName="role" type="text" class="form-control" id="inputRole"> -->
-                <select class="form-control" formControlName="role" id="inputRole" >
+                <select class="form-control" formControlName="role" id="inputRole">
                     <option value='user'>User</option>
                     <option value='mod'>Moderator</option>
                     <option value='admin'>Administrator</option>
-                     
-                  </select>
+
+                </select>
             </div>
 
             <div *ngIf="alert">
