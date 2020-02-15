@@ -13,6 +13,29 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/pagination', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
+    Campaign.find().skip((page-1) * pagination).limit(pagination).exec((err, docs) => {
+        if (!err)
+            res.json({ campaigns: docs, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
+
+router.get('/pagination/count', (req, res) => {
+
+    Campaign.find().count((err, count) => {
+        if (!err)
+            res.json({ campaignsCount: count, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
+
 router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
     const cmp = new Campaign({
         name: req.body.name,
