@@ -35,6 +35,10 @@ export class CampaignService {
   getCampaignsPagination(page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/pagination' + '?pagination=9&page=' + page.toString()); }
   getCampaignsPaginationCount() { return this.http.get(AppConfig.BASE_URL + 'campaigns/pagination/count'); }
 
+  // pagination All verified campaigns
+  getVerifiedCampaignsPagination(page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/verified/pagination' + '?pagination=9&page=' + page.toString()); }
+  getVerifiedCampaignsCount() { return this.http.get(AppConfig.BASE_URL + 'campaigns/verified/count'); }
+
  // pagination Sort data
   getSortCampaign(currentSort: string , page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort +  '?pagination=4&page=' + page.toString()); }
   getSortCount(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort + '/count' ); }

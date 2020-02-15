@@ -125,6 +125,29 @@ router.get('/verified', (req, res) => {
     });
 });
 
+router.get('/verified/pagination', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
+    Campaign.find({ verified: 'true' }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
+router.get('/verified/count', (req, res) => {
+
+    Campaign.find().count((err, count) => {
+        if (!err)
+            res.json({ verifiedCount: count, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
+
 router.get('/unverified', (req, res) => {
     Campaign.find({ 'verified': false }, (err, doc) => {
         if (!err)
