@@ -14,8 +14,9 @@ export class UserService {
     private http: HttpClient,
     private authService: AuthService
   ) { }
-
-  getUsers(){ return this.http.get(AppConfig.BASE_URL + 'users/user') }
+  getAllusers(){return this.http.get(AppConfig.BASE_URL + 'users/')}
+  getUsers(){ return this.http.get(AppConfig.BASE_URL + 'users/user')  }
+  getUsersCount(page:number){return this.http.get(AppConfig.BASE_URL+ 'users/user/count'+'?pagination=8&page='+page.toString());}
   getModerators(){ return this.http.get(AppConfig.BASE_URL + 'users/mod') }
   getAdministrators(){ return this.http.get(AppConfig.BASE_URL + 'users/admin') }
   gettotalcount(){return this.http.get(AppConfig.BASE_URL + 'campaigns/count') }

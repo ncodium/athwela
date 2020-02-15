@@ -15,7 +15,10 @@ export class CampaignCardComponent implements OnInit {
   @Input() public target: number;
   @Input() public isLinked: boolean = true;
   @Input() public hideDonate: boolean = true;
-  @Input() public published: boolean = false;
+  @Input() public published: boolean = true;
+  @Input() public verified: boolean = true;
+  @Input() public rejected: boolean = false;
+  @Input() public complete: boolean = false;
   percentage: number;
 
   constructor(

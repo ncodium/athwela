@@ -35,17 +35,43 @@
             </div>
         </div>
     </div>
-    
-</div>
-<div  class="container mt-5">
-    <div class="row mb-4">
-        <div class="card-body">
-            <div style="text-align: center">
-                <canvas id="barchart" height="108px"></canvas>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-column">
+                <div class="card">
+                    <div class="card-body">
+                        <div style="display: block;">
+                            <canvas baseChart [data]="PieChartData"
+                                [labels]="PieChartLabels" [chartType]="PieChartType"
+                                [options]="PieChartOptions" [plugins]="PieChartPlugins"
+                                [legend]="PieChartLegend" [colors]="pieChartColors">
+                            </canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" >
+            <div class="card-column">
+                <div class="card" >
+                    <div  class="card-body">
+                        <div style="display: block;">
+                            <canvas baseChart 
+                              [datasets]="barChartData"
+                              [labels]="barChartLabels"
+                              [options]="barChartOptions"
+                              [plugins]="barChartPlugins"
+                              [legend]="barChartLegend"
+                              [chartType]="barChartType">
+                            </canvas>
+                          </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
+    
 </div>
-
+ 
 <app-footer></app-footer>

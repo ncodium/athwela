@@ -32,24 +32,47 @@ router.get('/barchart',(req,res)=>{
 
 });
 
-// all users
+//get all users
+router.get('/', (req, res) => {
+    
+    User.find({ },(err, docs) => {
+        if (!err)
+            res.json({ allusers: docs, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
+
+// normal users
 router.get('/user', (req, res) => {
-    User.find({ role: 'user' },(err, docs) => {
+    const pagination=req.query.pagination ? parseInt(req.query.pagination):8;
+    const page=req.query.page ? parseInt(req.query.page):1;
+    User.find({ role: 'user' }).skip((page-1)*pagination).limit(pagination).exec((err, docs) => {
         if (!err)
             res.json({ users: docs, success: true });
         else
             res.json({ success: false, error: err })
     });
 });
-
+//normal user count
+router.get('/user/count', (req, res) => {
+    const pagination=req.query.pagination ? parseInt(req.query.pagination):8;
+    const page=req.query.page ? parseInt(req.query.page):1;
+    User.find({ role: 'user' }).count((err, count) => {
+        if (!err)
+            res.json({ userscount: count, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
 
 // all moderators
 router.get('/mod', (req, res) => {
     User.find({ role: 'mod' }, (err, doc) => {
-        
+
         if (!err)
             res.send({ moderators: doc, success: true });
-    
+
         else
             res.send({ success: false, error: err });
     });
@@ -76,7 +99,6 @@ router.post('/register', (req, res) => {
         phone: req.body.phone,
         username: req.body.username,
         password: req.body.password,
-        role: req.body.role
     });
 
     // check if a user with the username already exist

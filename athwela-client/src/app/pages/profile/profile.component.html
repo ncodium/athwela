@@ -38,7 +38,9 @@
             <div class="row mt-2">
                 <div *ngFor="let cmp of campaigns" class="col-lg-6 col-sm-12 my-2">
                     <app-campaign-card id={{cmp._id}} name={{cmp.name}} description={{cmp.description}}
-                        raised={{cmp.raised}} target={{cmp.target}} [hideDonate]="true">
+                        raised={{cmp.raised}} target={{cmp.target}} verified={{cmp.verified}}
+                        published={{cmp.published}} rejected={{cmp.rejected}} complete={{cmp.complete}}
+                        [hideDonate]="true">
                     </app-campaign-card>
                 </div>
 
@@ -62,6 +64,7 @@
                         <table class="card-table table table-hover">
                             <thead>
                                 <tr>
+                                    <th scope="col">#</th>
                                     <th scope="col">Campaign</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Amount</th>
@@ -70,8 +73,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let don of donations">
-                                    <td>{{ don.campaign.name }}</td>
+                                <tr *ngFor="let don of donations; let i = index">
+                                    <th scope="row">{{ i+1 }}</th>
+                                    <td>
+                                        <a [routerLink]="['/campaign', don.campaign._id]">{{ don.campaign.name }}</a>
+                                    </td>
                                     <td>{{ don.created_at | date:short }}</td>
                                     <td>{{ don.amount | currency:'Rs. ' }}</td>
                                     <td *ngIf="!visitor">{{ don.method }}</td>

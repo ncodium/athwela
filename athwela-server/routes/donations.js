@@ -35,8 +35,15 @@ router.get('/withdrawals', (req, res) => {
 });
 
 router.get('/withdrawals/user/:userId', (req, res) => {
+    const options = {
+        page: parseInt(req.query.page, 10) || 0,
+        limit: parseInt(req.query.limit, 10) || 10
+    }
+
     // return all documents
     Withdrawal.find({ user: req.params.userId })
+        .skip(options.page * options.limit)
+        .limit(options.limit)
         .populate({
             path: 'donations',
             populate: { path: 'campaign', select: '_id name' }
@@ -114,8 +121,15 @@ router.get('/:id', (req, res) => {
 
 
 router.get('/user/:id/donated', (req, res) => {
+    const options = {
+        page: parseInt(req.query.page, 10) || 0,
+        limit: parseInt(req.query.limit, 10) || 10
+    }
+
     // locate donations with given donor id
     Donation.find({ donor: req.params.id })
+        .skip(options.page * options.limit)
+        .limit(options.limit)
         .populate('campaign', '-donations')
         .exec(function (err, docs) {
             if (err) res.json({ error: err, success: false });

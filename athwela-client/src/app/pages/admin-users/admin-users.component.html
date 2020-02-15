@@ -39,9 +39,16 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
                             </div>
 
                         </div>
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <div>
+                            <pagination [totalItems]="resCount" [itemsPerPage]="8" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>  
+                        </div>
+
                     </div>
                 </tab>
 
