@@ -20,7 +20,8 @@ export class CampaignService {
   getCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/'); }
   getRecentCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/recent'); }
   getPublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/published'); }
-  getPublishedCategoryCount(page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/published/count' + '?pagination=4&page=' + page.toString() ); }
+  getPublishedCampaignsCatogory(page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/published/pagination' + '?pagination=4&page=' + page.toString() ); }
+  getPublishedCategoryCount() { return this.http.get(AppConfig.BASE_URL + 'campaigns/published/count' ); }
   getUnpublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unpublished'); }
   getVerifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/verified'); }
   getUnverifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified'); }
