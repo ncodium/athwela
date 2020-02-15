@@ -70,7 +70,7 @@ import { AdminReportsComponent } from './pages/admin-reports/admin-reports.compo
 import { AdminDonationsRejectWithdrawalComponent } from './components/admin-donations-reject-withdrawal/admin-donations-reject-withdrawal.component';
 import { CampaignPageVerifierComponent } from './components/campaign-page-verifier/campaign-page-verifier.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
-import { RxReactiveFormsModule } from "@rxweb/reactive-form-validators"
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 @NgModule({
   declarations: [
