@@ -24,12 +24,12 @@ const campaignSchema = new Schema(
         reject_message: { type: String, required: false },
         published: { type: Boolean, default: false },
         complete: { type: Boolean, default: false },
+        verified_by: { type: ObjectId, ref: 'User', required: false },
+        donations: [donationSchema],
         comments: [{
             owner: { type: ObjectId, ref: 'User', required: true },
             body: { type: String, required: true }
         }],
-        verified_by: { type: ObjectId, ref: 'User', required: false },
-        donations: [donationSchema]
     },
     {
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
@@ -37,5 +37,4 @@ const campaignSchema = new Schema(
 );
 
 const Campaign = mongoose.model('Campaign', campaignSchema);
-
 module.exports = { Campaign };

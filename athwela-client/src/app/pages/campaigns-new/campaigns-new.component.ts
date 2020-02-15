@@ -34,7 +34,7 @@ export class NewCampaignComponent implements OnInit {
 
   currentTab: string = this.tabs[0];
 
-  categories: string[] = ["medical", "education"];
+  categories: string[] = ["medical", "education", "emergency", "events", "community", "animals"];
 
   constructor(
     private campaignService: CampaignService,

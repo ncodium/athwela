@@ -128,8 +128,6 @@ router.get('/user/:id/donated', (req, res) => {
 
     // locate donations with given donor id
     Donation.find({ donor: req.params.id })
-        .skip(options.page * options.limit)
-        .limit(options.limit)
         .populate('campaign', '-donations')
         .exec(function (err, docs) {
             if (err) res.json({ error: err, success: false });
