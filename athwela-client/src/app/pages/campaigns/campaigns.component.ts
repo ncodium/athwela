@@ -14,13 +14,14 @@ export class CampaignsComponent implements OnInit {
   defaultCategory: string = "All Categories";
   activeCategory: string = this.defaultCategory;
   campaigns: Campaign[];
+
   // defaultSort: string = "Trending";
+  sortBy = ['Trending', 'Date', 'Comments', 'Donations', 'Name'];
   currentSort: string;
-  sortBy = ['Trending', 'Date', 'Comments', 'Donations' , 'Name'];
   word: string;  // Get currentSort to word variable
 
-  currentPage: number;                // use for pagination
-  page: number;                       // use for pagination
+  currentPage: number; // use for pagination
+  page: number; // use for pagination
   resCount: number;
 
   constructor(
@@ -37,14 +38,14 @@ export class CampaignsComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.page = event.page;
-    this.campaignService.getSortCampaign(this.word , this.page).subscribe((res) => {
+    this.campaignService.getSortCampaign(this.word, this.page).subscribe((res) => {
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
     });
   }
 
   sortCampaigns(currentSort: string) {
     this.word = currentSort;
-    this.campaignService.getSortCampaign(currentSort , 1).subscribe((res) => {
+    this.campaignService.getSortCampaign(currentSort, 1).subscribe((res) => {
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
     });
     console.log('***sort***' + this.resCount);
@@ -52,7 +53,6 @@ export class CampaignsComponent implements OnInit {
     this.campaignService.getSortCount(currentSort).subscribe((res) => {
       if (res['success']) this.resCount = res['sortCount'];
     });
-
   }
 
   onCategoryChange(category: string) {
@@ -68,7 +68,7 @@ export class CampaignsComponent implements OnInit {
       });
 
     } else {
-      this.campaignService.getCategoryCampaign(category , 1).subscribe((res) => {
+      this.campaignService.getCategoryCampaign(category, 1).subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
       });
 
