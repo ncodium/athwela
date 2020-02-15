@@ -16,6 +16,10 @@ export class ModCampaignsComponent implements OnInit {
   unverifiedCampaigns: Campaign[];
   campaigns: any;
 
+  currentPage: number; // use for pagination
+  page: number;
+  resCount: number;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -36,9 +40,25 @@ export class ModCampaignsComponent implements OnInit {
     );
   }
 
-  getCampaigns() {
-    this.campaignService.getCampaigns().subscribe((res) => {
+  pageChanged(event: any): void {
+    this.page = event.page;
+
+    this.campaignService.getCampaignsPagination(this.page).subscribe((res) => {
       this.campaigns = res['campaigns'];
+    });
+
+    // this.campaignService.getCampaignsPaginationCount().subscribe((res) => {
+    //   this.resCount = res['campaignsCount'];
+    // });
+  }
+
+  getCampaigns() {
+    this.campaignService.getCampaignsPagination(1).subscribe((res) => {
+      this.campaigns = res['campaigns'];
+    });
+
+    this.campaignService.getCampaignsPaginationCount().subscribe((res) => {
+      this.resCount = res['campaignsCount'];
     });
   }
 

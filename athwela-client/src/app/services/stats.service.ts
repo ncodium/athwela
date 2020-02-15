@@ -18,6 +18,12 @@ export class StatsService {
   getCategoryCount() {
     return this.http.get(AppConfig.BASE_URL + 'stats/category-count/', {});
   }
+  // getUserCount(){
+  //   return this.http.get(AppConfig.BASE_URL + 'stats/usercounts/', {});
+  // }
+  getUserModelCount() {
+    return this.http.get(AppConfig.BASE_URL + 'stats/usermodel-count', {});
+  }
 
   getStatusCount() {
     return this.http.get(AppConfig.BASE_URL + 'stats/status-count/', {});

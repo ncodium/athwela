@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { SingleDataSet, Label, ChartsModule, } from 'ng2-charts';
-import{Chart} from 'chart.js';
+//import { SingleDataSet, Label, ChartsModule, } from 'ng2-charts';
+//import{Chart} from 'chart.js';
 import { CampaignService } from '../../services/campaign.service';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { Campaign } from '../../models/campaign.model';
+import { StatsService } from '../../services/stats.service';
+import { ChartType, ChartOptions } from 'chart.js';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -14,6 +18,9 @@ import { Campaign } from '../../models/campaign.model';
 
 })
 export class AdminDashboardComponent implements OnInit {
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+  };
   users;
   moderators;
   donations;
@@ -24,36 +31,56 @@ export class AdminDashboardComponent implements OnInit {
   userCount;
   moderatorCount;
   totalreq = 0;
+  count: Object;
+  userModelCount:any;
+  campaignsCategoryCount:any;
   
 
   constructor(
     private campaignService: CampaignService,
     private userservice: UserService,
+    private statsService: StatsService
 
-  ) { }
-  BarChart=[];
+  ) {
+    monkeyPatchChartJsTooltip();
+    monkeyPatchChartJsLegend();
+   }
+  
 
   ngOnInit(
   ) {
     this.getModerators();
-    this.getUsers();
+    this.getAllUsers();
     this.getCampaigns();
     this.gettotalreq();
     this.getapprovedreq();
+
+//getiing users to a piechart
+this.statsService.getUserModelCount().subscribe((res) => {
+  this.userModelCount = res as Object;
+  //console.log(this.categoryCount);
+  this.PieChartLabels = this.userModelCount.map(i => i._id);
+  this.PieChartData = this.userModelCount.map(i => i.count);
+});
+
+//getting campaigns to a barchart
+
+ 
+
 
   }
 
   getModerators() {
     this.userservice.getModerators().subscribe((res) => {
-      this.moderators = res['users'] as User[];
+      this.moderators = res['moderators'] as User[];
       this.moderatorCount = this.moderators.length;
 
     });
   }
 
-  getUsers() {
-    this.userservice.getUsers().subscribe((res) => {
-      this.users = res['users'] as User[];
+  getAllUsers() {
+    this.userservice.getAllusers().subscribe((res) => {
+      this.users = res['allusers'] as User[];
       this.userCount = this.users.length;
     });
   }
@@ -80,34 +107,24 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  //barchart
-// getbarchart(){
-//   this.userservice.getcharts().subscribe((res)=>{
+   
 
-//   });
-// }
-   barchart=new Chart('barchart',{
-     type:'bar',
-     data:{
-       datasets:[
-         {
-           label:"Total Users",
-           backgroundColor:"rgba(255,99,132,0.2)",
-           borderColor:"rgba(193,7,218,0.6)",
-           borderWidth:1,
-           data:[10]
-         },
-         {
-          label:"Total Moderators",
-          backgroundColor:"rgba(193,7,218,0.34)",
-          borderColor:"rgba(193,7,218,0.6)",
-          borderWidth:1,
-          data:[20]
-        }
 
-       ]
-     }
-   })
+
+
+//pie
+public PieChartOptions: ChartOptions = {
+  responsive: true,
+};
+public PieChartLabels: Label[] = []; // ['Download', 'Store', 'Sales'];
+public PieChartData: SingleDataSet = []; // [300, 500, 100];
+public PieChartType: ChartType = 'pie';
+public PieChartLegend = true;
+public PieChartPlugins = [];
+public pieChartColors = [ {
+  backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+}];
+ 
 }
 
 

@@ -12,7 +12,9 @@ const userSchema = mongooose.Schema({
     city: { type: String, required: true },
     role: { type: String, default: 'user', enum: ['user', 'mod', 'admin'] },
     avatar: { type: String, required: false },
-    phone: { type: Number, required: true }
+    phone: { type: Number, required: true },
+    active: { type: Boolean, required: true, default: false },
+    temporaryToken: { type: String, required: true }
 });
 
 const User = module.exports = mongooose.model('User', userSchema);
