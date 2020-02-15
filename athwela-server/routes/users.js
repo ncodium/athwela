@@ -15,11 +15,53 @@ router.get('/username/:username', (req, res) => {
     });
 });
 
-// all users
+//get a barchart
+router.get('/barchart',(req,res)=>{
+    User.countDocuments({role:'user'},(err,c)=>{
+        if(err) next(err);
+        res.send(docs)
+        
+        //console.log(usercount);
+    });
+    // User.countDocuments({role:'mod'},function(err,c){
+    //     modcount=c;
+    // });
+    // User.countDocuments({role:'admin'},function(err,c){
+    //     admincount=c;
+        
+    // });
+
+});
+
+//get all users
+router.get('/', (req, res) => {
+    
+    User.find({ },(err, docs) => {
+        if (!err)
+            res.json({ allusers: docs, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
+
+// normal users
 router.get('/user', (req, res) => {
-    User.find({ role: 'user' }, (err, docs) => {
+    const pagination=req.query.pagination ? parseInt(req.query.pagination):8;
+    const page=req.query.page ? parseInt(req.query.page):1;
+    User.find({ role: 'user' }).skip((page-1)*pagination).limit(pagination).exec((err, docs) => {
         if (!err)
             res.json({ users: docs, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
+//normal user count
+router.get('/user/count', (req, res) => {
+    const pagination=req.query.pagination ? parseInt(req.query.pagination):8;
+    const page=req.query.page ? parseInt(req.query.page):1;
+    User.find({ role: 'user' }).count((err, count) => {
+        if (!err)
+            res.json({ userscount: count, success: true });
         else
             res.json({ success: false, error: err })
     });
