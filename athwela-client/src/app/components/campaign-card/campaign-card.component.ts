@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Campaign } from 'src/app/models/campaign.model';
 
 @Component({
   selector: 'app-campaign-card',
@@ -15,10 +16,7 @@ export class CampaignCardComponent implements OnInit {
   @Input() public target: number;
   @Input() public isLinked: boolean = true;
   @Input() public hideDonate: boolean = true;
-  @Input() public published: boolean = true;
-  @Input() public verified: boolean = true;
-  @Input() public rejected: boolean = false;
-  @Input() public complete: boolean = false;
+  @Input() public data: Campaign;
   percentage: number;
 
   constructor(

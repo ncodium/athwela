@@ -8,6 +8,7 @@
 <table class="table table-hover modal-body">
     <thead>
         <tr>
+            <th scope="col">#</th>
             <th scope="col">Amount</th>
             <th scope="col">Payee</th>
             <th scope="col">Date</th>
@@ -15,7 +16,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let w of withdrawals; let collapsed=true;">
+        <tr *ngFor="let w of withdrawals; let collapsed=true; let i = index;">
+            <th scope="row">{{ i+1 }}</th>
             <td>
                 <div *ngFor="let d of w.donations" [collapse]="!collapsed">
                     {{ d.amount | currency:'Rs. ' }} to

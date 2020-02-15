@@ -14,6 +14,7 @@
                                     <input type="name" required formControlName="name" class="form-control"
                                         id="inputTitle"
                                         [ngClass]="{ 'is-invalid': f.name.errors && (f.name.touched || f.name.dirty || submitted)}">
+                                    <br />
                                     <div *ngIf="f.name.errors && (f.name.touched || f.name.dirty || submitted)"
                                         class="alert alert-danger">
                                         <div>Campaign name is required</div>
@@ -26,6 +27,7 @@
                                         placeholder="Example: I'm raising money for my classroom! Donations will go towards books and supplies for the school this year."
                                         formControlName="description" class="form-control" id="inputDescription"
                                         [ngClass]="{ 'is-invalid': f.description.errors && (f.description.touched || f.description.dirty || submitted)}"></textarea>
+                                    <br />
                                     <div *ngIf="f.description.errors && (f.description.touched || f.description.dirty || submitted)"
                                         class="alert alert-danger">
                                         <div>Campaign name is required</div>
@@ -41,6 +43,7 @@
                                         <option *ngFor="let category of categories" [ngValue]="category">
                                             {{ category | titlecase}}</option>
                                     </select>
+                                    <br />
                                     <div *ngIf="f.category.errors && (f.category.touched || f.category.dirty || sumbitted)"
                                         class="alert alert-danger">
                                         <div>Category is required</div>
@@ -57,6 +60,7 @@
                                     <label for="inputTarget">Target (Rs.)</label>
                                     <input type="number" formControlName="target" class="form-control" id="inputTarget"
                                         [ngClass]="{ 'is-invalid': f.target.errors && (f.target.touched || f.target.dirty || submitted)}">
+                                    <br />
                                     <div *ngIf="f.target.errors && (f.target.touched || f.target.dirty || submitted)"
                                         class="alert alert-danger">
                                         <div>Target is required</div>
@@ -68,6 +72,7 @@
                                     <input formControlName="deadline" type="date" class="form-control"
                                         id="inputDeadline"
                                         [ngClass]="{ 'is-invalid': f.deadline.errors && (f.deadline.touched || f.deadline.dirty || submitted)}">
+                                    <br /><br />
                                     <div *ngIf="f.deadline.errors && (f.deadline.touched || f.deadline.dirty || sumbitted)"
                                         class="alert alert-danger">
                                         <div>Deadline is required</div>
@@ -88,10 +93,12 @@
                                 <input id="cin" name="cin" type="file" (change)="imageChangeEvent($event)"
                                     placeholder="Upload a file..." multiple accept="image/*" />
                                 &nbsp;
-                                <button type="button" class="btn btn-primary btn-sm" (click)="uploadImages()">
-                                    Upload
-                                </button>
-
+                                <button [disabled]="imagesToUpload.length" type="button" class="btn btn-primary btn-sm"
+                                    (click)="uploadImages()">Upload</button>
+                                <br /><br />
+                                <div *ngIf="submitted && !images.value" class="alert alert-danger">
+                                    <div>Images are required.</div>
+                                </div>
                                 <div class="card-columns mt-4" *ngIf="previewImages">
                                     <div class="card" *ngFor="let image of images.value">
                                         <img class="card-img" [src]="AppConfig_BASE_URL + image" alt="Card image">
@@ -107,13 +114,19 @@
                                 <p style="text-align: justify;">
                                     Upload documents such as letters, medical reports.
                                 </p>
-                                <input id="cin" name="cin" type="file" (change)="documentChangeEvent($event)"
-                                    placeholder="Upload a file..." multiple accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                                <input [writeFile]="true" id="cin" name="cin" type="file"
+                                    (change)="documentChangeEvent($event)" placeholder="Upload a file..." multiple
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                                     text/plain, application/pdf, image/*" />
                                 &nbsp;
-                                <button type="button" class="btn btn-primary btn-sm" (click)="uploadDocuments()">
+                                <button [disabled]="documents.length" type="button" class="btn btn-primary btn-sm"
+                                    (click)="uploadDocuments()">
                                     Upload
                                 </button>
+                                <br />
+                                <div *ngIf="submitted && !documents.value" class="alert alert-danger">
+                                    <div>Documents are required.</div>
+                                </div>
 
                                 <div class="card-columns mt-4" *ngIf="previewDocuments">
                                     <div class="card" *ngFor="let document of documents.value"

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/user');
 const config = require('../config/database');
+const randomstring = require('randomstring');
 
 // asynchronous username availability check during registration
 router.get('/username/:username', (req, res) => {
@@ -99,6 +100,8 @@ router.post('/register', (req, res) => {
         phone: req.body.phone,
         username: req.body.username,
         password: req.body.password,
+        // temporaryToken: jwt.sign({ data: user }, config.secret, { expiresIn: 604800 })
+        temporaryToken: randomstring.generate()
     });
 
     // check if a user with the username already exist
@@ -112,6 +115,7 @@ router.post('/register', (req, res) => {
                     res.json({ success: false, msg: 'Registration failed' });
                 } else {
                     res.json({ success: true, msg: 'Registered successfully' });
+                    console.log(user.temporaryToken);
                 }
             });
         }
@@ -129,7 +133,8 @@ router.post('/register/mod', (req, res) => {
         phone: req.body.phone,
         username: req.body.username,
         password: req.body.password,
-        role: "mod"
+        role: "mod",
+        // temporaryToken: jwt.sign({ data: user }, config.secret, { expiresIn: 604800 })
     });
 
     // check if a user with the username already exist
@@ -160,7 +165,8 @@ router.post('/register/admin', (req, res) => {
         phone: req.body.phone,
         username: req.body.username,
         password: req.body.password,
-        role: "admin"
+        role: "admin",
+        // temporaryToken: jwt.sign({ data: user }, config.secret, { expiresIn: 604800 })
     });
 
     // check if a user with the username already exist
@@ -179,12 +185,20 @@ router.post('/register/admin', (req, res) => {
         }
     });
 });
+
 router.post('/authenticate', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
 
     User.getUserByUsername(username, (err, user) => {
         if (err) throw err;
+        if(user.active == false) {
+            return res.json({
+                success: false, msg:
+                    "Your account has not been verified yet. Please check your email for the verification email."
+            });
+        }
+
         if (!user) {
             return res.json({
                 success: false, msg:
