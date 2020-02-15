@@ -181,6 +181,7 @@ export class ProfileComponent implements OnInit {
   getUserCampaigns(id: string) {
     this.campaignService.getUserCampaigns(id).subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
+      console.log(this.campaigns);
     });
   }
 

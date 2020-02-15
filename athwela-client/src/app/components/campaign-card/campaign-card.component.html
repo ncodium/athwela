@@ -6,10 +6,14 @@
             </span>
             <ng-template #elseBlock>{{ name | trunctuatetext:60  }}</ng-template>
             &nbsp;
-            <span *ngIf="complete" class="badge badge-pill badge-success">Success</span>
-            <span *ngIf="rejected" class="badge badge-pill badge-danger">Rejected</span>
-            <span *ngIf="!rejected && !verified && !rejected" class="badge badge-pill badge-warning">Pending</span>
-            <span *ngIf="!complete && published && !rejected" class="badge badge-pill badge-primary">Published</span>
+            <span *ngIf="data">
+                <span *ngIf="data.complete" class="badge badge-pill badge-success">Success</span>
+                <span *ngIf="data.rejected" class="badge badge-pill badge-danger">Rejected</span>
+                <span *ngIf="!data.verified && !data.rejected && !data.complete"
+                    class="badge badge-pill badge-warning">Pending</span>
+                <span *ngIf="data.published && !data.rejected && !data.complete && !data.verified"
+                    class="badge badge-pill badge-primary">Published</span>
+            </span>
         </h5>
         <p class="card-text" [innerHTML]="description | trunctuatetext:120"></p>
     </div>
