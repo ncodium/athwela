@@ -129,7 +129,7 @@ router.get('/categories/:category/count', (req, res) => {
         'category': req.params.category,
         'verified': true,
         'published': true
-    }).count((err, count) => {
+    }).countDocuments((err, count) => {
         if (!err)
             res.send({ success: true, categoriesCount: count });
         else

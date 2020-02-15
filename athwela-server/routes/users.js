@@ -14,27 +14,9 @@ router.get('/username/:username', (req, res) => {
     });
 });
 
-//get a barchart
-router.get('/barchart',(req,res)=>{
-    User.countDocuments({role:'user'},(err,c)=>{
-        if(err) next(err);
-        res.send(docs)
-        
-        //console.log(usercount);
-    });
-    // User.countDocuments({role:'mod'},function(err,c){
-    //     modcount=c;
-    // });
-    // User.countDocuments({role:'admin'},function(err,c){
-    //     admincount=c;
-        
-    // });
-
-});
-
 // all users
 router.get('/user', (req, res) => {
-    User.find({ role: 'user' },(err, docs) => {
+    User.find({ role: 'user' }, (err, docs) => {
         if (!err)
             res.json({ users: docs, success: true });
         else
@@ -42,14 +24,13 @@ router.get('/user', (req, res) => {
     });
 });
 
-
 // all moderators
 router.get('/mod', (req, res) => {
     User.find({ role: 'mod' }, (err, doc) => {
-        
+
         if (!err)
             res.send({ moderators: doc, success: true });
-    
+
         else
             res.send({ success: false, error: err });
     });
@@ -76,7 +57,6 @@ router.post('/register', (req, res) => {
         phone: req.body.phone,
         username: req.body.username,
         password: req.body.password,
-        role: req.body.role
     });
 
     // check if a user with the username already exist
