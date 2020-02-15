@@ -223,7 +223,8 @@ router.get('/user/:id/not_withdrawen', (req, res) => {
                 donations_id = donations.map((d) => { return mongoose.Types.ObjectId(d._id) });
                 Donation.aggregate([{
                     $match: {
-                        _id: { "$in": donations_id }
+                        _id: { "$in": donations_id },
+                        status_code: 2
                     }
                 },
                 {
@@ -254,7 +255,8 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
             donations_id = donations.map((id) => { return mongoose.Types.ObjectId(id) });
             Donation.aggregate([{
                 $match: {
-                    _id: { "$in": donations_id }
+                    _id: { "$in": donations_id },
+                    status_code: 2
                 }
             },
             {
@@ -277,11 +279,15 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
                 });
 
                 if (withdrawal.amount < payhere.minimum_withdraw) {
+                    Donation.updateMany({ _id: donations }, { $set: { withdrew: false } });
                     res.json({ success: false, err: "Your balance does not exceed minimum withdrawal amount." });
                 }
 
                 withdrawal.save((err, doc) => {
-                    if (err) throw err;
+                    if (err) {
+                        Donation.updateMany({ _id: donations }, { $set: { withdrew: false } });
+                        throw err;
+                    };
                     res.json({ withdrawal: doc, success: true });
                 })
             });
