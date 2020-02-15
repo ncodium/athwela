@@ -1,28 +1,56 @@
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Date</th>
-      <th scope="col">ViewReport</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td><button class="btn btn-secondary">View</button></td>
+ <div class="container mt-5">
+  <div class="page-header mb-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="mb-2">
+                Reports
+            </h1>
+            <!-- <button (click)="generatePdf()">Open PDF</button> -->
 
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
+        </div>
+        
+    </div>
+</div>
 
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-12">
+    <tabset type="pills">
+      <tab heading=" Campaigns" id="tab1">
+        <form (ngSubmit)="onSubmitCampaigns()" [formGroup]="reportForm">
+        
+             <div class="form-group">
+            <label for="InputFromdate">From</label>
+            <input type="Date" formControlName="fromDate" class="form-control" id="InputFromdate">
+            </div>
+            <div class="form-group">
+            <label for="InputTodate">To</label>
+            <input type="Date" formControlName="toDate" class="form-control" id="InputTodate">
+             
+            </div>
+            <button (click)="generatePdf()" type="submit" class="btn btn-primary">Generate Report</button>
+        </form>
+      </tab>
+      <tab heading="Donations" id="tab2">
+        <form (ngSubmit)="onSubmit()" [formGroup]="reportForm">
+        
+          <div class="form-group">
+         <label for="InputFromdate">From</label>
+         <input type="Date" formControlName="fromDate" class="form-control" id="InputFromdate">
+         </div>
+         <div class="form-group">
+         <label for="InputTodate">To</label>
+         <input type="Date" formControlName="toDate" class="form-control" id="InputTodate">
+          
+         </div>
+         <button (click)="generatePdf()" type="submit" class="btn btn-primary">Generate Report</button>
+     </form>
+         
+      </tab>
+       
+
+    </tabset>
+
+  </div>
+</div>
+ </div>
+ 

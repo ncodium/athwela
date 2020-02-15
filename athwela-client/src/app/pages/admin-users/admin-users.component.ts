@@ -19,6 +19,7 @@ export class AdminUsersComponent implements OnInit {
   modalRef: BsModalRef;
   users: User[];
   moderators: User[];
+  administrators:User[];
   registerForm: FormGroup;
 
   alert: any;
@@ -27,6 +28,7 @@ export class AdminUsersComponent implements OnInit {
   ngOnInit() {
     this.getUsers();
     this.getModerators();
+    this.getAdministrators();
 
 
     this.registerForm = this.formBuilder.group({
@@ -61,12 +63,42 @@ export class AdminUsersComponent implements OnInit {
       phone: ['', [
         Validators.required
       ]],
+      role: ['', [
+        Validators.required
+      ]],
     },
       { validator: ConfirmPasswordValidator.matchPassword }
     );
   }
 
   onRegister() {
+    if (this.role.value=='user'){
+    this.userService.registerUser({
+      username: this.username.value,
+      password: this.password.value,
+      email: this.email.value,
+      firstName: this.firstName.value,
+      lastName: this.lastName.value,
+      address: this.address.value,
+      phone: this.phone.value,
+      city: this.city.value,
+      role:this.role.value
+    }).subscribe((res) => {
+      if (res['success']) {
+        this.alert = {
+          type: 'success',
+          msg: 'Successfull Registration'
+        }
+      }
+      else {
+        this.alert = {
+          type: 'danger',
+          msg: res['msg']
+        }
+      }
+    })
+  }
+  if (this.role.value=='mod'){
     this.userService.registerMod({
       username: this.username.value,
       password: this.password.value,
@@ -75,12 +107,13 @@ export class AdminUsersComponent implements OnInit {
       lastName: this.lastName.value,
       address: this.address.value,
       phone: this.phone.value,
-      city: this.city.value
+      city: this.city.value,
+      role:this.role.value
     }).subscribe((res) => {
       if (res['success']) {
         this.alert = {
           type: 'success',
-          msg: 'Thank you for registering on Athwela. You may now sign in.'
+          msg: 'Successfull Registration'
         }
       }
       else {
@@ -92,15 +125,52 @@ export class AdminUsersComponent implements OnInit {
     })
   }
 
+  if (this.role.value=='admin'){
+    this.userService.registerAdmin({
+      username: this.username.value,
+      password: this.password.value,
+      email: this.email.value,
+      firstName: this.firstName.value,
+      lastName: this.lastName.value,
+      address: this.address.value,
+      phone: this.phone.value,
+      city: this.city.value,
+      role:this.role.value
+    }).subscribe((res) => {
+      if (res['success']) {
+        this.alert = {
+          type: 'success',
+          msg: 'Successfull Registration'
+        }
+      }
+      else {
+        this.alert = {
+          type: 'danger',
+          msg: res['msg']
+        }
+      }
+    })
+  }
+  }
+
   getUsers() {
     this.userService.getUsers().subscribe((res) => {
       this.users = res['users'] as User[];
+      
     });
   }
 
   getModerators() {
     this.userService.getModerators().subscribe((res) => {
-      this.moderators = res['users'] as User[];
+      this.moderators = res['moderators'] as User[];
+      
+    });
+  }
+
+  getAdministrators() {
+    this.userService.getAdministrators().subscribe((res) => {
+      this.administrators = res['administrators'] as User[];
+      
     });
   }
 
@@ -189,5 +259,8 @@ export class AdminUsersComponent implements OnInit {
 
   get city() {
     return this.registerForm.get('city');
+  }
+  get role() {
+    return this.registerForm.get('role');
   }
 }

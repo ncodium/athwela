@@ -20,16 +20,19 @@ export class CampaignService {
   getCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/'); }
   getRecentCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/recent'); }
   getPublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/published'); }
+  getPublishedCategoryCount(page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/published/count' + '?pagination=4&page=' + page.toString() ); }
   getUnpublishedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unpublished'); }
   getVerifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/verified'); }
   getUnverifiedCampaigns() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified'); }
   getCategories() { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories'); }
-   getCategoryCampaign(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category ); }
+  // getCategoryCampaign(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category ); }
   // getSortCampaign(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort ); }
 
   // tslint:disable-next-line: max-line-length
-  // getCategoryCampaign(category: string , page:number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category + '?pagination=4&page=' + page.toString()); }
-  getSortCampaign(currentSort: string , page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort +  '?pagination=6&page=' + page.toString()); }
+  getCategoryCampaign(category: string , page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category + '?pagination=4&page=' + page.toString()); }
+  getCategoryCount(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category + '/count' ); }
+
+  getSortCampaign(currentSort: string , page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort +  '?pagination=4&page=' + page.toString()); }
   getSortCount(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort + '/count' ); }
 
   rejectCampaign(id: string, reject_message: string) {

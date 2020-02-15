@@ -66,6 +66,15 @@ router.get('/published', (req, res) => {
     });
 });
 
+router.get('/published/count', (req, res) => {
+    Campaign.find({ published: 'true' }).count((err, count) => {
+        if (!err)
+            res.send({ success: true, categoriesCount: count });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
 router.get('/verified', (req, res) => {
     Campaign.find({ verified: 'true' }, (err, doc) => {
         if (!err)
@@ -95,11 +104,15 @@ router.get('/categories', (req, res) => {
 
 // filter campaigns by category
 router.get('/categories/:category', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+
     Campaign.find({
         'category': req.params.category,
         'verified': true,
         'published': true
-    }, (err, doc) => {
+    }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
         else
@@ -107,12 +120,31 @@ router.get('/categories/:category', (req, res) => {
     });
 });
 
+router.get('/categories/:category/count', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+
+    Campaign.find({
+        'category': req.params.category,
+        'verified': true,
+        'published': true
+    }).count((err, count) => {
+        if (!err)
+            res.send({ success: true, categoriesCount: count });
+        else
+            res.send({ success: false, error: err });
+    });
+
+});
+
+
 // count sort data
 router.get('/sort/:sort/count', (req, res) => {
     var sortby = req.params.sort; // front click sort get to sortby variable
     var sortTo = sortby.toLowerCase();  // convert to lowercase
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 6;    // use to pagination, skip & limit queries use for it
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
     const page = req.query.page ? parseInt(req.query.page) : 1;
 
     // sort by date
@@ -177,7 +209,7 @@ router.get('/sort/:sort', (req, res) => {
     var sortby = req.params.sort; // front click sort get to sortby variable
     var sortTo = sortby.toLowerCase();  // convert to lowercase
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 6;    // use to pagination, skip & limit queries use for it
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
     const page = req.query.page ? parseInt(req.query.page) : 1;
 
     // sort by date
@@ -254,6 +286,20 @@ router.get('/user/:id', (req, res) => {
             res.send({ success: false, error: err });
     });
 });
+
+//report generation
+router.get('/report/:start/:end', (req, res) => {
+    Campaign.find({
+        created_at: {
+            $gte: new Date(new Date(req.params.start).setHours(00, 00, 00)),
+            $lt: new Date(new Date(req.params.end).setHours(23, 59, 59))
+        }
+    }).sort({ created_at: 'asc' }).populate('owner').
+        exec((err, docs) => {
+            if (err) throw err;
+            res.send(docs)
+        });
+})
 
 router.get('/:id', (req, res) => {
     // validate if user exists
@@ -460,5 +506,6 @@ router.get('/approvedcount', (req, res) => {
         res.json({ count: count })
     })
 });
+
 
 module.exports = router;

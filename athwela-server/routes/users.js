@@ -14,9 +14,27 @@ router.get('/username/:username', (req, res) => {
     });
 });
 
+//get a barchart
+router.get('/barchart',(req,res)=>{
+    User.countDocuments({role:'user'},(err,c)=>{
+        if(err) next(err);
+        res.send(docs)
+        
+        //console.log(usercount);
+    });
+    // User.countDocuments({role:'mod'},function(err,c){
+    //     modcount=c;
+    // });
+    // User.countDocuments({role:'admin'},function(err,c){
+    //     admincount=c;
+        
+    // });
+
+});
+
 // all users
-router.get('/', (req, res) => {
-    User.find((err, docs) => {
+router.get('/user', (req, res) => {
+    User.find({ role: 'user' },(err, docs) => {
         if (!err)
             res.json({ users: docs, success: true });
         else
@@ -28,18 +46,20 @@ router.get('/', (req, res) => {
 // all moderators
 router.get('/mod', (req, res) => {
     User.find({ role: 'mod' }, (err, doc) => {
+        
         if (!err)
-            res.send({ users: doc, success: true });
+            res.send({ moderators: doc, success: true });
+    
         else
             res.send({ success: false, error: err });
     });
 });
 
 // all administrators
-router.get('/mod', (req, res) => {
-    User.find({ role: 'mod' }, (err, doc) => {
+router.get('/admin', (req, res) => {
+    User.find({ role: 'admin' }, (err, doc) => {
         if (!err)
-            res.send({ users: doc, success: true });
+            res.send({ administrators: doc, success: true });
         else
             res.send({ success: false, error: err });
     });
@@ -107,6 +127,36 @@ router.post('/register/mod', (req, res) => {
     });
 });
 
+router.post('/register/admin', (req, res) => {
+    // create a new admin
+    let _user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        city: req.body.city,
+        address: req.body.city,
+        email: req.body.email,
+        phone: req.body.phone,
+        username: req.body.username,
+        password: req.body.password,
+        role: "admin"
+    });
+
+    // check if a user with the username already exist
+    User.find({ username: _user.username }, function (err, user) {
+        if (user.length) {
+            res.json({ success: false, username_exist: true });
+        } else {
+            // register new user account
+            User.addUser(_user, (err, user) => {
+                if (err) {
+                    res.json({ success: false, msg: 'Registration failed.' });
+                } else {
+                    res.json({ success: true, msg: 'Registered successfully.' });
+                }
+            });
+        }
+    });
+});
 router.post('/authenticate', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
