@@ -21,12 +21,14 @@ export class AdminUsersComponent implements OnInit {
   moderators: User[];
   administrators:User[];
   registerForm: FormGroup;
+  page:number;
+  resCount:number;
 
   alert: any;
 
 
   ngOnInit() {
-    this.getUsers();
+     this.getUsers();
     this.getModerators();
     this.getAdministrators();
 
@@ -154,11 +156,13 @@ export class AdminUsersComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getUsers().subscribe((res) => {
+     this.userService.getUsers().subscribe((res) => {
       this.users = res['users'] as User[];
       
     });
   }
+
+  
 
   getModerators() {
     this.userService.getModerators().subscribe((res) => {

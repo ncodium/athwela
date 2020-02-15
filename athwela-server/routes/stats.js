@@ -68,9 +68,28 @@ router.get('/category-count', (req, res) => {
         }
     ]).exec((err, doc) => {
         if (err) throw err;
-        console.log(doc);
+        //console.log(doc);
         res.send(doc);
     });
 });
+
+ 
+//getting users to piechart
+router.get('/usermodel-count', (req, res) => {
+    User.aggregate([
+        {
+            $group: {
+                _id: "$role",
+                count: { $sum: 1 }
+            }
+        }
+    ]).exec((err, doc) => {
+        if (err) throw err;
+        //console.log(doc);
+        res.send(doc);
+    });
+});
+
+ 
 
 module.exports = router;
