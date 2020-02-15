@@ -58,7 +58,21 @@ router.get('/unpublished', (req, res) => {
 });
 
 router.get('/published', (req, res) => {
-    Campaign.find({ published: 'true' }, (err, doc) => {
+
+    Campaign.find({ published: 'true' }).exec((err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
+router.get('/published/pagination', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
+    Campaign.find({ published: 'true' }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
         else
@@ -67,6 +81,10 @@ router.get('/published', (req, res) => {
 });
 
 router.get('/published/count', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
     Campaign.find({ published: 'true' }).count((err, count) => {
         if (!err)
             res.send({ success: true, categoriesCount: count });

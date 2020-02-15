@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ReportService } from '../../services/Report.service';
 import { Campaign } from '../../models/campaign.model';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// import pdfMake from 'pdfmake/build/pdfmake';
+// import pdfFonts from 'pdfmake/build/vfs_fonts';
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 
@@ -45,7 +45,7 @@ export class AdminReportsComponent implements OnInit {
   onSubmitCampaigns() {
     this.reportservice.getCampaignsbydate(this.fromDate.value, this.toDate.value).subscribe((res) => {
       console.log(res);
-      
+
       this.campaigns= res as Campaign[];
       //console.log(res);
       this.generatePdf();
@@ -53,8 +53,8 @@ export class AdminReportsComponent implements OnInit {
   }
 
    generatePdf(){
- 
-     
+
+
     var rows = [];
 rows.push(['Name', 'Description', 'Owner','Target', 'Deadline', 'Category']);
 
@@ -66,29 +66,28 @@ for(var i of this.campaigns) {
 
 
 var docDefinition = {
- 
     content: [
-       
-     
+
+
      {text:'Campaigns Report',fontSize: 20,bold:true,margin: [ 5, 2, 10, 20 ]},
-     
+
      {text:'From '+this.fromDate.value+'To '+this.toDate.value,fontSize: 15 ,bold: true,margin: [ 5, 2, 10, 20 ]},
-     
+
 
         {table: {
-              
+
                // widths: ['*', 100, 200, '*', '*', '*'],
                 body: rows
             }}
     ]
 
 }
-    pdfMake.createPdf(docDefinition).download();
+   // pdfMake.createPdf(docDefinition).download();
 
-    
-    
+
+
 }
-  
+
 }
 
 
