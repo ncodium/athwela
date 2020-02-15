@@ -31,7 +31,6 @@ import { AdminUsersComponent } from './pages/admin-users/admin-users.component';
 import { AdminModeratorsComponent } from './pages/admin-moderators/admin-moderators.component';
 import { ModDashboardComponent } from './pages/mod-dashboard/mod-dashboard.component';
 import { ModCampaignsComponent } from './pages/mod-campaigns/mod-campaigns.component';
-import { ModUsersComponent } from './pages/mod-users/mod-users.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SearchComponent } from './search/search.component';
@@ -52,6 +51,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 // icons
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -64,7 +64,6 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { ChartsModule } from 'ng2-charts';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { FileSizePipe } from './pipes/file-size.pipe';
-import { MychartComponent } from './components/mychart/mychart.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
 //
@@ -72,8 +71,6 @@ import { AdminReportsComponent } from './pages/admin-reports/admin-reports.compo
 import { AdminDonationsRejectWithdrawalComponent } from './components/admin-donations-reject-withdrawal/admin-donations-reject-withdrawal.component';
 import { CampaignPageVerifierComponent } from './components/campaign-page-verifier/campaign-page-verifier.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
-import { ThereportComponent } from './pages/thereport/thereport.component';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -95,13 +92,11 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     AdminUsersComponent,
     AdminModeratorsComponent,
     HomeFooterComponent,
-    MychartComponent,
     ModDashboardComponent,
     CampaignPageComponent,
     PageNotFoundComponent,
     HowItWorksComponent,
     ModCampaignsComponent,
-    ModUsersComponent,
     TruncateTextPipe,
     FileSizePipe,
     FooterComponent,
@@ -113,7 +108,6 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     AdminDonationsRejectWithdrawalComponent,
     CampaignPageVerifierComponent,
     SearchPageComponent,
-    ThereportComponent,
   ],
   imports: [
     BrowserModule,

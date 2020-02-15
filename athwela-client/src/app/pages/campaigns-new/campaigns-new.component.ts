@@ -79,7 +79,7 @@ export class NewCampaignComponent implements OnInit {
         const campaignId: string = data['campaign']['_id'];
         this.router.navigate([`/campaign/${campaignId}`]);
       } else {
-        // show error
+        console.warn(data);
       }
     });
   }
@@ -101,19 +101,13 @@ export class NewCampaignComponent implements OnInit {
   uploadImages() {
     const formData: any = new FormData();
     const files: Array<File> = this.imagesToUpload;
-    // console.log(files);
 
     for (let i = 0; i < files.length; i++) {
       formData.append("images", files[i], files[i]['name']);
     }
 
-    // console.log('form data variable : ' + formData.toString());
-
     this.http.post(AppConfig.BASE_URL + 'upload/images', formData).subscribe(
       files => {
-        // console.log('files', files)
-        // this.images.setValue(fileInput.target.files);
-        // console.log(this.images.value);
         this.images.setValue(files);
         this.previewImages = true;
       }
@@ -123,19 +117,15 @@ export class NewCampaignComponent implements OnInit {
   uploadDocuments() {
     const formData: any = new FormData();
     const files: Array<File> = this.documentsToUpload;
-    // console.log(files);
 
     for (let i = 0; i < files.length; i++) {
       formData.append("documents", files[i], files[i]['name']);
     }
 
-    // console.log('form data variable : ' + formData.toString());
 
     this.http.post(AppConfig.BASE_URL + 'upload/documents', formData).subscribe(
       files => {
         console.warn(files)
-        // this.images.setValue(fileInput.target.files);
-        // console.log(this.images.value);
         this.documents.setValue(files);
         this.previewDocuments = true;
       }

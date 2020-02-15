@@ -16,8 +16,14 @@ import { ConfirmPasswordValidator } from './../../components/register/validators
 import { StatsService } from '../../services/stats.service';
 import { ChartType, ChartOptions } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { ChartDataSets } from 'chart.js';
+import { Color } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 import { AppConfig } from 'src/app/config/app-config';
 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 
 @Component({
   selector: 'app-mod-dashboard',
@@ -34,6 +40,9 @@ export class ModDashboardComponent implements OnInit {
   user: User;
   count: Object;
   categoryCount: any;
+  statusCount: any;
+  monthlyCount: any;
+  monthlyDonations: any;
 
   updateForm: FormGroup;
 
@@ -97,15 +106,55 @@ export class ModDashboardComponent implements OnInit {
       { validator: ConfirmPasswordValidator.matchPassword }
     );
 
+
+
     this.statsService.getCount().subscribe((res) => {
       this.count = res as Object;
     });
 
     this.statsService.getCategoryCount().subscribe((res) => {
       this.categoryCount = res as Object;
-      console.log(this.categoryCount);
-      this.categoryPieChartLabels = this.categoryCount.map(i => i._id);
+      // console.log(this.categoryCount);
+      this.categoryPieChartLabels = this.categoryCount.map(i => this.toTitleCase(i._id));
       this.categoryPieChartData = this.categoryCount.map(i => i.count);
+    });
+
+    this.statsService.getStatusCount().subscribe((res) => {
+      this.statusCount = res as Object;
+      // console.log(this.categoryCount);
+      this.statusPieChartLabels = this.statusCount.map(i => {
+        const _id = i._id;
+        if (_id.published) return 'Published';
+        else if (_id.verified) return 'Verified';
+        else return 'Pending';
+      });
+      this.statusPieChartData = this.statusCount.map(i => i.count);
+    });
+
+    this.statsService.getMonthlyCount().subscribe((res) => {
+      this.monthlyCount = res as Object;
+      // console.log(this.monthlyCount);
+
+      this.lineChartData = [
+        { data: this.monthlyCount.map(i => i.count), label: 'Campaigns' },
+      ];
+      // console.log(this.lineChartData);
+
+      this.lineChartLabels = this.monthlyCount.map(i => i._id.year + ' ' + monthNames[i._id.month]);
+      // console.log(this.lineChartLabels);
+      // ['January', 'February', 'March', 'April', 'May', 'June'];
+    });
+
+
+    this.statsService.getMonthlyDonations().subscribe((res) => {
+      this.monthlyDonations = res as Object;
+      console.log(this.monthlyDonations);
+
+      this.barChartLabels = this.monthlyDonations.map(i => i._id.year + ' ' + monthNames[i._id.month]);
+      this.barChartData = [
+        { data: this.monthlyDonations.map(i => i.total), label: 'Donations' },
+      ];
+      // ['January', 'February', 'March', 'April', 'May', 'June'];
     });
 
 
@@ -192,9 +241,86 @@ export class ModDashboardComponent implements OnInit {
   public categoryPieChartOptions: ChartOptions = {
     responsive: true,
   };
-  public categoryPieChartLabels: Label[] = []; // ['Download', 'Store', 'Sales'];
-  public categoryPieChartData: SingleDataSet = []; // [300, 500, 100];
+  public categoryPieChartLabels: Label[]; // ['Download', 'Store', 'Sales'];
+  public categoryPieChartData: SingleDataSet; // [300, 500, 100];
   public categoryPieChartType: ChartType = 'pie';
   public categoryPieChartLegend = true;
   public categoryPieChartPlugins = [];
+
+  public statusPieChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public statusPieChartLabels: Label[]; // ['Download', 'Store', 'Sales'];
+  public statusPieChartData: SingleDataSet; // [300, 500, 100];
+  public statusPieChartType: ChartType = 'pie';
+  public statusPieChartLegend = true;
+  public statusPieChartPlugins = [];
+
+  lineChartData: ChartDataSets[];
+  lineChartLabels: Label[];
+
+  lineChartOptions = {
+    responsive: true,
+
+    maintainAspectRatio: false,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            stepSize: 1
+          }
+        }
+      ]
+    }
+  };
+
+  lineChartColors: Color[] = [
+    {
+      borderColor: 'darkred',
+      backgroundColor: 'rgba(239, 83, 80, 0.5)',
+    },
+  ];
+
+  lineChartLegend = false;
+  lineChartPlugins = [];
+  lineChartType = 'line';
+
+  toTitleCase(str) {
+    return str.replace(
+      /\w\S*/g,
+      function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+  }
+
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            callback: function (value, index, values) {
+              return 'Rs.' + value;
+            }
+          }
+        }
+      ]
+    }
+  };
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = false;
+  public barChartPlugins = [];
+
+  public barChartColors: Color[] = [
+    {
+      borderColor: 'darkgreen',
+      backgroundColor: 'rgba(102, 187, 106, 0.75)',
+    },
+  ];
+
+  public barChartLabels: Label[];
+  public barChartData: ChartDataSets[];
 }

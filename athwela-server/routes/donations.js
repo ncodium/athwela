@@ -35,8 +35,15 @@ router.get('/withdrawals', (req, res) => {
 });
 
 router.get('/withdrawals/user/:userId', (req, res) => {
+    const options = {
+        page: parseInt(req.query.page, 10) || 0,
+        limit: parseInt(req.query.limit, 10) || 10
+    }
+
     // return all documents
     Withdrawal.find({ user: req.params.userId })
+        .skip(options.page * options.limit)
+        .limit(options.limit)
         .populate({
             path: 'donations',
             populate: { path: 'campaign', select: '_id name' }
@@ -114,8 +121,15 @@ router.get('/:id', (req, res) => {
 
 
 router.get('/user/:id/donated', (req, res) => {
+    const options = {
+        page: parseInt(req.query.page, 10) || 0,
+        limit: parseInt(req.query.limit, 10) || 10
+    }
+
     // locate donations with given donor id
     Donation.find({ donor: req.params.id })
+        .skip(options.page * options.limit)
+        .limit(options.limit)
         .populate('campaign', '-donations')
         .exec(function (err, docs) {
             if (err) res.json({ error: err, success: false });
@@ -141,22 +155,24 @@ router.get('/user/:id/donated', (req, res) => {
 
 router.get('/user/:id/donated/sum', (req, res) => {
     // needs to be optimized
-    Donation.aggregate([{
-        $match: {
-            donor: new ObjectId(req.params.id)
-        }
-    },
-    {
-        $group: {
-            _id: null,
-            amount: {
-                $sum: "$amount"
+    Donation.aggregate([
+        {
+            $match: {
+                donor: new ObjectId(req.params.id)
             }
+        },
+        {
+            $group: {
+                _id: null,
+                amount: {
+                    $sum: "$amount"
+                }
+            }
+        }], (err, doc) => {
+            if (err) res.json({ error: err, success: false });
+            res.json({ amount: doc[0] ? doc[0].amount : 0 });
         }
-    }], (err, doc) => {
-        if (err) res.json({ error: err, success: false });
-        res.json({ amount: doc[0] ? doc[0].amount : 0 });
-    });
+    );
 });
 
 router.get('/user/:id/received', (req, res) => {
@@ -200,7 +216,6 @@ router.get('/user/:id/not_withdrawen', (req, res) => {
         const campaigns_id = campaigns.map((campaign) => {
             return mongoose.Types.ObjectId(campaign._id);
         });
-
 
         Donation.find({ campaign: campaigns_id, withdrew: false })
             .populate('campaign', '-comments -donations')
@@ -263,7 +278,6 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
                     user: user
                 });
 
-                // console.log("comparing");
                 if (withdrawal.amount < payhere.minimum_withdraw) {
                     res.json({ success: false, err: "Your balance does not exceed minimum withdrawal amount." });
                 }

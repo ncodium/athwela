@@ -35,7 +35,7 @@ export class CampaignDonateComponent implements OnInit {
     this.returnUrl = AppConfig.APP_URL + 'campaign/' + this.campaign._id;
     this.notifyUrl = AppConfig.BASE_URL + 'donations/' + this.campaign._id + '/' + this.user._id;
 
-    console.log("notify_url: ", this.notifyUrl);
+    console.warn("notify_url: ", this.notifyUrl);
   }
 
 }

@@ -1,59 +1,95 @@
 <div class="container">
     <div class="row mt-5">
-        <div class="col-md-12  mt-2 mt-md-0">
-            <h1 class="mb-5">
-                {{ user?.firstName }} {{ user?.lastName }}
-            </h1>
-        </div>
-        <div class="col-md-3 mt-2 mt-md-0">
-            <div class="card text-center">
-                <div class="card-body">
-                    <img *ngIf="user.avatar" class="image-cover" [src]="user.avatar" data-holder-rendered="true">
-                    <img *ngIf="!user.avatar" class="image-cover" src="assets/user.png" data-holder-rendered="true">
-                    <h5 class="card-title mt-4">{{ user?.username }}</h5>
-                    <p class="card-text">{{ user?.email }}</p>
-                    <button (click)="openSettings(settings)" class="btn btn-primary">Settings</button>
+        <div class="col-md-12 mt-2 mt-md-0">
+            <div class="row mb-4">
+                <div class="col-sm-4">
+                    <div class="card-counter danger">
+                        <span class="count-numbers">{{ count?.campaigns }}</span>
+                        <span class="count-name">Campaigns</span>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card-counter success">
+                        <span class="count-numbers">{{ count?.donations }}</span>
+                        <span class="count-name">Donations</span>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card-counter info">
+                        <span class="count-numbers">{{ count?.users }}</span>
+                        <span class="count-name">Users</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-9 mt-2 mt-md-0">
-            <div class="container">
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <div class="card-counter danger">
-                            <span class="count-numbers">{{ count?.campaigns }}</span>
-                            <span class="count-name">Campaigns</span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card-counter success">
-                            <span class="count-numbers">{{ count?.donations }}</span>
-                            <span class="count-name">Donations</span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card-counter info">
-                            <span class="count-numbers">{{ count?.users }}</span>
-                            <span class="count-name">Users</span>
+            <div class="row">
+                <div class="col-md-3 col-sm-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ user?.firstName }} {{ user?.lastName }}</h5>
+                            <div class="text-center">
+                                <img *ngIf="user.avatar" class="image-cover" [src]="user.avatar"
+                                    data-holder-rendered="true">
+                                <img *ngIf="!user.avatar" class="image-cover" src="assets/user.png"
+                                    data-holder-rendered="true">
+                                <p class="card-text mt-2">{{ user?.email }}<br />{{ user?.username }}</p>
+                                <button (click)="openSettings(settings)"
+                                    class="btn btn-sm btn-primary">Settings</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card-column">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div style="display: block;">
-                                        <canvas baseChart [data]="categoryPieChartData"
-                                            [labels]="categoryPieChartLabels" [chartType]="categoryPieChartType"
-                                            [options]="categoryPieChartOptions" [plugins]="categoryPieChartPlugins"
-                                            [legend]="categoryPieChartLegend">
-                                        </canvas>
-                                    </div>
+                <div class="col-md-9 col-sm-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Campaigns</h5>
 
-                                </div>
+                            <div class="chart-wrapper" *ngIf="lineChartLabels" style="height: 16rem">
+                                <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                                    [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                                    [chartType]="lineChartType" [plugins]="lineChartPlugins">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Status</h5>
+                            <div style="display: block;" *ngIf="statusPieChartLabels">
+                                <canvas baseChart [data]="statusPieChartData" [labels]="statusPieChartLabels"
+                                    [chartType]="statusPieChartType" [options]="statusPieChartOptions"
+                                    [plugins]="statusPieChartPlugins" [legend]="statusPieChartLegend">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Categories</h5>
+                            <div style="display: block;" *ngIf="categoryPieChartLabels">
+                                <canvas baseChart [data]="categoryPieChartData" [labels]="categoryPieChartLabels"
+                                    [chartType]="categoryPieChartType" [options]="categoryPieChartOptions"
+                                    [plugins]="categoryPieChartPlugins" [legend]="categoryPieChartLegend">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-8 col-sm-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Donations</h5>
+                            <div style="display: block;" *ngIf="monthlyDonations">
+                                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                                    [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                                    [chartType]="barChartType" [colors]="barChartColors">
+                                </canvas>
                             </div>
                         </div>
                     </div>

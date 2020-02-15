@@ -13,9 +13,7 @@ router.get('/', (req, res) => {
     });
 });
 
-
 router.post('/', passport.authenticate("jwt", { session: false }), (req, res) => {
-    // console.log(req);
     const cmp = new Campaign({
         name: req.body.name,
         description: req.body.description.trim(),
@@ -36,11 +34,11 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
 });
 
 router.get('/recent', (req, res) => {
-    // return 10 most recent campaigns
+    // return 9 most recent campaigns
     Campaign.find()
         .sort({ 'created_at': -1 })
         .find({ published: 'true', verified: 'true' })
-        .limit(10)
+        .limit(9)
         .exec((err, docs) => {
             if (!err) {
                 res.send({ campaigns: docs, success: true });
@@ -56,14 +54,40 @@ router.get('/unpublished', (req, res) => {
             res.send({ success: true, campaigns: doc });
         else
             res.send({ success: false, error: err });
-
     });
 });
 
 router.get('/published', (req, res) => {
-    Campaign.find({ published: 'true' }, (err, doc) => {
+
+    Campaign.find({ published: 'true' }).exec((err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
+router.get('/published/pagination', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
+    Campaign.find({ published: 'true' }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
+router.get('/published/count', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
+    Campaign.find({ published: 'true' }).count((err, count) => {
+        if (!err)
+            res.send({ success: true, categoriesCount: count });
         else
             res.send({ success: false, error: err });
     });
@@ -78,7 +102,6 @@ router.get('/verified', (req, res) => {
     });
 });
 
-
 router.get('/unverified', (req, res) => {
     Campaign.find({ 'verified': false }, (err, doc) => {
         if (!err)
@@ -87,7 +110,6 @@ router.get('/unverified', (req, res) => {
             res.send({ success: false, error: err });
     });
 });
-
 
 router.get('/categories', (req, res) => {
     Campaign.distinct('category').exec((err, doc) => {
@@ -100,11 +122,15 @@ router.get('/categories', (req, res) => {
 
 // filter campaigns by category
 router.get('/categories/:category', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+
     Campaign.find({
         'category': req.params.category,
         'verified': true,
         'published': true
-    }, (err, doc) => {
+    }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
         else
@@ -112,13 +138,32 @@ router.get('/categories/:category', (req, res) => {
     });
 });
 
+router.get('/categories/:category/count', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+
+    Campaign.find({
+        'category': req.params.category,
+        'verified': true,
+        'published': true
+    }).countDocuments((err, count) => {
+        if (!err)
+            res.send({ success: true, categoriesCount: count });
+        else
+            res.send({ success: false, error: err });
+    });
+
+});
+
+
 // count sort data
 router.get('/sort/:sort/count', (req, res) => {
     var sortby = req.params.sort; // front click sort get to sortby variable
     var sortTo = sortby.toLowerCase();  // convert to lowercase
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 6 ;    // use to pagination, skip & limit queries use for it
-    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
 
     // sort by date
     if (sortTo == "date") {
@@ -181,14 +226,13 @@ router.get('/sort/:sort/count', (req, res) => {
 router.get('/sort/:sort', (req, res) => {
     var sortby = req.params.sort; // front click sort get to sortby variable
     var sortTo = sortby.toLowerCase();  // convert to lowercase
-    // var mysort = { sortby: -1 };
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 6 ;    // use to pagination, skip & limit queries use for it
-    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
 
     // sort by date
     if (sortTo == "date") {
-        Campaign.find().sort({ "deadline": -1 }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+        Campaign.find().sort({ "deadline": -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -199,7 +243,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by name
     else if (sortTo == "name") {
-        Campaign.find().sort({ [sortTo]: -1 }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+        Campaign.find().sort({ [sortTo]: -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -210,7 +254,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by donations
     else if (sortTo == "donations") {
-        Campaign.find().sort({ [sortTo]: -1 }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+        Campaign.find().sort({ [sortTo]: -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -221,7 +265,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by comments
     else if (sortTo == "comments") {
-        Campaign.find().sort({ [sortTo]: -1 }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+        Campaign.find().sort({ [sortTo]: -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -232,7 +276,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by trending
     else if (sortTo == "trending") {
-        Campaign.find().sort({ "deadline": -1, "comments": -1 }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+        Campaign.find().sort({ "deadline": -1, "comments": -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -269,10 +313,10 @@ router.get('/report/:start/:end', (req, res) => {
             $lt: new Date(new Date(req.params.end).setHours(23, 59, 59))
         }
     }).sort({ created_at: 'asc' }).populate('owner').
-    exec((err, docs) => {
-        if (err) throw err;
-        res.send(docs)
-    });
+        exec((err, docs) => {
+            if (err) throw err;
+            res.send(docs)
+        });
 })
 
 router.get('/:id', (req, res) => {

@@ -19,11 +19,7 @@ import { AdminModeratorsComponent } from './pages/admin-moderators/admin-moderat
 import { AdminReportsComponent } from './pages/admin-reports/admin-reports.component';
 import { ModDashboardComponent } from './pages/mod-dashboard/mod-dashboard.component';
 import { ModCampaignsComponent } from './pages/mod-campaigns/mod-campaigns.component';
-import { ModUsersComponent } from './pages/mod-users/mod-users.component';
-import { MychartComponent } from './components/mychart/mychart.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
-import { ThereportComponent } from './pages/thereport/thereport.component';
-
 
 // route guard
 import { AuthGuard } from './guards/auth.guard';
@@ -49,18 +45,12 @@ const routes: Routes = [
   { path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard] },
   { path: 'admin/moderators', component: AdminModeratorsComponent, canActivate: [AuthGuard] },
   { path: 'admin/reports', component: AdminReportsComponent, canActivate: [AuthGuard] },
-  //{ path: 'admin/thereport', component:ThereportComponent  , canActivate: [AuthGuard] },
-  
-  
-  
 
   // moderator
   { path: 'mod', component: ModDashboardComponent, canActivate: [AuthGuard] },
   { path: 'mod/campaigns', component: ModCampaignsComponent, canActivate: [AuthGuard] },
-  { path: 'mod/users', component: ModUsersComponent, canActivate: [AuthGuard] },
 
   // other
-  { path: 'chart', component: MychartComponent },
   { path: 'page-not-found', component: PageNotFoundComponent },
   { path: '**', component: PageNotFoundComponent }
 ];

@@ -2,13 +2,13 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-6 mb-5">
-                <h4 class="display-1 text-light display-fix">Help those in need</h4>
+                <h4 class="display-1 text-light display-fix">Help those in need.</h4>
                 <span class="lead">Fundraising for the people and causes you care about.</span>
 
                 <div class="mt-4">
-                    <a href class="btn btn-light btn-lg my-2 mr-2" (click)="openRegisterModal()">
+                    <button class="btn btn-light btn-lg my-2 mr-2" (click)="openRegisterModal()">
                         <span>Get Started</span>
-                    </a>
+                    </button>
 
                     <a [routerLink]="['/how-it-works']" class="btn btn-outline-light btn-hover-text-dark btn-lg my-2">
                         <span>How It Works</span>
@@ -25,16 +25,16 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-4 font-weight-normal">Donate Funds</h4>
-                <p class="card-text mb-3">The top resources for all things related to the Sun.</p>
-                <a href="#" class="card-link btn btn-primary">Browse Campaigns</a>
+                <p class="card-text mb-3">Help someone achieve their goal.</p>
+                <a [routerLink]="['/campaigns']" class="card-link btn btn-primary">Browse Campaigns</a>
             </div>
         </div>
 
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-4 font-weight-normal">Start a Fundraising Campaign</h4>
-                <p class="card-text mb-3">Looks like the Sun has returned.</p>
-                <a href="#" class="card-link btn btn-primary">Start a Campaign</a>
+                <p class="card-text mb-3">Raise money for a cause.</p>
+                <button (click)="openRegisterModal()" class="card-link btn btn-primary">Start a Campaign</button>
             </div>
         </div>
     </div>

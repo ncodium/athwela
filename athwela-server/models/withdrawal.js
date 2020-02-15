@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId
 const { Campaign } = require('./campaign');
@@ -22,6 +24,7 @@ const withdrawalSchema = new Schema(
     }
 );
 
+withdrawalSchema.plugin(aggregatePaginate);
+withdrawalSchema.plugin(mongoosePaginate);
 const Withdrawal = mongoose.model('Withdrawal', withdrawalSchema);
-
 module.exports = { Withdrawal, withdrawalSchema };
