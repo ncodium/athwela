@@ -281,7 +281,7 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="onWithdrawClose()">Close</button>
         <button type="submit" class="btn btn-secondary" (click)="onWithdraw()"
-            [disabled]="withdrawForm.disabled">Request</button>
+            [disabled]="withdrawForm.disabled || withdrawForm.invalid">Request</button>
     </div>
 
 </ng-template>

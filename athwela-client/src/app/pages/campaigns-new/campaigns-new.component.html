@@ -72,7 +72,7 @@
                                     <input formControlName="deadline" type="date" class="form-control"
                                         id="inputDeadline"
                                         [ngClass]="{ 'is-invalid': f.deadline.errors && (f.deadline.touched || f.deadline.dirty || submitted)}">
-                                    <br /><br />
+                                    <br />
                                     <div *ngIf="f.deadline.errors && (f.deadline.touched || f.deadline.dirty || sumbitted)"
                                         class="alert alert-danger">
                                         <div>Deadline is required</div>

@@ -15,50 +15,23 @@ router.get('/username/:username', (req, res) => {
     });
 });
 
-//get a barchart
-router.get('/barchart',(req,res)=>{
-    User.countDocuments({role:'user'},(err,c)=>{
-        if(err) next(err);
-        res.send(docs)
-        
-        //console.log(usercount);
-    });
-    // User.countDocuments({role:'mod'},function(err,c){
-    //     modcount=c;
-    // });
-    // User.countDocuments({role:'admin'},function(err,c){
-    //     admincount=c;
-        
-    // });
-
-});
-
-//get all users
-router.get('/', (req, res) => {
-    
-    User.find({ },(err, docs) => {
-        if (!err)
-            res.json({ allusers: docs, success: true });
-        else
-            res.json({ success: false, error: err })
-    });
-});
-
 // normal users
 router.get('/user', (req, res) => {
-    const pagination=req.query.pagination ? parseInt(req.query.pagination):8;
-    const page=req.query.page ? parseInt(req.query.page):1;
-    User.find({ role: 'user' }).skip((page-1)*pagination).limit(pagination).exec((err, docs) => {
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 8;
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    User.find({ role: 'user' }).skip((page - 1) * pagination).limit(pagination).exec((err, docs) => {
         if (!err)
             res.json({ users: docs, success: true });
         else
             res.json({ success: false, error: err })
     });
 });
-//normal user count
+
+// normal user count
 router.get('/user/count', (req, res) => {
-    const pagination=req.query.pagination ? parseInt(req.query.pagination):8;
-    const page=req.query.page ? parseInt(req.query.page):1;
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 8;
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+
     User.find({ role: 'user' }).count((err, count) => {
         if (!err)
             res.json({ userscount: count, success: true });
@@ -70,7 +43,6 @@ router.get('/user/count', (req, res) => {
 // all moderators
 router.get('/mod', (req, res) => {
     User.find({ role: 'mod' }, (err, doc) => {
-
         if (!err)
             res.send({ moderators: doc, success: true });
 
@@ -192,17 +164,18 @@ router.post('/authenticate', (req, res, next) => {
 
     User.getUserByUsername(username, (err, user) => {
         if (err) throw err;
-        if(user.active == false) {
-            return res.json({
-                success: false, msg:
-                    "Your account has not been verified yet. Please check your email for the verification email."
-            });
-        }
 
         if (!user) {
             return res.json({
                 success: false, msg:
                     "Username and password doesn't match. Please try again."
+            });
+        }
+
+        if (!user.active) {
+            return res.json({
+                success: false, msg:
+                    "Your account has not been verified yet. Please check your email for the verification email."
             });
         }
 

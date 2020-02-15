@@ -34,8 +34,8 @@ export class CampaignDonateComponent implements OnInit {
     this.cancelUrl = AppConfig.APP_URL + 'campaign/' + this.campaign._id;
     this.returnUrl = AppConfig.APP_URL + 'campaign/' + this.campaign._id;
     this.notifyUrl = AppConfig.BASE_URL + 'donations/' + this.campaign._id + '/' + this.user._id;
-
     console.warn("notify_url: ", this.notifyUrl);
+    // this.notifyUrl = "https://webhook.site/99c29cde-21cb-464c-a1cf-23b51688a76e";
   }
 
 }
