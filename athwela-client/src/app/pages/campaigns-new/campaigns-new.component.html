@@ -93,7 +93,7 @@
                                 <input id="cin" name="cin" type="file" (change)="imageChangeEvent($event)"
                                     placeholder="Upload a file..." multiple accept="image/*" />
                                 &nbsp;
-                                <button [disabled]="imagesToUpload.length" type="button" class="btn btn-primary btn-sm"
+                                <button type="button" class="btn btn-primary btn-sm"
                                     (click)="uploadImages()">Upload</button>
                                 <br /><br />
                                 <div *ngIf="submitted && !images.value" class="alert alert-danger">
@@ -119,8 +119,7 @@
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                                     text/plain, application/pdf, image/*" />
                                 &nbsp;
-                                <button [disabled]="documents.length" type="button" class="btn btn-primary btn-sm"
-                                    (click)="uploadDocuments()">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="uploadDocuments()">
                                     Upload
                                 </button>
                                 <br />
