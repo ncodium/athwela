@@ -83,9 +83,9 @@ router.post('/register', (req, res) => {
             // register new user account
             User.addUser(_user, (err, user) => {
                 if (err) {
-                    res.json({ success: false, msg: 'Registration failed' });
+                    res.json({ success: false, msg: 'Registration failed', username_exist: false });
                 } else {
-                    res.json({ success: true, msg: 'Registered successfully' });
+                    res.json({ success: true, msg: 'Registered successfully', username_exist: false });
                     console.log(user.temporaryToken);
                 }
             });

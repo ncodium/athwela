@@ -10,8 +10,27 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('athwela-client app is running!');
+    expect(page.getTitleText()).toEqual('Help those in need.');
   });
+
+  it('should display footer text', () => {
+    page.navigateTo();
+    expect(page.getFooterText()).toEqual('Copyright © Athwela 2020');
+  });
+
+  it('should open register modal', () => {
+    page.navigateTo();
+    page.clickRegisterLink();
+    expect(page.getModalTitle()).toEqual('Register on Athwela');
+  });
+
+  it('should fail registration on invalid submission', () => {
+    page.navigateTo();
+    page.clickRegisterLink();
+    page.clickRegisterButton();
+    expect(page.getAlertText()).toEqual('Registration failed');
+  });
+
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
