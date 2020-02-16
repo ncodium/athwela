@@ -47,7 +47,15 @@
                             <p class="card-text my-4">
                                 Nothing here, yet.
                             </p>
-                            <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Start a fundraising campaign</a>
+                            <a [routerLink]="['/campaign', 'new']" class="btn btn-primary mb-4" *ngIf=[!visitor]>
+                                Start a fundraising campaign</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-12 justify-content-center text-center row mt-3" *ngIf="campaigns?.length">
+                        <div>
+                            <pagination [totalItems]="totalItems" [itemsPerPage]="4" [(ngModel)]="currentPage"
+                                (pageChanged)="pageChanged($event)">
+                            </pagination>
                         </div>
                     </div>
                 </div>
@@ -91,8 +99,17 @@
                             <p class="card-text my-4">
                                 Nothing here, yet.
                             </p>
-                            <a href="#" class="btn btn-primary mb-4" *ngIf=[!visitor]>Make a donation</a>
+                            <a [routerLink]="['/campaigns']" class="btn btn-primary mb-4" *ngIf=[!visitor]>
+                                Make a donation</a>
                         </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-12 justify-content-center text-center row mt-4" *ngIf="donations?.length">
+                    <div>
+                        <pagination [totalItems]="donationsTotalItems" [itemsPerPage]="4"
+                            [(ngModel)]="donationsCurrentPage" (pageChanged)="donationsPageChanged($event)">
+                        </pagination>
                     </div>
                 </div>
             </div>

@@ -84,6 +84,11 @@ export class CampaignPageComponent implements OnInit {
   }
 
   onDonateClick() {
+    if (!this.loggedIn) {
+      alert('Please log in to donate!');
+      return;
+    }
+
     const initialState = {
       title: "Donate",
       campaign: this.campaign,
