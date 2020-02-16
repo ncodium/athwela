@@ -55,7 +55,6 @@ router.get('/mod', (req, res) => {
     User.find({ role: 'mod' }, (err, doc) => {
         if (!err)
             res.send({ moderators: doc, success: true });
-
         else
             res.send({ success: false, error: err });
     });
