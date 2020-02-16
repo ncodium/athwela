@@ -121,13 +121,18 @@ router.get('/:id', (req, res) => {
 
 
 router.get('/user/:id/donated', (req, res) => {
+    limit = parseInt(req.query.limit) || 4
+    page = parseInt(req.query.page) || 1
+
     const options = {
-        page: parseInt(req.query.page, 10) || 0,
-        limit: parseInt(req.query.limit, 10) || 10
+        limit: limit,
+        skip: limit * (page - 1)
     }
 
     // locate donations with given donor id
     Donation.find({ donor: req.params.id })
+        .limit(options.limit)
+        .skip(options.skip)
         .populate('campaign', '-donations')
         .exec(function (err, docs) {
             if (err) res.json({ error: err, success: false });
@@ -148,6 +153,17 @@ router.get('/user/:id/donated', (req, res) => {
                 if (err) res.json({ error: err, success: false });
                 res.json({ donations: docs, amount: doc[0] ? doc[0].amount : 0 });
             });
+        });
+});
+
+router.get('/user/:id/donated/count', (req, res) => {
+    // locate donations with given donor id
+    Donation.find({ donor: req.params.id })
+        .countDocuments((err, doc) => {
+            res.send({
+                success: true,
+                count: doc
+            })
         });
 });
 
