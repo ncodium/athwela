@@ -40,6 +40,16 @@ router.get('/user/count', (req, res) => {
     });
 });
 
+//all users
+router.get('/', (req, res) => {
+    User.find({ }, (err, doc) => {
+        if (!err)
+            res.send({ users: doc, success: true });
+
+        else
+            res.send({ success: false, error: err });
+    });
+});
 // all moderators
 router.get('/mod', (req, res) => {
     User.find({ role: 'mod' }, (err, doc) => {
@@ -105,6 +115,7 @@ router.post('/register/mod', (req, res) => {
         username: req.body.username,
         password: req.body.password,
         role: "mod",
+        active:true
         // temporaryToken: jwt.sign({ data: user }, config.secret, { expiresIn: 604800 })
     });
 
@@ -137,6 +148,7 @@ router.post('/register/admin', (req, res) => {
         username: req.body.username,
         password: req.body.password,
         role: "admin",
+        active:true
         // temporaryToken: jwt.sign({ data: user }, config.secret, { expiresIn: 604800 })
     });
 
@@ -148,7 +160,7 @@ router.post('/register/admin', (req, res) => {
             // register new user account
             User.addUser(_user, (err, user) => {
                 if (err) {
-                    res.json({ success: false, msg: 'Registration failed.' });
+                    res.json({ success: false, msg: err });
                 } else {
                     res.json({ success: true, msg: 'Registered successfully.' });
                 }

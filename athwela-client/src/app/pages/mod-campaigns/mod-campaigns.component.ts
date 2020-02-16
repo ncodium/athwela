@@ -71,9 +71,9 @@ export class ModCampaignsComponent implements OnInit {
       this.verifiedCampaigns = res['campaigns'];
     });
 
-    // this.campaignService.getCampaignsPaginationCount().subscribe((res) => {
-    //   this.resCount = res['verifiedCount'];
-    // });
+    this.campaignService.getCampaignsPaginationCount().subscribe((res) => {
+      this.resCount = res['verifiedCount'];
+    });
   }
 
   getUnverifiedCampaigns() {

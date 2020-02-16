@@ -40,6 +40,7 @@
             <div class="card-column">
                 <div class="card">
                     <div class="card-body">
+                        <h5 class="card-title">All Users</h5>
                         <div style="display: block;">
                             <canvas baseChart [data]="PieChartData"
                                 [labels]="PieChartLabels" [chartType]="PieChartType"
@@ -53,23 +54,52 @@
             </div>
         </div>
         <div class="col-md-6" >
-            <div class="card-column">
-                <div class="card" >
-                    <div  class="card-body">
-                        <div style="display: block;">
-                            <canvas baseChart 
-                              [datasets]="barChartData"
-                              [labels]="barChartLabels"
-                              [options]="barChartOptions"
-                              [plugins]="barChartPlugins"
-                              [legend]="barChartLegend"
-                              [chartType]="barChartType">
-                            </canvas>
-                          </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Campaigns</h5>
+    
+                    <div class="chart-wrapper" *ngIf="lineChartLabels" style="height: 16rem">
+                        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                            [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                            [chartType]="lineChartType" [plugins]="lineChartPlugins">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-md-6 ">
+        <div class="card-column">
+            <div class="card mt-3" >
+                <div  class="card-body">
+                    <h5 class="card-title">Donations</h5>
+                    <div style="display: block;" *ngIf="monthlyDonations">
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                            [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                            [chartType]="barChartType" [colors]="barChartColors">
+                        </canvas>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-md-6">
+    <div class="card-column">
+        <div class="card mt-3">
+            <div class="card-body ">
+                <h5 class="card-title">Categories</h5>
+                <div style="display: block;" *ngIf="categoryPieChartLabels">
+                    <canvas baseChart [data]="categoryPieChartData" [labels]="categoryPieChartLabels"
+                        [chartType]="categoryPieChartType" [options]="categoryPieChartOptions"
+                        [plugins]="categoryPieChartPlugins" [legend]="categoryPieChartLegend">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
     </div>
     
 </div>
