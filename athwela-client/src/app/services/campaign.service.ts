@@ -47,6 +47,14 @@ export class CampaignService {
   getPublishedCampaignsCatogory(page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/published/pagination' + '?pagination=4&page=' + page.toString() ); }
   getPublishedCategoryCount() { return this.http.get(AppConfig.BASE_URL + 'campaigns/published/count' ); }
 
+  // pagination unpublish campaigns
+  getUnpublishedCampaignsPagination(page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/unpublished/pagination' + '?pagination=4&page=' + page.toString()); }
+  getUnpublishedCampaignsCount() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unpublished/count' ); }
+
+  // pagination unverify campaigns
+  getUnverifiedCampaignsPagination(page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified/pagination' + '?pagination=4&page=' + page.toString()); }
+  getUnverifiedCampaignsCount() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified/count' ); }
+
 
   rejectCampaign(id: string, reject_message: string) {
     this.authService.loadToken();
