@@ -31,7 +31,7 @@
         </form>
       </tab>
       <tab heading="Donations" id="tab2">
-        <form (ngSubmit)="onSubmit()" [formGroup]="reportForm">
+        <form (ngSubmit)="onSubmitDonations()" [formGroup]="reportForm">
         
           <div class="form-group">
          <label for="InputFromdate">From</label>
@@ -42,7 +42,7 @@
          <input type="Date" formControlName="toDate" class="form-control" id="InputTodate">
           
          </div>
-         <button (click)="generatePdf()" type="submit" class="btn btn-primary">Generate Report</button>
+         <button (click)="generatePdfDonations()" type="submit" class="btn btn-primary">Generate Report</button>
      </form>
          
       </tab>

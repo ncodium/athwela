@@ -14,9 +14,14 @@ export class AdminCampaignsComponent implements OnInit {
   unpublishedCampaigns: Campaign[];
   verifiedCampaigns: Campaign[];
   unverifiedCampaigns: Campaign[];
-
   currentPage: number; // use for pagination
   page: number;
+  resCount: number;
+
+  resCampaign: string;
+  res: string;
+
+  
   allresCount: number;
   publishresCount: number;
   verifyresCount: number;
