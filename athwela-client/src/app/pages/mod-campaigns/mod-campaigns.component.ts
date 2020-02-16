@@ -20,6 +20,9 @@ export class ModCampaignsComponent implements OnInit {
   page: number;
   resCount: number;
 
+  resCampaign: string;
+  res: string;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -27,6 +30,7 @@ export class ModCampaignsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.getCampaigns();
     this.getUnverifiedCampaigns();
     this.getVerifiedCampaigns();
@@ -47,24 +51,28 @@ export class ModCampaignsComponent implements OnInit {
       this.campaigns = res['campaigns'];
     });
 
-    // this.campaignService.getCampaignsPaginationCount().subscribe((res) => {
-    //   this.resCount = res['campaignsCount'];
-    // });
+    this.campaignService.getVerifiedCampaignsPagination(this.page).subscribe((res) => {
+      this.verifiedCampaigns = res['campaigns'];
+    });
+
   }
 
   getCampaigns() {
     this.campaignService.getCampaignsPagination(1).subscribe((res) => {
       this.campaigns = res['campaigns'];
     });
-
     this.campaignService.getCampaignsPaginationCount().subscribe((res) => {
       this.resCount = res['campaignsCount'];
     });
   }
 
   getVerifiedCampaigns() {
-    this.campaignService.getVerifiedCampaigns().subscribe((res) => {
+    this.campaignService.getVerifiedCampaignsPagination(1).subscribe((res) => {
       this.verifiedCampaigns = res['campaigns'];
+    });
+
+    this.campaignService.getCampaignsPaginationCount().subscribe((res) => {
+      this.resCount = res['verifiedCount'];
     });
   }
 

@@ -46,6 +46,28 @@ export class ProfileComponent implements OnInit {
   alert: any;
   withdrawAlert: any;
 
+  currentPage = 1;
+  page: number;
+  totalItems: number;
+
+  donationsCurrentPage = 1;
+  donationsPage: number;
+  donationsTotalItems: number;
+
+  pageChanged(event: any): void {
+    this.page = event.page;
+    this.campaignService.getUserCampaignsPage(this.user._id, this.page, 4).subscribe((res) => {
+      this.campaigns = res['campaigns'];
+    })
+  }
+
+  donationsPageChanged(event: any): void {
+    this.donationsPage = event.page;
+    this.donationService.getUserDonationsPage(this._user._id, 1, 4).subscribe((res) => {
+      this.donations = res['donations'] as Donation[];
+    });
+  }
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -179,15 +201,23 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserCampaigns(id: string) {
-    this.campaignService.getUserCampaigns(id).subscribe((res) => {
+    this.campaignService.getUserCampaignsPage(id, 1, 4).subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
     });
+
+    this.campaignService.getUserCampaignsCount(id).subscribe((res) => {
+      this.totalItems = res['count'];
+    })
   }
 
   getUserDonations(id: string) {
-    this.donationService.getUserDonations(id).subscribe((res) => {
+    this.donationService.getUserDonationsPage(id, 1, 4).subscribe((res) => {
       this.donations = res['donations'] as Donation[];
     });
+
+    this.donationService.getUserDonationsCount(id).subscribe((res) => {
+      this.donationsTotalItems = res['count'];
+    })
   }
 
   getUserDonationsSum(id: string) {
@@ -220,7 +250,6 @@ export class ProfileComponent implements OnInit {
         }
       }
 
-      // console.log(this.donationIds.value);
     });
   }
 

@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { AppConfig } from 'src/app/config/app-config';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 
 @Component({
   selector: 'app-campaigns-new',
@@ -33,7 +34,7 @@ export class NewCampaignComponent implements OnInit {
 
   currentTab: string = this.tabs[0];
 
-  categories: string[] = ["medical", "education"];
+  categories: string[] = ["medical", "education", "emergency", "events", "community", "animals"];
 
   constructor(
     private campaignService: CampaignService,
@@ -50,19 +51,22 @@ export class NewCampaignComponent implements OnInit {
       deadline: ['', Validators.required],
       category: ['', Validators.required],
       raised: [''],
-      images: [''],
-      documents: ['']
+      images: ['', Validators.required],
+      documents: ['', Validators.required]
     });
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.campaignForm.controls; }
-  get images() { return this.campaignForm.get('images'); }
-  get documents() { return this.campaignForm.get('documents'); }
+  get f() { return this.campaignForm.controls }
+  get images() { return this.campaignForm.get('images') }
+  get documents() { return this.campaignForm.get('documents') }
 
   onCreateCampaign(): void {
     this.submitted = true;
-    if (this.campaignForm.invalid) { return; }
+    if (this.campaignForm.invalid) {
+      alert('You cannot submit because there are incomplete fields in the form.');
+      return;
+    }
 
     const campaign = {
       name: this.campaignForm.controls.name.value,

@@ -21,7 +21,7 @@
                 <!-- Anonymous -->
                 <ng-template [ngIf]="!loggedIn">
                     <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                        <a class="nav-link btn btn-default" href [routerLink]="['/campaigns']">Donate</a>
+                        <a class="nav-link btn btn-default" href [routerLink]="['/campaigns']">Campaigns</a>
                     </li>
                     <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                         <a class="nav-link btn btn-default" href [routerLink]="['/how-it-works']">How It Works</a>
@@ -62,7 +62,7 @@
                     <ng-template [ngIf]="isUser">
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
                             <a class="nav-link btn btn-default" href [routerLink]="['/campaigns']">
-                                Donate
+                                Campaigns
                             </a>
                         </li>
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" class="nav-item">

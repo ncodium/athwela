@@ -14,7 +14,7 @@ const userSchema = mongooose.Schema({
     avatar: { type: String, required: false },
     phone: { type: Number, required: true },
     active: { type: Boolean, required: true, default: false },
-    temporaryToken: { type: String, required: true }
+    temporaryToken: { type: String, default:'' }
 });
 
 const User = module.exports = mongooose.model('User', userSchema);

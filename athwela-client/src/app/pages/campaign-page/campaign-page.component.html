@@ -223,6 +223,8 @@
                         (click)="publishCampaign()" [disabled]="!campaign?.verified">Publish</button>
                     <button class="btn btn-info card-link text-white" *ngIf="campaign?.published"
                         (click)="unpublishCampaign()">Unpublish</button>
+                    <button class="btn btn-danger card-link"
+                    (click)="deleteCampaign(campaign._id)">Delete</button>
                 </div>
                 <div class="card-footer" *ngIf="campaign?.verified || campaign?.published; else elseBlock">
                     Verified by &nbsp;

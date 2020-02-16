@@ -19,6 +19,19 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/report/:start/:end', (req, res) => {
+    Donation.find({
+        created_at: {
+            $gte: new Date(new Date(req.params.start).setHours(00, 00, 00)),
+            $lt: new Date(new Date(req.params.end).setHours(23, 59, 59))
+        }
+    }).sort({ created_at: 'asc' }).populate('owner').
+        exec((err, docs) => {
+            if (err) throw err;
+            res.send(docs)
+        });
+})
+
 router.get('/withdrawals', (req, res) => {
     // return all withdrawals
     Withdrawal.find()
@@ -121,15 +134,18 @@ router.get('/:id', (req, res) => {
 
 
 router.get('/user/:id/donated', (req, res) => {
+    limit = parseInt(req.query.limit) || 4
+    page = parseInt(req.query.page) || 1
+
     const options = {
-        page: parseInt(req.query.page, 10) || 0,
-        limit: parseInt(req.query.limit, 10) || 10
+        limit: limit,
+        skip: limit * (page - 1)
     }
 
     // locate donations with given donor id
     Donation.find({ donor: req.params.id })
-        .skip(options.page * options.limit)
         .limit(options.limit)
+        .skip(options.skip)
         .populate('campaign', '-donations')
         .exec(function (err, docs) {
             if (err) res.json({ error: err, success: false });
@@ -150,6 +166,17 @@ router.get('/user/:id/donated', (req, res) => {
                 if (err) res.json({ error: err, success: false });
                 res.json({ donations: docs, amount: doc[0] ? doc[0].amount : 0 });
             });
+        });
+});
+
+router.get('/user/:id/donated/count', (req, res) => {
+    // locate donations with given donor id
+    Donation.find({ donor: req.params.id })
+        .countDocuments((err, doc) => {
+            res.send({
+                success: true,
+                count: doc
+            })
         });
 });
 
@@ -225,7 +252,8 @@ router.get('/user/:id/not_withdrawen', (req, res) => {
                 donations_id = donations.map((d) => { return mongoose.Types.ObjectId(d._id) });
                 Donation.aggregate([{
                     $match: {
-                        _id: { "$in": donations_id }
+                        _id: { "$in": donations_id },
+                        status_code: 2
                     }
                 },
                 {
@@ -256,7 +284,8 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
             donations_id = donations.map((id) => { return mongoose.Types.ObjectId(id) });
             Donation.aggregate([{
                 $match: {
-                    _id: { "$in": donations_id }
+                    _id: { "$in": donations_id },
+                    status_code: 2
                 }
             },
             {
@@ -279,11 +308,15 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
                 });
 
                 if (withdrawal.amount < payhere.minimum_withdraw) {
+                    Donation.updateMany({ _id: donations }, { $set: { withdrew: false } });
                     res.json({ success: false, err: "Your balance does not exceed minimum withdrawal amount." });
                 }
 
                 withdrawal.save((err, doc) => {
-                    if (err) throw err;
+                    if (err) {
+                        Donation.updateMany({ _id: donations }, { $set: { withdrew: false } });
+                        throw err;
+                    };
                     res.json({ withdrawal: doc, success: true });
                 })
             });

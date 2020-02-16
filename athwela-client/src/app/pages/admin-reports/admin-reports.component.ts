@@ -3,9 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ReportService } from '../../services/Report.service';
 import { Campaign } from '../../models/campaign.model';
-// import pdfMake from 'pdfmake/build/pdfmake';
-// import pdfFonts from 'pdfmake/build/vfs_fonts';
-// pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { Donation} from '../../models/donation.model';
+ import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 
@@ -17,6 +18,8 @@ import { Campaign } from '../../models/campaign.model';
 export class AdminReportsComponent implements OnInit {
   reportForm: FormGroup;
   campaigns:Campaign[];
+  donations:Donation[];
+ 
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,26 +47,22 @@ export class AdminReportsComponent implements OnInit {
 
   onSubmitCampaigns() {
     this.reportservice.getCampaignsbydate(this.fromDate.value, this.toDate.value).subscribe((res) => {
-      console.log(res);
+      
 
       this.campaigns= res as Campaign[];
-      //console.log(res);
-      this.generatePdf();
+      
+      this.generatePdf(this.campaigns);
     });
   }
 
-   generatePdf(){
-
-
-    var rows = [];
+   generatePdf(campaigns:Campaign[]){
+  var rows = [];
 rows.push(['Name', 'Description', 'Owner','Target', 'Deadline', 'Category']);
+
 
 for(var i of this.campaigns) {
     rows.push([i.name, i.description, [i.owner.name + ' ' + i.owner.email],i.target, i.deadline.toString(), i.category]);
 }
-
-
-
 
 var docDefinition = {
     content: [
@@ -80,13 +79,49 @@ var docDefinition = {
                 body: rows
             }}
     ]
-
 }
-   // pdfMake.createPdf(docDefinition).download();
-
-
-
+    pdfMake.createPdf(docDefinition).download();
 }
+
+//print donations
+onSubmitDonations() {
+  this.reportservice.getDonationsbydate(this.fromDate.value, this.toDate.value).subscribe((res) => {
+    
+
+    this.donations= res as Donation[];
+    
+    this.generatePdfDonations(this.donations);
+  });
+}
+
+generatePdfDonations(donations:Donation[]){
+  var rows = [];
+rows.push(['Donation_id','Amount', 'Status_code', 'Status_message','Method']);
+
+
+for(var i of this.donations) {
+    rows.push([i.donation_id,i.amount, i.status_code, i.status_message, i.method]);
+}
+
+var docDefinition = {
+    content: [
+
+
+     {text:'Donations Report',fontSize: 20,bold:true,margin: [ 5, 2, 10, 20 ]},
+
+     {text:'From '+this.fromDate.value+'To '+this.toDate.value,fontSize: 15 ,bold: true,margin: [ 5, 2, 10, 20 ]},
+
+
+        {table: {
+
+               // widths: ['*', 100, 200, '*', '*', '*'],
+                body: rows
+            }}
+    ]
+}
+    pdfMake.createPdf(docDefinition).download();
+}
+
 
 }
 

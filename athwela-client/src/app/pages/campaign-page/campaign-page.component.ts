@@ -84,6 +84,11 @@ export class CampaignPageComponent implements OnInit {
   }
 
   onDonateClick() {
+    if (!this.loggedIn) {
+      alert('Please log in to donate!');
+      return;
+    }
+
     const initialState = {
       title: "Donate",
       campaign: this.campaign,
@@ -92,6 +97,21 @@ export class CampaignPageComponent implements OnInit {
 
     this.bsModalRef = this.modalService.show(CampaignDonateComponent, { initialState });
     this.bsModalRef.content.closeBtnName = 'Close';
+  }
+
+  deleteCampaign(campaignId: string) {
+    this.campaignService.deleteCampaigns(this.campaignId).subscribe((res) => {
+      // this.refreshCampaign(this.campaignId);
+
+      // this.alerts.push({
+      //   type: 'success',
+      //   msg: `Campaign has been deleted successfully.`
+      // });
+
+      alert(`Campaign has been deleted successfully.`);
+      this.router.navigate([`/admin/campaigns`]);
+
+    });
   }
 
   onVerifierClick(id: string) {
@@ -181,7 +201,7 @@ export class CampaignPageComponent implements OnInit {
         msg: `Your comment has been deleted successfully.`
       });
 
-    })
+    });
   }
 
   generatePercentage(campaign: Campaign) {

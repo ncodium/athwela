@@ -5,6 +5,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const { Campaign } = require('../models/campaign');
 
 router.get('/', (req, res) => {
+    
     Campaign.find((err, docs) => {
         if (!err)
             res.json({ campaigns: docs, success: true });
@@ -15,10 +16,10 @@ router.get('/', (req, res) => {
 
 router.get('/pagination', (req, res) => {
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9 ;    // use to pagination, skip & limit queries use for it
-    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
 
-    Campaign.find().skip((page-1) * pagination).limit(pagination).exec((err, docs) => {
+    Campaign.find().skip((page - 1) * pagination).limit(pagination).exec((err, docs) => {
         if (!err)
             res.json({ campaigns: docs, success: true });
         else
@@ -80,6 +81,28 @@ router.get('/unpublished', (req, res) => {
     });
 });
 
+router.get('/unpublished/pagination', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+
+    Campaign.find({ published: 'false' }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
+router.get('/unpublished/count', (req, res) => {
+    Campaign.find({ published: 'false' }).count((err, count) => {
+        if (!err)
+            res.send({ success: true, unpublishedCount: count });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
 router.get('/published', (req, res) => {
 
     Campaign.find({ published: 'true' }).exec((err, doc) => {
@@ -92,10 +115,10 @@ router.get('/published', (req, res) => {
 
 router.get('/published/pagination', (req, res) => {
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
-    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
 
-    Campaign.find({ published: 'true' }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+    Campaign.find({ published: 'true' }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
         else
@@ -105,8 +128,8 @@ router.get('/published/pagination', (req, res) => {
 
 router.get('/published/count', (req, res) => {
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
-    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
 
     Campaign.find({ published: 'true' }).count((err, count) => {
         if (!err)
@@ -125,10 +148,55 @@ router.get('/verified', (req, res) => {
     });
 });
 
+router.get('/verified/pagination', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+
+    Campaign.find({ verified: 'true' }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
+router.get('/verified/count', (req, res) => {
+
+    Campaign.find().count((err, count) => {
+        if (!err)
+            res.json({ verifiedCount: count, success: true });
+        else
+            res.json({ success: false, error: err })
+    });
+});
+
 router.get('/unverified', (req, res) => {
     Campaign.find({ 'verified': false }, (err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
+router.get('/unverified/pagination', (req, res) => {
+
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9 ;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+    
+    Campaign.find({ 'verified': false }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+        if (!err)
+            res.send({ success: true, campaigns: doc });
+        else
+            res.send({ success: false, error: err });
+    });
+});
+
+router.get('/unverified/count', (req, res) => {
+    Campaign.find({ 'verified': false }).count((err, count) => {
+        if (!err)
+            res.send({ success: true, unverifiedCount: count });
         else
             res.send({ success: false, error: err });
     });
@@ -319,14 +387,37 @@ router.get('/user', passport.authenticate("jwt", { session: false }), (req, res)
     });
 });
 
-router.get('/user/:id', (req, res) => {
-    Campaign.find({ 'owner': new ObjectId(req.params.id) }, (err, doc) => {
-        if (!err)
-            res.send({ success: true, campaigns: doc });
-        else
-            res.send({ success: false, error: err });
-    });
+router.get('/user/:id/count', (req, res) => {
+    Campaign.find({ 'owner': new ObjectId(req.params.id) })
+        .countDocuments((err, doc) => {
+            if (!err)
+                res.send({ success: true, count: doc });
+            else
+                res.send({ success: false, error: err });
+        });
 });
+
+router.get('/user/:id', (req, res) => {
+    limit = parseInt(req.query.limit) || 4
+    page = parseInt(req.query.page) || 1
+
+    const options = {
+        limit: limit,
+        skip: limit * (page - 1)
+    }
+
+    Campaign.find({ 'owner': new ObjectId(req.params.id) })
+        .limit(options.limit)
+        .skip(options.skip)
+        .exec((err, doc) => {
+            if (!err)
+                res.send({ success: true, campaigns: doc });
+            else
+                res.send({ success: false, error: err });
+        });
+});
+
+
 
 //report generation
 router.get('/report/:start/:end', (req, res) => {

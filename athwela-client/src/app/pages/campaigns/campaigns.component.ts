@@ -60,9 +60,9 @@ export class CampaignsComponent implements OnInit {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
       });
 
-      this.campaignService.getSortCount(this.word).subscribe((res) => {
-        if (res['success']) this.resCount = res['sortCount'];
-      });
+      // this.campaignService.getSortCount(this.word).subscribe((res) => {
+      //   if (res['success']) this.resCount = res['sortCount'];
+      // });
     }
 
   }

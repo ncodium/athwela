@@ -74,32 +74,7 @@ export class AdminUsersComponent implements OnInit {
   }
 
   onRegister() {
-    if (this.role.value=='user'){
-    this.userService.registerUser({
-      username: this.username.value,
-      password: this.password.value,
-      email: this.email.value,
-      firstName: this.firstName.value,
-      lastName: this.lastName.value,
-      address: this.address.value,
-      phone: this.phone.value,
-      city: this.city.value,
-      role:this.role.value
-    }).subscribe((res) => {
-      if (res['success']) {
-        this.alert = {
-          type: 'success',
-          msg: 'Successfull Registration'
-        }
-      }
-      else {
-        this.alert = {
-          type: 'danger',
-          msg: res['msg']
-        }
-      }
-    })
-  }
+     
   if (this.role.value=='mod'){
     this.userService.registerMod({
       username: this.username.value,
@@ -139,6 +114,7 @@ export class AdminUsersComponent implements OnInit {
       city: this.city.value,
       role:this.role.value
     }).subscribe((res) => {
+      console.log(res)
       if (res['success']) {
         this.alert = {
           type: 'success',

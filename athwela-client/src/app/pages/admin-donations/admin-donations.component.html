@@ -14,6 +14,7 @@
                                 <table class="card-table table table-hover">
                                     <thead>
                                         <tr>
+                                            <th scope="col">#</th>
                                             <th scope="col">Campaign</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Date</th>
@@ -22,7 +23,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let don of donations">
+                                        <tr *ngFor="let don of donations; let i = index;">
+                                            <th scope="row">{{ i+1 }}</th>
                                             <td>{{ don.campaign.name }}</td>
                                             <td>{{ don.amount | currency:'Rs. ' }}</td>
                                             <td>{{ don.created_at | date:long }}</td>
@@ -44,6 +46,7 @@
                                 <table class="table card-table table-hover">
                                     <thead>
                                         <tr>
+                                            <th scope="col">#</th>
                                             <th scope="col">Recipient</th>
                                             <th scope="col">Payee</th>
                                             <th scope="col">Amount</th>
@@ -52,7 +55,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let w of withdrawals;  let collapsed=true;">
+                                        <tr *ngFor="let w of withdrawals;  let collapsed=true; let i=index;">
+                                            <th scope="row">{{ i+1 }}</th>
                                             <td>
                                                 {{ w.user.firstName }} {{ w.user.lastName }}<br />
                                                 {{ w.user.email }}

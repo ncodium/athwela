@@ -66,12 +66,12 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { FileSizePipe } from './pipes/file-size.pipe';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from "ngx-spinner";
-//
 import { AdminReportsComponent } from './pages/admin-reports/admin-reports.component';
 import { AdminDonationsRejectWithdrawalComponent } from './components/admin-donations-reject-withdrawal/admin-donations-reject-withdrawal.component';
 import { CampaignPageVerifierComponent } from './components/campaign-page-verifier/campaign-page-verifier.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ActivateComponent } from './pages/activate/activate.component';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 @NgModule({
   declarations: [
@@ -118,6 +118,7 @@ import { ActivateComponent } from './pages/activate/activate.component';
     AlertModule.forRoot(),
     CollapseModule.forRoot(),
     BrowserAnimationsModule,
+    RxReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     FontAwesomeModule,

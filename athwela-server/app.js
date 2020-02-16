@@ -35,6 +35,7 @@ const port = appconfig.port;
 // middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
