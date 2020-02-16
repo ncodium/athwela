@@ -23,6 +23,7 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 // route guard
 import { AuthGuard } from './guards/auth.guard';
+import { ActivateComponent } from './pages/activate/activate.component';
 
 const routes: Routes = [
   // general access
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
   { path: 'how-it-works', component: HowItWorksComponent },
   { path: 'search/:search', component: SearchPageComponent },
+  { path: 'activate', component: ActivateComponent },
 
   // administrator
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },
