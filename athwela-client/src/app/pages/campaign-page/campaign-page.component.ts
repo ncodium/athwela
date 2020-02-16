@@ -99,6 +99,21 @@ export class CampaignPageComponent implements OnInit {
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 
+  deleteCampaign(campaignId: string) {
+    this.campaignService.deleteCampaigns(this.campaignId).subscribe((res) => {
+      // this.refreshCampaign(this.campaignId);
+
+      // this.alerts.push({
+      //   type: 'success',
+      //   msg: `Campaign has been deleted successfully.`
+      // });
+
+      alert(`Campaign has been deleted successfully.`);
+      this.router.navigate([`/admin/campaigns`]);
+
+    });
+  }
+
   onVerifierClick(id: string) {
     const initialState = {
       title: "Verifier",
@@ -186,7 +201,7 @@ export class CampaignPageComponent implements OnInit {
         msg: `Your comment has been deleted successfully.`
       });
 
-    })
+    });
   }
 
   generatePercentage(campaign: Campaign) {

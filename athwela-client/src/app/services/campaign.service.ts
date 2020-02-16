@@ -55,6 +55,9 @@ export class CampaignService {
   getUnverifiedCampaignsPagination(page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified/pagination' + '?pagination=4&page=' + page.toString()); }
   getUnverifiedCampaignsCount() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified/count' ); }
 
+  deleteCampaigns(campaignId: string){
+    return this.http.delete(AppConfig.BASE_URL + 'campaigns/' + campaignId).pipe();
+  }
 
   rejectCampaign(id: string, reject_message: string) {
     this.authService.loadToken();
