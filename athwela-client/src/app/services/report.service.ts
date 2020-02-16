@@ -18,4 +18,9 @@ export class ReportService {
     return this.http.get(AppConfig.BASE_URL + 'campaigns/report/'+start+'/'+end)
 
   }
+
+  getDonationsbydate(start: Date,end: Date){
+    return this.http.get(AppConfig.BASE_URL + 'donations/report/'+start+'/'+end)
+
+  }
 }

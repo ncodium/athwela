@@ -14,6 +14,12 @@ export class AdminCampaignsComponent implements OnInit {
   unpublishedCampaigns: Campaign[];
   verifiedCampaigns: Campaign[];
   unverifiedCampaigns: Campaign[];
+  currentPage: number; // use for pagination
+  page: number;
+  resCount: number;
+
+  resCampaign: string;
+  res: string;
 
   constructor(
     private campaignService: CampaignService
@@ -27,11 +33,34 @@ export class AdminCampaignsComponent implements OnInit {
     this.getUnverifiedCampaigns();
   }
 
-  getCampaigns() {
-    this.campaignService.getCampaigns().subscribe((res) => {
-      this.campaigns = res['campaigns'] as Campaign[];
-    });
-  }
+//   pageChanged(event: any): void {
+//     this.page = event.page;
+//     this.campaignService.getCampaigns(this.page).subscribe((res) => {
+//       this.campaigns = res['campaigns'] as Campaign[];
+//     });
+
+//     this.campaignService.getPublishedCampaigns(this.page).subscribe((res) => {
+//       this.publishedCampaigns = res['campaigns'] as Campaign[];
+//     });
+
+//     this.campaignService.getUnpublishedCampaigns().subscribe((res) => {
+//       this.unpublishedCampaigns = res['campaigns'] as Campaign[];
+//     });
+
+//     this.campaignService.getVerifiedCampaigns().subscribe((res) => {
+//       this.verifiedCampaigns = res['campaigns'] as Campaign[];
+//     });
+
+//     this.campaignService.getUnverifiedCampaigns().subscribe((res) => {
+//       this.unverifiedCampaigns = res['campaigns'] as Campaign[];
+//     });
+//  }
+
+  getCampaigns() {     this.campaignService.getCampaigns().subscribe((res) => {
+     this.campaigns = res['campaigns'] as Campaign[];
+  });
+   
+ }
 
   getPublishedCampaigns() {
     this.campaignService.getPublishedCampaigns().subscribe((res) => {

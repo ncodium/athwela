@@ -19,6 +19,19 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/report/:start/:end', (req, res) => {
+    Donation.find({
+        created_at: {
+            $gte: new Date(new Date(req.params.start).setHours(00, 00, 00)),
+            $lt: new Date(new Date(req.params.end).setHours(23, 59, 59))
+        }
+    }).sort({ created_at: 'asc' }).populate('owner').
+        exec((err, docs) => {
+            if (err) throw err;
+            res.send(docs)
+        });
+})
+
 router.get('/withdrawals', (req, res) => {
     // return all withdrawals
     Withdrawal.find()

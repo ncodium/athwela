@@ -5,6 +5,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const { Campaign } = require('../models/campaign');
 
 router.get('/', (req, res) => {
+    
     Campaign.find((err, docs) => {
         if (!err)
             res.json({ campaigns: docs, success: true });
