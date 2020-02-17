@@ -21,7 +21,7 @@ export class AdminCampaignsComponent implements OnInit {
   resCampaign: string;
   res: string;
 
-  
+
   allresCount: number;
   publishresCount: number;
   verifyresCount: number;

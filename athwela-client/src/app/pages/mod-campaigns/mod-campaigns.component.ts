@@ -12,7 +12,8 @@ import { Campaign } from '../../models/campaign.model';
 })
 export class ModCampaignsComponent implements OnInit {
   user: Object;
-  verifiedCampaigns: any;
+  // verifiedCampaigns: any;
+  verifiedCampaigns: Campaign[];
   unverifiedCampaigns: Campaign[];
   campaigns: any;
 
@@ -22,6 +23,10 @@ export class ModCampaignsComponent implements OnInit {
 
   resCampaign: string;
   res: string;
+
+  allresCount: number;
+  verifyresCount: number;
+  unverifyresCount: number;
 
   constructor(
     private authService: AuthService,
@@ -51,10 +56,27 @@ export class ModCampaignsComponent implements OnInit {
       this.campaigns = res['campaigns'];
     });
 
+    // this.campaignService.getVerifiedCampaignsPagination(this.page).subscribe((res) => {
+    //   this.verifiedCampaigns = res['campaigns'];
+    // });
+
+  }
+
+  veryfyPageChanged(event: any): void {
+    this.page = event.page;
+
     this.campaignService.getVerifiedCampaignsPagination(this.page).subscribe((res) => {
       this.verifiedCampaigns = res['campaigns'];
     });
+  }
 
+  unveryfyPageChanged(event: any): void {
+    this.page = event.page;
+
+    this.campaignService.getUnverifiedCampaignsPagination(this.page).subscribe((res) => {
+      this.unverifiedCampaigns = res['campaigns'];
+      // console.log(this.verifiedCampaigns);
+    });
   }
 
   getCampaigns() {
@@ -69,16 +91,27 @@ export class ModCampaignsComponent implements OnInit {
   getVerifiedCampaigns() {
     this.campaignService.getVerifiedCampaignsPagination(1).subscribe((res) => {
       this.verifiedCampaigns = res['campaigns'];
+      // console.log(this.verifiedCampaigns);
     });
 
-    this.campaignService.getCampaignsPaginationCount().subscribe((res) => {
-      this.resCount = res['verifiedCount'];
+    this.campaignService.getVerifiedCampaignsCount().subscribe((res) => {
+      if (res['success']) this.verifyresCount = res['verifiedCount'];
+      console.log('*@*@*@' + this.verifyresCount);
     });
+    console.log('*@233*@*@' + this.verifyresCount);
   }
 
   getUnverifiedCampaigns() {
-    this.campaignService.getUnverifiedCampaigns().subscribe((res) => {
-      this.unverifiedCampaigns = res['campaigns'] as Campaign[];
+    this.campaignService.getUnverifiedCampaignsPagination(1).subscribe((res) => {
+      this.unverifiedCampaigns = res['campaigns'];
+      // console.log(this.verifiedCampaigns);
     });
+
+    this.campaignService.getUnverifiedCampaignsCount().subscribe((res) => {
+      if (res['success']) this.unverifyresCount = res['unverifiedCount'];
+      console.log('*@*@UN*@' + this.unverifyresCount);
+    });
+    console.log('*@23UN3*@*@' + this.unverifyresCount);
   }
+
 }

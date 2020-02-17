@@ -49,9 +49,9 @@
         <div class="form-group">
             <input formControlName="confirmPassword" type="password" class="form-control" id="inputConfirmPassword"
                 aria-describedby="confirmPasswordHelp"
-                [ngClass]="{'is-invalid': (confirmPassword.touched || confirmPassword.dirty) && (confirmPassword.invalid || confirmPassword.errors?.doesNotMatch) }">
+                [ngClass]="{'is-invalid': (confirmPassword.touched || confirmPassword.dirty) && (!confirmPassword.errors?.match) }">
             <div class="invalid-feedback"
-                *ngIf="(confirmPassword.touched || confirmPassword.dirty) && (confirmPassword.invalid || confirmPassword.errors?.doesNotMatch)">
+                *ngIf="(confirmPassword.touched || confirmPassword.dirty) && (!confirmPassword.errors?.match)">
                 Your passwords don't match. Please try again.
             </div>
             <small id="confirmPasswordHelp" class="form-text text-muted"
