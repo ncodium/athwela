@@ -282,7 +282,7 @@ export class ProfileComponent implements OnInit {
         // feedback
         this.alert = {
           type: 'success',
-          msg: 'Your details has been updated successfully.'
+          msg: 'Your details have been updated successfully.'
         }
       }
       else {

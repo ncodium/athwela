@@ -112,4 +112,15 @@ export class AuthService {
     this.role = localStorage.getItem('role');
     return this.role === 'user';
   }
+
+  activateUser(tempToken) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.authToken,
+      }),
+    };
+
+    return this.http.get(AppConfig.BASE_URL + "users/activate/" + tempToken, httpOptions).pipe();
+  }
 }

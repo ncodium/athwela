@@ -10,4 +10,5 @@ export class User {
     city: string;
     role?: string;
     phone?: number;
+    active?: Boolean;
 }

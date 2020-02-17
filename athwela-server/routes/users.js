@@ -82,8 +82,8 @@ router.post('/register', (req, res) => {
         phone: req.body.phone,
         username: req.body.username,
         password: req.body.password,
-        // temporaryToken: jwt.sign({ data: user }, config.secret, { expiresIn: 604800 })
-        temporaryToken: randomstring.generate()
+        temporaryToken: jwt.sign({ username: req.body.username, email: req.body.email }, config.secret, { expiresIn: 604800 })
+        // temporaryToken: randomstring.generate()
     });
 
     // check if a user with the username already exist
@@ -110,11 +110,33 @@ router.post('/register', (req, res) => {
                         if (err) throw err;
                         console.log(res);
                     });
-                    user.active = true;
                     res.json({ success: true, msg: 'Registered successfully! Please check your email for the activation link.' });
                 }
             });
         }
+    });
+});
+
+router.get('/activate/:temporaryToken', (req, res) => {
+    user.findOne({temporaryToken: req.params.temporaryToken }, (err, user) => {
+        if(err) throw err;
+        var token = req.params.temporaryToken;
+        jwt.verify(token, secret, (err, decoded) => {
+            if(err) {
+                res.json({ success: false, message: "Activation link has expired." });
+            } else if(!user) {
+                res.json({ success: false, messae: "Activation link has expired." });
+            } else {
+                user.temporaryToken = false;
+                user.active = true;
+                user.save(function(err) {
+                    if(err) console.log(err);
+                    else {
+                        res.json({ success: true, message: "Account activated." });
+                    }
+                });
+            }
+        });
     });
 });
 

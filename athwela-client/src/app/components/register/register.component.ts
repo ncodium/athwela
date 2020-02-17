@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
       if (res['success']) {
         this.alert = {
           type: 'success',
-          msg: 'Thank you for registering on Athwela. You may now sign in.'
+          msg: res['msg']
         }
       }
       else {
