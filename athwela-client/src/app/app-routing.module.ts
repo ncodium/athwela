@@ -38,7 +38,7 @@ const routes: Routes = [
   { path: 'community', component: CommunityComponent, canActivate: [AuthGuard] },
   { path: 'how-it-works', component: HowItWorksComponent },
   { path: 'search/:search', component: SearchPageComponent },
-  { path: 'activate', component: ActivateComponent },
+  { path: 'activate/:temporaryToken', component: ActivateComponent },
 
   // administrator
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },

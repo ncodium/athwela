@@ -1,17 +1,18 @@
-<div class="jumbotron jumbotron-fullheight bg-growth bg-dark text-white mb-0 radius-0 shadow-lg">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-6 mb-5">
-                <h4 class="display-1 text-light display-fix">Help those in need.</h4>
-                <span class="lead">Fundraising for the people and causes you care about.</span>
-
-                <div class="mt-4">
-                    <span class="lead">
-                        Your account has been successfully activated! Thank you for registering at Athwela.
-                        <a href="http://localhost:4200/"></a>
-                    </span>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3 class="mb-4"> Activate your account </h3>
+            <div class="card">
+                <div class="card-body">
+                    <button class="btn btn-primary btn-lg my-2 mr-2" (click)="activateAccount()">
+                        <span>Activate account</span>
+                    </button>
+                    <br />
+                    <div *ngIf="user.active == true"
+                        class="alert alert-success">
+                        <div>Your account has been successfully activated! Thank you for registering at Athwela.</div>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
