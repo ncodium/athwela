@@ -114,14 +114,12 @@ export class ModDashboardComponent implements OnInit {
 
     this.statsService.getCategoryCount().subscribe((res) => {
       this.categoryCount = res as Object;
-      // console.log(this.categoryCount);
       this.categoryPieChartLabels = this.categoryCount.map(i => this.toTitleCase(i._id));
       this.categoryPieChartData = this.categoryCount.map(i => i.count);
     });
 
     this.statsService.getStatusCount().subscribe((res) => {
       this.statusCount = res as Object;
-      // console.log(this.categoryCount);
       this.statusPieChartLabels = this.statusCount.map(i => {
         const _id = i._id;
         if (_id.published) return 'Published';
@@ -133,28 +131,22 @@ export class ModDashboardComponent implements OnInit {
 
     this.statsService.getMonthlyCount().subscribe((res) => {
       this.monthlyCount = res as Object;
-      // console.log(this.monthlyCount);
 
       this.lineChartData = [
         { data: this.monthlyCount.map(i => i.count), label: 'Campaigns' },
       ];
-      // console.log(this.lineChartData);
 
       this.lineChartLabels = this.monthlyCount.map(i => i._id.year + ' ' + monthNames[i._id.month]);
-      // console.log(this.lineChartLabels);
-      // ['January', 'February', 'March', 'April', 'May', 'June'];
     });
 
 
     this.statsService.getMonthlyDonations().subscribe((res) => {
       this.monthlyDonations = res as Object;
-      console.log(this.monthlyDonations);
 
       this.barChartLabels = this.monthlyDonations.map(i => i._id.year + ' ' + monthNames[i._id.month]);
       this.barChartData = [
         { data: this.monthlyDonations.map(i => i.total), label: 'Donations' },
       ];
-      // ['January', 'February', 'March', 'April', 'May', 'June'];
     });
 
 

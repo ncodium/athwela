@@ -6,7 +6,6 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/user');
 const config = require('../config/database');
 const randomstring = require('randomstring');
-const nodemailer = require('nodemailer');
 const email = require('../services/email');
 
 // asynchronous username availability check during registration
@@ -186,18 +185,20 @@ router.post('/register/admin', (req, res) => {
 router.post('/authenticate', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
-
     User.getUserByUsername(username, (err, user) => {
         if (err) throw err;
 
         if (!user) {
+            console.log('res');
             return res.json({
                 success: false, msg:
-                    "Username and password doesn't match. Please try again."
+                    "There is no account with that username. Please try again."
             });
         }
 
         if (!user.active) {
+            console.log('fuck');
+
             return res.json({
                 success: false, msg:
                     "Your account has not been verified yet. Please check your email for the verification email."
@@ -231,7 +232,7 @@ router.post('/authenticate', (req, res, next) => {
                     }
                 });
             } else {
-                return res.json({ success: false, msg: 'Incorrect password.' });
+                return res.json({ success: false, msg: 'Your password is incorrect. Please try again.' });
             }
         });
     });
