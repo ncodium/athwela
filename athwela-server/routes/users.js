@@ -219,7 +219,7 @@ router.post('/authenticate', (req, res, next) => {
         }
 
         if (!user.active) {
-            console.log('fuck');
+            console.log('User not active');
 
             return res.json({
                 success: false, msg:
