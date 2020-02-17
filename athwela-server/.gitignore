@@ -47,8 +47,3 @@ Thumbs.db
 
 # Public
 public/*
-
-# Secrets
-config/appconfig.js
-config/database.js
-config/payhere.js

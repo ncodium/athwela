@@ -1,4 +1,0 @@
-module.exports = {
-    payhere_secret: '0',
-    minimum_withdraw: 10000 // LKR
-}
