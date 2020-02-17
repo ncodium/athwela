@@ -11,35 +11,34 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./activate.component.scss']
 })
 export class ActivateComponent implements OnInit {
-  alert: string;
+  alert: boolean = false;
   tempToken: string;
 
   user: User;
 
+
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
     this.tempToken = this.route.snapshot.paramMap.get("temporaryToken");
-    this.activateAccount();
   }
-  
-  activateAccount(
-    
-  ) {
-    
+
+  activateAccount() {
     console.log(this.tempToken);
-
-
     this.authService.activateUser(this.tempToken).subscribe((res) => {
+      console.log(res);
       if (res['success']) {
-        
+        alert('Successfully activated your account. Please sign in again.');
+        this.router.navigate(['/']);
+
       }
       else {
-        
+        alert(res['msg']);
       }
     })
   }

@@ -114,13 +114,6 @@ export class AuthService {
   }
 
   activateUser(tempToken) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': this.authToken,
-      }),
-    };
-
-    return this.http.get(AppConfig.BASE_URL + "users/activate/" + tempToken, httpOptions).pipe();
+    return this.http.get(AppConfig.BASE_URL + "users/activate/" + tempToken, {}).pipe();
   }
 }

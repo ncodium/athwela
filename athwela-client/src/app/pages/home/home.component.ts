@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
   refreshCampaigns() {
-    this.campaignService.getCampaigns().subscribe((res) => {
+    this.campaignService.getPublishedCampaigns().subscribe((res) => {
       if (res['success']) this.campaignService.campaigns = res['campaigns'] as Campaign[];
       this.noCampaigns = (this.campaignService.campaigns.length == 0);
     });

@@ -82,8 +82,7 @@ router.post('/register', (req, res) => {
         phone: req.body.phone,
         username: req.body.username,
         password: req.body.password,
-        temporaryToken: jwt.sign({ username: req.body.username, email: req.body.email }, config.secret, { expiresIn: 604800 })
-        // temporaryToken: randomstring.generate()
+        temporaryToken: randomstring.generate()
     });
 
     // check if a user with the username already exist
@@ -102,8 +101,8 @@ router.post('/register', (req, res) => {
                         from: 'athwelafunds@gmail.com',
                         to: user.email,
                         subject: 'Activate your account at Athwela',
-                        text: 'Hello ' + user.firstName + '. Thank you for registering at Athwela. Please click on the following link to complete your activation: http://localhost:4200/activate/' + user.temporaryToken,
-                        html: 'Hello<strong> ' + user.firstName + '</strong>,<br /><br />Thank you for registering at Athwela. Please click on the following link to complete your activation:<br /><br /><a href="http://localhost:4200/activate/' + user.temporaryToken + '">http://localhost:4200/activate/</a>'
+                        text: 'Hello ' + user.firstName + '. Thank you for registering at Athwela. Please click on the following link to complete your activation: http://localhost:4200/activate/' + _user.temporaryToken,
+                        html: 'Hello<strong> ' + user.firstName + '</strong>,<br /><br />Thank you for registering at Athwela. Please click on the following link to complete your activation:<br /><br /><a href="http://localhost:4200/activate/' + _user.temporaryToken + '">http://localhost:4200/activate/</a>'
                     };
 
                     email.sendMail(mailOptions, (err, res) => {
@@ -118,23 +117,16 @@ router.post('/register', (req, res) => {
 });
 
 router.get('/activate/:temporaryToken', (req, res) => {
-    user.findOne({temporaryToken: req.params.temporaryToken }, (err, user) => {
-        if(err) throw err;
-        var token = req.params.temporaryToken;
-        jwt.verify(token, secret, (err, decoded) => {
-            if(err) {
-                res.json({ success: false, message: "Activation link has expired." });
-            } else if(!user) {
-                res.json({ success: false, messae: "Activation link has expired." });
-            } else {
-                user.temporaryToken = false;
-                user.active = true;
-                user.save(function(err) {
-                    if(err) console.log(err);
-                    else {
-                        res.json({ success: true, message: "Account activated." });
-                    }
-                });
+    console.log(req.params.temporaryToken);
+    User.findOne({ temporaryToken: req.params.temporaryToken }, (err, user) => {
+        if (err) throw err;
+        console.log(user);
+        user.active = true;
+        user.save(function (err, user) {
+            console.log(user);
+            if (err) throw err;
+            else {
+                res.json({ success: true, message: "Account activated." });
             }
         });
     });
