@@ -8,8 +8,8 @@
         <div class="col-md-3 mt-2 mt-md-0">
             <div class="card text-center">
                 <div class="card-body">
-                    <img *ngIf="user" class="image-cover" [src]="user?.avatar" data-holder-rendered="true">
-                    <img *ngIf="!user" class="image-cover" src="assets/user.png" data-holder-rendered="true">
+                    <img *ngIf="user && user.avatar" class="image-cover" [src]="user?.avatar" data-holder-rendered="true">
+                    <img *ngIf="!(user && user.avatar)" class="image-cover" src="assets/user.png" data-holder-rendered="true">
                     <h5 class="card-title mt-4">{{ user?.username }}</h5>
                     <p class="card-text">{{ user?.email }}</p>
                     <button (click)="openModal(settings)" class="btn btn-primary btn-sm"

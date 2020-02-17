@@ -148,6 +148,10 @@ export class ProfileComponent implements OnInit {
 
             this.getUserCampaigns(this.userId);
             this.getUserDonations(this.userId);
+
+            this.getUserDonationsSum(this.userId);
+            this.getUserReceivedDonations(this.userId);
+            this.getUserReceivedDonationsNotWithdrawen(this.userId);
           })
         }
         else {
