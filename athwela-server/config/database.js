@@ -1,4 +1,4 @@
 module.exports = {
-    database: 'mongodb://localhost:27017/athwelaAuth',
+    database: 'mongodb+srv://labellab:labellab@cluster0-7gnc9.mongodb.net/test?retryWrites=true&w=majority',
     secret: 'athwela'
 }
