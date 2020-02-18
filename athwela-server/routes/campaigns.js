@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
     });
 });
 
+// pagination all campaigns
 router.get('/pagination', (req, res) => {
 
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it
@@ -27,6 +28,7 @@ router.get('/pagination', (req, res) => {
     });
 });
 
+// get all campaigns count
 router.get('/pagination/count', (req, res) => {
 
     Campaign.find().countDocuments((err, count) => {
@@ -81,6 +83,7 @@ router.get('/unpublished', (req, res) => {
     });
 });
 
+// pagination unpublished campaigns
 router.get('/unpublished/pagination', (req, res) => {
 
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
@@ -94,6 +97,7 @@ router.get('/unpublished/pagination', (req, res) => {
     });
 });
 
+// get unpublished campaigns count
 router.get('/unpublished/count', (req, res) => {
     Campaign.find({ published: 'false' }).countDocuments((err, count) => {
         if (!err)
@@ -113,6 +117,7 @@ router.get('/published', (req, res) => {
     });
 });
 
+// pagination published campaigns
 router.get('/published/pagination', (req, res) => {
 
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
@@ -126,6 +131,7 @@ router.get('/published/pagination', (req, res) => {
     });
 });
 
+// get published campaigns count
 router.get('/published/count', (req, res) => {
 
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
@@ -148,6 +154,7 @@ router.get('/verified', (req, res) => {
     });
 });
 
+// pagination verified campaigns
 router.get('/verified/pagination', (req, res) => {
 
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it
@@ -161,6 +168,7 @@ router.get('/verified/pagination', (req, res) => {
     });
 });
 
+// get verified campaigns count
 router.get('/verified/count', (req, res) => {
 
     Campaign.find().countDocuments((err, count) => {
@@ -180,6 +188,7 @@ router.get('/unverified', (req, res) => {
     });
 });
 
+// pagination unverified campaigns
 router.get('/unverified/pagination', (req, res) => {
 
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it
@@ -193,6 +202,7 @@ router.get('/unverified/pagination', (req, res) => {
     });
 });
 
+// get unverified campaigns count
 router.get('/unverified/count', (req, res) => {
     Campaign.find({ 'verified': false }).countDocuments((err, count) => {
         if (!err)
@@ -229,6 +239,7 @@ router.get('/categories/:category', (req, res) => {
     });
 });
 
+// get filter category count
 router.get('/categories/:category/count', (req, res) => {
 
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
@@ -256,9 +267,9 @@ router.get('/sort/:sort/count', (req, res) => {
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
     const page = req.query.page ? parseInt(req.query.page) : 1;
 
-    // sort by date
+    // sort by date data count
     if (sortTo == "date") {
-        Campaign.find().sort({ "deadline": -1 }).countDocuments((err, count) => {
+        Campaign.find({ published: 'true' }).sort({ "deadline": -1 }).countDocuments((err, count) => {
             if (!err) {
                 res.send({ success: true, sortCount: count });
             } else {
@@ -267,9 +278,9 @@ router.get('/sort/:sort/count', (req, res) => {
         });
     }
 
-    // sort by name
+    // sort by name data count
     else if (sortTo == "name") {
-        Campaign.find().sort({ [sortTo]: -1 }).countDocuments((err, count) => {
+        Campaign.find({ published: 'true' }).sort({ [sortTo]: -1 }).countDocuments((err, count) => {
             if (!err) {
                 res.send({ success: true, sortCount: count });
             } else {
@@ -278,9 +289,9 @@ router.get('/sort/:sort/count', (req, res) => {
         });
     }
 
-    // sort by donations
+    // sort by donations data count
     else if (sortTo == "donations") {
-        Campaign.find().sort({ [sortTo]: -1 }).countDocuments((err, count) => {
+        Campaign.find({ published: 'true' }).sort({ [sortTo]: -1 }).countDocuments((err, count) => {
             if (!err) {
                 res.send({ success: true, sortCount: count });
             } else {
@@ -289,9 +300,9 @@ router.get('/sort/:sort/count', (req, res) => {
         });
     }
 
-    // sort by comments
+    // sort by comments data count
     else if (sortTo == "comments") {
-        Campaign.find().sort({ [sortTo]: -1 }).countDocuments((err, count) => {
+        Campaign.find({ published: 'true' }).sort({ [sortTo]: -1 }).countDocuments((err, count) => {
             if (!err) {
                 res.send({ success: true, sortCount: count });
             } else {
@@ -300,9 +311,9 @@ router.get('/sort/:sort/count', (req, res) => {
         });
     }
 
-    // sort by trending
+    // sort by trending data count
     else if (sortTo == "trending") {
-        Campaign.find().sort({ "deadline": -1, "comments": -1 }).countDocuments((err, count) => {
+        Campaign.find({ published: 'true' }).sort({ "deadline": -1, "comments": -1 }).countDocuments((err, count) => {
             if (!err) {
                 res.send({ success: true, sortCount: count });
             } else {
@@ -313,7 +324,7 @@ router.get('/sort/:sort/count', (req, res) => {
 
 });
 
-// sort campaigns
+// pagination sort campaigns
 router.get('/sort/:sort', (req, res) => {
     var sortby = req.params.sort; // front click sort get to sortby variable
     var sortTo = sortby.toLowerCase();  // convert to lowercase
@@ -323,7 +334,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by date
     if (sortTo == "date") {
-        Campaign.find().sort({ "deadline": -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
+        Campaign.find({ published: 'true' }).sort({ "deadline": -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -334,7 +345,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by name
     else if (sortTo == "name") {
-        Campaign.find().sort({ [sortTo]: -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
+        Campaign.find({ published: 'true' }).sort({ [sortTo]: -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -345,7 +356,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by donations
     else if (sortTo == "donations") {
-        Campaign.find().sort({ [sortTo]: -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
+        Campaign.find({ published: 'true' }).sort({ [sortTo]: -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -356,7 +367,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by comments
     else if (sortTo == "comments") {
-        Campaign.find().sort({ [sortTo]: -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
+        Campaign.find({ published: 'true' }).sort({ [sortTo]: -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {
@@ -367,7 +378,7 @@ router.get('/sort/:sort', (req, res) => {
 
     // sort by trending
     else if (sortTo == "trending") {
-        Campaign.find().sort({ "deadline": -1, "comments": -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
+        Campaign.find({ published: 'true' }).sort({ "deadline": -1, "comments": -1 }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
             if (!err) {
                 res.send({ success: true, campaigns: doc });
             } else {

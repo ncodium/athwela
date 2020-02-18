@@ -43,10 +43,7 @@ export class SearchPageComponent implements OnInit {
     console.log(f.value.search);
     this.router.navigate(['/search', f.value.search]);
     this.searchService.getSearch(f.value.search, 1).subscribe((res) => {
-      console.log(f.value.search);
-      console.log(this.searchCount);
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-      // this.searchCount = this.campaigns.length;
     });
     this.searchService.getsearchCount(this.searchText).subscribe((res) => {
       if (res['success']) this.searchCount = res['campaignsCount'];
@@ -56,9 +53,7 @@ export class SearchPageComponent implements OnInit {
   searchQuery(query: string) {
     this.router.navigate(['/search', query]);
     this.searchService.getSearch(query, 1).subscribe((res) => {
-      console.log(query);
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-      // this.searchCount = this.campaigns.length;
     });
     this.searchService.getsearchCount(this.searchText).subscribe((res) => {
       if (res['success']) this.searchCount = res['campaignsCount'];
@@ -66,14 +61,6 @@ export class SearchPageComponent implements OnInit {
 
 
   }
-
-  // searchCampaigns(Search: string) {
-  //   this.SearchService.getSearch(Search).subscribe((res) => {
-  //     if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-  //   });
-  // }
-
-
 
   pageChanged(event: any): void {
     this.page = event.page;
