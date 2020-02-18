@@ -295,7 +295,7 @@ export class ProfileComponent implements OnInit {
       bank_account: this.bankAccount.value,
       bank_name: this.bankName.value,
       payee_name: this.payee.value,
-      owner: this.loggedInUser._id
+      owner: this.user._id
     }
 
     this.donationService.withdraw(withdrawal).subscribe((res) => {
