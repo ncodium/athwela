@@ -126,7 +126,7 @@ router.get('/activate/:temporaryToken', (req, res) => {
             console.log(user);
             if (err) throw err;
             else {
-                res.json({ success: true, message: "Account activated." });
+                res.json({ success: true, msg: "Your account has been successfully activated. Please sign in again." });
             }
         });
     });
