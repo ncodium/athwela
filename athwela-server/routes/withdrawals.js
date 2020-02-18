@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
         .populate('user', '-password').exec((err, doc) => {
             // except password
             if (err) throw err;
-            res.send(doc)
+            res.json(doc);
         });
 });
 
@@ -37,7 +37,7 @@ router.get('/user/:id', (req, res) => {
         })
         .exec((err, doc) => {
             if (err) throw err;
-            res.send(doc);
+            res.json(doc);
         });
 });
 
@@ -46,7 +46,7 @@ router.get('/:id', (req, res) => {
     // locate donation with given id
     Withdrawal.findOne({ _id: req.params.id }, (err, doc) => {
         if (err) throw err;
-        res.send(doc);
+        res.json(doc);
     });
 });
 
@@ -64,7 +64,7 @@ router.put('/:id/approve', (req, res) => {
         },
         { new: true }, (err, doc) => {
             if (err) throw err;
-            res.send(doc);
+            res.json(doc);
         });
 });
 
@@ -92,7 +92,7 @@ router.put('/:id/reject', (req, res) => {
                 (err, don) => {
                     console.log(don);
                     if (err) throw err;
-                    res.send(doc);
+                    res.json(doc);
                 });
 
         }

@@ -91,7 +91,7 @@ router.get('/user/:id/donated/count', (req, res) => {
     Donation.find({ donor: req.params.id }).countDocuments(
         (err, doc) => {
             if (err) throw err;
-            res.send(doc);
+            res.json(doc);
         });
 });
 
@@ -306,8 +306,8 @@ router.post('/:campaign_id/:user_id', (req, res) => {
                 if (err) throw err;
                 // add into campaign using id
                 Campaign.findOne({ _id: req.params.campaign_id }, (err, cmp) => {
-                    cmp.raised += don.amount;
                     cmp.complete = (cmp.raised + don.amount >= cmp.target);
+                    cmp.raised += don.amount;
                     cmp.donations.push(new_donation);
                     cmp.save((err, cmp_new) => {
                         if (err) throw err;

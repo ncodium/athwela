@@ -168,7 +168,7 @@ router.get('/monthly-donations', (req, res) => {
     ]).exec((err, doc) => {
         console.log(doc);
         if (err) throw err;
-        res.send(doc);
+        res.json(doc);
     });
 });
 
