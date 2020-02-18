@@ -167,7 +167,7 @@ export class CampaignPageComponent implements OnInit {
         type: 'success',
         msg: `The campaign has been published successfully.`
       });
-    })
+    });
   }
 
   unpublishCampaign() {

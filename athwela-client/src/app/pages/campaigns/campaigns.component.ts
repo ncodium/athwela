@@ -37,73 +37,72 @@ export class CampaignsComponent implements OnInit {
     this.refreshCategories();
     this.campaignService.getPublishedCategoryCount().subscribe((res) => {
         if (res['success']) this.resCount = res['categoriesCount'];
-        console.log('***##***' + this.resCount);
+
       });
     this.onCategoryChange(this.defaultCategory);
   }
 
+  // get data by page number
   pageChanged(event: any): void {
     this.page = event.page;
 
-    if (this.activeCategory === this.defaultCategory && this.word === undefined) {
+    if (this.activeCategory === this.defaultCategory && this.word === undefined) {                     // get publish campaigns data
       this.campaignService.getPublishedCampaignsCatogory(this.page).subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-        console.log('***#page if active#***' + this.activeCategory);
+
       });
-    } else if (this.activeCategory === this.elseCatogory) {
+    } else if (this.activeCategory === this.elseCatogory) {                                            // get campaigns data by category
       this.campaignService.getCategoryCampaign(this.activeCategory , this.page).subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-        console.log('***page else***' + this.activeCategory);
+
       });
-    } else if ( this.activeCategory === this.defaultCategory && this.word === this.sortWord) {
+    } else if ( this.activeCategory === this.defaultCategory && this.word === this.sortWord) {         // get sort campaigns data
       this.campaignService.getSortCampaign(this.word , this.page).subscribe((res) => {
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
       });
 
-      // this.campaignService.getSortCount(this.word).subscribe((res) => {
-      //   if (res['success']) this.resCount = res['sortCount'];
-      // });
     }
 
   }
 
+  // sort campaigns data
   sortCampaigns(currentSort: string) {
     this.word = currentSort;
     this.sortWord = currentSort;
     this.campaignService.getSortCampaign(currentSort , 1).subscribe((res) => {
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
     });
-    console.log('***sort***' + this.word);
+
+    // get sort campaigns count
     this.campaignService.getSortCount(currentSort).subscribe((res) => {
       if (res['success']) this.resCount = res['sortCount'];
     });
-    console.log('***sort count***' + this.resCount);
 
   }
 
   onCategoryChange(category: string) {
     this.activeCategory = category;
     if (this.activeCategory === this.defaultCategory) {
-      this.campaignService.getPublishedCampaignsCatogory(1).subscribe((res) => {
+      this.campaignService.getPublishedCampaignsCatogory(1).subscribe((res) => {          // get publish campaigns data for page 1
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-        console.log('***##***' + this.activeCategory);
+
       });
 
-      this.campaignService.getPublishedCategoryCount().subscribe((res) => {
+      this.campaignService.getPublishedCategoryCount().subscribe((res) => {               // get publish campaigns data count
         if (res['success']) this.resCount = res['categoriesCount'];
-         console.log('***##***' + this.resCount);
+
       });
 
     } else {
       this.elseCatogory = this.activeCategory;
-      this.campaignService.getCategoryCampaign(category , 1).subscribe((res) => {
+      this.campaignService.getCategoryCampaign(category , 1).subscribe((res) => {         // get campaigns data by category
         if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
-        console.log('***else***' + category);
+
       });
 
-      this.campaignService.getCategoryCount(this.activeCategory).subscribe((res) => {
+      this.campaignService.getCategoryCount(this.activeCategory).subscribe((res) => {     // get campaigns data category count
         if (res['success']) this.resCount = res['categoriesCount'];
-         console.log('***else***' + this.resCount);
+
       });
 
     }
