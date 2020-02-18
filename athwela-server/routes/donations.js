@@ -215,6 +215,8 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
                 $match: {
                     _id: { "$in": donations_id },
                     status_code: 2
+                    // TODO
+                    // owner is user
                 }
             },
             {

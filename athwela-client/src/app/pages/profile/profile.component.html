@@ -251,8 +251,8 @@
 
     <div class="modal-body" *ngIf="!visitor">
         <form (submit)="onWithdraw()" [formGroup]="withdrawForm">
-            <div class="form-group">
-                <label for="inputPayee">Payee</label>
+            <div class="form-group required">
+                <label for="inputPayee" class="control-label">Payee</label>
                 <input formControlName="payee" type="text" class="form-control" id="inputPayee"
                     [ngClass]="{'is-invalid': (payee.touched || payee.dirty) && payee.invalid }">
                 <div class="invalid-feedback" *ngIf="(payee.touched || payee.dirty) && payee.invalid ">
@@ -264,21 +264,21 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputBankName">Bank</label>
+                <div class="form-group required col-md-6">
+                    <label for="inputBankName" class="control-label">Bank</label>
                     <input formControlName="bankName" type="text" class="form-control" id="inputBankName"
                         [ngClass]="{'is-invalid': (bankName.touched || bankName.dirty) && bankName.invalid }">
                     <div class="invalid-feedback" *ngIf="(bankName.touched || bankName.dirty) && bankName.invalid">
-                        Enter your bank name.
+                        Enter a valid bank name.
                     </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="inputBankAccountNumber">Account number</label>
+                <div class="form-group required col-md-6">
+                    <label for="inputBankAccountNumber" class="control-label">Account number</label>
                     <input formControlName="bankAccount" type="text" class="form-control" id="inputBankAccountNumber"
                         [ngClass]="{'is-invalid': (bankAccount.touched || bankAccount.dirty) && bankAccount.invalid }">
                     <div class="invalid-feedback"
                         *ngIf="(bankAccount.touched || bankAccount.dirty) && bankAccount.invalid">
-                        Enter your bank account number.
+                        Enter a valid bank account number.
                     </div>
                 </div>
             </div>

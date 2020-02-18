@@ -110,7 +110,7 @@ export class ProfileComponent implements OnInit {
       else if (this.authService.loggedIn() && !this.userId) {
         // get logged in user
         this.user = this.authService.getUser();
-
+        console.log(this.user);
         this.initForms();
         this.initAvatarUploader();
 
@@ -142,6 +142,7 @@ export class ProfileComponent implements OnInit {
   }
 
   initForms() {
+    const emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
     this.updateForm = this.formBuilder.group({
       avatar: [],
       phone: [this.user.phone, [
@@ -149,7 +150,8 @@ export class ProfileComponent implements OnInit {
       ]],
       email: [this.user.email, [
         Validators.required,
-        Validators.email
+        Validators.email,
+        Validators.pattern(emailPattern)
       ]],
       password: [''],
       confirmPassword: [''],
@@ -171,13 +173,17 @@ export class ProfileComponent implements OnInit {
 
     this.withdrawForm = this.formBuilder.group({
       payee: ['', [
-        Validators.required
+        Validators.required,
+        Validators.minLength(10)
       ]],
       bankName: ['', [
-        Validators.required
+        Validators.required,
+        Validators.minLength(8)
       ]],
       bankAccount: ['', [
-        Validators.required
+        Validators.required,
+        Validators.pattern("^[0-9]*$"),
+        Validators.minLength(8)
       ]],
       donationIds: ['']
     });
@@ -199,7 +205,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserCampaigns(id: string) {
-    this.campaignService.getUserCampaignsPage(id, 0, 4).subscribe((res) => {
+    this.campaignService.getUserCampaignsPage(id, 1, 4).subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
     });
 
@@ -209,7 +215,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserDonations(id: string) {
-    this.donationService.getUserDonationsPage(id, 0, 4).subscribe((res) => {
+    this.donationService.getUserDonationsPage(id, 1, 4).subscribe((res) => {
       this.donations = res['donations'] as Donation[];
     });
 
@@ -309,7 +315,6 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-
   openPreviousWithdrawalsModal() {
     const initialState = {
       title: 'Previous withdrawals',
@@ -326,14 +331,14 @@ export class ProfileComponent implements OnInit {
 
   campaignsPageChanged(event: any): void {
     this.campaignsPage = event.page;
-    this.campaignService.getUserCampaignsPage(this.user._id, this.campaignsPage - 1, 4).subscribe((res) => {
+    this.campaignService.getUserCampaignsPage(this.user._id, this.campaignsPage, 4).subscribe((res) => {
       this.campaigns = res['campaigns'];
     })
   }
 
   donationsPageChanged(event: any): void {
     this.donationsPage = event.page;
-    this.donationService.getUserDonationsPage(this.user._id, this.donationsPage - 1, 4).subscribe((res) => {
+    this.donationService.getUserDonationsPage(this.user._id, this.donationsPage, 4).subscribe((res) => {
       this.donations = res['donations'] as Donation[];
     });
   }

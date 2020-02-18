@@ -20,3 +20,8 @@
   object-fit: cover;
   object-position: center right;
 }
+
+.form-group.required .control-label:after {
+  content: "*";
+  color: red;
+}
