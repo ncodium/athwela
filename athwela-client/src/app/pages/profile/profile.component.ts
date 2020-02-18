@@ -15,6 +15,7 @@ import { AppConfig } from 'src/app/config/app-config';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmPasswordValidator } from './../../components/register/validators/confirm-password.validator';
 import { ProfilePreviousWithdrawalsComponent } from 'src/app/components/profile-previous-withdrawals/profile-previous-withdrawals.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -22,51 +23,42 @@ import { ProfilePreviousWithdrawalsComponent } from 'src/app/components/profile-
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  // helpers
   routeSub: Subscription;
   modalRef: BsModalRef;
   uploader: FileUploader;
   response: any;
 
-  user: User;
-  userId: string;
-  _user: User;
-  visitor: boolean;
-  avatarUrl: string = 'assets/user.png';
+  // user
+  userId: string; // from URL
+  user: User; // profile owner
+  avatarUrl: string = 'assets/user.png'; // default avatar
+  loggedInUser: User;
+  visitor: boolean; // true if profile is visited by someone other than the user
 
+  // data variables
   campaigns: Campaign[];
   donations: Donation[];
-  donationsSum: number = 0;
   receivedDonations: Donation[];
   notWithdrawenDonations: Donation[];
-  receivedDonationsSum: number = 0;
-  notWithdrawenDonationsSum: number = 0;
+  donationsSum: number;
+  receivedDonationsSum: number;
+  notWithdrawenDonationsSum: number;
 
+  // forms
   updateForm: FormGroup;
   withdrawForm: FormGroup;
+
+  // bootstrap alerts
   alert: any;
   withdrawAlert: any;
+  avatarAlert: any;
 
-  currentPage = 1;
-  page: number;
-  totalItems: number;
-
-  donationsCurrentPage = 1;
-  donationsPage: number;
+  // pagination helpers
+  campaignsPage: number = 1;
+  campaignsTotalItems: number;
+  donationsPage: number = 1;
   donationsTotalItems: number;
-
-  pageChanged(event: any): void {
-    this.page = event.page;
-    this.campaignService.getUserCampaignsPage(this.user._id, this.page, 4).subscribe((res) => {
-      this.campaigns = res['campaigns'];
-    })
-  }
-
-  donationsPageChanged(event: any): void {
-    this.donationsPage = event.page;
-    this.donationService.getUserDonationsPage(this._user._id, 1, 4).subscribe((res) => {
-      this.donations = res['donations'] as Donation[];
-    });
-  }
 
   constructor(
     private router: Router,
@@ -76,8 +68,10 @@ export class ProfileComponent implements OnInit {
     private campaignService: CampaignService,
     private modalService: BsModalService,
     private donationService: DonationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService
   ) {
+    // avatar uploader
     this.uploader = new FileUploader({
       url: AppConfig.BASE_URL + 'upload',
       itemAlias: 'photo',
@@ -87,103 +81,88 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      this.response = JSON.parse(response);
-      alert('File uploaded successfully!');
-      this.avatar.setValue(AppConfig.BASE_URL + this.response.path);
-    };
-    this.uploader.onWhenAddingFileFailed = (item: any, response: any, options: any) => {
-      alert('You cannot upload this file!\nPlease choose a picture with PNG or JPEG formats with size less than 5MB.');
-    }
-
     this.routeSub = this.route.params.subscribe(params => {
       this.userId = params['id']; // acquire userId from URL
 
-      if (this.authService.loggedIn()) {
-        // user is logged in
-        this._user = this.authService.getUser(); // get logged in user
-        this.initForms();
+      if (this.authService.loggedIn() && this.userId) {
+        // get logged in user
+        this.loggedInUser = this.authService.getUser();
 
-        if (this.userId) {
-          // id included in the url
-          this.userService.getUser(this.userId).subscribe((res) => {
-            if (res['success']) this.user = res['user'] as User;
-            else this.router.navigate(['/page-not-found']);
-
-            // current user is the owner of the profile
-            if (this.user._id == this._user._id) this.visitor = false;
-            // current user is not the owner of the profile
-            else this.visitor = true;
-
-            this.getUserCampaigns(this.user._id);
-            this.getUserDonations(this.user._id);
-            this.getUserDonationsSum(this.user._id);
-            this.getUserReceivedDonations(this.user._id);
-            this.getUserReceivedDonationsNotWithdrawen(this.user._id);
-          })
+        if (this.userId == this.loggedInUser._id) {
+          // redirect to profile route
+          this.router.navigate(['/profile']); // use profile route instead
         }
         else {
-          // id not included in the url
-          // not a visitor
-          this.user = this._user;
-          this.visitor = false; // is the owner
-
-          this.getUserCampaigns(this.user._id);
-          this.getUserDonations(this.user._id);
-          this.getUserDonationsSum(this.user._id);
-          this.getUserReceivedDonations(this.user._id);
-          this.getUserReceivedDonationsNotWithdrawen(this.user._id);
-        }
-      }
-      else {
-        // user is anonymous
-        this.visitor = true;
-
-        if (this.userId) {
-          // id should be included in the url
+          // not matching logged in user
+          this.visitor = true;
           this.userService.getUser(this.userId).subscribe((res) => {
             if (res['success']) this.user = res['user'] as User;
-            else this.router.navigate(['/page-not-found']);
+            else this.router.navigate(['/page-not-found']); // incorrect id
 
+            // load public data
             this.getUserCampaigns(this.userId);
             this.getUserDonations(this.userId);
-
             this.getUserDonationsSum(this.userId);
-            this.getUserReceivedDonations(this.userId);
-            this.getUserReceivedDonationsNotWithdrawen(this.userId);
-          })
-        }
-        else {
-          // id is not included in the url
-          this.router.navigate(['/page-not-found']);
+            this.getUserReceivedDonationsSum(this.userId);
+          });
         }
       }
+      else if (this.authService.loggedIn() && !this.userId) {
+        // get logged in user
+        this.user = this.authService.getUser();
+
+        this.initForms();
+        this.initAvatarUploader();
+
+        // load all data
+        this.getUserCampaigns(this.user._id);
+        this.getUserDonations(this.user._id);
+        this.getUserDonationsSum(this.user._id);
+        this.getUserReceivedDonationsSum(this.user._id);
+        this.getUserReceivedDonationsNotWithdrawen(this.user._id)
+      }
+      else if (!this.authService.loggedIn() && this.userId) {
+        // logged out user visiting
+        this.visitor = true;
+        this.userService.getUser(this.userId).subscribe((res) => {
+          if (res['success']) this.user = res['user'] as User;
+          else this.router.navigate(['/page-not-found']);
+
+          // load public data
+          this.getUserCampaigns(this.userId);
+          this.getUserDonations(this.userId);
+          this.getUserDonationsSum(this.userId);
+          this.getUserReceivedDonationsSum(this.userId);
+        })
+      }
+      else {
+        this.router.navigate(['/page-not-found']);
+      }
     });
-
-
   }
 
   initForms() {
     this.updateForm = this.formBuilder.group({
       avatar: [],
-      phone: [this._user.phone],
-      email: [this._user.email, [
+      phone: [this.user.phone, [
+        Validators.required
+      ]],
+      email: [this.user.email, [
         Validators.required,
         Validators.email
       ]],
       password: [''],
       confirmPassword: [''],
-      firstName: [this._user.firstName, [
+      firstName: [this.user.firstName, [
         Validators.required
       ]],
-      lastName: [this._user.lastName, [
+      lastName: [this.user.lastName, [
         Validators.required
       ]],
-      address: [this._user.address, [
+      address: [this.user.address, [
         Validators.required
       ]],
-      city: [this._user.city, [
+      city: [this.user.city, [
         Validators.required
       ]],
     },
@@ -204,18 +183,33 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  initAvatarUploader() {
+    // setting up avatar uploader
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+    };
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      this.response = JSON.parse(response);
+      alert('File uploaded successfully! Please update to permanently save your avatar.');
+      this.avatar.setValue(AppConfig.BASE_URL + this.response.path);
+    };
+    this.uploader.onWhenAddingFileFailed = (item: any, response: any, options: any) => {
+      alert('You cannot upload this file!\nPlease choose a picture with PNG or JPEG formats with size less than 5MB.');
+    }
+  }
+
   getUserCampaigns(id: string) {
-    this.campaignService.getUserCampaignsPage(id, 1, 4).subscribe((res) => {
+    this.campaignService.getUserCampaignsPage(id, 0, 4).subscribe((res) => {
       this.campaigns = res['campaigns'] as Campaign[];
     });
 
     this.campaignService.getUserCampaignsCount(id).subscribe((res) => {
-      this.totalItems = res['count'];
+      this.campaignsTotalItems = res['count'];
     })
   }
 
   getUserDonations(id: string) {
-    this.donationService.getUserDonationsPage(id, 1, 4).subscribe((res) => {
+    this.donationService.getUserDonationsPage(id, 0, 4).subscribe((res) => {
       this.donations = res['donations'] as Donation[];
     });
 
@@ -226,13 +220,12 @@ export class ProfileComponent implements OnInit {
 
   getUserDonationsSum(id: string) {
     this.donationService.getUserDonationsSum(id).subscribe((res) => {
-      this.donationsSum = res['amount'] as number;
+      this.donationsSum = res as number;
     });
   }
 
-  getUserReceivedDonations(id: string) {
+  getUserReceivedDonationsSum(id: string) {
     this.donationService.getUserReceivedDonations(id).subscribe((res) => {
-      this.receivedDonations = res['donations'] as Donation[];
       this.receivedDonationsSum = res['amount'] as number;
     });
   }
@@ -255,14 +248,6 @@ export class ProfileComponent implements OnInit {
       }
 
     });
-  }
-
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-  }
-
-  onClose() {
-    this.modalService.hide(1);
   }
 
   onUpdate() {
@@ -304,7 +289,7 @@ export class ProfileComponent implements OnInit {
       bank_account: this.bankAccount.value,
       bank_name: this.bankName.value,
       payee_name: this.payee.value,
-      owner: this._user._id
+      owner: this.loggedInUser._id
     }
 
     this.donationService.withdraw(withdrawal).subscribe((res) => {
@@ -318,7 +303,7 @@ export class ProfileComponent implements OnInit {
       else {
         this.withdrawAlert = {
           type: 'danger',
-          msg: res['msg']
+          msg: res['msg'] // unexpected error
         }
       }
     })
@@ -339,9 +324,18 @@ export class ProfileComponent implements OnInit {
     this.modalRef.content.closeBtnName = 'Close';
   }
 
-  onWithdrawClose() {
-    this.getUserReceivedDonationsNotWithdrawen(this.user._id);
-    this.modalRef.hide();
+  campaignsPageChanged(event: any): void {
+    this.campaignsPage = event.page;
+    this.campaignService.getUserCampaignsPage(this.user._id, this.campaignsPage - 1, 4).subscribe((res) => {
+      this.campaigns = res['campaigns'];
+    })
+  }
+
+  donationsPageChanged(event: any): void {
+    this.donationsPage = event.page;
+    this.donationService.getUserDonationsPage(this.user._id, this.donationsPage - 1, 4).subscribe((res) => {
+      this.donations = res['donations'] as Donation[];
+    });
   }
 
   get avatar() {
@@ -394,5 +388,18 @@ export class ProfileComponent implements OnInit {
 
   get donationIds() {
     return this.withdrawForm.get('donationIds');
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onClose() {
+    this.modalService.hide(1);
+  }
+
+  onWithdrawClose() {
+    this.getUserReceivedDonationsNotWithdrawen(this.user._id);
+    this.modalRef.hide();
   }
 }

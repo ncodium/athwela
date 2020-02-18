@@ -8,8 +8,10 @@
         <div class="col-md-3 mt-2 mt-md-0">
             <div class="card text-center">
                 <div class="card-body">
-                    <img *ngIf="user && user.avatar" class="image-cover" [src]="user?.avatar" data-holder-rendered="true">
-                    <img *ngIf="!(user && user.avatar)" class="image-cover" src="assets/user.png" data-holder-rendered="true">
+                    <img *ngIf="user && user.avatar" class="image-cover" [src]="user?.avatar"
+                        data-holder-rendered="true">
+                    <img *ngIf="!(user && user.avatar)" class="image-cover" src="assets/user.png"
+                        data-holder-rendered="true">
                     <h5 class="card-title mt-4">{{ user?.username }}</h5>
                     <p class="card-text">{{ user?.email }}</p>
                     <button (click)="openModal(settings)" class="btn btn-primary btn-sm"
@@ -34,6 +36,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row mt-2">
                 <div *ngFor="let cmp of campaigns" class="col-lg-6 col-sm-12 my-2">
                     <app-campaign-card [id]="cmp._id" [name]="cmp.name" [description]="cmp.description"
@@ -47,14 +50,14 @@
                             <p class="card-text my-4">
                                 Nothing here, yet.
                             </p>
-                            <a [routerLink]="['/campaign', 'new']" class="btn btn-primary mb-4" *ngIf=[!visitor]>
+                            <a [routerLink]="['/campaign', 'new']" class="btn btn-primary mb-4" *ngIf="!visitor">
                                 Start a fundraising campaign</a>
                         </div>
                     </div>
                     <div class="col-xs-12 col-12 justify-content-center text-center row mt-3" *ngIf="campaigns?.length">
                         <div>
-                            <pagination [totalItems]="totalItems" [itemsPerPage]="4" [(ngModel)]="currentPage"
-                                (pageChanged)="pageChanged($event)">
+                            <pagination [totalItems]="campaignsTotalItems" [itemsPerPage]="4"
+                                [(ngModel)]="campaignsPage" (pageChanged)="campaignsPageChanged($event)">
                             </pagination>
                         </div>
                     </div>
@@ -79,7 +82,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let don of donations; let i = index">
-                                    <th scope="row">{{ i+1 }}</th>
+                                    <th scope="row">{{ i+(donationsPage-1)*4+1 }}</th>
                                     <td>
                                         <a [routerLink]="['/campaign', don.campaign._id]">{{ don.campaign.name }}</a>
                                     </td>
@@ -99,7 +102,7 @@
                             <p class="card-text my-4">
                                 Nothing here, yet.
                             </p>
-                            <a [routerLink]="['/campaigns']" class="btn btn-primary mb-4" *ngIf=[!visitor]>
+                            <a [routerLink]="['/campaigns']" class="btn btn-primary mb-4" *ngIf="!visitor">
                                 Make a donation</a>
                         </div>
                     </div>
@@ -107,8 +110,8 @@
 
                 <div class="col-xs-12 col-12 justify-content-center text-center row mt-4" *ngIf="donations?.length">
                     <div>
-                        <pagination [totalItems]="donationsTotalItems" [itemsPerPage]="4"
-                            [(ngModel)]="donationsCurrentPage" (pageChanged)="donationsPageChanged($event)">
+                        <pagination [totalItems]="donationsTotalItems" [itemsPerPage]="4" [(ngModel)]="donationsPage"
+                            (pageChanged)="donationsPageChanged($event)">
                         </pagination>
                     </div>
                 </div>
@@ -246,7 +249,7 @@
         </button>
     </div>
 
-    <div class="modal-body">
+    <div class="modal-body" *ngIf="!visitor">
         <form (submit)="onWithdraw()" [formGroup]="withdrawForm">
             <div class="form-group">
                 <label for="inputPayee">Payee</label>

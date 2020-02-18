@@ -3,6 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { RegisterComponent } from '../../components/register/register.component';
 import { Campaign } from '../../models/campaign.model';
 import { CampaignService } from '../../services/campaign.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -12,11 +13,12 @@ import { CampaignService } from '../../services/campaign.service';
 })
 export class HomeComponent implements OnInit {
   modalRef: BsModalRef;
-  noCampaigns: boolean = true;
+  noCampaigns: boolean = true; // 
 
   constructor(
     private campaignService: CampaignService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -24,15 +26,25 @@ export class HomeComponent implements OnInit {
   }
 
   refreshCampaigns() {
-    this.campaignService.getPublishedCampaigns().subscribe((res) => {
-      if (res['success']) this.campaignService.campaigns = res['campaigns'] as Campaign[];
-      this.noCampaigns = (this.campaignService.campaigns.length == 0);
+    // show spinner
+    this.spinner.show();
+
+    // retrieve recent campaigns
+    this.campaignService.getRecentCampaigns().subscribe((res) => {
+      if (res['success']) {
+        this.campaignService.campaigns = res['campaigns'] as Campaign[];
+        this.noCampaigns = (this.campaignService.campaigns.length == 0);
+      }
+
+      // hide spinner
+      this.spinner.hide();
     });
   }
 
-  openRegisterModal() {
+  onGetStarted() {
     const initialState = {
-      title: 'Get Started!'
+      title: 'Get Started!',
+      description: 'Please create an account on Athwela to create your fundraising campaign.'
     };
 
     this.modalRef = this.modalService.show(RegisterComponent, { initialState });

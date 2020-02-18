@@ -62,9 +62,9 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
 router.get('/recent', (req, res) => {
     // return 9 most recent campaigns
     Campaign.find()
-        .sort({ 'created_at': -1 })
-        .find({ published: 'true', verified: 'true' })
-        .limit(9)
+        .sort({ created_at: -1 })
+        .find({ published: true, verified: true, rejected: false })
+        .limit(6)
         .exec((err, docs) => {
             if (!err) {
                 res.send({ campaigns: docs, success: true });

@@ -5,12 +5,17 @@
     </button>
 </div>
 
+<ngx-spinner [fullScreen]="false" bdColor="rgba(255,255,255)" color="darkblue" type="ball-elastic-dots" size="medium">
+</ngx-spinner>
+
 <table class="table table-hover modal-body">
     <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Amount</th>
             <th scope="col">Payee</th>
+            <th scope="col">Bank</th>
+            <th scope="col">Account</th>
             <th scope="col">Date</th>
             <th scope="col">Status</th>
         </tr>
@@ -27,15 +32,19 @@
                 <br />
                 <span class="mb-1">{{ w.amount | currency:'Rs. '}}</span>
                 <button class="btn btn-sm btn-outline-info ml-2" (click)="collapsed = !collapsed">
-                    {{ !collapsed ? 'Show' : 'Hide' }} donations
+                    {{ !collapsed ? 'Expand' : 'Collapse' }} donations
                 </button>
                 <div>
                 </div>
             </td>
             <td>
-                {{ w.payee_name }}<br />
-                {{ w.bank_account }}<br />
-                {{ w.bank_name }}<br />
+                {{ w.payee_name }}
+            </td>
+            <td>
+                {{ w.bank_name }}
+            </td>
+            <td>
+                {{ w.bank_account }}
             </td>
             <td>{{ w.created_at | date }}</td>
             <td>{{ w.status_message | titlecase }}</td>
@@ -44,8 +53,6 @@
     </tbody>
 </table>
 
-<div class="modal-body">
-</div>
 
 <div class="modal-footer">
     <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{ closeBtnName }}</button>

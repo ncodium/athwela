@@ -21,22 +21,21 @@ export class CampaignPageComponent implements OnInit {
   AppConfig_BASE_URL: string = AppConfig.BASE_URL;
   bsModalRef: BsModalRef;
   routeSub: Subscription;
-  loading: Boolean;
   campaign: Campaign;
   campaignId: string;
-  percentage: Number;
+  percentage: Number; // calculated
   percentageType: string;
 
+  // bootstrap alerts
   alerts: any = [];
 
+  user: User;
   loggedIn: Boolean;
   isAdmin: Boolean;
   isMod: Boolean;
   isUser: Boolean;
-  user: User;
 
-  donationId: string;
-
+  donationId: string; // auto-generated
   rejectReason: string;
 
   constructor(
@@ -49,38 +48,34 @@ export class CampaignPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getAuthStatus();
+
     this.routeSub = this.route.params.subscribe(params => {
-      this.campaignId = params['id']; // acquire campaignId from URL and request campaign content
-      this.campaignService.getCampaign(this.campaignId).subscribe((res) => {
-        if (res['success']) {
-          this.campaign = res['campaign'] as Campaign;
-          this.generatePercentage(this.campaign);
+      // acquire campaignId from URL and request campaign content
+      this.campaignId = params['id'];
 
-          this.route.queryParamMap.subscribe(queryParams => {
-            this.donationId = queryParams.get("order_id");
-            if (this.donationId) {
-              const initialState = {
-                title: "Donate",
-                campaign: this.campaign,
-                user: this.authService.getUser(),
-                donationId: this.donationId
-              };
+      // get campaign with given id
+      this.getCampaign(this.campaignId);
 
-              this.bsModalRef = this.modalService.show(CampaignDonationConfirmComponent, { initialState });
-              this.bsModalRef.content.closeBtnName = 'Close';
-              this.bsModalRef.content.onClose.subscribe(result => {
-                this.refreshCampaign(this.campaignId);
-              });
-            }
+      // detect if redirected from PayHere
+      this.route.queryParamMap.subscribe(queryParams => {
+        this.donationId = queryParams.get("order_id"); // redirected from PayHere
+        if (this.donationId) {
+          const initialState = {
+            title: "Donate",
+            campaign: this.campaign,
+            user: this.authService.getUser(),
+            donationId: this.donationId
+          };
+
+          this.bsModalRef = this.modalService.show(CampaignDonationConfirmComponent, { initialState });
+          this.bsModalRef.content.closeBtnName = 'Close';
+          this.bsModalRef.content.onClose.subscribe(result => {
+            this.getCampaign(this.campaignId);
           });
-        }
-        else {
-          this.router.navigate(['/page-not-found']);
         }
       });
     });
-
-    this.authReset()
   }
 
   onDonateClick() {
@@ -100,17 +95,9 @@ export class CampaignPageComponent implements OnInit {
   }
 
   deleteCampaign(campaignId: string) {
-    this.campaignService.deleteCampaigns(this.campaignId).subscribe((res) => {
-      // this.refreshCampaign(this.campaignId);
-
-      // this.alerts.push({
-      //   type: 'success',
-      //   msg: `Campaign has been deleted successfully.`
-      // });
-
+    this.campaignService.deleteCampaigns(campaignId).subscribe((res) => {
       alert(`Campaign has been deleted successfully.`);
       this.router.navigate([`/admin/campaigns`]);
-
     });
   }
 
@@ -124,7 +111,7 @@ export class CampaignPageComponent implements OnInit {
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 
-  authReset() {
+  getAuthStatus() {
     this.loggedIn = this.authService.loggedIn();
     if (this.loggedIn) {
       this.user = this.authService.getUser();
@@ -138,7 +125,7 @@ export class CampaignPageComponent implements OnInit {
     }
   }
 
-  refreshCampaign(id: string) {
+  getCampaign(id: string) {
     this.campaignService.getCampaign(id).subscribe((res) => {
       if (res['success']) {
         this.campaign = res['campaign'] as Campaign;
@@ -152,7 +139,7 @@ export class CampaignPageComponent implements OnInit {
 
   verifyCampaign() {
     this.campaignService.verifyCampaign(this.campaignId).subscribe((res) => {
-      if (res) this.refreshCampaign(this.campaignId);
+      if (res) this.getCampaign(this.campaignId);
       this.alerts.push({
         type: 'success',
         msg: `The campaign has been verified successfully.`
@@ -162,7 +149,7 @@ export class CampaignPageComponent implements OnInit {
 
   publishCampaign() {
     this.campaignService.publishCampaign(this.campaignId).subscribe((res) => {
-      if (res) this.refreshCampaign(this.campaignId);
+      if (res) this.getCampaign(this.campaignId);
       this.alerts.push({
         type: 'success',
         msg: `The campaign has been published successfully.`
@@ -172,7 +159,7 @@ export class CampaignPageComponent implements OnInit {
 
   unpublishCampaign() {
     this.campaignService.unpublishCampaign(this.campaignId).subscribe((res) => {
-      if (res) this.refreshCampaign(this.campaignId);
+      if (res) this.getCampaign(this.campaignId);
       this.alerts.push({
         type: 'info',
         msg: `The campaign has been unpublished successfully.`
@@ -180,9 +167,20 @@ export class CampaignPageComponent implements OnInit {
     });
   }
 
+  rejectCampaign(template: TemplateRef<any>) {
+    this.bsModalRef = this.modalService.show(template);
+  }
+
+  onReject() {
+    this.campaignService.rejectCampaign(this.campaignId, this.rejectReason).subscribe((res) => {
+      this.getCampaign(this.campaignId);
+      this.bsModalRef.hide();
+    });
+  }
+
   onCommentSubmit(body: string) {
     this.campaignService.createComment(this.campaignId, body).subscribe((res) => {
-      this.refreshCampaign(this.campaignId);
+      this.getCampaign(this.campaignId);
 
       this.alerts.push({
         type: 'success',
@@ -194,7 +192,7 @@ export class CampaignPageComponent implements OnInit {
 
   onDelete(commentId: string) {
     this.campaignService.deleteComment(this.campaignId, commentId).subscribe((res) => {
-      this.refreshCampaign(this.campaignId);
+      this.getCampaign(this.campaignId);
 
       this.alerts.push({
         type: 'success',
@@ -206,9 +204,10 @@ export class CampaignPageComponent implements OnInit {
 
   generatePercentage(campaign: Campaign) {
     const percentage = campaign.raised / campaign.target * 100;
-    if (percentage > 100) this.percentage = 100;
+    if (percentage > 100) this.percentage = 100; // workaround
     else this.percentage = percentage;
 
+    // set colour
     if (campaign.complete) {
       this.percentageType = 'success';
     }
@@ -217,14 +216,5 @@ export class CampaignPageComponent implements OnInit {
     }
   }
 
-  rejectCampaign(template: TemplateRef<any>) {
-    this.bsModalRef = this.modalService.show(template);
-  }
 
-  onReject() {
-    this.campaignService.rejectCampaign(this.campaignId, this.rejectReason).subscribe((res) => {
-      this.refreshCampaign(this.campaignId);
-      this.bsModalRef.hide();
-    });
-  }
 }
