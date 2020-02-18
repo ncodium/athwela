@@ -11,7 +11,7 @@ router.get('/campaigns/:search/count', (req, res) => {
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it
     const page = req.query.page ? parseInt(req.query.page) : 1;
 
-    Campaign.find({ name: { $regex: '.*' + searchTo + '.*' } }).count((err, count) => {   // get search count
+    Campaign.find({ name: { $regex: '.*' + searchTo + '.*' } }).countDocuments((err, count) => {   // get search count
         if (!err) {
             res.send({ success: true, campaignsCount: count });
         } else {

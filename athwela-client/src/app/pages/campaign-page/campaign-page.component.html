@@ -243,7 +243,7 @@
                     <li class="list-group-item d-flex justify-content-between lh-condensed"
                         *ngFor="let donation of campaign?.donations">
                         <div>
-                            <h6 class="my-0">{{ donation.donor.name }}</h6>
+                            <h6 class="my-0">{{ donation.donor.firstName }} {{ donation.donor.lastName }}</h6>
                             <small class="text-muted">
                                 {{ donation.created_at | date:short }}
                             </small>

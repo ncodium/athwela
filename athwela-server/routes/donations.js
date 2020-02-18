@@ -11,124 +11,35 @@ const payhere = require('../config/payhere');
 
 router.get('/', (req, res) => {
     // return all donations
-    Donation.find().populate('campaign').exec((err, docs) => {
-        if (!err)
-            res.json({ donations: docs, success: true });
-        else
-            res.json({ success: false, error: err });
-    });
+    Donation.find()
+        // skip fields to reduce size
+        .populate('campaign', '-donations -comments -images -documents -description')
+        .exec((err, doc) => {
+            if (err) throw err;
+            res.send(doc);
+        });
 });
 
-router.get('/report/:start/:end', (req, res) => {
+router.get('/date/:start/:end', (req, res) => {
     Donation.find({
+        // within date range
         created_at: {
             $gte: new Date(new Date(req.params.start).setHours(00, 00, 00)),
             $lt: new Date(new Date(req.params.end).setHours(23, 59, 59))
         }
-    }).sort({ created_at: 'asc' }).populate('owner').
-        exec((err, docs) => {
-            if (err) throw err;
-            res.send(docs)
-        });
-})
-
-router.get('/withdrawals', (req, res) => {
-    // return all withdrawals
-    Withdrawal.find()
-        .populate({
-            path: 'donations',
-            populate: { path: 'campaign', select: '_id name' }
-        })
-        .populate('user', '-password').exec((err, docs) => {
-            if (!err)
-                res.json({ withdrawals: docs, success: true });
-            else
-                res.json({ success: false, error: err });
-        });
-});
-
-router.get('/withdrawals/user/:userId', (req, res) => {
-    const options = {
-        page: parseInt(req.query.page, 10) || 0,
-        limit: parseInt(req.query.limit, 10) || 10
-    }
-
-    // return all documents
-    Withdrawal.find({ user: req.params.userId })
-        .skip(options.page * options.limit)
-        .limit(options.limit)
-        .populate({
-            path: 'donations',
-            populate: { path: 'campaign', select: '_id name' }
-        })
-        .exec((err, docs) => {
-            if (!err)
-                res.json({ withdrawals: docs, success: true });
-            else
-                res.json({ success: false, error: err });
-        });
-});
-
-
-router.get('/withdrawals/:id', (req, res) => {
-    // locate donation with given id
-    Withdrawal.findOne({ _id: req.params.id }, (err, doc) => {
-        if (!err)
-            res.send({ success: true, withdrawal: doc });
-        else
-            res.send({ success: false, error: err });
-    });
-});
-
-router.put('/withdrawals/:id/approve', (req, res) => {
-    // update withdrawal 
-    Withdrawal.findByIdAndUpdate(req.params.id,
-        {
-            $set: {
-                status_code: 1,
-                status_message: 'approved'
-            }
-        },
-        { new: true }, (err, doc) => {
-            if (!err)
-                res.send({ success: true, withdrawal: doc });
-            else
-                res.send({ success: false, error: err });
-        });
-});
-
-router.put('/withdrawals/:id/reject', (req, res) => {
-    // update withdrawal 
-    Withdrawal.findByIdAndUpdate(req.params.id,
-        {
-            $set: {
-                status_code: 2,
-                status_message: req.body.status_message ? req.body.status_message : 'rejected'
-            }
-        },
-        { new: true }, (err, doc) => {
-            if (!err)
-                res.send({ success: true, withdrawal: doc });
-            else
-                res.send({ success: false, error: err });
-        });
-
-    Withdrawal.findOne({ _id: req.params.id }, (err, doc) => {
+    }).sort({ created_at: 'asc' }).populate('owner').exec((err, doc) => {
         if (err) throw err;
-        // console.log(doc.donations);
-        Donation.updateMany({ _id: { $in: doc.donations } }, { withdrew: false }, { multi: true }, (err, docs) => {
-            // console.log(docs);
-        });
-    })
-});
+        res.send(doc)
+    });
+})
 
 router.get('/:id', (req, res) => {
     // locate donation with given id
     Donation.findOne({ donation_id: req.params.id }, (err, doc) => {
-        if (!err)
-            res.send({ success: true, donation: doc });
-        else
-            res.send({ success: false, error: err });
+        if (err) throw err;
+
+        if (doc) res.send(doc);
+        else res.status(404).send('Donation doesn\'t exist!');
     });
 });
 
@@ -146,13 +57,16 @@ router.get('/user/:id/donated', (req, res) => {
     Donation.find({ donor: req.params.id })
         .limit(options.limit)
         .skip(options.skip)
-        .populate('campaign', '-donations')
+        // skip fields to reduce size
+        .populate('campaign', '-donations -comments -description -images -documents')
         .exec(function (err, docs) {
-            if (err) res.json({ error: err, success: false });
-            donations_id = docs.map((d) => { return mongoose.Types.ObjectId(d._id) });
+            if (err) throw err;
+
+            // generate an array of donation ids
+            donation_ids = docs.map((d) => { return mongoose.Types.ObjectId(d._id) });
             Donation.aggregate([{
                 $match: {
-                    _id: { "$in": donations_id }
+                    _id: { "$in": donation_ids }
                 }
             },
             {
@@ -163,29 +77,29 @@ router.get('/user/:id/donated', (req, res) => {
                     }
                 }
             }], (err, doc) => {
-                if (err) res.json({ error: err, success: false });
-                res.json({ donations: docs, amount: doc[0] ? doc[0].amount : 0 });
+                if (err) throw err;
+                res.json({
+                    donations: docs,
+                    amount: doc[0] ? doc[0].amount : 0
+                });
             });
         });
 });
 
 router.get('/user/:id/donated/count', (req, res) => {
     // locate donations with given donor id
-    Donation.find({ donor: req.params.id })
-        .countDocuments((err, doc) => {
-            res.send({
-                success: true,
-                count: doc
-            })
+    Donation.find({ donor: req.params.id }).countDocuments(
+        (err, doc) => {
+            if (err) throw err;
+            res.send(doc);
         });
 });
 
 router.get('/user/:id/donated/sum', (req, res) => {
-    // needs to be optimized
     Donation.aggregate([
         {
             $match: {
-                donor: new ObjectId(req.params.id)
+                donor: new ObjectId(req.params.id) // aggregate queries require ObjectId
             }
         },
         {
@@ -196,8 +110,8 @@ router.get('/user/:id/donated/sum', (req, res) => {
                 }
             }
         }], (err, doc) => {
-            if (err) res.json({ error: err, success: false });
-            res.json({ amount: doc[0] ? doc[0].amount : 0 });
+            if (err) throw err;
+            res.json(doc[0] ? doc[0].amount : 0);
         }
     );
 });
@@ -206,16 +120,20 @@ router.get('/user/:id/received', (req, res) => {
     // locate user campaigns
     Campaign.find({ owner: new ObjectId(req.params.id) }).exec((err, campaigns) => {
         if (err) res.json({ error: err, success: false });
-        const campaigns_id = campaigns.map((campaign) => {
+
+        // generate an array of campaign ids
+        const campaign_ids = campaigns.map((campaign) => {
             return mongoose.Types.ObjectId(campaign._id);
         });
 
-        Donation.find({ campaign: campaigns_id })
-            .populate('campaign', '-comments -donations')
+        // locate donations of the user campaigns
+        Donation.find({ campaign: campaign_ids })
+            .populate('campaign', '-comments -donations -description -images -documents')
             .exec((err, donations) => {
-                if (err) res.json({ error: err, success: false });
-                // calculate total amount
+                if (err) throw err;
                 donations_id = donations.map((d) => { return mongoose.Types.ObjectId(d._id) });
+
+                // calculate total amount
                 Donation.aggregate([{
                     $match: {
                         _id: { "$in": donations_id }
@@ -229,8 +147,11 @@ router.get('/user/:id/received', (req, res) => {
                         }
                     }
                 }], (err, doc) => {
-                    if (err) res.json({ error: err, success: false });
-                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 });
+                    if (err) throw err;
+                    res.json({
+                        donations: donations,
+                        amount: doc[0] ? doc[0].amount : 0
+                    });
                 });
             });
     });
@@ -239,21 +160,26 @@ router.get('/user/:id/received', (req, res) => {
 router.get('/user/:id/not_withdrawen', (req, res) => {
     // locate user campaigns
     Campaign.find({ owner: new ObjectId(req.params.id) }).exec((err, campaigns) => {
-        if (err) res.json({ error: err, success: false });
-        const campaigns_id = campaigns.map((campaign) => {
+        if (err) throw err;
+
+        // generate an array of campaign ids
+        const campaign_ids = campaigns.map((campaign) => {
             return mongoose.Types.ObjectId(campaign._id);
         });
 
-        Donation.find({ campaign: campaigns_id, withdrew: false })
-            .populate('campaign', '-comments -donations')
+        Donation.find({ campaign: campaign_ids, withdrew: false })
+            .populate('campaign', '-comments -donations -description -images -documents')
             .exec((err, donations) => {
-                if (err) res.json({ error: err, success: false });
-                // calculate total amount
+                if (err) throw err;
+
+                // generate an array of donation ids
                 donations_id = donations.map((d) => { return mongoose.Types.ObjectId(d._id) });
+
+                // calculate total amount
                 Donation.aggregate([{
                     $match: {
                         _id: { "$in": donations_id },
-                        status_code: 2
+                        status_code: 2 // success
                     }
                 },
                 {
@@ -264,15 +190,18 @@ router.get('/user/:id/not_withdrawen', (req, res) => {
                         }
                     }
                 }], (err, doc) => {
-                    if (err) res.json({ error: err, success: false });
-                    res.json({ donations: donations, amount: doc[0] ? doc[0].amount : 0 });
+                    if (err) throw err;
+                    res.json({
+                        donations: donations,
+                        amount: doc[0] ? doc[0].amount : 0
+                    });
                 });
             });
     });
 });
 
 router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req, res) => {
-    const donations = req.body.donations;
+    const donations = req.body.donations; // used for calculating the amount
     const bank_account = req.body.bank_account;
     const bank_name = req.body.bank_name;
     const payee_name = req.body.payee_name;
@@ -309,7 +238,7 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
 
                 if (withdrawal.amount < payhere.minimum_withdraw) {
                     Donation.updateMany({ _id: donations }, { $set: { withdrew: false } });
-                    res.json({ success: false, err: "Your balance does not exceed minimum withdrawal amount." });
+                    res.status(403).send("Your balance does not exceed minimum withdrawal amount.");
                 }
 
                 withdrawal.save((err, doc) => {
@@ -317,7 +246,7 @@ router.post('/withdraw', passport.authenticate("jwt", { session: false }), (req,
                         Donation.updateMany({ _id: donations }, { $set: { withdrew: false } });
                         throw err;
                     };
-                    res.json({ withdrawal: doc, success: true });
+                    res.send(doc);
                 })
             });
         });
@@ -342,6 +271,11 @@ router.post('/:campaign_id/:user_id', (req, res) => {
 
     // check if donation already exist
     Donation.find({ donation_id: new_donation.donation_id }, (err, donation) => {
+        if (err) throw err;
+
+        // if there exists an donation with given id
+        // it should be updated
+
         if (donation.length) {
             // already exist
             Donation.findOneAndUpdate({ donation_id: new_donation.donation_id }, {
@@ -349,49 +283,38 @@ router.post('/:campaign_id/:user_id', (req, res) => {
                 status_message: new_donation.status_message
             },
                 { new: true }, (err, don) => {
-                    if (err) {
-                        res.json({ success: false, error: err });
-                    }
-                    else {
-                        // update campaign
-                        Campaign.findOneAndUpdate({
-                            "_id": req.params.campaign_id,
-                            "donations._id": don._id
-                        }, {
-                            // update status
-                            $set: {
-                                "donations.$.status_code": new_donation.status_code,
-                                "donations.$.status_message": new_donation.status_message
-                            }
-                        }, { new: true }, (err, cmp) => {
-                            if (!err) {
-                                res.json({ success: true, updated: true, donation: don, campaign: cmp });
-                            } else {
-                                res.json({ success: false, error: err });
-                            }
-                        });
-                    }
-                })
+                    if (err) throw err;
 
+                    // update campaign
+                    Campaign.findOneAndUpdate({
+                        "_id": req.params.campaign_id,
+                        "donations._id": don._id
+                    }, {
+                        // update status
+                        $set: {
+                            "donations.$.status_code": new_donation.status_code,
+                            "donations.$.status_message": new_donation.status_message
+                        }
+                    }, { new: true }, (err, cmp) => {
+                        if (err) throw err;
+                        res.status(202);
+                    });
+                })
         } else {
             // does not exist
             new_donation.save((err, don) => {
-                if (!err) {
-                    // add to campaign
-                    Campaign.findOne({ _id: req.params.campaign_id }, (err, cmp) => {
-                        cmp.raised += don.amount;
-                        cmp.complete = (cmp.raised + don.amount >= cmp.target);
-                        cmp.donations.push(new_donation);
-                        cmp.save((err, cmp_new) => {
-                            if (err) res.json({ success: false, error: err });
-                            else {
-                                res.json({ success: true, updated: true, donation: don, campaign: cmp });
-                            }
-                        });
+                if (err) throw err;
+                // add into campaign using id
+                Campaign.findOne({ _id: req.params.campaign_id }, (err, cmp) => {
+                    cmp.raised += don.amount;
+                    cmp.complete = (cmp.raised + don.amount >= cmp.target);
+                    cmp.donations.push(new_donation);
+                    cmp.save((err, cmp_new) => {
+                        if (err) throw err;
+                        res.status(202);
                     });
-                }
-                else
-                    res.json({ success: false, error: err });
+                });
+
             });
         }
     });

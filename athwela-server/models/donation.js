@@ -4,6 +4,13 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 const { Campaign } = require('./campaign');
 const { User } = require('./user');
 
+// PayHere status codes
+//  2 = success
+//  0 = pending
+// -1 = canceled
+// -2 = failed
+// -3 = chargedback
+
 const donationSchema = new Schema(
     {
         donation_id: { type: String, required: true },

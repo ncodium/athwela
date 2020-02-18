@@ -34,7 +34,7 @@ router.get('/user/count', (req, res) => {
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 8;
     const page = req.query.page ? parseInt(req.query.page) : 1;
 
-    User.find({ role: 'user' }).count((err, count) => {
+    User.find({ role: 'user' }).countDocuments((err, count) => {
         if (!err)
             res.json({ userscount: count, success: true });
         else
@@ -232,7 +232,7 @@ router.post('/authenticate', (req, res, next) => {
         User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) throw err;
             if (isMatch) {
-                const token = jwt.sign({ data: user }, config.secret, {
+                const token = jwt.sign({ data: user }, dbconfig.secret, {
                     expiresIn: 604800 // equals to 1 week
                 });
 

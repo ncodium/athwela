@@ -99,6 +99,11 @@ router.get('/status-count', (req, res) => {
             }
         }, {
             $group: {
+                // generates four groups for each distinct values of the _id
+                // verified: false, published: false
+                // verified: false, published: true
+                // verified: true, published: false
+                // verified: true, published true
                 _id: {
                     verified: "$verified",
                     published: "$published"
@@ -166,23 +171,5 @@ router.get('/monthly-donations', (req, res) => {
         res.send(doc);
     });
 });
-
-
-// getting users to piechart
-router.get('/usermodel-count', (req, res) => {
-    User.aggregate([
-        {
-            $group: {
-                _id: "$role",
-                count: { $sum: 1 }
-            }
-        }
-    ]).exec((err, doc) => {
-        if (err) throw err;
-        res.send(doc);
-    });
-});
-
-
 
 module.exports = router;

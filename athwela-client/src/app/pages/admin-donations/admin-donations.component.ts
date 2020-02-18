@@ -31,14 +31,14 @@ export class AdminDonationsComponent implements OnInit {
 
   getDonations() {
     this.donationService.getDonations().subscribe((res) => {
-      this.donations = res['donations'] as Donation[];
+      this.donations = res as Donation[];
     });
   }
 
   getWithdrawals() {
     this.spinner.show();
-    this.donationService.getWithdrawals().subscribe((res) => {
-      this.withdrawals = res['withdrawals'] as Withdrawal[];
+    this.donationService.getWithdrawals().subscribe((res: Withdrawal[]) => {
+      this.withdrawals = res;
       this.spinner.hide();
     });
   }

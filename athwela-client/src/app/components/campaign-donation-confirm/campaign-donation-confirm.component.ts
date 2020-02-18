@@ -5,6 +5,8 @@ import { Campaign } from 'src/app/models/campaign.model';
 import { User } from 'src/app/models/user.model';
 import { DonationService } from '../../services/donation.service';
 import { Subject } from 'rxjs';
+import { Donation } from 'src/app/models/donation.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-campaign-donation-confirm',
@@ -14,14 +16,17 @@ import { Subject } from 'rxjs';
 export class CampaignDonationConfirmComponent implements OnInit {
   public onClose: Subject<boolean>;
 
-  // input
+  // inputs
   closeBtnName: string;
   title: string;
+
+  donationId: String;
   campaign: Campaign;
   user: User;
-  donationId: String;
-  donation: any;
+  donation: Donation;
+
   interval: any;
+  error: HttpErrorResponse;
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -33,10 +38,9 @@ export class CampaignDonationConfirmComponent implements OnInit {
     this.spinner.show();
     this.onClose = new Subject();
 
-    this.interval = setInterval(() => {
-      /** refresh every 5 seconds */
-      this.refreshData();
-    }, 5000);
+    this.interval = setInterval(() => { this.refreshData() },
+      5000 // 5 seconds
+    );
   }
 
   onCancel() {
@@ -45,15 +49,16 @@ export class CampaignDonationConfirmComponent implements OnInit {
   }
 
   refreshData() {
-    this.donationService.getDonation(this.donationId).subscribe((res) => {
-      if (res['success']) {
-        this.donation = res['donation'];
-        if (this.donation) {
-          clearInterval(this.interval);
-          this.spinner.hide();
-        }
-      }
-    });
+    this.donationService.getDonation(this.donationId).subscribe(
+      (res: Donation) => {
+        this.donation = res;
+        clearInterval(this.interval);
+        this.spinner.hide();
+      },
+      error => {
+        this.error = error
+        console.log(this.error);
+      });
   }
 
 }

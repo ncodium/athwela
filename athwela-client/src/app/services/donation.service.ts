@@ -34,15 +34,15 @@ export class DonationService {
 
 
   getWithdrawals() {
-    return this.http.get(AppConfig.BASE_URL + 'donations/withdrawals');
+    return this.http.get(AppConfig.BASE_URL + 'withdrawals');
   }
 
   getWithdrawal(id: String) {
-    return this.http.get(AppConfig.BASE_URL + 'donations/withdrawals/' + id);
+    return this.http.get(AppConfig.BASE_URL + 'withdrawals/' + id);
   }
 
   getUserWithdrawals(id: String) {
-    return this.http.get(AppConfig.BASE_URL + 'donations/withdrawals/user/' + id);
+    return this.http.get(AppConfig.BASE_URL + 'withdrawals/user/' + id);
   }
 
   getUserDonationsSum(id: String) {
@@ -69,11 +69,11 @@ export class DonationService {
   }
 
   approveWithdrawal(id: string) {
-    return this.http.put(AppConfig.BASE_URL + 'donations/withdrawals/' + id + '/approve', {});
+    return this.http.put(AppConfig.BASE_URL + 'withdrawals/' + id + '/approve', {});
   }
 
   rejectWithdrawal(id: string, status_message: string) {
-    return this.http.put(AppConfig.BASE_URL + 'donations/withdrawals/' + id + '/reject', {
+    return this.http.put(AppConfig.BASE_URL + 'withdrawals/' + id + '/reject', {
       status_message: status_message
     });
   }

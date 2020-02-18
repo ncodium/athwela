@@ -5,7 +5,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const { Campaign } = require('../models/campaign');
 
 router.get('/', (req, res) => {
-    
+
     Campaign.find((err, docs) => {
         if (!err)
             res.json({ campaigns: docs, success: true });
@@ -29,7 +29,7 @@ router.get('/pagination', (req, res) => {
 
 router.get('/pagination/count', (req, res) => {
 
-    Campaign.find().count((err, count) => {
+    Campaign.find().countDocuments((err, count) => {
         if (!err)
             res.json({ campaignsCount: count, success: true });
         else
@@ -83,10 +83,10 @@ router.get('/unpublished', (req, res) => {
 
 router.get('/unpublished/pagination', (req, res) => {
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4 ;    // use to pagination, skip & limit queries use for it
-    const page = req.query.page ? parseInt(req.query.page) : 1 ;
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
 
-    Campaign.find({ published: 'false' }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+    Campaign.find({ published: 'false' }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
         else
@@ -95,7 +95,7 @@ router.get('/unpublished/pagination', (req, res) => {
 });
 
 router.get('/unpublished/count', (req, res) => {
-    Campaign.find({ published: 'false' }).count((err, count) => {
+    Campaign.find({ published: 'false' }).countDocuments((err, count) => {
         if (!err)
             res.send({ success: true, unpublishedCount: count });
         else
@@ -131,7 +131,7 @@ router.get('/published/count', (req, res) => {
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 4;    // use to pagination, skip & limit queries use for it
     const page = req.query.page ? parseInt(req.query.page) : 1;
 
-    Campaign.find({ published: 'true' }).count((err, count) => {
+    Campaign.find({ published: 'true' }).countDocuments((err, count) => {
         if (!err)
             res.send({ success: true, categoriesCount: count });
         else
@@ -163,7 +163,7 @@ router.get('/verified/pagination', (req, res) => {
 
 router.get('/verified/count', (req, res) => {
 
-    Campaign.find().count((err, count) => {
+    Campaign.find().countDocuments((err, count) => {
         if (!err)
             res.json({ verifiedCount: count, success: true });
         else
@@ -182,10 +182,10 @@ router.get('/unverified', (req, res) => {
 
 router.get('/unverified/pagination', (req, res) => {
 
-    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9 ;    // use to pagination, skip & limit queries use for it
-    const page = req.query.page ? parseInt(req.query.page) : 1 ;
-    
-    Campaign.find({ 'verified': false }).skip((page-1) * pagination).limit(pagination).exec((err, doc) => {
+    const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+
+    Campaign.find({ 'verified': false }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {
         if (!err)
             res.send({ success: true, campaigns: doc });
         else
@@ -194,7 +194,7 @@ router.get('/unverified/pagination', (req, res) => {
 });
 
 router.get('/unverified/count', (req, res) => {
-    Campaign.find({ 'verified': false }).count((err, count) => {
+    Campaign.find({ 'verified': false }).countDocuments((err, count) => {
         if (!err)
             res.send({ success: true, unverifiedCount: count });
         else
@@ -258,7 +258,7 @@ router.get('/sort/:sort/count', (req, res) => {
 
     // sort by date
     if (sortTo == "date") {
-        Campaign.find().sort({ "deadline": -1 }).count((err, count) => {
+        Campaign.find().sort({ "deadline": -1 }).countDocuments((err, count) => {
             if (!err) {
                 res.send({ success: true, sortCount: count });
             } else {
@@ -269,7 +269,7 @@ router.get('/sort/:sort/count', (req, res) => {
 
     // sort by name
     else if (sortTo == "name") {
-        Campaign.find().sort({ [sortTo]: -1 }).count((err, count) => {
+        Campaign.find().sort({ [sortTo]: -1 }).countDocuments((err, count) => {
             if (!err) {
                 res.send({ success: true, sortCount: count });
             } else {
@@ -280,7 +280,7 @@ router.get('/sort/:sort/count', (req, res) => {
 
     // sort by donations
     else if (sortTo == "donations") {
-        Campaign.find().sort({ [sortTo]: -1 }).count((err, count) => {
+        Campaign.find().sort({ [sortTo]: -1 }).countDocuments((err, count) => {
             if (!err) {
                 res.send({ success: true, sortCount: count });
             } else {
@@ -291,7 +291,7 @@ router.get('/sort/:sort/count', (req, res) => {
 
     // sort by comments
     else if (sortTo == "comments") {
-        Campaign.find().sort({ [sortTo]: -1 }).count((err, count) => {
+        Campaign.find().sort({ [sortTo]: -1 }).countDocuments((err, count) => {
             if (!err) {
                 res.send({ success: true, sortCount: count });
             } else {
@@ -302,7 +302,7 @@ router.get('/sort/:sort/count', (req, res) => {
 
     // sort by trending
     else if (sortTo == "trending") {
-        Campaign.find().sort({ "deadline": -1, "comments": -1 }).count((err, count) => {
+        Campaign.find().sort({ "deadline": -1, "comments": -1 }).countDocuments((err, count) => {
             if (!err) {
                 res.send({ success: true, sortCount: count });
             } else {
@@ -420,7 +420,7 @@ router.get('/user/:id', (req, res) => {
 
 
 //report generation
-router.get('/report/:start/:end', (req, res) => {
+router.get('/date/:start/:end', (req, res) => {
     Campaign.find({
         created_at: {
             $gte: new Date(new Date(req.params.start).setHours(00, 00, 00)),

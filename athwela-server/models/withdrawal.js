@@ -5,6 +5,11 @@ const { Campaign } = require('./campaign');
 const { User } = require('./user');
 const { Donation } = require('./donation');
 
+// status codes
+// 0 pending
+// 1 approved
+// 2 declined
+
 const withdrawalSchema = new Schema(
     {
         amount: { type: Number, required: true },
@@ -15,7 +20,7 @@ const withdrawalSchema = new Schema(
         bank_name: { type: String, required: true },
         bank_account: { type: String, required: true },
         payee_name: { type: String, required: true },
-        user: { type: ObjectId, ref: 'User', required: true }
+        user: { type: ObjectId, ref: 'User', required: true } //owner
     },
     {
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

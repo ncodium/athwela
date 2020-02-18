@@ -22,8 +22,8 @@ export class ProfilePreviousWithdrawalsComponent implements OnInit {
   }
 
   getUserWithdrawals() {
-    this.donationService.getUserWithdrawals(this.userId).subscribe((res) => {
-      this.withdrawals = res['withdrawals'] as Withdrawal[];
+    this.donationService.getUserWithdrawals(this.userId).subscribe((res: Withdrawal[]) => {
+      this.withdrawals = res;
     });
   }
 

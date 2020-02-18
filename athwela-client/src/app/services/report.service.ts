@@ -11,16 +11,16 @@ export class ReportService {
 
   constructor(
     private http: HttpClient,
-    
+
   ) { }
 
-  getCampaignsbydate(start: Date,end: Date){
-    return this.http.get(AppConfig.BASE_URL + 'campaigns/report/'+start+'/'+end)
+  getCampaignsbydate(start: Date, end: Date) {
+    return this.http.get(AppConfig.BASE_URL + 'campaigns/date/' + start + '/' + end)
 
   }
 
-  getDonationsbydate(start: Date,end: Date){
-    return this.http.get(AppConfig.BASE_URL + 'donations/report/'+start+'/'+end)
+  getDonationsbydate(start: Date, end: Date) {
+    return this.http.get(AppConfig.BASE_URL + 'donations/date/' + start + '/' + end)
 
   }
 }

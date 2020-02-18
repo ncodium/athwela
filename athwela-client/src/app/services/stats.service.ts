@@ -22,7 +22,7 @@ export class StatsService {
   //   return this.http.get(AppConfig.BASE_URL + 'stats/usercounts/', {});
   // }
   getUserModelCount() {
-    return this.http.get(AppConfig.BASE_URL + 'stats/usermodel-count', {});
+    return this.http.get(AppConfig.BASE_URL + 'stats/user-count', {});
   }
 
   getStatusCount() {

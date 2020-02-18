@@ -93,7 +93,7 @@ export class AdminReportsComponent implements OnInit {
 
 
     for (var i of this.campaigns) {
-      rows.push([i.name, [i.owner.name + ' ' + i.owner.email], 'Rs.' + i.target, i.deadline.toString(), this.toTitleCase(i.category)]);
+      rows.push([i.name, [i.owner.firstName + i.owner.lastName + ' ' + i.owner.email], 'Rs.' + i.target, i.deadline.toString(), this.toTitleCase(i.category)]);
     }
 
     var docDefinition = {

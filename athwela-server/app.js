@@ -6,16 +6,15 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 
 if (process.env.NODE_ENV !== 'PRODUCTION') {
-    // load .env on development environment
-    const dotenv = require('dotenv');
-
     try {
+        // load .env on development environment
+        const dotenv = require('dotenv');
         dotenv.config();
         // successfully loaded .env file
-        console.log('Starting development server with provided environment..');
-    } catch (error) {
+        console.log('Using provided environment..');
+    } catch (err) {
         // .env file not found
-        console.log('Starting development server with default configuration..');
+        console.log('Using default configuration..');
     }
 }
 
@@ -23,10 +22,11 @@ if (process.env.NODE_ENV !== 'PRODUCTION') {
 const dbconfig = require('./config/dbconfig');
 const appconfig = require('./config/appconfig');
 
-// custom routes
+// custom routers
 const users = require('./routes/users');
 const campaigns = require('./routes/campaigns');
 const donations = require('./routes/donations');
+const withdrawals = require('./routes/withdrawals');
 const upload = require('./routes/upload');
 const search = require('./routes/search');
 const statistics = require('./routes/statistics');
@@ -63,10 +63,11 @@ app.use("/public", express.static(path.join(__dirname, appconfig.public)));
 app.use('/users', users);
 app.use('/campaigns', campaigns);
 app.use('/donations', donations);
+app.use('/withdrawals', withdrawals);
 app.use('/search', search);
 app.use('/upload', upload);
 app.use('/stats', statistics);
-app.get('/', (res) => {
+app.get('/', (req, res) => {
     res.send('Athwela API v1');
 });
 

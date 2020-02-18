@@ -18,7 +18,7 @@
             <h6 class="card-subtitle mb-2 text-muted">{{ donation?.status_message }}</h6>
             <div class="card-text mb-2">
                 {{ campaign?.name }}<br />
-                Donated to <b>{{ campaign?.owner.name }}</b>
+                Donated to <b>{{ campaign?.owner.firstName }} {{ campaign?.owner.lastName }}</b>
             </div>
             <span class="card-link">{{ donation?.method }}</span>
             <span class="card-link">{{ donation?.updated_at | date }}</span>
