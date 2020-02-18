@@ -4,9 +4,10 @@ const passport = require('passport');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { Campaign } = require('../models/campaign');
 
+// Count search results
 router.get('/campaigns/:search/count', (req, res) => {
-    var searchby = req.params.search; // front click search get to searchby variable
-    var searchTo = searchby.toLowerCase();  // convert to lowercase
+    var searchby = req.params.search;           // search string get to searchby variable
+    var searchTo = searchby.toLowerCase();      // convert to lowercase
 
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it
     const page = req.query.page ? parseInt(req.query.page) : 1;
@@ -20,8 +21,9 @@ router.get('/campaigns/:search/count', (req, res) => {
     });
 });
 
+// find search results
 router.get('/campaigns/:search', (req, res) => {
-    var searchby = req.params.search; // front click search get to searchby variable
+    var searchby = req.params.search; // search string get to searchby variable
     var searchTo = searchby.toLowerCase();  // convert to lowercase
 
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it

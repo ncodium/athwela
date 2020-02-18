@@ -27,7 +27,7 @@ export class CampaignService {
   // getCategoryCampaign(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category ); }
   // getSortCampaign(currentSort: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/sort/' + currentSort ); }
 
-  // tslint:disable-next-line: max-line-length // pagination category campaign
+  // pagination category campaigns
   getCategoryCampaign(category: string, page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category + '?pagination=4&page=' + page.toString()); }
   getCategoryCount(category: string) { return this.http.get(AppConfig.BASE_URL + 'campaigns/categories/' + category + '/count'); }
 
@@ -55,6 +55,7 @@ export class CampaignService {
   getUnverifiedCampaignsPagination(page: number) { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified/pagination' + '?pagination=4&page=' + page.toString()); }
   getUnverifiedCampaignsCount() { return this.http.get(AppConfig.BASE_URL + 'campaigns/unverified/count' ); }
 
+  // delete campaigns
   deleteCampaigns(campaignId: string){
     return this.http.delete(AppConfig.BASE_URL + 'campaigns/' + campaignId).pipe();
   }
