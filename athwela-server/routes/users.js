@@ -6,7 +6,6 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/user');
 const config = require('../config/database');
 const randomstring = require('randomstring');
-const nodemailer = require('nodemailer');
 const email = require('../services/email');
 
 // asynchronous username availability check during registration
@@ -83,7 +82,6 @@ router.post('/register', (req, res) => {
         phone: req.body.phone,
         username: req.body.username,
         password: req.body.password,
-        // temporaryToken: jwt.sign({ data: user }, config.secret, { expiresIn: 604800 })
         temporaryToken: randomstring.generate()
     });
 
@@ -103,19 +101,34 @@ router.post('/register', (req, res) => {
                         from: 'athwelafunds@gmail.com',
                         to: user.email,
                         subject: 'Activate your account at Athwela',
-                        text: 'Hello ' + user.firstName + '. Thank you for registering at Athwela. Please click on the following link to complete your activation: http://localhost:4200/activate/' + user.temporaryToken,
-                        html: 'Hello<strong> ' + user.firstName + '</strong>,<br /><br />Thank you for registering at Athwela. Please click on the following link to complete your activation:<br /><br /><a href="http://localhost:4200/activate/' + user.temporaryToken + '">http://localhost:4200/activate/</a>'
+                        text: 'Hello ' + user.firstName + '. Thank you for registering at Athwela. Please click on the following link to complete your activation: http://localhost:4200/activate/' + _user.temporaryToken,
+                        html: 'Hello<strong> ' + user.firstName + '</strong>,<br /><br />Thank you for registering at Athwela. Please click on the following link to complete your activation:<br /><br /><a href="http://localhost:4200/activate/' + _user.temporaryToken + '">http://localhost:4200/activate/</a>'
                     };
 
                     email.sendMail(mailOptions, (err, res) => {
                         if (err) throw err;
                         console.log(res);
                     });
-                    user.active = true;
                     res.json({ success: true, msg: 'Registered successfully! Please check your email for the activation link.' });
                 }
             });
         }
+    });
+});
+
+router.get('/activate/:temporaryToken', (req, res) => {
+    console.log(req.params.temporaryToken);
+    User.findOne({ temporaryToken: req.params.temporaryToken }, (err, user) => {
+        if (err) throw err;
+        console.log(user);
+        user.active = true;
+        user.save(function (err, user) {
+            console.log(user);
+            if (err) throw err;
+            else {
+                res.json({ success: true, message: "Account activated." });
+            }
+        });
     });
 });
 
@@ -186,18 +199,20 @@ router.post('/register/admin', (req, res) => {
 router.post('/authenticate', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
-
     User.getUserByUsername(username, (err, user) => {
         if (err) throw err;
 
         if (!user) {
+            console.log('res');
             return res.json({
                 success: false, msg:
-                    "Username and password doesn't match. Please try again."
+                    "There is no account with that username. Please try again."
             });
         }
 
         if (!user.active) {
+            console.log('fuck');
+
             return res.json({
                 success: false, msg:
                     "Your account has not been verified yet. Please check your email for the verification email."
@@ -231,7 +246,7 @@ router.post('/authenticate', (req, res, next) => {
                     }
                 });
             } else {
-                return res.json({ success: false, msg: 'Incorrect password.' });
+                return res.json({ success: false, msg: 'Your password is incorrect. Please try again.' });
             }
         });
     });

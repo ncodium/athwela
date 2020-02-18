@@ -19,16 +19,16 @@ export class AdminUsersComponent implements OnInit {
   modalRef: BsModalRef;
   users: User[];
   moderators: User[];
-  administrators:User[];
+  administrators: User[];
   registerForm: FormGroup;
-  page:number;
-  resCount:number;
+  page: number;
+  resCount: number;
 
   alert: any;
 
 
   ngOnInit() {
-     this.getUsers();
+    this.getUsers();
     this.getModerators();
     this.getAdministrators();
 
@@ -74,101 +74,98 @@ export class AdminUsersComponent implements OnInit {
   }
 
   onRegister() {
-     
-  if (this.role.value=='mod'){
-    this.userService.registerMod({
-      username: this.username.value,
-      password: this.password.value,
-      email: this.email.value,
-      firstName: this.firstName.value,
-      lastName: this.lastName.value,
-      address: this.address.value,
-      phone: this.phone.value,
-      city: this.city.value,
-      role:this.role.value
-    }).subscribe((res) => {
-      if (res['success']) {
-        this.alert = {
-          type: 'success',
-          msg: 'Successfull Registration'
-        }
-      }
-      else {
-        this.alert = {
-          type: 'danger',
-          msg: res['msg']
-        }
-      }
-    })
-  }
 
-  if (this.role.value=='admin'){
-    this.userService.registerAdmin({
-      username: this.username.value,
-      password: this.password.value,
-      email: this.email.value,
-      firstName: this.firstName.value,
-      lastName: this.lastName.value,
-      address: this.address.value,
-      phone: this.phone.value,
-      city: this.city.value,
-      role:this.role.value
-    }).subscribe((res) => {
-      console.log(res)
-      if (res['success']) {
-        this.alert = {
-          type: 'success',
-          msg: 'Successfull Registration'
+    if (this.role.value == 'mod') {
+      this.userService.registerMod({
+        username: this.username.value,
+        password: this.password.value,
+        email: this.email.value,
+        firstName: this.firstName.value,
+        lastName: this.lastName.value,
+        address: this.address.value,
+        phone: this.phone.value,
+        city: this.city.value,
+        role: this.role.value
+      }).subscribe((res) => {
+        if (res['success']) {
+          this.alert = {
+            type: 'success',
+            msg: 'Successfull Registration'
+          }
+
+
+
         }
-      }
-      else {
-        this.alert = {
-          type: 'danger',
-          msg: res['msg']
+        else {
+          this.alert = {
+            type: 'danger',
+            msg: res['msg']
+          }
         }
-      }
-    })
-  }
+      })
+    }
+
+    if (this.role.value == 'admin') {
+      this.userService.registerAdmin({
+        username: this.username.value,
+        password: this.password.value,
+        email: this.email.value,
+        firstName: this.firstName.value,
+        lastName: this.lastName.value,
+        address: this.address.value,
+        phone: this.phone.value,
+        city: this.city.value,
+        role: this.role.value
+      }).subscribe((res) => {
+        console.log(res)
+        if (res['success']) {
+          this.alert = {
+            type: 'success',
+            msg: 'Successfull Registration'
+          }
+        }
+        else {
+          this.alert = {
+            type: 'danger',
+            msg: res['msg']
+          }
+        }
+      })
+    }
   }
 
   getUsers() {
-     this.userService.getUsers().subscribe((res) => {
+    this.userService.getUsers().subscribe((res) => {
       this.users = res['users'] as User[];
-      
+
     });
   }
 
-  
+
 
   getModerators() {
     this.userService.getModerators().subscribe((res) => {
       this.moderators = res['moderators'] as User[];
-      
+
     });
   }
 
   getAdministrators() {
     this.userService.getAdministrators().subscribe((res) => {
       this.administrators = res['administrators'] as User[];
-      
+
     });
   }
 
-  refreshCampaign() {
-    this.userService.getUsers().subscribe((res) => {
-      if (res['success']) {
-        this.users = res['users'] as User[];
-      }
-      else {
-        this.router.navigate(['/page-not-found']);
-      }
-    });
-  }
+  
+   
 
   deleteusers(id: String) {
     this.userService.deleteusers(id).subscribe((res) => {
       if (res['success'] === true) {
-        this.refreshCampaign();
+        this.getUsers();
+        this.getModerators();
+        this.getAdministrators();
       }
     });
   }
@@ -242,5 +239,14 @@ export class AdminUsersComponent implements OnInit {
   }
   get role() {
     return this.registerForm.get('role');
+  }
+
+  //close and refresh
+  closeAndRefresh() {
+    this.modalRef.hide();
+    this.getUsers();
+    this.getModerators();
+    this.getAdministrators();
+
   }
 }

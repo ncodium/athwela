@@ -112,4 +112,8 @@ export class AuthService {
     this.role = localStorage.getItem('role');
     return this.role === 'user';
   }
+
+  activateUser(tempToken) {
+    return this.http.get(AppConfig.BASE_URL + "users/activate/" + tempToken, {}).pipe();
+  }
 }
