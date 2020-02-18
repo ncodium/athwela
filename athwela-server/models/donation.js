@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
-const mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId
 const { Campaign } = require('./campaign');
@@ -23,9 +21,6 @@ const donationSchema = new Schema(
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
     }
 );
-
-donationSchema.plugin(aggregatePaginate);
-donationSchema.plugin(mongoosePaginate);
 
 const Donation = mongoose.model('Donation', donationSchema);
 const currency = 'LKR';

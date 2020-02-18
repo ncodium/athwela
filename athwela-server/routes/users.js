@@ -3,15 +3,15 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const ObjectId = require('mongoose').Types.ObjectId;
-const User = require('../models/user');
-const config = require('../config/database');
 const randomstring = require('randomstring');
+const User = require('../models/user');
 const email = require('../services/email');
+const dbconfig = require('../config/dbconfig');
 
 // asynchronous username availability check during registration
 router.get('/username/:username', (req, res) => {
     User.find({ username: req.params.username }, (err, doc) => {
-        if (err) next(err);
+        if (err) throw err;
         else res.json({ exists: !!doc.length });
     });
 });
@@ -20,11 +20,12 @@ router.get('/username/:username', (req, res) => {
 router.get('/user', (req, res) => {
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 8;
     const page = req.query.page ? parseInt(req.query.page) : 1;
+
     User.find({ role: 'user' }).skip((page - 1) * pagination).limit(pagination).exec((err, docs) => {
         if (!err)
-            res.json({ users: docs, success: true });
+            res.json({ success: true, users: docs });
         else
-            res.json({ success: false, error: err })
+            res.json({ success: false, err: err })
     });
 });
 
@@ -93,7 +94,11 @@ router.post('/register', (req, res) => {
             // register new user account
             User.addUser(_user, (err, user) => {
                 if (err) {
-                    res.json({ success: false, msg: 'Registration failed', username_exist: false });
+                    res.json({
+                        success: false,
+                        msg: 'Registration failed. An unexpected error occured.',
+                        username_exist: false
+                    });
                 } else {
                     console.log(user.temporaryToken);
 
@@ -109,7 +114,10 @@ router.post('/register', (req, res) => {
                         if (err) throw err;
                         console.log(res);
                     });
-                    res.json({ success: true, msg: 'Registered successfully! Please check your email for the activation link.' });
+                    res.json({
+                        success: true,
+                        msg: 'Registered successfully! Please check your email for the activation link.'
+                    });
                 }
             });
         }
@@ -121,12 +129,16 @@ router.get('/activate/:temporaryToken', (req, res) => {
     User.findOne({ temporaryToken: req.params.temporaryToken }, (err, user) => {
         if (err) throw err;
         console.log(user);
+
         user.active = true;
         user.save(function (err, user) {
             console.log(user);
             if (err) throw err;
             else {
-                res.json({ success: true, message: "Account activated." });
+                res.json({
+                    success: true,
+                    message: "Account activated!"
+                });
             }
         });
     });
@@ -203,19 +215,16 @@ router.post('/authenticate', (req, res, next) => {
         if (err) throw err;
 
         if (!user) {
-            console.log('res');
             return res.json({
-                success: false, msg:
-                    "There is no account with that username. Please try again."
+                success: false,
+                msg: "There is no account with that username. Please try again."
             });
         }
 
         if (!user.active) {
-            console.log('fuck');
-
             return res.json({
-                success: false, msg:
-                    "Your account has not been verified yet. Please check your email for the verification email."
+                success: false,
+                msg: "Your account has not been verified yet. Please check your e-mail for the verification email."
             });
         }
 
@@ -252,7 +261,7 @@ router.post('/authenticate', (req, res, next) => {
     });
 });
 
-router.post('/update/:_id', (req, res, next) => {
+router.post('/update/:_id', (req, res) => {
     // validate object id
     if (!ObjectId.isValid(req.params._id))
         return res.json({ success: false });
@@ -287,12 +296,13 @@ router.post('/update/:_id', (req, res, next) => {
 });
 
 router.get('/profile/:id', (req, res) => {
-    // locate user with given id
+    // validate object id
     if (!ObjectId.isValid(req.params.id))
         return res.json({ success: false });
 
+    // locate user by id
     User.getUserById(req.params.id, (err, user) => {
-        if (err) { throw err; }
+        if (err) throw err;
         else {
             if (user) {
                 return res.json({
@@ -305,7 +315,6 @@ router.get('/profile/:id', (req, res) => {
                         address: user.city,
                         email: user.email,
                         username: user.username,
-                        password: user.password,
                         role: user.role,
                         phone: user.phone,
                         avatar: user.avatar
@@ -320,7 +329,7 @@ router.get('/profile/:id', (req, res) => {
 });
 
 router.get('/profile', passport.authenticate("jwt", { session: false }), (req, res) => {
-    // return user with all other fields except hashed password
+    // return all fields except hashed password
     res.json({
         user: {
             _id: req.user._id,
@@ -330,7 +339,6 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
             address: req.user.city,
             email: req.user.email,
             username: req.user.username,
-            password: req.user.password,
             role: req.user.role,
             phone: req.user.phone,
             avatar: req.user.avatar
@@ -339,13 +347,15 @@ router.get('/profile', passport.authenticate("jwt", { session: false }), (req, r
 });
 
 router.delete('/:id', (req, res) => {
+    // validate object id
     if (!ObjectId.isValid(req.params.id))
-        return res.status(404).send({ success: false, msg: `No user exist with given Id: ${req.params.id}` });
+        return res.json({ success: false, msg: `User doesn't exist: ${req.params.id}` });
+
     User.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
-            res.status(202).send({ success: true, msg: 'User successfully deleted!' });
+            res.json({ success: true, msg: 'User successfully deleted!' });
         } else {
-            res.status(406).send({ success: false, error: err });
+            res.json({ success: false, error: err });
         }
     });
 });

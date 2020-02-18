@@ -4,7 +4,23 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
-const config = require('./config/database');
+
+if (process.env.NODE_ENV !== 'PRODUCTION') {
+    // load .env on development environment
+    const dotenv = require('dotenv');
+
+    try {
+        dotenv.config();
+        // successfully loaded .env file
+        console.log('Starting development server with provided environment..');
+    } catch (error) {
+        // .env file not found
+        console.log('Starting development server with default configuration..');
+    }
+}
+
+// configs
+const dbconfig = require('./config/dbconfig');
 const appconfig = require('./config/appconfig');
 
 // custom routes
@@ -13,16 +29,16 @@ const campaigns = require('./routes/campaigns');
 const donations = require('./routes/donations');
 const upload = require('./routes/upload');
 const search = require('./routes/search');
-const stats = require('./routes/stats');
+const statistics = require('./routes/statistics');
 
 // establish database connection
-mongoose.connect(config.database, {
+mongoose.connect(dbconfig.database, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
 });
 mongoose.connection.on('connected', () => {
-    console.log('Connected to database: ' + config.database);
+    console.log('Connected to database: ' + dbconfig.database);
 });
 mongoose.connection.on('error', (err) => {
     console.log(err);
@@ -38,10 +54,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(passport.initialize());
 app.use(passport.session());
-require('./config/passport')(passport);
+require('./services/passport')(passport);
 
-// serve resources from public folder
-app.use("/public", express.static(path.join(__dirname, 'public')));
+// serve public resources
+app.use("/public", express.static(path.join(__dirname, appconfig.public)));
 
 // routes
 app.use('/users', users);
@@ -49,11 +65,11 @@ app.use('/campaigns', campaigns);
 app.use('/donations', donations);
 app.use('/search', search);
 app.use('/upload', upload);
-app.use('/stats', stats);
-app.get('/', (req, res) => {
+app.use('/stats', statistics);
+app.get('/', (res) => {
     res.send('Athwela API v1');
 });
 
 app.listen(port, () => {
-    console.log('Server started on port: ' + port);
+    console.log('Server running on port: ' + port);
 });

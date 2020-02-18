@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs')
 const appconfig = require('../config/appconfig');
 
+// storage configuration
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         fs.mkdir(appconfig.public, err => {
@@ -13,39 +14,57 @@ const storage = multer.diskStorage({
         })
     },
     filename: function (req, file, cb) {
+        // uses current date to avoid conflicts
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 })
 
 const upload = multer({ storage: storage });
 
+// profile picture
 router.post('/', upload.single('photo'), (req, res) => {
     if (!req.file) {
-        return res.send({
+        res.send({
             success: false
         });
     } else {
-        return res.send({
+        res.send({
             success: true,
             path: req.file.path
         })
     }
 })
 
-router.post("/images", upload.array("images", 6), (req, res) => {
-    //console.log('files', req.files);
-    res.send(req.files.map(file => file.path));
+// campaign images
+router.post("/images", upload.array("images", 16), (req, res) => {
+    if (!req.files) {
+        res.send({
+            success: true,
+            files: req.files.map(file => file.path) // url
+        });
+    } else {
+        res.json({ success: false })
+    }
 });
 
-router.post("/documents", upload.array("documents", 6), (req, res) => {
-    //console.log('files', req.files);  
-    res.send(req.files.map(file => {
-        return {
-            path: file.path,
-            originalname: file.originalname,
-            size: file.size
-        }
-    }));
+// campaign documents
+router.post("/documents", upload.array("documents", 16), (req, res) => {
+    if (!req.files) {
+        res.send({
+            success: true,
+            files: req.files.map(file => {
+                // requires extra details of documents
+                return {
+                    path: file.path,
+                    originalname: file.originalname,
+                    size: file.size // bytes
+                }
+            })
+        });
+    } else {
+        res.json({ success: false })
+    }
+
 });
 
 module.exports = router;

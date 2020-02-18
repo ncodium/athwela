@@ -5,7 +5,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { AppConfig } from 'src/app/config/app-config';
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
 
 @Component({
   selector: 'app-campaigns-new',
@@ -111,8 +110,8 @@ export class NewCampaignComponent implements OnInit {
     }
 
     this.http.post(AppConfig.BASE_URL + 'upload/images', formData).subscribe(
-      files => {
-        this.images.setValue(files);
+      res => {
+        this.images.setValue(res['files']);
         this.previewImages = true;
       }
     );
@@ -128,9 +127,9 @@ export class NewCampaignComponent implements OnInit {
 
 
     this.http.post(AppConfig.BASE_URL + 'upload/documents', formData).subscribe(
-      files => {
-        console.warn(files)
-        this.documents.setValue(files);
+      res => {
+        console.warn(res)
+        this.documents.setValue(res['files']);
         this.previewDocuments = true;
       }
     );

@@ -1,6 +1,6 @@
 const mongooose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const config = require('../config/database');
+const dbconfig = require('../config/dbconfig');
 
 const userSchema = mongooose.Schema({
     username: { type: String, required: true },
@@ -14,7 +14,7 @@ const userSchema = mongooose.Schema({
     avatar: { type: String, required: false },
     phone: { type: Number, required: true },
     active: { type: Boolean, required: true, default: false },
-    temporaryToken: { type: String, default:'' }
+    temporaryToken: { type: String, default: '' }
 });
 
 const User = module.exports = mongooose.model('User', userSchema);

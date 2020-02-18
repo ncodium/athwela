@@ -51,55 +51,49 @@ export class AdminReportsComponent implements OnInit {
   onSubmitCampaigns() {
     //console.log(this.fromDate.invalid, this.toDate.invalid)
     this.fromalert = this.toalert = null;
-    this.alert=null;
-    if(this.fromDate.invalid||this.toDate.invalid){
-    if (this.fromDate.invalid) {
-      this.fromalert = {
-        type: 'danger',
-        msg: 'fromDate is empty'
+    this.alert = null;
+    if (this.fromDate.invalid || this.toDate.invalid) {
+      if (this.fromDate.invalid) {
+        this.fromalert = {
+          type: 'danger',
+          msg: 'Begin date is empty'
+        }
+      }
+      if (this.toDate.invalid) {
+        this.toalert = {
+          type: 'danger',
+          msg: 'End date is empty'
+        }
       }
     }
-    if (this.toDate.invalid) {
-      this.toalert = {
+    else if (this.fromDate.value > this.toDate.value) {
+      this.alert = {
         type: 'danger',
-        msg: 'toDate is empty'
+        msg: 'Begin date should be less than end date'
       }
     }
-  }
-  else if(this.fromDate.value>this.toDate.value){
-    this.alert={
-      type:'danger',
-      msg:'fromDate should be less than toDate'
-    }
-  }
-  else{
-
-    
-
+    else {
       this.reportservice.getCampaignsbydate(this.fromDate.value, this.toDate.value).subscribe((res) => {
-
-
         this.campaigns = res as Campaign[];
-
         this.generatePdf();
       });
-    //}
-    // else {
-    //   this.alert = {
-    //     type: 'danger',
-    //     msg: 'fromDate should be less than Todate'
-    //   }
-    // }
+      //}
+      // else {
+      //   this.alert = {
+      //     type: 'danger',
+      //     msg: 'fromDate should be less than Todate'
+      //   }
+      // }
+    }
   }
-}
 
   generatePdf() {
     var rows = [];
-    rows.push(['Name', 'Description', 'Owner', 'Target', 'Deadline', 'Category']);
+    rows.push(['Name', 'Owner', 'Target', 'Deadline', 'Category']);
 
 
     for (var i of this.campaigns) {
-      rows.push([i.name, i.description, [i.owner.name + ' ' + i.owner.email], 'Rs.'+i.target, i.deadline.toString(), this.toTitleCase(i.category)]);
+      rows.push([i.name, [i.owner.name + ' ' + i.owner.email], 'Rs.' + i.target, i.deadline.toString(), this.toTitleCase(i.category)]);
     }
 
     var docDefinition = {
@@ -126,8 +120,8 @@ export class AdminReportsComponent implements OnInit {
   //print donations
   onSubmitDonations() {
     this.fromalert = this.toalert = null;
-    this.alert=null;
-    if(this.fromDate.invalid||this.toDate.invalid){
+    this.alert = null;
+    if (this.fromDate.invalid || this.toDate.invalid) {
       if (this.fromDate.invalid) {
         this.fromalert = {
           type: 'danger',
@@ -141,17 +135,17 @@ export class AdminReportsComponent implements OnInit {
         }
       }
     }
-    else{
+    else {
 
-    this.reportservice.getDonationsbydate(this.fromDate.value, this.toDate.value).subscribe((res) => {
+      this.reportservice.getDonationsbydate(this.fromDate.value, this.toDate.value).subscribe((res) => {
 
 
-      this.donations = res as Donation[];
+        this.donations = res as Donation[];
 
-      this.generatePdfDonations(this.donations);
-    });
+        this.generatePdfDonations(this.donations);
+      });
+    }
   }
-}
 
   generatePdfDonations(donations: Donation[]) {
     var rows = [];
@@ -159,7 +153,7 @@ export class AdminReportsComponent implements OnInit {
 
 
     for (var i of this.donations) {
-      rows.push([i.donation_id, 'Rs.'+i.amount, i.status_code, i.status_message, i.method]);
+      rows.push([i.donation_id, 'Rs.' + i.amount, i.status_code, i.status_message, i.method]);
     }
 
     var docDefinition = {
