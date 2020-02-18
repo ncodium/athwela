@@ -55,26 +55,36 @@ export class CampaignPageComponent implements OnInit {
       this.campaignId = params['id'];
 
       // get campaign with given id
-      this.getCampaign(this.campaignId);
+      this.campaignService.getCampaign(this.campaignId).subscribe((res) => {
+        if (res['success']) {
+          this.campaign = res['campaign'] as Campaign;
+          this.generatePercentage(this.campaign);
 
-      // detect if redirected from PayHere
-      this.route.queryParamMap.subscribe(queryParams => {
-        this.donationId = queryParams.get("order_id"); // redirected from PayHere
-        if (this.donationId) {
-          const initialState = {
-            title: "Donate",
-            campaign: this.campaign,
-            user: this.authService.getUser(),
-            donationId: this.donationId
-          };
+          // detect if redirected from PayHere
+          this.route.queryParamMap.subscribe(queryParams => {
+            this.donationId = queryParams.get("order_id"); // redirected from PayHere
+            if (this.donationId) {
+              const initialState = {
+                title: "Donate",
+                campaign: this.campaign,
+                user: this.authService.getUser(),
+                donationId: this.donationId
+              };
 
-          this.bsModalRef = this.modalService.show(CampaignDonationConfirmComponent, { initialState });
-          this.bsModalRef.content.closeBtnName = 'Close';
-          this.bsModalRef.content.onClose.subscribe(result => {
-            this.getCampaign(this.campaignId);
+              this.bsModalRef = this.modalService.show(CampaignDonationConfirmComponent, { initialState });
+              this.bsModalRef.content.closeBtnName = 'Close';
+              this.bsModalRef.content.onClose.subscribe(result => {
+                this.getCampaign(this.campaignId);
+              });
+            }
           });
         }
+        else {
+          this.router.navigate(['/page-not-found']);
+        }
       });
+
+
     });
   }
 
