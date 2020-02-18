@@ -12,7 +12,7 @@ router.get('/campaigns/:search/count', (req, res) => {
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it
     const page = req.query.page ? parseInt(req.query.page) : 1;
 
-    Campaign.find({ name: { $regex: '.*' + searchTo + '.*' } }).count((err, count) => {   // get search count
+    Campaign.find({ name: { $regex:searchTo , $options: "i" } }).count((err, count) => {   // get search count
         if (!err) {
             res.send({ success: true, campaignsCount: count });
         } else {
@@ -29,7 +29,7 @@ router.get('/campaigns/:search', (req, res) => {
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 9;    // use to pagination, skip & limit queries use for it
     const page = req.query.page ? parseInt(req.query.page) : 1;
 
-    Campaign.find({ name: { $regex: '.*' + searchTo + '.*' } }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {       //   Like comand in mongoose { $regex: '.*' + searchTo + '.*' }
+    Campaign.find({ name: { $regex:searchTo ,$options: "i" } }).skip((page - 1) * pagination).limit(pagination).exec((err, doc) => {       //   Like comand in mongoose { $regex: '.*' + searchTo + '.*' }
         if (!err) {
             res.send({ success: true, campaigns: doc });
         } else {

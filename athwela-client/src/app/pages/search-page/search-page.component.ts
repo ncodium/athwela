@@ -40,7 +40,7 @@ export class SearchPageComponent implements OnInit {
 
 
   search(f: NgForm) {
-    console.log(f.value.search);
+    // console.log(f.value.search);
     this.router.navigate(['/search', f.value.search]);
     this.searchService.getSearch(f.value.search, 1).subscribe((res) => {
       if (res['success']) this.campaigns = res['campaigns'] as Campaign[];
