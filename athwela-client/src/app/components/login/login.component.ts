@@ -73,4 +73,11 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  resendEmail() {
+    this.authService.resendEmail(this.username.value).subscribe((res) => {
+      if(res['success']) {
+        console.log('success');
+      }
+    })
+  }
 }

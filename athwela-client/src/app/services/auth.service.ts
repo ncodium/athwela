@@ -116,4 +116,10 @@ export class AuthService {
   activateUser(tempToken) {
     return this.http.get(AppConfig.BASE_URL + "users/activate/" + tempToken, {}).pipe();
   }
+
+  resendEmail(user) {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(AppConfig.BASE_URL + 'users/resend-email/', { username: user }, { headers: headers }).pipe();
+  }
 }

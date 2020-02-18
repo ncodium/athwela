@@ -350,4 +350,27 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+router.post('/resend-email', (req, res) => {
+    User.findOne({ username: req.body.username }, (err, user) => {
+        console.log(user.temporaryToken)
+        if(err) {
+            res.json({ success: false, msg: 'Username not found.' });
+            throw (err);
+        };
+        var mailOptions = {
+            from: 'athwelafunds@gmail.com',
+            to: user.email,
+            subject: 'Activate your account at Athwela',
+            text: 'Hello ' + user.firstName + '. Thank you for registering at Athwela. Please click on the following link to complete your activation: http://localhost:4200/activate/' + user.temporaryToken,
+            html: 'Hello<strong> ' + user.firstName + '</strong>,<br /><br />Thank you for registering at Athwela. Please click on the following link to complete your activation:<br /><br /><a href="http://localhost:4200/activate/' + user.temporaryToken + '">http://localhost:4200/activate/</a>'
+        };
+
+        email.sendMail(mailOptions, (err, res) => {
+            if (err) throw err;
+            console.log(res);
+        });
+        res.json({ success: true, msg: 'Email sent. Please check your inbox and confirm activation.' });
+    });
+});
+
 module.exports = router;

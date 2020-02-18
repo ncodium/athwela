@@ -35,12 +35,10 @@ export class ActivateComponent implements OnInit {
       if (res['success']) {
         alert('Successfully activated your account. Please sign in again.');
         this.router.navigate(['/']);
-
       }
       else {
         alert(res['msg']);
       }
     })
   }
-
 }

@@ -27,6 +27,9 @@
 
         <div class="alert alert-danger" *ngIf="alert">
             {{ alert }}
+            <div>
+                <button type="button" class="btn btn-secondary" (click)="resendEmail()">Resend Email</button>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
