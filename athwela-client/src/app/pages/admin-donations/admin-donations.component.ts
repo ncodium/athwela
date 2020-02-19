@@ -39,6 +39,7 @@ export class AdminDonationsComponent implements OnInit {
     this.spinner.show();
     this.donationService.getWithdrawals().subscribe((res: Withdrawal[]) => {
       this.withdrawals = res;
+      console.warn(res);
       this.spinner.hide();
     });
   }

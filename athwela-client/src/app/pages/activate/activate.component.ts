@@ -15,7 +15,7 @@ export class ActivateComponent implements OnInit {
   tempToken: string;
 
   user: User;
-
+  alertmsg: string;
 
   constructor(
     private authService: AuthService,
@@ -33,6 +33,7 @@ export class ActivateComponent implements OnInit {
     this.authService.activateUser(this.tempToken).subscribe((res) => {
       console.log(res);
       if (res['success']) {
+        // this.alertmsg = res['msg'];
         alert('Successfully activated your account. Please sign in again.');
         this.router.navigate(['/']);
       }

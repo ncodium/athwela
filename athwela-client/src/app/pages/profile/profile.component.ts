@@ -307,6 +307,7 @@ export class ProfileComponent implements OnInit {
         }
       }
       else {
+        console.log(res);
         this.withdrawAlert = {
           type: 'danger',
           msg: res['msg'] // unexpected error

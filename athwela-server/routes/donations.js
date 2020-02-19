@@ -43,7 +43,6 @@ router.get('/:id', (req, res) => {
     });
 });
 
-
 router.get('/user/:id/donated', (req, res) => {
     limit = parseInt(req.query.limit) || 4
     page = parseInt(req.query.page) || 1
