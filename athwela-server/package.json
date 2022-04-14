@@ -8,7 +8,7 @@
     "start": "node app"
   },
   "dependencies": {
-    "async": "^3.1.1",
+    "async": "^3.2.2",
     "bcryptjs": "*",
     "body-parser": "*",
     "cors": "*",
